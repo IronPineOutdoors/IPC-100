@@ -35,12 +35,12 @@ Verification methods are inspection, analysis, demonstration, or test.
 
 | ID | Requirement | Rationale | Verification method | Status |
 | --- | --- | --- | --- | --- |
-| FUNC-PWR-001 | IPC-100 shall accept 9–21 V DC during normal operation. | Supports intended source systems. | Test | Locked |
+| FUNC-PWR-001 | IPC-100 shall accept 9–21 V DC during normal operation; transient survival is specified separately. | Supports intended source systems without conflating normal operation and transient survival. | Test | Locked |
 | FUNC-PWR-002 | IPC-100 shall protect downstream logic from the approved reverse-polarity condition. | Prevents damage from wiring error. | Analysis and test | Proposed |
 | FUNC-PWR-003 | IPC-100 shall protect downstream logic from the approved input-transient profile. | Supports electrically noisy outdoor equipment. | Analysis and test | TBD |
 | FUNC-PWR-004 | IPC-100 shall generate regulated 5 V and 3.3 V logic rails. | Supplies platform electronics and approved interface loads. | Test | Locked |
 | FUNC-PWR-005 | IPC-100 shall measure input battery voltage through `BATTERY_SENSE`. | Supports diagnostics and product power awareness. | Test | Locked |
-| FUNC-PWR-006 | IPC-100 shall prevent unsafe backfeed between USB power and main controller power. | Protects the host and controller. | Analysis and test | Proposed |
+| FUNC-PWR-006 | IPC-100 shall prevent unsafe backfeed between USB power and main controller power under all approved operating and service conditions. | Protects the host computer, USB interface, and controller power paths. | Analysis and test | Locked |
 | FUNC-PWR-007 | IPC-100 shall maintain motor-power isolation by carrying no motor current. | Limits heat, noise, and fault energy. | Inspection | Locked |
 | FUNC-PWR-008 | IPC-100 shall expose test access for principal input and logic rails. | Supports bring-up and service. | Inspection | Locked |
 
@@ -84,7 +84,7 @@ Verification methods are inspection, analysis, demonstration, or test.
 | ID | Requirement | Rationale | Verification method | Status |
 | --- | --- | --- | --- | --- |
 | FUNC-SNS-001 | IPC-100 shall communicate with a BME280 through the shared I2C interface. | Supports environmental measurement. | Demonstration | Locked |
-| FUNC-SNS-002 | IPC-100 shall convert `BATTERY_SENSE` measurements into a calibrated input-voltage value. | Provides usable diagnostics. | Analysis and test | Proposed |
+| FUNC-SNS-002 | IPC-100 shall convert `BATTERY_SENSE` measurements into a calibrated input-voltage value using approved accuracy, resolution, filtering, calibration, and allowable-error definitions. | Provides useful and repeatable diagnostics; performance values remain TBD. | Analysis and test | TBD |
 | FUNC-SNS-003 | Sensor faults or absence shall be reportable without preventing core controller diagnostics. | Improves fault isolation. | Test | Proposed |
 
 ## 8. Communications functions

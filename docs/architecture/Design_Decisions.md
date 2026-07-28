@@ -70,14 +70,14 @@ Statuses are `Accepted`, `Proposed`, `Superseded`, or `Rejected`. Accepted decis
 - **Alternatives considered:** A universal on-board battery adapter.
 - **Follow-up actions:** Define J1 limits and upstream protection assumptions.
 
-### ADR-006: Input range is 9–21 V DC
+### ADR-006: Normal input range is 9–21 V DC
 
 - **Decision ID:** ADR-006
 - **Date:** 2026-07-28
 - **Status:** Accepted
-- **Context:** The platform must support DeWalt 20V MAX and nominal 12 V systems.
-- **Decision:** IPC-100 accepts 9–21 V DC during normal operation.
-- **Consequences:** Protection and regulation require margin above 21 V; transient profile remains TBD.
+- **Context:** The primary Rev A integration case is an external nominal 18 V lithium-ion tool-battery system, with DeWalt 20V MAX as the initial reference implementation; standalone nominal 12 V systems are also intended.
+- **Decision:** IPC-100 accepts 9–21 V DC during normal operation without depending on a specific battery brand.
+- **Consequences:** The transient-survival profile and associated protection and derating remain TBD. Direct vehicle charging-system and automotive load-dump qualification are outside the approved baseline.
 - **Alternatives considered:** 12 V-only input; product-specific regulators.
 - **Follow-up actions:** Select and verify the input power components.
 

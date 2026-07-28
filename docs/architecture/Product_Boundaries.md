@@ -34,6 +34,7 @@ This document prevents product-specific functionality from entering IPC-100 with
 - Product wiring harnesses, feedthroughs, junctions, and cable routing
 - Product enclosure, controls enclosure, mechanics, and ergonomics
 - Motion sequencing and product-specific firmware behavior
+- Product release artifacts
 - Product-specific safety analysis and interlocks
 - Product assembly, installation, labeling, and service procedures
 - Product environmental, ingress, endurance, and compliance validation
@@ -51,6 +52,8 @@ This document prevents product-specific functionality from entering IPC-100 with
 | Compatibility | Versions platform interfaces | Records the platform revision and firmware baseline consumed |
 
 Shared responsibilities require traceable interface requirements in both repositories.
+
+IPC-100 may contain generic integration examples, compatibility notes, product-neutral test fixtures, and interface-validation assets. These materials must remain reusable and must not make IPC-100 dependent on a specific product.
 
 ## 5. Examples of proper separation
 

@@ -46,7 +46,7 @@ CrossWind is the first planned application. It is maintained in a separate exter
 
 ### 3.2 Off the IPC-100 PCB
 
-- DeWalt battery mount
+- Product-level tool-battery or standalone 12 V battery mount
 - Product-level main fuse and high-current distribution
 - High-current 20 V-to-12 V converter
 - BTS7960 or other motor-driver modules
@@ -62,7 +62,7 @@ These off-board items are owned by each product repository and are not part of I
 
 ```mermaid
 flowchart LR
-    BAT["Battery system<br/>DeWalt 20V MAX or nominal 12V"]
+    BAT["Battery system<br/>nominal 18V tool battery or<br/>standalone nominal 12V"]
     PDF["Product-level main fuse<br/>and power distribution"]
     CF["IPC-100 control fuse"]
     IPC["IPC-100 PCB<br/>protection, 5V/3.3V rails,<br/>ESP32 and low-current interfaces"]
@@ -110,7 +110,7 @@ flowchart TD
 | Function | IPC-100 responsibility | Product responsibility |
 | --- | --- | --- |
 | Processing | ESP32 module, reset/boot support, base firmware interfaces | Product behavior and configuration |
-| Power | Accept protected 9–21 V DC; generate 5 V and 3.3 V | Battery mount, main fuse, distribution, actuator power |
+| Power | Accept protected 9–21 V DC during normal operation; generate 5 V and 3.3 V | Battery mount, main fuse, distribution, actuator power |
 | Motor control | Low-current command and enable signals | Driver module, motor power, motor, mechanics |
 | Relay | Isolated NC/COM/NO contacts | External load power, fuse, load wiring |
 | Human interface | Electrical interfaces for controls, OLED, RGB, buzzer | Product panel, enclosure, legends, ergonomics |
@@ -121,10 +121,10 @@ flowchart TD
 
 | Domain | Nominal level | Scope | Notes |
 | --- | --- | --- | --- |
-| `VIN_RAW` | 9–21 V DC | IPC-100 input only | Protection topology TBD |
+| `VIN_RAW` | 9–21 V DC normal operation | IPC-100 input only | Transient-survival profile and protection topology TBD |
 | `+5V` | 5 V | On-board and limited interface loads | Final regulator TBD |
 | `+3V3` | 3.3 V | ESP32 and logic | Final regulator TBD |
-| USB VBUS | 5 V nominal | Programming/diagnostics interface | Backfeed prevention TBD |
+| USB VBUS | 5 V nominal | Programming/diagnostics interface | Backfeed prevention locked; implementation and USB-only behavior TBD |
 | External high-current | Product-defined | Off-board only | Must not pass through IPC-100 |
 
 ## 7. External interfaces

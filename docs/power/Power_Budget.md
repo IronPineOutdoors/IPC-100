@@ -11,7 +11,7 @@
 
 ## 1. Budget rules
 
-IPC-100 has an approximately 2 A maximum input-current capability design target. This is not a measured load or a final regulator rating. Final rail sizing shall use verified peak loads, conversion efficiency, simultaneous-load cases, temperature derating, and expansion reserve. Motors are excluded.
+The preliminary Rev A target is an input power path capable of at least 2.0 A continuous controller-side current at the minimum normal input voltage of 9 V. This is not a final approved maximum, a measured load, or a regulator rating. Final approval requires verified peak loads, conversion efficiency, simultaneous-load cases, temperature derating, thermal analysis, and expansion reserve. Motors are excluded.
 
 `TBD` values require confirmation from selected-part datasheets or prototype measurement. No table total is valid until those values are resolved.
 

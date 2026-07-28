@@ -32,7 +32,7 @@ Status values are `Locked`, `Proposed`, and `TBD`. Verification methods are insp
 | NFR-PWR-001 | Regulated rails shall remain within selected component limits over the approved input, load, and temperature ranges. | Prevents unstable operation and damage. | Analysis and test | Locked |
 | NFR-PWR-002 | Final rail sizing shall include verified peak loads, conversion losses, derating, and expansion reserve. | Typical current alone is insufficient. | Analysis | Locked |
 | NFR-PWR-003 | Wireless transmit, relay, buzzer, RGB, and expansion simultaneous-load cases shall not cause an uncontrolled reset. | Captures expected peak loading. | Test | Proposed |
-| NFR-PWR-004 | USB/main-power interaction shall not backfeed an unpowered source. | Protects equipment and service personnel. | Analysis and test | Proposed |
+| NFR-PWR-004 | USB/main-power interaction shall not backfeed an unpowered source under any approved operating or service condition. | Protects the host computer, USB interface, controller power paths, and service personnel. | Analysis and test | Locked |
 | NFR-PWR-005 | Brownout thresholds and shutdown behavior shall be documented and verified. | Ensures predictable rail collapse. | Analysis and test | TBD |
 
 ## 4. Reliability and boot requirements

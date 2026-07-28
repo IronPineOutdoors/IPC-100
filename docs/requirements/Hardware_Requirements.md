@@ -21,24 +21,33 @@ Verification methods are: inspection, analysis, demonstration, or test.
 | --- | --- | --- | --- | --- |
 | PLT-001 | IPC-100 shall be a reusable controller platform. | Supports multiple Iron Pine products from one controlled design. | Inspection | Locked |
 | PLT-002 | IPC-100 Rev A shall not be specific to CrossWind. | Preserves platform reuse. | Inspection | Locked |
-| PLT-003 | Product-specific behavior and artifacts shall remain outside this repository. | Maintains a clear configuration boundary. | Inspection | Locked |
+| PLT-003 | Product-specific mechanical designs, application behavior, wiring harnesses, and release artifacts shall remain in their respective product repositories. IPC-100 may include generic integration examples, compatibility notes, and test fixtures that do not make the platform dependent on a specific product. | Maintains the platform boundary while allowing useful product-neutral integration documentation and validation assets. | Inspection | Locked |
 
 ## 3. Power requirements
 
+Normal operating input range and transient-survival range are separate requirements. The transient-survival profile remains `TBD`.
+
 | ID | Requirement | Rationale | Verification method | Status |
 | --- | --- | --- | --- | --- |
-| PWR-001 | Normal input range shall be 9–21 V DC. | Supports intended battery systems. | Test | Locked |
-| PWR-002 | The primary intended source shall be a product-level DeWalt 20V MAX battery system. | Defines the primary integration case. | Inspection | Locked |
+| PWR-001 | The normal operating input range shall be 9–21 V DC. | Supports the intended battery systems while separating normal operation from transient-survival requirements. | Test | Locked |
+| PWR-002 | The primary Rev A integration case shall be an external nominal 18 V lithium-ion tool-battery system with a maximum normal voltage not exceeding 21 V DC. DeWalt 20V MAX batteries are the initial reference implementation. | Defines the initial development source without making the reusable platform dependent on one battery brand. | Inspection | Locked |
 | PWR-003 | The secondary intended source shall be a nominal 12 V battery system. | Supports additional products and bench use. | Test | Locked |
 | PWR-004 | Motor current shall not pass through the IPC-100 PCB. | Limits noise, heat, and fault energy. | Inspection | Locked |
 | PWR-005 | Battery mounting and high-current distribution shall be external product hardware. | These functions depend on product loads and mechanics. | Inspection | Locked |
-| PWR-006 | IPC-100 controller input-current capability shall target approximately 2 A maximum. | Establishes a preliminary control-power envelope. | Analysis and test | Locked |
-| PWR-007 | Components exposed to `VIN_RAW` shall include appropriate voltage margin above 21 V for the approved transient profile. | Prevents operation at component limits. | Analysis | Locked |
+| PWR-006 | The IPC-100 input power path shall be designed for at least 2.0 A continuous controller-side current at the minimum normal input voltage, subject to final thermal analysis and power-budget approval. | Defines a preliminary controller input-path capability without treating input current alone as the complete power budget. | Analysis and test | Proposed |
+| PWR-007 | Components exposed to `VIN_RAW` shall have voltage ratings and derating appropriate for the approved normal-input range and transient-survival profile. | Prevents operation at component limits and ties component selection to the approved electrical environment. | Analysis | Proposed |
 | PWR-008 | The final transient-protection topology shall be selected before schematic release. | Protection depends on the verified transient environment. | Inspection and analysis | TBD |
 | PWR-009 | The final wide-input 5 V buck regulator shall be selected before schematic release. | Rail sizing and thermal behavior require verified loads. | Analysis and test | TBD |
-| PWR-010 | The final 3.3 V regulator shall be selected before schematic release. | ESP32 peak current and thermal margin require verification. | Analysis and test | TBD |
-| PWR-011 | USB and main-power interaction shall prevent unsafe backfeed. | Protects the host and controller power paths. | Inspection and test | Proposed |
+| PWR-010 | The final 3.3 V regulator and rail architecture shall be selected after verification of ESP32 peak demand, peripheral loading, transient response, dropout margin, and thermal performance. | The final architecture depends on verified loads and may generate 3.3 V from either the 5 V rail or another approved source. | Analysis and test | TBD |
+| PWR-011 | USB and main-power interaction shall prevent unsafe backfeed under all approved operating and service conditions. | Protects the host computer, USB interface, and controller power paths when USB, main power, or both are connected. | Inspection and test | Locked |
 | PWR-012 | Battery voltage shall be measurable over the normal input range without exceeding the selected ADC limits. | Enables safe battery-status reporting. | Analysis and test | Locked |
+| PWR-013 | Battery-voltage measurement accuracy, resolution, filtering, calibration method, and allowable error shall be defined before design release. | A safe ADC input does not by itself guarantee useful or repeatable battery-voltage reporting. | Analysis and test | TBD |
+
+**Engineering notes:**
+
+- Rev A currently assumes a standalone nominal 12 V battery system. Direct connection to a vehicle charging system and automotive load-dump qualification remain outside the approved baseline unless separately added as requirements.
+- PWR-011 applies to main power only; USB only if USB-only controller operation is supported; main power and USB connected simultaneously; and USB connected to a host while product power is active.
+- Whether USB powers the entire controller or only the programming and diagnostics interface remains `TBD`.
 
 ## 4. Processor and communications requirements
 
