@@ -5,8 +5,9 @@ Status: Initial baseline draft
 ## Power
 
 - Accept 9–21 V DC input.
-- Be designed for DeWalt 20V MAX battery packs.
+- Define an electrical input compatible with product-level systems based on DeWalt 20V MAX batteries.
 - Be compatible with automotive electrical environments, subject to a defined transient and protection profile.
+- Define only the allowable controller input; battery mounting and product-level power distribution are outside IPC-100 scope.
 
 ## Processor
 
@@ -20,19 +21,21 @@ Status: Initial baseline draft
 
 ## Display
 
-- Support a 2.42-inch SSD1309 OLED display.
+- Provide an interface for a 2.42-inch SSD1309 OLED display.
 
 ## Sensors
 
-- Include a BME280 environmental sensor.
+- Provide a BME280 environmental-sensor interface.
 - Include battery-voltage monitoring.
 
 ## Outputs
 
-- Provide one thrower relay output.
-- Provide two motor interfaces.
-- Provide one RGB status LED.
+- Provide one isolated dry-contact relay output.
+- Provide two low-current interfaces for external motor drivers.
+- Provide one RGB status output.
 - Provide one buzzer output.
+
+Motor drivers, motors, and other high-current loads shall remain external to the IPC-100 PCB.
 
 ## Inputs
 
@@ -54,3 +57,4 @@ Status: Initial baseline draft
 
 Electrical limits, environmental ratings, ingress protection, EMC targets, safety states, timing, diagnostics, connector durability, and verification criteria remain to be defined before the Rev A design freeze.
 
+Product motion logic, actuator selection, battery mounting, product wiring, product enclosure requirements, and product assembly are outside the scope of this specification.

@@ -30,8 +30,8 @@ Record for every execution:
 | COM-003 | Radio | ESP-NOW operation | Test | TBD | Test log | Planned |
 | IO-001 | Inputs | Limit switches | Test | TBD | Test log | Planned |
 | IO-002 | Inputs | Operator controls | Test | TBD | Test log | Planned |
-| IO-003 | Outputs | Thrower relay | Test | TBD | Waveforms/log | Planned |
-| IO-004 | Outputs | Motor interfaces | Test | TBD | Waveforms/log | Planned |
+| IO-003 | Outputs | Isolated dry-contact relay | Test | TBD | Waveforms/log | Planned |
+| IO-004 | Outputs | External motor-driver control interfaces | Test | TBD | Waveforms/log | Planned |
 | UI-001 | UI | OLED, RGB LED, buzzer | Test | TBD | Photos/log | Planned |
 | SNS-001 | Sensors | BME280 | Test | TBD | Comparison data | Planned |
 | SNS-002 | Sensors | Battery monitoring | Test | TBD | Calibration data | Planned |
@@ -49,11 +49,11 @@ Exercise all communications, display, sensors, inputs, outputs, and expansion in
 
 ## Power and load testing
 
-Test minimum and maximum input voltage, motor start/stall profiles, relay switching, battery insertion/removal, combined peak loads, regulation, ripple, efficiency, and thermal rise.
+Test minimum and maximum controller input voltage, relay interface switching, external-interface disturbances, controller peak loads, regulation, ripple, efficiency, and thermal rise. Product motor start/stall and battery-system tests belong in the consuming product repository.
 
 ## Fault-injection testing
 
-Evaluate open and shorted inputs, disconnected peripherals, output shorts where safely supported, stalled motors, communication loss, processor reset, brownout, and STOP activation.
+Evaluate open and shorted inputs, disconnected peripherals, output-interface faults where safely supported, external-driver fault indications, communication loss, processor reset, brownout, and STOP activation.
 
 ## Environmental and durability testing
 
@@ -61,9 +61,8 @@ Define temperature, humidity, vibration, shock, ingress, corrosion, UV, connecto
 
 ## Regression testing
 
-Create a repeatable regression suite as firmware and test fixtures become available. Safety behavior, GPIO defaults, power recovery, and product compatibility are mandatory regression areas.
+Create a repeatable regression suite as firmware and test fixtures become available. Safety behavior, GPIO defaults, power recovery, and released platform-interface compatibility are mandatory regression areas.
 
 ## Exit criteria
 
 Formal Rev A verification is complete only when all approved requirements have passing evidence, deviations are dispositioned, and the released design and test records are configuration-controlled.
-

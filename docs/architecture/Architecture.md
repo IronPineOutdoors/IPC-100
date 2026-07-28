@@ -12,7 +12,7 @@ Common interfaces must be explicit and versioned. Product-specific features shou
 
 ## Modular hardware approach
 
-IPC-100 separates the reusable controller from product-specific actuators, harnesses, mounting, and optional modules. Connectors form controlled boundaries between these modules. Each boundary should define pinout, voltage, current, direction, protection, mating part, and expected fault behavior.
+IPC-100 separates the reusable controller from product-specific actuators, wiring, power distribution, battery mounts, mechanics, and optional modules. Platform connectors form controlled boundaries to those external systems. Each boundary defines pinout, voltage, current, direction, protection, mating requirements, and expected fault behavior.
 
 The platform is organized into:
 
@@ -22,14 +22,14 @@ The platform is organized into:
 - Operator display and controls
 - Environmental and battery sensing
 - Protected digital inputs
-- Relay, motor, indicator, and buzzer outputs
+- Isolated dry-contact relay, low-current motor-driver control, indicator, and buzzer interfaces
 - Expansion interfaces
 
-## High-current and logic separation
+## External loads and logic separation
 
-Motor and relay power paths must be physically and electrically separated from logic electronics wherever practical. Rev A design work should address return-current paths, transient suppression, conducted and radiated noise, connector current ratings, thermal limits, and fault containment.
+Motor drivers, motors, and all other high-current loads are external to the IPC-100 PCB. Product repositories own their selection, mounting, wiring, protection, and power distribution. The IPC-100 motor interfaces provide only low-current control signals.
 
-Logic power must remain within component limits during motor start, relay switching, battery insertion, load dump, reverse polarity, and other expected field transients. Grounds may share a defined reference, but high-current return paths must not flow through sensitive logic paths.
+The relay interface is an isolated dry contact; contact load power remains external. IPC-100 logic must remain within component limits when exposed to disturbances permitted by its documented power and connector interfaces. External high-current return paths must not flow through the controller.
 
 ## Expansion philosophy
 
@@ -39,7 +39,6 @@ New modules should be discoverable or configurable, electrically documented, mec
 
 ## Future compatibility
 
-Compatibility is maintained through revision-controlled connectors, documented electrical limits, firmware capability detection, and stable mechanical envelopes. Later controllers should preserve existing field interfaces where safe and practical. Any breaking change must be identified in revision history, product compatibility records, and manufacturing documentation.
+Compatibility is maintained through revision-controlled connectors, documented electrical limits, firmware capability detection, and stable controller mechanical envelopes. Later controllers should preserve released interfaces where safe and practical. Any breaking change must be identified in revision history and manufacturing documentation.
 
-The architecture is intended to scale from the CrossWind automated trap thrower to target systems, motion platforms, remote actuators, and other outdoor automation products.
-
+Product-specific repositories consume these interfaces and own their application behavior. CrossWind is the first planned external implementation and is maintained separately; future consumers may include RangeHub, Deadfall, Timberline, and other Iron Pine products.

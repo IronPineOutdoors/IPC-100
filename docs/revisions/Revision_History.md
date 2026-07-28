@@ -22,9 +22,10 @@ Lettered revisions identify manufactured hardware baselines. Released fabricatio
 | --- | --- | --- | --- | --- | --- | --- |
 | TBD | TBD | TBD | TBD | TBD | TBD | TBD |
 
-## Product compatibility
+## External product compatibility
 
-| IPC-100 revision | Product | Mechanical | Electrical | Firmware | Notes |
-| --- | --- | --- | --- | --- | --- |
-| Rev A | CrossWind | TBD | TBD | TBD | Planned |
+Compatibility records here identify only the released IPC-100 interface consumed externally; detailed product compatibility belongs in each product repository.
 
+| IPC-100 revision | External product | Interface baseline | Notes |
+| --- | --- | --- | --- |
+| Rev A | CrossWind | TBD | First planned implementation; maintained separately |

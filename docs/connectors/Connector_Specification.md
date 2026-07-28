@@ -7,9 +7,9 @@ Status: Placeholder — connector selections and pin assignments are not yet app
 | Ref | Function | Board part number | Mating part | Pin count | Keying | Status |
 | --- | --- | --- | --- | ---: | --- | --- |
 | J1 | Power input | TBD | TBD | TBD | TBD | Open |
-| J2 | Thrower relay | TBD | TBD | TBD | TBD | Open |
-| J3 | Motor interface 1 | TBD | TBD | TBD | TBD | Open |
-| J4 | Motor interface 2 | TBD | TBD | TBD | TBD | Open |
+| J2 | Isolated dry-contact relay | TBD | TBD | TBD | TBD | Open |
+| J3 | External motor-driver control 1 | TBD | TBD | TBD | TBD | Open |
+| J4 | External motor-driver control 2 | TBD | TBD | TBD | TBD | Open |
 | J5 | Limit switches | TBD | TBD | TBD | TBD | Open |
 | J6 | Operator controls | TBD | TBD | TBD | TBD | Open |
 | J7 | OLED display | TBD | TBD | TBD | TBD | Open |
@@ -34,13 +34,13 @@ Duplicate this table for each connector when assignments are approved.
 | Current rating | TBD |
 | Protection | Reverse polarity, overcurrent, and transient strategy TBD |
 
-## J2 — Thrower relay
+## J2 — Isolated dry-contact relay
 
-Pinout, contact ratings, coil/interface behavior, and safe state: TBD.
+Pinout, isolation rating, contact ratings, and safe state: TBD. Switched load power is supplied and protected externally by the consuming product.
 
-## J3/J4 — Motor interfaces
+## J3/J4 — External motor-driver control interfaces
 
-Pinout, motor voltage/current, feedback, braking, transient protection, and safe state: TBD.
+Define low-current command, enable, feedback, logic reference, protection, and safe state. Motor drivers, motor power, motors, braking components, and high-current wiring are external and are not carried through IPC-100.
 
 ## J5 — Limit switches
 
@@ -48,7 +48,7 @@ Four-channel pinout, common/reference arrangement, wetting current, filtering, a
 
 ## J6 — Operator controls
 
-Rotary encoder, encoder push button, ARM, FIRE, STOP, illumination, and common/reference pinout: TBD.
+Rotary encoder, encoder push button, ARM, FIRE, STOP, and common/reference pinout: TBD. These are universal electrical inputs; product panel and harness design remain external.
 
 ## J7 — OLED display
 
@@ -65,4 +65,3 @@ Reserved signals, power budget, logic levels, and protection: TBD.
 ## J10 — Programming / debug
 
 Programming, UART, reset, boot-mode, ground, and access requirements: TBD.
-

@@ -6,9 +6,9 @@ Status: Placeholder — no ESP32 pins are assigned or approved.
 
 | Function | ESP32 GPIO | Direction | Active level | Pull | Boot/strap concern | Interface/protection | Notes |
 | --- | ---: | --- | --- | --- | --- | --- | --- |
-| Thrower relay | TBD | Output | TBD | TBD | TBD | TBD | Safe default required |
-| Motor 1 control | TBD | Output | TBD | TBD | TBD | TBD | Interface TBD |
-| Motor 2 control | TBD | Output | TBD | TBD | TBD | TBD | Interface TBD |
+| Isolated dry-contact relay control | TBD | Output | TBD | TBD | TBD | TBD | Safe default required |
+| External motor-driver control 1 | TBD | Output | TBD | TBD | TBD | TBD | Low-current interface |
+| External motor-driver control 2 | TBD | Output | TBD | TBD | TBD | TBD | Low-current interface |
 | RGB LED red | TBD | Output | TBD | TBD | TBD | TBD |  |
 | RGB LED green | TBD | Output | TBD | TBD | TBD | TBD |  |
 | RGB LED blue | TBD | Output | TBD | TBD | TBD | TBD |  |
@@ -41,4 +41,3 @@ Status: Placeholder — no ESP32 pins are assigned or approved.
 - Define reset-time and firmware-fault safe states.
 - Confirm every external GPIO has suitable protection.
 - Cross-check connector specification and schematic net names.
-

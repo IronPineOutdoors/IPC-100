@@ -4,24 +4,26 @@ Universal ESP32-based outdoor control platform for Iron Pine Outdoors.
 
 ## Project overview
 
-IPC-100 is a reusable controller for rugged outdoor automation products. The platform combines battery power management, wireless communications, human-machine controls, environmental sensing, and interfaces for relays and motors on a common hardware foundation.
+IPC-100 is a reusable controller platform for rugged outdoor automation. This repository contains only the IPC-100 controller hardware, base firmware interfaces, reusable drivers, electrical and mechanical controller design, manufacturing data, and controller-level verification.
+
+Product-specific repositories consume the stable hardware and firmware interfaces defined here. They own their actuators, high-current power distribution, battery mounting, product wiring, mechanics, behavior, assembly, and product documentation.
 
 **Current hardware revision:** Rev A
 
 ## Project goals
 
 - Provide a dependable controller that can be reused across multiple Iron Pine products.
-- Support 9–21 V field power, including DeWalt 20V MAX battery packs.
+- Accept a defined 9–21 V DC input suitable for integration with product-level power systems, including systems based on DeWalt 20V MAX batteries.
 - Keep safety-critical controls predictable and testable.
-- Isolate high-current loads from low-voltage logic and communications.
-- Make product-specific behavior modular in hardware, firmware, and documentation.
+- Keep external high-current loads isolated from controller logic and communications.
+- Maintain stable interfaces for separately developed product implementations.
 - Maintain traceable hardware revisions and manufacturing outputs.
 
 ## Hardware architecture overview
 
-Rev A is centered on an ESP32-WROOM-32E with Wi-Fi, Bluetooth, and ESP-NOW. The controller provides an SSD1309 OLED interface, BME280 environmental sensing, battery monitoring, physical controls, limit-switch inputs, a thrower relay, two motor interfaces, an RGB status LED, and a buzzer. Expansion provisions include I²C and spare GPIO, with CAN and RS485 reserved for future revisions.
+Rev A is centered on an ESP32-WROOM-32E with Wi-Fi, Bluetooth, and ESP-NOW. The controller provides a 2.42-inch SSD1309 OLED interface, BME280 interface, battery-voltage monitoring, physical control inputs, four limit-switch inputs, an isolated dry-contact relay output, two low-current external motor-driver interfaces, an RGB status output, and a buzzer output. Expansion provisions include I²C and spare GPIO, with CAN and RS485 reserved for future revisions.
 
-High-current power paths and motor/relay loads are treated separately from the logic domain. See [Architecture](docs/architecture/Architecture.md), [Requirements](docs/requirements/Requirements.md), and [Power Architecture](docs/power/Power_Architecture.md).
+Motor drivers, motors, and other high-current loads are external to the IPC-100 PCB. IPC-100 defines its allowable input power and protected low-current interfaces; product repositories define battery mounting and product-level power distribution. See [Architecture](docs/architecture/Architecture.md), [Requirements](docs/requirements/Requirements.md), and [Power Architecture](docs/power/Power_Architecture.md).
 
 ## Repository layout
 
@@ -29,10 +31,10 @@ High-current power paths and motor/relay loads are treated separately from the l
 | --- | --- |
 | `docs/` | Architecture, requirements, interface, power, test, and revision documents |
 | `electrical/` | Electrical design sources and controlled manufacturing outputs |
-| `mechanical/` | CAD, enclosure, battery mount, and harness design |
+| `mechanical/` | Controller enclosure, PCB mounting, and universal connector interface requirements |
 | `firmware/` | Reserved PlatformIO-compatible source, libraries, headers, and tests |
 | `manufacturing/` | Assembly, fixture, and inspection documentation |
-| `reference/` | Product references and controlled external technical references |
+| `reference/` | Controlled platform-level technical references |
 | `scripts/` | Engineering automation and validation utilities |
 
 ## Development workflow
@@ -69,20 +71,15 @@ Rev A repository initialized. Architecture, requirements, connector, GPIO, power
 4. Complete PCB layout and design-rule review.
 5. Build and inspect Rev A prototypes.
 6. Develop board-support firmware and automated tests.
-7. Perform bench, environmental, and product-integration validation.
+7. Perform controller-level bench and environmental validation.
 8. Release a controlled manufacturing package.
 
-## Shared product platform
+## External product implementations
 
-The IPC-100 is intended to support:
+CrossWind is the first planned external product implementation and is maintained in a separate repository. Its mechanics, harnesses, power distribution, firmware behavior, assembly, and product documentation do not belong here.
 
-- CrossWind automated trap thrower
-- Future target systems
-- Motion platforms
-- Remote outdoor actuators
-- Other Iron Pine Outdoors automation products
+Future product repositories may include RangeHub, Deadfall, Timberline, and other Iron Pine products. Each may depend on a released IPC-100 hardware and firmware interface without becoming part of this repository.
 
 ## Licensing
 
 Copyright © Iron Pine Outdoors. Licensing terms are not yet finalized. See [LICENSE](LICENSE).
-
