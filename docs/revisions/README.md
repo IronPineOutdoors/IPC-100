@@ -1,4 +1,3 @@
 # Revisions
 
-Hardware revision history, engineering change records, release notes, compatibility matrices, and controlled design baselines belong here.
-
+[Revision History](Revision_History.md) defines the independent hardware, prototype-build, documentation, and firmware version conventions for IPC-100.

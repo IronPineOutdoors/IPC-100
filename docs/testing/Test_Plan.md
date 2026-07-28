@@ -1,6 +1,15 @@
 # IPC-100 Rev A Test Plan
 
-Status: Initial framework — acceptance limits must be completed before formal verification.
+| Document control | Value |
+| --- | --- |
+| Document title | IPC-100 Rev A Test Plan |
+| Platform | Iron Pine IPC-100 |
+| Hardware revision | Rev A |
+| Document status | Architecture and requirements definition |
+| Last updated | 2026-07-28 |
+| Owner | Iron Pine Outdoors Engineering |
+
+Acceptance limits must be completed before formal verification.
 
 ## Purpose
 
@@ -66,3 +75,5 @@ Create a repeatable regression suite as firmware and test fixtures become availa
 ## Exit criteria
 
 Formal Rev A verification is complete only when all approved requirements have passing evidence, deviations are dispositioned, and the released design and test records are configuration-controlled.
+
+Requirement identifiers and status are controlled in [Hardware Requirements](../requirements/Hardware_Requirements.md).
