@@ -132,6 +132,8 @@ Verification methods are: inspection, analysis, demonstration, or test.
 ## 12. Related documents
 
 - [System Architecture](../architecture/System_Architecture.md)
+- [Functional Requirements](Functional_Requirements.md)
+- [Non-Functional Requirements](Non_Functional_Requirements.md)
 - [Connector Specification](../connectors/Connector_Specification.md)
 - [Power Architecture](../power/Power_Architecture.md)
 - [Wiring Standard](Wiring_Standard.md)

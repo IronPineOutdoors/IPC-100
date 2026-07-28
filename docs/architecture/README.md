@@ -2,6 +2,11 @@
 
 Controlled system boundaries, block diagrams, technology choices, and decision records:
 
+- [Executive Summary](Executive_Summary.md) — blueprint scope and current baseline
+- [Platform Vision](Platform_Vision.md) — long-term platform and ecosystem strategy
 - [System Architecture](System_Architecture.md) — authoritative Rev A architecture
+- [Product Boundaries](Product_Boundaries.md) — platform, product, and shared ownership
+- [Design Philosophy](Design_Philosophy.md) — durable engineering principles
+- [Non-Goals](Non_Goals.md) — explicit Rev A scope exclusions
 - [Design Decisions](Design_Decisions.md) — architecture decision records
 - [Architecture compatibility page](Architecture.md) — redirects older links

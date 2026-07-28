@@ -27,8 +27,15 @@ Motor drivers, motors, thrower power, and all high-current distribution are exte
 
 | Document | Purpose |
 | --- | --- |
+| [Executive Summary](docs/architecture/Executive_Summary.md) | Blueprint purpose, scope, audience, and current baseline |
+| [Platform Vision](docs/architecture/Platform_Vision.md) | Long-term platform and product-ecosystem strategy |
 | [System Architecture](docs/architecture/System_Architecture.md) | Platform boundaries, block diagram, responsibilities, and fault containment |
+| [Product Boundaries](docs/architecture/Product_Boundaries.md) | Ownership between IPC-100 and consuming products |
+| [Design Philosophy](docs/architecture/Design_Philosophy.md) | Engineering principles for platform decisions |
+| [Non-Goals](docs/architecture/Non_Goals.md) | Explicit Rev A scope exclusions |
 | [Design Decisions](docs/architecture/Design_Decisions.md) | Architecture decision records |
+| [Functional Requirements](docs/requirements/Functional_Requirements.md) | Observable controller capabilities and behavior |
+| [Non-Functional Requirements](docs/requirements/Non_Functional_Requirements.md) | Reliability, environmental, service, and quality constraints |
 | [Hardware Requirements](docs/requirements/Hardware_Requirements.md) | Uniquely identified locked, proposed, and TBD requirements |
 | [Wiring Standard](docs/requirements/Wiring_Standard.md) | Platform wiring, labeling, termination, and inspection practices |
 | [Mechanical Interface](docs/requirements/Mechanical_Interface.md) | PCB mounting, access, enclosure, service, and marking requirements |

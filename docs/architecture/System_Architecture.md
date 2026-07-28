@@ -3,10 +3,13 @@
 | Document control | Value |
 | --- | --- |
 | Document title | IPC-100 System Architecture |
+| Purpose | Define the complete platform architecture and responsibility boundaries |
 | Platform | Iron Pine IPC-100 |
 | Hardware revision | Rev A |
+| Blueprint revision | Blueprint v1.0 |
 | Document status | Architecture and requirements definition |
-| Last updated | 2026-07-28 |
+| Last updated | TBD |
+| Author | TBD |
 | Owner | Iron Pine Outdoors Engineering |
 
 ## 1. Document purpose
@@ -78,6 +81,30 @@ flowchart LR
     IPC -. "low-current RPWM, LPWM,<br/>R_EN, L_EN" .-> MD
 ```
 
+### 4.1 Layered platform view
+
+The following view shows functional dependency rather than physical current flow. Product hardware consumes controlled IPC-100 interfaces; it does not become part of the platform.
+
+```mermaid
+flowchart TD
+    SRC["Power source"]
+    PROT["Power protection"]
+    REG["Voltage regulation<br/>5V and 3.3V"]
+    CPU["ESP32 controller"]
+    UI["User-interface electronics"]
+    SNS["Sensors and monitoring"]
+    COM["Communications"]
+    EXT["External electrical interfaces"]
+    PROD["Product hardware"]
+
+    SRC --> PROT --> REG --> CPU
+    CPU --> UI
+    CPU --> SNS
+    CPU --> COM
+    CPU --> EXT
+    EXT --> PROD
+```
+
 ## 5. Functional architecture
 
 | Function | IPC-100 responsibility | Product responsibility |
@@ -104,11 +131,31 @@ flowchart LR
 
 The preliminary connector set is J1 through J13. Stable signal names, directions, domains, and preliminary pin reservations are defined in [Connector Specification](../connectors/Connector_Specification.md). Physical connector families and enclosure feedthroughs remain TBD.
 
+### 7.1 Communications philosophy
+
+Wi-Fi, Bluetooth, and ESP-NOW are platform capabilities exposed through reusable services. Product firmware selects and configures the communication behavior it needs. Physical controls and safe states must not depend solely on a wireless link. Future CAN and RS485 remain provisions until their transceivers, connectors, and firmware responsibilities are approved.
+
 ## 8. Firmware responsibility boundary
 
 IPC-100 base firmware will own board initialization, safe GPIO defaults, hardware abstraction, reusable device drivers, diagnostics, and platform communication services. Product repositories own motion sequencing, thrower behavior, user workflows, product safety logic above the platform boundary, and product configuration.
 
 Base firmware must not assume that CrossWind-specific hardware is connected.
+
+### 8.1 Hardware abstraction
+
+The hardware-abstraction layer should expose stable logical capabilities instead of product names or direct register assumptions. It should isolate application code from GPIO assignments, active polarity, device-driver details, hardware revision differences, and optional peripheral population.
+
+### 8.2 Firmware architecture overview
+
+| Layer | Responsibility |
+| --- | --- |
+| Boot and board initialization | Establish hardware safe states, clocks, rails, reset behavior, and diagnostics |
+| Board support | Pin allocation, revision identification, and low-level peripheral configuration |
+| Reusable drivers | OLED, BME280, inputs, relay, RGB, buzzer, battery monitoring, and communications |
+| Platform services | Events, diagnostics, configuration, health reporting, and communication abstractions |
+| Product application | Product workflows, motion sequencing, user experience, and product-level safety logic |
+
+Only the first four layers belong in the IPC-100 repository. Product application code belongs in the consuming product repository.
 
 ## 9. Product integration model
 
@@ -166,7 +213,14 @@ Rev A covers architecture definition, requirements, protected power entry, logic
 
 ## 17. Related documents
 
+- [Executive Summary](Executive_Summary.md)
+- [Platform Vision](Platform_Vision.md)
+- [Product Boundaries](Product_Boundaries.md)
+- [Design Philosophy](Design_Philosophy.md)
+- [Non-Goals](Non_Goals.md)
 - [Hardware Requirements](../requirements/Hardware_Requirements.md)
+- [Functional Requirements](../requirements/Functional_Requirements.md)
+- [Non-Functional Requirements](../requirements/Non_Functional_Requirements.md)
 - [Connector Specification](../connectors/Connector_Specification.md)
 - [GPIO Map](../connectors/GPIO_Map.md)
 - [Power Architecture](../power/Power_Architecture.md)
