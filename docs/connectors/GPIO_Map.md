@@ -13,7 +13,7 @@
 
 This is the controlled proposed Rev A allocation. The complete evidence, restrictions, risk review, and peripheral analysis are in the [GPIO and Peripheral Allocation Review](GPIO_and_Peripheral_Allocation_Review.md).
 
-All 27 required non-USB application signals have proposed GPIOs. GPIO19/20 remain fixed for native USB. Release is blocked by exact module-variant selection, GPIO35/36 and GPIO47/48 compatibility, master-inhibit feedback disposition, J11 spare-GPIO disposition, and framework-level validation.
+All 27 required non-USB application signals have proposed GPIOs. GPIO19/20 remain fixed for native USB. ESP32-S3-WROOM-1-N8 is selected for preliminary capture and is compatible with the GPIO35/36 and GPIO47/48 assumptions. Release remains blocked by memory/RF/mechanical/procurement verification, framework-level validation, and implementation review.
 
 ## 2. Proposed assignments
 
@@ -81,10 +81,9 @@ All 27 required non-USB application signals have proposed GPIOs. GPIO19/20 remai
 
 ## 5. Unresolved dependencies
 
-- Exact ESP32-S3-WROOM-1 flash/PSRAM ordering variant and memory budget.
-- Confirmation that GPIO35/36 remain available and GPIO47/48 use the approved voltage domain.
-- Master-inhibit feedback, power-good, source-detect, and revision-ID resource requirements.
-- J11 spare-GPIO release or removal.
+- ESP32-S3-WROOM-1-N8 memory, RF, mechanical, lifecycle, and procurement verification.
+- No master-inhibit feedback GPIO is allocated; validate fixture-only feedback and confirm no power-good, source-detect, or revision-ID GPIO becomes mandatory.
+- Confirm the documentation-only J11 disposition at release.
 - I2C, ADC, input-conditioning, and output-drive electrical contracts.
 - Physical boot/reset/UART production-test access.
 - Framework-level simultaneous peripheral validation.

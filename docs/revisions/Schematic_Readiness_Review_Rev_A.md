@@ -236,3 +236,16 @@ The architecture is substantially documented. Empty Sheets 00–09, controlled h
 7. Resolve J8, J11, inhibit feedback, J12, and provisional connector pin counts.
 8. Define preliminary PCB envelope, mounting, connector access, and antenna constraints.
 9. Complete **IPC-100 Rev A Critical Component Selection and Electrical Quantification**, then advance affected sheets through their capture gates.
+
+## 20. 2026-07-29 electrical-quantification addendum
+
+The [Critical Component Selection and Electrical Quantification](../hardware/Critical_Component_Selection_and_Electrical_Quantification.md) package now defines preliminary-capture topologies, preferred parts, values, load estimates, thresholds, test access, and design margins. It selects ESP32-S3-WROOM-1-N8 as the preliminary Rev A module and defines a fail-low hardware actuator-permit strategy.
+
+| Activity | Updated decision |
+| --- | --- |
+| Create the KiCad hierarchy and begin Sheets 00–09 preliminary capture | Conditionally authorized |
+| Release a complete schematic/ERC baseline | Blocked by the quantification package Section 21.1 |
+| Select footprints or begin PCB layout | Not authorized |
+| Procure a prototype BOM | Not authorized |
+
+Remaining blockers are now predominantly exact-orderable-part, abnormal-energy, module/peripheral, connector, relay-load, tolerance, thermal, EMC, and validation decisions rather than missing block architecture. Preliminary capture shall retain each unresolved item visibly and shall not convert it into an undocumented assumption.

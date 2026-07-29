@@ -85,6 +85,7 @@ Documentation-only changes still require document revision control and review. A
 | 2026-07-29 | Power architecture engineering review | Defined power ownership, domains, states, source interaction, sequencing, protection/failure philosophy, bounded USB-only service, expansion policy, and remaining quantitative schematic blockers | Iron Pine Outdoors Engineering | Architecture review complete |
 | 2026-07-29 | Safety input electrical architecture review | Classified all inputs; selected supervised NC STOP/limit loops, sequenced NO ARM/FIRE commands, non-safety encoder behavior, dedicated safety-loop returns, and remaining quantitative/connector gates | Iron Pine Outdoors Engineering | Architecture review complete |
 | 2026-07-29 | Output electrical architecture review | Classified all outputs; selected common hardware master inhibit, disabled/coast motor safe state, relay de-energized state, status/peripheral defaults, sequencing, fault ownership, and remaining quantitative gates | Iron Pine Outdoors Engineering | Architecture review complete |
+| 2026-07-29 | Critical component selection and electrical quantification | Selected preliminary-capture circuit topologies, preferred components, values, calculations, margins, test access, and retained schematic-release blockers | Iron Pine Outdoors Engineering | Preliminary capture basis; engineering review required |
 
 ## 8. Prototype traceability
 

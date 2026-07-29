@@ -19,7 +19,7 @@ Product repositories consume released IPC-100 electrical and firmware interfaces
 
 ## 2. Architecture summary
 
-Rev A uses the ESP32 processor family with Wi-Fi, Bluetooth, and ESP-NOW. The processor study recommends ESP32-S3-WROOM-1 as the preferred module family. A complete proposed direct GPIO allocation now maps all 27 required non-USB application signals, preserves native USB and UART0 recovery, and remains blocked from release by exact module-variant, inhibit-feedback, J11, and implementation decisions. IPC-100 accepts 9–21 V DC during normal operation, creates 5 V and 3.3 V logic rails, and provides a USB-C service interface, battery monitoring, protected inputs, a local monochrome graphical OLED interface, temperature/humidity/pressure sensing, two low-current external motor-driver interfaces, isolated relay contacts, RGB and buzzer outputs, controlled I2C expansion, proposed spare GPIO, and future CAN/RS485 provisions. The 2.42-inch SSD1309 OLED and BME280 are reference implementations rather than permanent dependencies. The primary integration case is an external nominal 18 V lithium-ion tool-battery system; DeWalt 20V MAX is the initial reference implementation rather than a platform dependency.
+Rev A uses the ESP32 processor family with Wi-Fi, Bluetooth, and ESP-NOW. ESP32-S3-WROOM-1-N8 is selected for preliminary Rev A capture. A complete proposed direct GPIO allocation maps all 27 required non-USB application signals, preserves native USB and UART0 recovery, and remains blocked from release by module verification, framework validation, and implementation decisions. IPC-100 accepts 9–21 V DC during normal operation, creates 5 V and 3.3 V logic rails, and provides a USB-C service interface, battery monitoring, protected inputs, a local monochrome graphical OLED interface, temperature/humidity/pressure sensing, two low-current external motor-driver interfaces, isolated relay contacts, RGB and buzzer outputs, controlled I2C expansion, proposed spare GPIO, and future CAN/RS485 provisions. The 2.42-inch SSD1309 OLED and BME280 are reference implementations rather than permanent dependencies. The primary integration case is an external nominal 18 V lithium-ion tool-battery system; DeWalt 20V MAX is the initial reference implementation rather than a platform dependency.
 
 Motor drivers, motors, thrower power, and all high-current distribution are external. Motor current must not pass through IPC-100.
 
@@ -44,6 +44,7 @@ Motor drivers, motors, thrower power, and all high-current distribution are exte
 | [GPIO Map](docs/connectors/GPIO_Map.md) | ESP32 resource plan and allocation gate |
 | [GPIO and Peripheral Allocation Review](docs/connectors/GPIO_and_Peripheral_Allocation_Review.md) | Proposed ESP32-S3 pin map, peripheral assignments, restrictions, conflicts, reserves, and readiness gate |
 | [Schematic Hierarchy and Block Interface Definition](docs/hardware/Schematic_Hierarchy_and_Block_Interface_Definition.md) | Rev A KiCad sheet structure, block/net/connector ownership, capture sequence, and review gates |
+| [Critical Component Selection and Electrical Quantification](docs/hardware/Critical_Component_Selection_and_Electrical_Quantification.md) | Rev A circuit topologies, preferred components, values, calculations, margins, and preliminary-capture gate |
 | [Safety Input Architecture Review](docs/interfaces/Safety_Input_Architecture_Review.md) | Input classifications, supervised safety loops, electrical contracts, fault behavior, and input schematic-entry gate |
 | [Output Electrical Architecture Review](docs/interfaces/Output_Electrical_Architecture_Review.md) | Motor, relay, status, reset, safe-state, sequencing, fault, and output schematic-entry contracts |
 | [Power Architecture](docs/power/Power_Architecture.md) | Source boundary, power tree, protection, and rail behavior |
@@ -108,11 +109,11 @@ Tool versions will be pinned when design sources are introduced.
 
 ## 8. Next milestones
 
-1. Approve the Rev A schematic hierarchy
-2. Complete critical component selection and electrical quantification
-3. Select the exact ESP32-S3-WROOM-1 variant and release the proposed GPIO allocation
-4. Capture and review schematic sheets through the controlled gates
-5. Complete cross-sheet review and ERC
+1. Capture the preliminary Rev A KiCad hierarchy and Sheets 00–09
+2. Close the blockers retained in the electrical quantification
+3. Review every sheet through its controlled gate
+4. Complete cross-sheet review and ERC
+5. Release exact orderable parts and connector implementations
 6. Authorize PCB layout only after schematic release
 
 ## 9. Licensing

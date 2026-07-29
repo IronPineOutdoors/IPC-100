@@ -342,3 +342,9 @@ GPIO allocation maturity is **Allocation Review Complete; Release Blocked**.
 - [ESP-IDF sleep/wakeup documentation](https://docs.espressif.com/projects/esp-idf/en/stable/esp32s3/api-reference/system/sleep_modes.html)
 
 Processor facts must be reverified against the current controlled Espressif documents and the selected exact ordering code at component release.
+
+## 23. 2026-07-29 component-selection addendum
+
+[Critical Component Selection and Electrical Quantification](../hardware/Critical_Component_Selection_and_Electrical_Quantification.md) selects **ESP32-S3-WROOM-1-N8** for preliminary capture. Its Quad-SPI flash/no-PSRAM configuration preserves GPIO35/36 and ordinary 3.3 V GPIO47/48 behavior assumed by this allocation. ADR-034 dispositions J11 as documentation-only, and ADR-038 uses no processor command or feedback GPIO for the hardware actuator permit.
+
+The MCU sheet may therefore enter preliminary capture. Pin-map release remains blocked by N8 memory/RF/mechanical/lifecycle/procurement review, framework-level simultaneous-peripheral validation, and confirmation that no omitted diagnostic GPIO becomes mandatory. This addendum supersedes earlier exact-variant entry conditions but does not turn proposed assignments into released pins.

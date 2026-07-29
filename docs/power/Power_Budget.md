@@ -11,6 +11,8 @@
 
 ## 1. Budget rules
 
+The preliminary numeric capture basis is now maintained in [Critical Component Selection and Electrical Quantification](../hardware/Critical_Component_Selection_and_Electrical_Quantification.md). Its load table and calculations supersede `TBD` entries in this architecture-stage inventory only for preliminary schematic capture. This budget remains the verification ledger and shall be updated with exact selected-part maxima and prototype measurements before schematic release.
+
 The preliminary Rev A target is an input power path capable of at least 2.0 A continuous controller-side current at the minimum normal input voltage of 9 V. This is not a final approved maximum, a measured load, or a regulator rating. Final approval requires verified peak loads, conversion efficiency, startup and simultaneous-load cases, temperature derating, thermal analysis, and expansion reserve. Motor operating current and external relay-contact load current are excluded.
 
 `TBD` values require confirmation from selected-part datasheets or prototype measurement. No table total is valid until those values are resolved.

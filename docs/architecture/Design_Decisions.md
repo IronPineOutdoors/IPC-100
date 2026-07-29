@@ -399,3 +399,36 @@ Statuses are `Accepted`, `Proposed`, `Superseded`, or `Rejected`. Accepted decis
 - **Consequences:** Noise/current segregation is enforced by ownership and later layout rather than invented ground domains. Shield/chassis coupling remains a separate mechanical/electrical decision.
 - **Alternatives considered:** Multiple loosely defined grounds; isolated motor-logic interfaces by default; tie relay contacts to logic return.
 - **Follow-up actions:** Validate return-current and shield strategy during component and PCB reviews.
+
+### ADR-036: Rev A preliminary capture uses ESP32-S3-WROOM-1-N8
+
+- **Decision ID:** ADR-036
+- **Date:** 2026-07-29
+- **Status:** Proposed
+- **Context:** The GPIO plan requires GPIO35/36 and ordinary 3.3 V behavior on GPIO47/48; no PSRAM requirement has been demonstrated.
+- **Decision:** Use ESP32-S3-WROOM-1-N8, with 8 MB Quad-SPI flash and no PSRAM, for Rev A preliminary schematic capture.
+- **Consequences:** Octal-PSRAM variants are excluded without a GPIO redesign. N8 still requires memory-budget, RF, mechanical, lifecycle, and procurement approval before schematic release.
+- **Alternatives considered:** N4; Quad-SPI PSRAM variants; octal-PSRAM R8/R16V variants.
+- **Follow-up actions:** Close the firmware memory budget and orderable-part release review.
+
+### ADR-037: Rev A supervised loops use a 5 V midpoint EOL contract
+
+- **Decision ID:** ADR-037
+- **Date:** 2026-07-29
+- **Status:** Proposed
+- **Context:** STOP and four limits require deterministic healthy, open, and short states without direct field wiring to the processor.
+- **Decision:** Use a 5 V field-sense source with 2.20 kΩ controller and remote 2.20 kΩ EOL resistors. Healthy is nominally 2.5 V; below 1.0 V is short/fault and above 4.0 V is open/asserted. Invalid states receive the conservative inhibit interpretation.
+- **Consequences:** Every loop needs a dedicated return and remote EOL installation. Threshold tolerance, cable, leakage, EMC, and fault behavior require schematic and prototype validation.
+- **Alternatives considered:** Unsupervised contacts; resistor coding read only by MCU ADC; optically isolated industrial inputs.
+- **Follow-up actions:** Complete worst-case analysis and validate all five loops.
+
+### ADR-038: Actuator authorization is an active-high fail-low hardware permit
+
+- **Decision ID:** ADR-038
+- **Date:** 2026-07-29
+- **Status:** Proposed
+- **Context:** Ambiguous inhibit polarity and floating enables can create startup or partial-power hazards.
+- **Decision:** Implement `ACTUATOR_PERMIT` as active high and default low. It requires valid main power, hardware-qualified STOP, released reset, and a valid independent watchdog; it gates both motor-interface output enable and relay-coil authorization.
+- **Consequences:** Loss, absence, or indeterminate state of any qualifier disables actuators. Rev A provides fixture access but no MCU permit-feedback GPIO.
+- **Alternatives considered:** Active-high inhibit distributed among output blocks; firmware-only authorization; separate unrelated relay and motor permits.
+- **Follow-up actions:** Complete timing, power-sequence, and single-fault review before schematic release.
