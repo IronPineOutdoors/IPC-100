@@ -300,3 +300,25 @@ Statuses are `Accepted`, `Proposed`, `Superseded`, or `Rejected`. Accepted decis
 - **Consequences:** Encoder implementation may be changed behind the platform abstraction in a future revision.
 - **Alternatives considered:** Use encoder push as a safety or ARM/FIRE input.
 - **Follow-up actions:** Validate the selected encoder/harness and decoding behavior during prototype testing.
+
+### ADR-027: Motor and relay authorization share a hardware master inhibit
+
+- **Decision ID:** ADR-027
+- **Date:** 2026-07-29
+- **Status:** Proposed
+- **Context:** Firmware configuration or failure cannot be the sole mechanism preventing motion or relay actuation during unsafe power/input states.
+- **Decision:** A common hardware master inhibit overrides all motor commands/enables and relay-coil authorization during STOP, invalid main power, reset, brownout, watchdog recovery, USB-only service, and uninitialized operation.
+- **Consequences:** Product-mapped directional limits remain prioritized firmware inhibitions unless a product adds a mapped hardware path. The inhibit logic, coverage, diagnostic feedback, and single-fault performance require schematic review.
+- **Alternatives considered:** Firmware-only disable; unrelated motor and relay gates; processor internal pulls alone.
+- **Follow-up actions:** Complete hardware-inhibit logic, power/reset interaction, and fault analysis before schematic release.
+
+### ADR-028: Motor safe state is disabled/coast with an inhibited reversal transition
+
+- **Decision ID:** ADR-028
+- **Date:** 2026-07-29
+- **Status:** Proposed
+- **Context:** External drivers interpret opposing PWM, enables, braking, and reversal differently.
+- **Decision:** The Rev A platform safe state makes both PWM commands inactive and both enables disabled. Opposing commands are illegal. Direction reversal passes through this disabled/coast state for an approved interval before the opposite direction is commanded.
+- **Consequences:** Active braking, hold torque, or regeneration is not a baseline feature and requires a selected external-driver/product contract. Numeric PWM and transition timing remain open.
+- **Alternatives considered:** Active braking as the universal safe state; direct direction reversal; leave enables active while stopped.
+- **Follow-up actions:** Approve external-driver electrical/timing contract and validate behavior before firmware release.

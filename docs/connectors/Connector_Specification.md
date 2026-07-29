@@ -42,29 +42,29 @@ Directions are relative to IPC-100. `Power out` entries are limited logic/interf
 
 ## 4. J2 — Axis 1 Motor Driver Logic
 
-J2 preserves the current six-pin BTS7960-style reference contract; it does not promise universal compatibility with arbitrary motor drivers. Logic levels, polarity, PWM behavior, enable behavior, grounding, cable assumptions, protection, output drive capability, and backfeed prevention remain `TBD`. The `+5V` pin is a limited logic/interface supply subject to the approved power budget, and neither it nor `GND` carries motor operating current. Output drive stages may be required; direct processor-GPIO drive is not assumed.
+J2 preserves the six-pin BTS7960-style reference contract without promising universal compatibility. The hardware-safe state is both PWM commands inactive and both enables disabled. A hardware master inhibit overrides all four signals during STOP, invalid main power, reset, brownout, watchdog recovery, USB-only service, and uninitialized operation. Direction commands are mutually exclusive and reversal passes through disabled/coast. Logic levels, active polarity, PWM timing, drive capability, grounding, cable, protection, and backfeed implementation remain `TBD`. `+5V` is limited main-only logic power; neither it nor `GND` carries motor current.
 
 | Pin | Signal name | Direction | Voltage domain | Active state | Description | Protection | Notes | Status |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | `+5V` | Power out | 5 V | N/A | Limited external-driver logic supply provision | Current limit/filter TBD | Not motor power | Proposed |
 | 2 | `GND` | Power return | 0 V | N/A | Logic reference | TBD | Not motor return | Locked |
-| 3 | `AXIS1_RPWM` | Output | TBD logic | TBD/PWM | Axis 1 direction-A PWM command | Pull to inactive; drive/protection TBD | Polarity and level compatibility TBD | Locked |
-| 4 | `AXIS1_LPWM` | Output | TBD logic | TBD/PWM | Axis 1 direction-B PWM command | Pull to inactive; drive/protection TBD | Polarity and level compatibility TBD | Locked |
-| 5 | `AXIS1_REN` | Output | TBD logic | TBD | Axis 1 direction-A enable provision | Hardware pull to disabled; drive/protection TBD | Exact enable implementation may change | Locked |
-| 6 | `AXIS1_LEN` | Output | TBD logic | TBD | Axis 1 direction-B enable provision | Hardware pull to disabled; drive/protection TBD | Exact enable implementation may change | Locked |
+| 3 | `AXIS1_RPWM` | Output | TBD logic | Approved PWM/static command | Axis 1 direction-A command | Hardware inactive/master inhibit; drive/protection TBD | Mutually exclusive with LPWM | Locked |
+| 4 | `AXIS1_LPWM` | Output | TBD logic | Approved PWM/static command | Axis 1 direction-B command | Hardware inactive/master inhibit; drive/protection TBD | Mutually exclusive with RPWM | Locked |
+| 5 | `AXIS1_REN` | Output | TBD logic | Approved enabled state | Axis 1 direction-A enable provision | Hardware disabled/master inhibit; drive/protection TBD | Exact mapping may change; safe state fixed | Locked |
+| 6 | `AXIS1_LEN` | Output | TBD logic | Approved enabled state | Axis 1 direction-B enable provision | Hardware disabled/master inhibit; drive/protection TBD | Exact mapping may change; safe state fixed | Locked |
 
 ## 5. J3 — Axis 2 Motor Driver Logic
 
-J3 preserves the current six-pin BTS7960-style reference contract; it does not promise universal compatibility with arbitrary motor drivers. Logic levels, polarity, PWM behavior, enable behavior, grounding, cable assumptions, protection, output drive capability, and backfeed prevention remain `TBD`. The `+5V` pin is a limited logic/interface supply subject to the approved power budget, and neither it nor `GND` carries motor operating current. Output drive stages may be required; direct processor-GPIO drive is not assumed.
+J3 uses the same output contract, master inhibit, mutually exclusive direction policy, disabled reversal transition, power boundary, and unresolved quantitative electrical items as J2.
 
 | Pin | Signal name | Direction | Voltage domain | Active state | Description | Protection | Notes | Status |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | `+5V` | Power out | 5 V | N/A | Limited external-driver logic supply provision | Current limit/filter TBD | Not motor power | Proposed |
 | 2 | `GND` | Power return | 0 V | N/A | Logic reference | TBD | Not motor return | Locked |
-| 3 | `AXIS2_RPWM` | Output | TBD logic | TBD/PWM | Axis 2 direction-A PWM command | Pull to inactive; drive/protection TBD | Polarity and level compatibility TBD | Locked |
-| 4 | `AXIS2_LPWM` | Output | TBD logic | TBD/PWM | Axis 2 direction-B PWM command | Pull to inactive; drive/protection TBD | Polarity and level compatibility TBD | Locked |
-| 5 | `AXIS2_REN` | Output | TBD logic | TBD | Axis 2 direction-A enable provision | Hardware pull to disabled; drive/protection TBD | Exact enable implementation may change | Locked |
-| 6 | `AXIS2_LEN` | Output | TBD logic | TBD | Axis 2 direction-B enable provision | Hardware pull to disabled; drive/protection TBD | Exact enable implementation may change | Locked |
+| 3 | `AXIS2_RPWM` | Output | TBD logic | Approved PWM/static command | Axis 2 direction-A command | Hardware inactive/master inhibit; drive/protection TBD | Mutually exclusive with LPWM | Locked |
+| 4 | `AXIS2_LPWM` | Output | TBD logic | Approved PWM/static command | Axis 2 direction-B command | Hardware inactive/master inhibit; drive/protection TBD | Mutually exclusive with RPWM | Locked |
+| 5 | `AXIS2_REN` | Output | TBD logic | Approved enabled state | Axis 2 direction-A enable provision | Hardware disabled/master inhibit; drive/protection TBD | Exact mapping may change; safe state fixed | Locked |
+| 6 | `AXIS2_LEN` | Output | TBD logic | Approved enabled state | Axis 2 direction-B enable provision | Hardware disabled/master inhibit; drive/protection TBD | Exact mapping may change; safe state fixed | Locked |
 
 ## 6. J4 — Directional Limit Inputs 1
 
@@ -98,7 +98,7 @@ The exact display module and physical connector remain `TBD`. The 2.42-inch SSD1
 | 2 | `GND` | Power return | 0 V | N/A | OLED return | TBD |  | Locked |
 | 3 | `I2C_SDA` | Bidirectional | TBD logic | N/A | Shared I2C data | ESD/series resistor TBD | Pull-up ownership and level compatibility TBD | Locked |
 | 4 | `I2C_SCL` | Output | TBD logic | N/A | Shared I2C clock | ESD/series resistor TBD | Pull-up ownership and level compatibility TBD | Locked |
-| 5 | `OLED_RESET` | Output | TBD logic | Low resets | Dedicated OLED reset | Series/pull TBD | Boot behavior and level compatibility TBD | Locked |
+| 5 | `OLED_RESET` | Output | TBD logic | Logical reset asserted; reference active low | Dedicated OLED reset | Hardware default asserted/non-driving; interface protection TBD | Release only after valid `OLED_VCC`; no USB-only backfeed | Locked |
 
 ## 9. J7 — Environmental Sensor
 
@@ -130,21 +130,21 @@ The combined J8 allocation remains a logical reservation, not a released physica
 | 7 | `FIRE_IN` | Input | TBD field sense | Contact closed/new qualified edge | Momentary normally-open FIRE request | ESD/transient/filter/bias TBD | Requires valid ARM sequence and release-before-retrigger | Locked |
 | 8 | `STOP_RETURN` | Field-sense return | TBD | N/A | Dedicated STOP-loop return | Fault containment/protection TBD | Not shared with command/encoder return | Proposed |
 | 9 | `STOP_IN` | Input | TBD field sense | Open loop asserted/faulted | Dedicated supervised NC STOP loop | ESD, transient, supervision, filtering, and biasing TBD | Unknown/fault forces STOP-safe interpretation | Locked |
-| 10 | `RGB_R` | Output | TBD | TBD | Red status channel | Driver/current limit TBD | LED topology TBD | Locked |
-| 11 | `RGB_G` | Output | TBD | TBD | Green status channel | Driver/current limit TBD | LED topology TBD | Locked |
-| 12 | `RGB_B` | Output | TBD | TBD | Blue status channel | Driver/current limit TBD | LED topology TBD | Locked |
-| 13 | `BUZZER_OUT` | Output | TBD | TBD/PWM | Buzzer control | Driver/flyback TBD | Buzzer type TBD | Locked |
+| 10 | `RGB_R` | Output | TBD main-only UI | Logical active TBD | Red status channel | Hardware default off; drive/protection TBD | Off in reset/brownout/USB-only | Locked |
+| 11 | `RGB_G` | Output | TBD main-only UI | Logical active TBD | Green status channel | Hardware default off; drive/protection TBD | Off in reset/brownout/USB-only | Locked |
+| 12 | `RGB_B` | Output | TBD main-only UI | Logical active TBD | Blue status channel | Hardware default off; drive/protection TBD | Off in reset/brownout/USB-only | Locked |
+| 13 | `BUZZER_OUT` | Output | TBD main-only UI | Static/waveform TBD | Buzzer control | Hardware default silent; transient/drive protection TBD | Silent in reset/brownout/USB-only | Locked |
 | 14 | `+5V` | Power out | 5 V | N/A | Optional indicator/buzzer supply provision | Current protection TBD | Use depends on final loads | Proposed |
 
 ## 11. J9 — Isolated Relay Contacts
 
-J9 exposes an isolated, externally powered dry-contact set and is not a power source. Contact voltage, current, load type, minimum-load behavior, switching frequency, isolation rating, creepage, clearance, fusing, environmental derating, and relay selection remain `TBD`.
+J9 exposes an isolated, externally powered dry-contact set and is not a power source. The coil is main-only and hardware-inhibited during STOP, invalid main power, reset, brownout, watchdog recovery, USB-only service, and uninitialized operation. The platform safe state is coil de-energized with `RELAY_NO` open; no product safety meaning is assigned to `RELAY_NC`. Contact voltage, current, load type, minimum-load behavior, switching frequency, isolation rating, creepage, clearance, fusing, environmental derating, and relay selection remain `TBD`.
 
 | Pin | Signal name | Direction | Voltage domain | Active state | Description | Protection | Notes | Status |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | `RELAY_NC` | Passive contact | Isolated/TBD rating | Closed when de-energized | Normally closed contact | Contact protection external/TBD | No controller-sourced load power | Locked |
 | 2 | `RELAY_COM` | Passive contact | Isolated/TBD rating | Common | Relay contact common | Contact protection external/TBD |  | Locked |
-| 3 | `RELAY_NO` | Passive contact | Isolated/TBD rating | Open when de-energized | Normally open contact | Contact protection external/TBD | Fail-open trigger path | Locked |
+| 3 | `RELAY_NO` | Passive contact | Isolated/TBD rating | Open when de-energized | Normally open contact | Contact protection external/TBD | Platform safe-state contact; product validates load | Locked |
 
 ## 12. J10 — I2C Expansion
 

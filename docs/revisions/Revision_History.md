@@ -82,6 +82,7 @@ Documentation-only changes still require document revision control and review. A
 | 2026-07-29 | Processor selection study | Compared ESP32 module candidates, recommended ESP32-S3-WROOM-1 and native USB Serial/JTAG, and retained exact-variant, GPIO, memory, ADC, boot, RF, and procurement gates | Iron Pine Outdoors Engineering | Engineering recommendation |
 | 2026-07-29 | Power architecture engineering review | Defined power ownership, domains, states, source interaction, sequencing, protection/failure philosophy, bounded USB-only service, expansion policy, and remaining quantitative schematic blockers | Iron Pine Outdoors Engineering | Architecture review complete |
 | 2026-07-29 | Safety input electrical architecture review | Classified all inputs; selected supervised NC STOP/limit loops, sequenced NO ARM/FIRE commands, non-safety encoder behavior, dedicated safety-loop returns, and remaining quantitative/connector gates | Iron Pine Outdoors Engineering | Architecture review complete |
+| 2026-07-29 | Output electrical architecture review | Classified all outputs; selected common hardware master inhibit, disabled/coast motor safe state, relay de-energized state, status/peripheral defaults, sequencing, fault ownership, and remaining quantitative gates | Iron Pine Outdoors Engineering | Architecture review complete |
 
 ## 8. Prototype traceability
 

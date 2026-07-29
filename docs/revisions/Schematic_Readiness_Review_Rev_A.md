@@ -54,7 +54,7 @@ IPC-100 is a product-neutral ESP32-family outdoor controller with protected 9–
 | Processor | Exact ESP32-S3-WROOM-1 ordering variant, pin-level usable resources, memory budget, ADC path, boot/programming/recovery implementation, antenna constraints |
 | Power | Numeric load envelopes, abnormal-input profile, peripheral/interface supply voltages and limits, source-transition criteria, component-level regulation/protection implementation |
 | Inputs | Field voltage/miswiring profile, supervision windows/termination, cable limits, STOP hardware-inhibit mechanism, J4/J5 physical implementation, J8 STOP partition |
-| Outputs | Relay electrical/driver contract, motor-driver logic compatibility, enable and safe-disable architecture, RGB/buzzer load assumptions |
+| Outputs | Motor-driver quantitative electrical/timing contract, master-inhibit implementation/fault analysis, relay contact/coil envelope, RGB/buzzer/OLED load contracts, J2/J3/J8 release |
 | I2C | `OLED_VCC`, `SENSOR_VCC`, exact approved modules, pull-up ownership, addresses, external segmentation and power contract |
 | Connectors | Provisional pin-count approval; J8, J11, J12 dispositions; required interface electrical definitions |
 | Mechanical | Preliminary PCB envelope, mounting concept, connector-access assumptions, antenna keepout |
@@ -75,7 +75,7 @@ Final component part numbers and passive values, connector manufacturer, final e
 | Display/sensor | Partial | Supply domains, modules, shared-bus contract | Calibration details | None | Approve interface population |
 | Battery monitoring | Substantially complete | ADC path | Accuracy/calibration | ADC1-only wording corrected previously | Select ADC path |
 | Inputs | Substantially complete at architecture level | Quantitative field contract, connector implementation, hardware inhibit | Exact components/values | No current contradiction | Close quantitative input package |
-| Outputs | Partial | Relay/motor electrical and safe-disable circuits | UI meanings/patterns | None | Resolve before schematic |
+| Outputs | Substantially complete at architecture level | Quantitative electrical contracts, hardware inhibit implementation, connector/load release | UI meanings/patterns | No current contradiction | Close quantitative output package |
 | Expansion | Complete for architecture | J10/J11 impact if populated | Future provisions | None | Keep optional/stage-gated |
 | Safety | Substantially complete | Electrical mechanisms/polarity | Numeric timing | No certified E-stop claim | Complete hardware mechanism review |
 | Wiring | Substantially complete | Connector/harness grouping | Product wire details | None | Continue at product stage |
@@ -131,13 +131,13 @@ Power is not ready for component selection or released schematic capture. Numeri
 | --- | --- | --- | --- | --- | --- |
 | STOP | Individually returned supervised NC loop and hardware inhibit | Prioritized detection, latch, diagnostics, guarded recovery | Complete hazard mitigation/E-stop | Architecture selected | Field domain, supervision windows, inhibit mechanism, connector partition |
 | Directional limits | Four individually returned supervised NC loops | Directional inhibition, conflicts, diagnostics | Map signals, travel, stopping distance | Architecture selected | Field domain, supervision windows, cable/protection, connector implementation |
-| Motor disable | Hardware inactive commands/enables | Validate commands and checks | Motion safety | Safe state locked | Enable/gating architecture |
-| Relay disable | Hardware de-energized control | Validated activation | Switched load safety | `RELAY_NO` open locked | Driver/isolation architecture |
+| Motor disable | Common hardware master inhibit; all PWM inactive/enables disabled | Mutual exclusion, limits, timeouts, disabled reversal | Motion safety | Architecture selected | Inhibit circuit/fault analysis and quantitative driver contract |
+| Relay disable | Common hardware master inhibit; coil de-energized | Validated activation and command diagnostics | Switched load safety | `RELAY_NO` open architecture selected | Actuation/isolation implementation and load envelope |
 | Boot/reset/brownout | Pulls/gating and controlled rails | Safe initialization/recovery | Product response | Required | Electrical mechanisms/timing |
 | Watchdog/communications | Hardware-safe defaults | Timeout, arbitration, recovery | Application policy | Behavior intent defined | Watchdog and timeout strategy |
 | Expansion/backfeed | Protection/segmentation | Bounded handling/diagnostics | Installed hardware validation | Fault containment locked | Circuit architecture |
 
-IPC-100 is not a certified emergency-stop device. Product-level emergency-stop and hazard mitigation remain product responsibilities. Firmware is not the sole motion or relay safeguard. The [Safety Input Architecture Review](../interfaces/Safety_Input_Architecture_Review.md) selects NC supervised safety loops, conservative fault states, momentary sequenced ARM/FIRE, and non-safety encoder behavior. Quantitative input contracts, STOP hardware inhibit, motor-disable architecture, and relay-disable architecture still block schematic entry.
+IPC-100 is not a certified emergency-stop device. Product-level emergency-stop and hazard mitigation remain product responsibilities. Firmware is not the sole motion or relay safeguard. The [Safety Input Architecture Review](../interfaces/Safety_Input_Architecture_Review.md) selects NC supervised safety loops and conservative fault states. The [Output Electrical Architecture Review](../interfaces/Output_Electrical_Architecture_Review.md) selects a common motor/relay master inhibit, disabled/coast motor safe state, relay de-energized safe state, and safe status/peripheral defaults. Quantitative input/output contracts, master-inhibit implementation, and fault analysis still block schematic entry.
 
 ## 13. Firmware-interface readiness
 
@@ -146,7 +146,7 @@ IPC-100 is not a certified emergency-stop device. Product-level emergency-stop a
 | Logical GPIO abstraction | Yes | Final mapping/polarity | Hardware revision definition | Can begin interface scaffolding |
 | Safe output initialization | Behavior yes | Pulls/gating/rails | Schematic mechanisms | Requires schematic definition |
 | Inputs and diagnostics | Names/behavior yes | Supervision, thresholds, protection, connector implementation | Quantitative input contract | Requires schematic definition |
-| Motor/relay services | Names/behavior yes | Driver/gating | Electrical contracts | Requires schematic definition |
+| Motor/relay services | Names/behavior yes | Master inhibit, driver conditioning, isolation | Quantitative electrical contracts and circuit implementation | Requires schematic definition |
 | Display/sensor drivers | Generic capability yes | Exact modules/domains | Population approval | Requires schematic definition |
 | Optional-device handling | Architecture yes | Identification/segmentation | Detection mechanism | Requires schematic definition |
 | Command validity/timeouts/watchdog | Partial | Hardware recovery interaction | Timing/strategy | Requires schematic definition |
@@ -176,9 +176,9 @@ Architecture-level concepts cover safe startup, reset, brownout, watchdog recove
 | Inputs | Field-input contract and active states selected | Satisfied at architecture level |
 | Inputs | Bias and STOP/limit fault philosophy defined | Satisfied at architecture level |
 | Inputs | Protection objectives defined | Partially satisfied |
-| Outputs | Relay electrical contract defined | Not satisfied |
-| Outputs | Motor-driver electrical contract defined | Not satisfied |
-| Outputs | Safe-disable architecture defined | Not satisfied |
+| Outputs | Relay electrical contract defined | Partially satisfied; behavior/ownership fixed |
+| Outputs | Motor-driver electrical contract defined | Partially satisfied; logical/safe contract fixed |
+| Outputs | Safe-disable architecture defined | Satisfied at architecture level |
 | Outputs | RGB/buzzer load assumptions defined | Not satisfied |
 | I2C | Supply domains and pull-up ownership defined | Not satisfied |
 | I2C | Address compatibility confirmed | Not satisfied |

@@ -43,6 +43,7 @@ Motor drivers, motors, thrower power, and all high-current distribution are exte
 | [Connector Architecture Review](docs/connectors/Connector_Architecture_Review.md) | Cross-connector partitioning, harness, safety, and unresolved architecture review |
 | [GPIO Map](docs/connectors/GPIO_Map.md) | ESP32 resource plan and allocation gate |
 | [Safety Input Architecture Review](docs/interfaces/Safety_Input_Architecture_Review.md) | Input classifications, supervised safety loops, electrical contracts, fault behavior, and input schematic-entry gate |
+| [Output Electrical Architecture Review](docs/interfaces/Output_Electrical_Architecture_Review.md) | Motor, relay, status, reset, safe-state, sequencing, fault, and output schematic-entry contracts |
 | [Power Architecture](docs/power/Power_Architecture.md) | Source boundary, power tree, protection, and rail behavior |
 | [Power Architecture Engineering Review](docs/power/Power_Architecture_Engineering_Review.md) | Power ownership, domains, operating states, sequencing, faults, USB service, and schematic-entry gate |
 | [Power Budget](docs/power/Power_Budget.md) | Preliminary loads, margins, and prototype measurement plan |
