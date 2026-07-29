@@ -17,7 +17,7 @@ This document defines the Rev A control-power boundary and the design requiremen
 
 The primary Rev A integration case is an external nominal 18 V lithium-ion tool-battery system with a maximum normal voltage no greater than 21 V DC. DeWalt 20V MAX is the initial reference implementation, not a platform dependency. A standalone nominal 12 V battery system is the secondary intended source.
 
-The product supplies the battery mount, main fuse, high-current distribution, branch fuses, high-current converter, and motor power wiring.
+The product supplies the battery mount, main fuse, high-current distribution, branch fuses, high-current converter, motor drivers, motor power wiring, and external power for circuits switched by the relay contacts.
 
 Normal IPC-100 operation is 9–21 V DC. Normal operation and transient survival are separate requirements; the transient-survival profile is `TBD`. Direct connection to a vehicle charging system and automotive load-dump qualification are outside the approved Rev A baseline unless separately added as requirements.
 
@@ -61,6 +61,7 @@ flowchart TD
 | `+3V3` | 3.3 V | 3.3 V regulator from an approved source TBD | ESP32, logic, approved 3.3 V peripherals, I2C, verified expansion loads | Regulator and rail architecture TBD |
 | USB VBUS | 5 V nominal | USB host | Programming/diagnostics path | Interaction TBD |
 | External high-current | Product-defined | Separately fused product branch | Converter, motor drivers, motors | Off-board |
+| Relay-contact load | Product-defined | Product-level external source | External circuit switched through isolated contacts | Off-board; not supplied by IPC-100 |
 
 ## 5. IPC-100 power entry
 
@@ -117,6 +118,8 @@ J13 provides USB programming and diagnostics. Prevention of unsafe backfeed is a
 
 Whether USB powers the entire controller or only the programming and diagnostics interface remains `TBD`.
 
+Output interfaces shall remain hardware-safe with main power only; USB only if supported; USB and main power simultaneously; loss of either source; and externally powered motor-driver modules while IPC-100 is unpowered. Backfeed prevention is required among external drivers, USB, IPC-100 rails, isolated relay contacts, and product wiring. External modules may be independently powered, but no power-switch, isolation, or source-selection implementation is approved.
+
 ## 11. Battery-voltage measurement
 
 `BATTERY_SENSE` is derived from `VIN_RAW` through a protected divider and filter into an ADC1-capable ESP32 input. Divider values, ADC full-scale margin, input protection, measurement accuracy, resolution, filter bandwidth, calibration method, allowable error, leakage error, and acceptable source impedance are `TBD`.
@@ -146,11 +149,11 @@ Keep input switching loops, regulator switch nodes, relay-coil current, digital 
 
 ## 15. Motor-noise isolation
 
-Motor power is on a separately fused external branch, and motor current must not pass through IPC-100. IPC-100 sends only low-current controls to external drivers. Product wiring must separate motor leads from logic wiring and provide suppression at the source appropriate to the selected drivers and motors.
+Motor power is on a separately fused external branch, and motor current must not pass through IPC-100. IPC-100 sends only low-current controls to external drivers. Any motor-driver connector `+5V` provision is a limited logic/interface supply subject to the approved power budget, not motor power. Product wiring must separate motor leads from logic wiring and provide suppression at the source appropriate to the selected drivers and motors.
 
 ## 16. Brownout behavior
 
-Motor enables shall remain disabled and relay contacts shall remain de-energized/open during undervoltage, reset, and uncontrolled rail decay. ESP32 brownout supervision, regulator undervoltage behavior, external enable gating, and brownout shutdown thresholds are `TBD`.
+Motor enables shall remain disabled and the relay coil shall remain de-energized, with `RELAY_NO` open, during undervoltage, reset, and uncontrolled rail decay. ESP32 brownout supervision, regulator undervoltage behavior, external enable gating, and brownout shutdown thresholds are `TBD`.
 
 ## 17. Startup and shutdown
 

@@ -5,12 +5,17 @@ Reserved for future IPC-100 base firmware, board support, reusable drivers, plat
 ## Platform requirements
 
 - Hardware abstraction shall use the stable logical signal names defined by IPC-100 documentation.
+- Output services shall use `RELAY_CTRL`, `AXIS1_RPWM`, `AXIS1_LPWM`, `AXIS1_REN`, `AXIS1_LEN`, `AXIS2_RPWM`, `AXIS2_LPWM`, `AXIS2_REN`, `AXIS2_LEN`, `RGB_R`, `RGB_G`, `RGB_B`, and `BUZZER_OUT`; product code shall not assume GPIO numbers or active polarity.
 - Input drivers shall expose `LIMIT_LEFT`, `LIMIT_RIGHT`, `LIMIT_UP`, `LIMIT_DOWN`, `ENCODER_A`, `ENCODER_B`, `ENCODER_SW`, `ARM_IN`, `FIRE_IN`, and `STOP_IN` without exposing GPIO numbers to product code.
 - Input polarity and pull configuration shall be controlled by the hardware revision rather than assumed by product code.
 - Base firmware shall remain product-neutral; pairing flows, message semantics, user workflows, and application behavior belong in product repositories.
 - Platform communication services shall support Wi-Fi, Bluetooth, and ESP-NOW.
 - Hardware-safe output initialization shall complete before nonessential services start, and `STOP_IN` and motion-limit processing shall receive deterministic priority.
+- Relay and motor-enable commands shall require validated platform state. `STOP_IN` takes priority over motor commands, and applicable limit inputs shall inhibit commands toward asserted limits.
+- Conflicting motor directions shall be rejected or handled only by an approved reusable motor-control service.
+- Relay commands shall not bypass hardware-safe state and applicable arming checks.
 - Communication loss, delay, interference, or absence shall not defeat the hardware-safe output state.
+- Communication failure shall not leave motion or relay commands active indefinitely. Command validity, timeout, stale-command handling, and arbitration remain `TBD`.
 - Base firmware shall support hardware-revision compatibility and report its own controlled version.
 - Reset, normal boot, programming boot, brownout recovery, and watchdog recovery shall be supported.
 - Processor memory allocation, reserve targets, watchdog strategy, persistent storage, update behavior, and recovery thresholds remain `TBD`.
@@ -24,6 +29,8 @@ Reserved for future IPC-100 base firmware, board support, reusable drivers, plat
 - Environmental sampling, filtering, calibration, allowable-error, and validity rules remain `TBD`.
 - Input events should include raw state, conditioned state, fault state, and a timestamp where practical.
 - Base firmware shall report detectable input faults; product-specific motion, firing, recovery, and user-interface actions remain outside the base platform.
+- Base firmware shall report detectable output faults where hardware supports detection and shall provide reusable RGB and buzzer services.
+- Product-specific motion logic, trigger sequences, light meanings and patterns, tones, volume policies, and audible workflows remain outside base firmware.
 - `FIRE_IN` handling shall not bypass hardware-safe output checks, and `ARM_IN` shall not directly control outputs.
 - Input conditioning and debounce parameters, plus encoder direction, acceleration, long-press, and multi-click behavior, remain `TBD`.
 

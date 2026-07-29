@@ -19,14 +19,14 @@ Directions are relative to the ESP32. External voltage translation or driver sta
 
 | Function | Signal name | Candidate GPIO | Input/output | Boot-strap concern | ADC requirement | PWM requirement | Interrupt requirement | Pull-up/pull-down requirement | Boot-safe state | Notes | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Axis 1 PWM A | `AXIS1_RPWM` | TBD | Output | Review | No | Yes | No | Hardware pull to inactive TBD | Low/inactive | External driver logic | TBD |
-| Axis 1 PWM B | `AXIS1_LPWM` | TBD | Output | Review | No | Yes | No | Hardware pull to inactive TBD | Low/inactive | External driver logic | TBD |
-| Axis 1 enable A | `AXIS1_REN` | TBD | Output | Review | No | No | No | Hardware pull-down required | Low/disabled | Exact gating may change | TBD |
-| Axis 1 enable B | `AXIS1_LEN` | TBD | Output | Review | No | No | No | Hardware pull-down required | Low/disabled | Exact gating may change | TBD |
-| Axis 2 PWM A | `AXIS2_RPWM` | TBD | Output | Review | No | Yes | No | Hardware pull to inactive TBD | Low/inactive | External driver logic | TBD |
-| Axis 2 PWM B | `AXIS2_LPWM` | TBD | Output | Review | No | Yes | No | Hardware pull to inactive TBD | Low/inactive | External driver logic | TBD |
-| Axis 2 enable A | `AXIS2_REN` | TBD | Output | Review | No | No | No | Hardware pull-down required | Low/disabled | Exact gating may change | TBD |
-| Axis 2 enable B | `AXIS2_LEN` | TBD | Output | Review | No | No | No | Hardware pull-down required | Low/disabled | Exact gating may change | TBD |
+| Axis 1 PWM A | `AXIS1_RPWM` | TBD | Output | Avoid unresolved strap conflicts | No | Yes | No | Hardware pull to inactive required; direction TBD | Inactive; polarity TBD | High safety priority; external-driver logic | TBD |
+| Axis 1 PWM B | `AXIS1_LPWM` | TBD | Output | Avoid unresolved strap conflicts | No | Yes | No | Hardware pull to inactive required; direction TBD | Inactive; polarity TBD | High safety priority; external-driver logic | TBD |
+| Axis 1 enable A | `AXIS1_REN` | TBD | Output | Avoid unresolved strap conflicts | No | No | No | Hardware pull to disabled required; direction TBD | Disabled; polarity TBD | Highest output safety priority; gating may change | TBD |
+| Axis 1 enable B | `AXIS1_LEN` | TBD | Output | Avoid unresolved strap conflicts | No | No | No | Hardware pull to disabled required; direction TBD | Disabled; polarity TBD | Highest output safety priority; gating may change | TBD |
+| Axis 2 PWM A | `AXIS2_RPWM` | TBD | Output | Avoid unresolved strap conflicts | No | Yes | No | Hardware pull to inactive required; direction TBD | Inactive; polarity TBD | High safety priority; external-driver logic | TBD |
+| Axis 2 PWM B | `AXIS2_LPWM` | TBD | Output | Avoid unresolved strap conflicts | No | Yes | No | Hardware pull to inactive required; direction TBD | Inactive; polarity TBD | High safety priority; external-driver logic | TBD |
+| Axis 2 enable A | `AXIS2_REN` | TBD | Output | Avoid unresolved strap conflicts | No | No | No | Hardware pull to disabled required; direction TBD | Disabled; polarity TBD | Highest output safety priority; gating may change | TBD |
+| Axis 2 enable B | `AXIS2_LEN` | TBD | Output | Avoid unresolved strap conflicts | No | No | No | Hardware pull to disabled required; direction TBD | Disabled; polarity TBD | Highest output safety priority; gating may change | TBD |
 | Left-direction limit | `LIMIT_LEFT` | TBD | Input | Avoid unresolved strap conflicts | No | No | Preferred where useful | Pull direction and filter TBD | Defined state TBD | High-priority local input; protected field interface required | TBD |
 | Right-direction limit | `LIMIT_RIGHT` | TBD | Input | Avoid unresolved strap conflicts | No | No | Preferred where useful | Pull direction and filter TBD | Defined state TBD | High-priority local input; protected field interface required | TBD |
 | Up-direction limit | `LIMIT_UP` | TBD | Input | Avoid unresolved strap conflicts | No | No | Preferred where useful | Pull direction and filter TBD | Defined state TBD | High-priority local input; protected field interface required | TBD |
@@ -40,12 +40,12 @@ Directions are relative to the ESP32. External voltage translation or driver sta
 | ARM input | `ARM_IN` | TBD | Input | Avoid unresolved strap conflicts | No | No | Preferred where useful | Pull direction/filter TBD | Defined safe state TBD | Dedicated physical input; protected interface required | TBD |
 | FIRE input | `FIRE_IN` | TBD | Input | Avoid unresolved strap conflicts | No | No | Preferred where useful | Pull direction/filter TBD | Defined non-triggering state TBD | Dedicated physical input; protected interface required | TBD |
 | STOP input | `STOP_IN` | TBD | Input | Avoid unresolved strap conflicts | No | No | Preferred where useful | Pull direction/filter TBD | Hardware-safe interpretation; polarity TBD | Highest input-allocation priority; protected independent interface required | TBD |
-| RGB red | `RGB_R` | TBD | Output | Review | No | Yes preferred | No | Pull to off TBD | Off | Driver topology TBD | TBD |
-| RGB green | `RGB_G` | TBD | Output | Review | No | Yes preferred | No | Pull to off TBD | Off | Driver topology TBD | TBD |
-| RGB blue | `RGB_B` | TBD | Output | Review | No | Yes preferred | No | Pull to off TBD | Off | Driver topology TBD | TBD |
-| Buzzer control | `BUZZER_OUT` | TBD | Output | Review | No | Yes preferred | No | Pull to off required | Off | Buzzer/driver topology TBD | TBD |
+| RGB red | `RGB_R` | TBD | Output | Avoid unresolved strap conflicts | No | Preferred | No | Hardware pull to inactive required; direction TBD | Inactive; polarity TBD | PWM optional pending brightness requirements; driver topology TBD | TBD |
+| RGB green | `RGB_G` | TBD | Output | Avoid unresolved strap conflicts | No | Preferred | No | Hardware pull to inactive required; direction TBD | Inactive; polarity TBD | PWM optional pending brightness requirements; driver topology TBD | TBD |
+| RGB blue | `RGB_B` | TBD | Output | Avoid unresolved strap conflicts | No | Preferred | No | Hardware pull to inactive required; direction TBD | Inactive; polarity TBD | PWM optional pending brightness requirements; driver topology TBD | TBD |
+| Buzzer control | `BUZZER_OUT` | TBD | Output | Avoid unresolved strap conflicts | No | Preferred for passive device | No | Hardware pull to inactive required; direction TBD | Inactive; polarity TBD | PWM need depends on buzzer type; driver topology TBD | TBD |
 | Battery monitor | `BATTERY_SENSE` | TBD | Input | Avoid strap | ADC1-capable input or equivalent approved ADC path | No | No | Divider/filter TBD | N/A | Do not assume ADC2 availability during Wi-Fi operation | TBD |
-| Relay coil control | `RELAY_CTRL` | TBD | Output | Review | No | No | No | Pull to off required | Off; contacts de-energized | `RELAY_NO` must remain open | TBD |
+| Relay coil control | `RELAY_CTRL` | TBD | Output | Avoid unresolved strap conflicts | No | No | No | Hardware pull to de-energized required; direction TBD | Coil de-energized; polarity TBD | Highest output safety priority; `RELAY_NO` open | TBD |
 | Spare expansion 1 | `SPARE_GPIO1` | TBD | Bidirectional | Review | TBD | TBD | TBD | TBD | High impedance | Capability depends on assigned pin | TBD |
 | Spare expansion 2 | `SPARE_GPIO2` | TBD | Bidirectional | Review | TBD | TBD | TBD | TBD | High impedance | Capability depends on assigned pin | TBD |
 | Future CAN transmit | `CAN_TX` | TBD | Output | Review | No | No | No | Defined recessive state TBD | Inactive | Internal transceiver-side provision | TBD |
@@ -104,6 +104,8 @@ ESP32 I2C signals can be routed through the GPIO matrix, but candidate pins must
 
 Motor enables, motor PWM, relay control, RGB channels, and buzzer control require hardware-defined safe states before firmware configures GPIO. Firmware initialization is not the only safe-state mechanism.
 
+Relay control and motor enables receive the highest output-allocation safety priority, followed by motor PWM signals. Candidate pins and external circuitry shall be reviewed across reset, normal boot, programming mode, brownout, watchdog recovery, and uncontrolled rail decay. No processor internal pull or boot behavior may make an output active. Product code shall use stable logical signal names and shall not assume GPIO numbers or active polarity.
+
 ## 5. Resource-risk note
 
 The preliminary feature set may demand more independent GPIO than the selected module can provide after unavailable, flash-connected, boot-strapping, input-only, programming, ADC1, and future-expansion constraints are considered. GPIO expanders, shared enables, multiplexing, or unpopulated future provisions may be required. No such approach is approved yet.
@@ -121,6 +123,9 @@ The preliminary feature set may demand more independent GPIO than the selected m
 - [ ] Verify that external inputs use approved field-interface circuitry rather than direct field-voltage connection.
 - [ ] Define active state, pull direction, disconnected-input behavior, and reset state for every input.
 - [ ] Define external pulls and reset-time states for every output.
+- [ ] Allocate relay control and motor enables before lower-priority indicator outputs.
+- [ ] Verify inactive output states during reset, normal boot, programming mode, brownout, and rail decay.
+- [ ] Confirm no internal pull or boot condition can assert relay, motor, RGB, or buzzer outputs.
 - [ ] Confirm `STOP_IN` has a dedicated, noise-protected input.
 - [ ] Decide whether motor enables are independent, shared, or hardware-gated.
 - [ ] Decide whether CAN and RS485 logic is populated or provision-only.

@@ -11,7 +11,7 @@
 
 ## 1. Budget rules
 
-The preliminary Rev A target is an input power path capable of at least 2.0 A continuous controller-side current at the minimum normal input voltage of 9 V. This is not a final approved maximum, a measured load, or a regulator rating. Final approval requires verified peak loads, conversion efficiency, simultaneous-load cases, temperature derating, thermal analysis, and expansion reserve. Motors are excluded.
+The preliminary Rev A target is an input power path capable of at least 2.0 A continuous controller-side current at the minimum normal input voltage of 9 V. This is not a final approved maximum, a measured load, or a regulator rating. Final approval requires verified peak loads, conversion efficiency, startup and simultaneous-load cases, temperature derating, thermal analysis, and expansion reserve. Motor operating current and external relay-contact load current are excluded.
 
 `TBD` values require confirmation from selected-part datasheets or prototype measurement. No table total is valid until those values are resolved.
 
@@ -30,8 +30,8 @@ The preliminary Rev A target is an input power path capable of at least 2.0 A co
 | Load | Quantity | Typical current | Peak current | Duty cycle | Estimated average current | Rail | Confidence | Notes |
 | --- | ---: | ---: | ---: | ---: | ---: | --- | --- | --- |
 | Relay coil | 1 | TBD | TBD | Intermittent | TBD | 5 V proposed | Low | Relay not selected |
-| RGB LED/driver, if 5 V powered | 1 | TBD | TBD | Indication-dependent | TBD | 5 V | Low | Topology TBD |
-| Buzzer/driver, if 5 V powered | 1 | TBD | TBD | Intermittent | TBD | 5 V | Low | Type and tone duty TBD |
+| RGB LED/driver, if 5 V powered | 1 | TBD | TBD | Brightness and indication dependent | TBD | 5 V | Low | Topology, current, and brightness TBD |
+| Buzzer/driver, if 5 V powered | 1 | TBD | TBD | Device type and duty-cycle dependent | TBD | 5 V | Low | Type, current, and duty cycle TBD |
 | Axis 1 external-driver logic | 1 | TBD | TBD | Enabled as required | TBD | 5 V | Low | Logic only; not motor power |
 | Axis 2 external-driver logic | 1 | TBD | TBD | Enabled as required | TBD | 5 V | Low | Logic only; not motor power |
 | Status LEDs/power indicators | TBD | TBD | TBD | Continuous or controlled | TBD | 5 V | Low | Final indicators TBD |
@@ -62,7 +62,7 @@ The preliminary Rev A target is an input power path capable of at least 2.0 A co
 | High-current 20 V-to-12 V converter | Product-defined | TBD | TBD | Product-defined | TBD | Product high-current | Product-owned | Separately fused |
 | External motor-driver power stages | Product-defined | TBD | TBD | Product-defined | TBD | Product high-current | Product-owned | Logic may be powered by IPC-100 only if budgeted |
 | Motors | Product-defined | TBD | TBD | Product-defined | TBD | Product high-current | Product-owned | Explicitly excluded from IPC-100 budget |
-| Thrower/load connected to relay | Product-defined | TBD | TBD | Product-defined | TBD | Product-defined | Product-owned | Relay contacts do not source power |
+| External load connected to relay | Product-defined | TBD | TBD | Product-defined | TBD | Product-defined | Product-owned | Excluded from IPC-100 budget; relay contacts do not source power |
 | Product user-interface lighting | Product-defined | TBD | TBD | Product-defined | TBD | Product-defined | Product-owned unless explicitly budgeted |
 
 ## 7. Design margin policy
@@ -86,7 +86,9 @@ At minimum, analyze:
 - Wireless transmit plus OLED active
 - Wireless transmit plus both external-driver logic interfaces enabled
 - Relay coil plus buzzer plus maximum RGB indication
+- Startup with the maximum planned simultaneous controller-side output load
 - Relay and buzzer switching during wireless transmit
+- Both external motor-driver logic loads plus relay, RGB, and buzzer at their maximum planned simultaneous states
 - Maximum approved expansion load
 - USB connected while main power is present
 
@@ -112,6 +114,8 @@ Separate 3.3 V and 5 V reserves are `TBD`. Connector documentation shall not adv
 6. Repeat at the approved minimum and maximum ambient temperatures when defined.
 7. Confirm USB/main-power interaction and backfeed behavior.
 8. Update this budget with measured typical, peak, duty-cycle, and thermal results.
+
+Budget confidence remains low until the relay, both external-driver logic interfaces, RGB topology, buzzer device, rail architecture, and simultaneous-output cases are approved and measured.
 
 ## 13. Related documents
 

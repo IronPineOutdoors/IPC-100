@@ -92,16 +92,16 @@ Statuses are `Accepted`, `Proposed`, `Superseded`, or `Rejected`. Accepted decis
 - **Alternatives considered:** Wireless-only user control.
 - **Follow-up actions:** Define input protection and product-level control behavior.
 
-### ADR-008: Thrower interface uses dry contacts
+### ADR-008: Product-neutral relay interface uses dry contacts
 
 - **Decision ID:** ADR-008
 - **Date:** 2026-07-28
 - **Status:** Accepted
 - **Context:** External trigger circuits require electrical separation and product flexibility.
-- **Decision:** The universal thrower interface uses isolated `RELAY_NC`, `RELAY_COM`, and `RELAY_NO` contacts.
-- **Consequences:** IPC-100 does not source thrower power; contact ratings remain TBD.
+- **Decision:** The product-neutral relay interface uses isolated `RELAY_NC`, `RELAY_COM`, and `RELAY_NO` contacts.
+- **Consequences:** IPC-100 does not source operating power to the switched external circuit; contact and isolation ratings remain TBD.
 - **Alternatives considered:** Powered output; open-drain output.
-- **Follow-up actions:** Select a relay and verify isolation, ratings, and fail-open behavior.
+- **Follow-up actions:** Select a relay and verify isolation, ratings, environmental derating, and hardware-safe de-energized behavior.
 
 ### ADR-009: Separate dirty and clean power
 

@@ -43,6 +43,9 @@ Record for every execution:
 | IO-004 | Outputs | External motor-driver control interfaces | Test | TBD | Waveforms/log | Planned |
 | IO-005 | Inputs | Field-input electrical states, conditioning, faults, and diagnostics | Inspection, analysis, and test | TBD | Waveforms/test log | Planned |
 | IO-006 | Inputs | Safety-relevant input priority and service independence | Analysis and test | TBD | Timing data/test log | Planned |
+| IO-007 | Outputs | Relay safe states, isolation, external-load faults, and backfeed | Inspection, analysis, and test | TBD | Waveforms/test log | Planned |
+| IO-008 | Outputs | Motor-interface safe states, command conflicts, local inhibition, and backfeed | Inspection, analysis, and test | TBD | Waveforms/test log | Planned |
+| IO-009 | Outputs | RGB and buzzer safe states, faults, and simultaneous loading | Inspection, analysis, and test | TBD | Waveforms/test log | Planned |
 | UI-001 | UI | OLED interface (SSD1309 reference), RGB LED, buzzer | Test | TBD | Photos/log | Planned |
 | SNS-001 | Sensors | Environmental sensor (BME280 reference) | Test | TBD | Comparison data | Planned |
 | SNS-002 | Sensors | Battery monitoring | Test | TBD | Calibration data | Planned |
@@ -67,6 +70,12 @@ Test minimum and maximum controller input voltage, relay interface switching, ex
 Evaluate open and shorted inputs, disconnected peripherals, output-interface faults where safely supported, external-driver fault indications, communication loss, processor reset, brownout, and STOP activation.
 
 Input-interface coverage shall include inactive and asserted states; disconnection; short to ground; short to each approved supply domain; contact bounce; induced noise; reset, boot, brownout, and recovery; simultaneous states; conflicting opposite limits; stuck limit, ARM, FIRE, and STOP inputs; unavailable wireless and display services; an I2C bus fault; USB connected during product power; safe-state output response; and diagnostic reporting. Exact electrical levels, timing, repetition counts, and pass/fail thresholds remain `TBD`.
+
+Relay coverage shall include reset and boot, brownout, watchdog recovery, loss of main power, USB-only power if supported, simultaneous USB and main power, floating or disconnected control, repeated trigger commands, contact-state verification, isolation and backfeed concepts, absent external load, and external-load fault.
+
+Motor-interface coverage shall include reset and boot; both enables inactive; both PWM commands inactive; conflicting direction commands; asserted STOP and applicable limits; disconnected, independently powered, and unpowered drivers; cable disconnect; backfeed; brownout; watchdog recovery; communication loss; and malformed or stale commands.
+
+RGB and buzzer coverage shall include reset, brownout, and power-loss states; output-short and disconnect concepts; maximum planned simultaneous loading; and nonfatal failure behavior. Exact voltages, currents, timing, repetitions, environmental conditions, and pass/fail thresholds for all output tests remain `TBD`.
 
 ## Environmental and durability testing
 

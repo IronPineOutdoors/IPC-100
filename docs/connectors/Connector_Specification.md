@@ -27,7 +27,7 @@ Directions are relative to IPC-100. `Power out` entries are limited logic/interf
 | J6 | OLED | 5 | Proposed |
 | J7 | Environmental Sensor | 4 | Proposed |
 | J8 | User Controls and Indicators | 13 | Proposed |
-| J9 | Thrower Relay Contacts | 3 | Proposed |
+| J9 | Isolated Relay Contacts | 3 | Proposed |
 | J10 | I2C Expansion | 4 | Proposed |
 | J11 | Spare GPIO Expansion | TBD | TBD |
 | J12 | Future Communications Reservation | TBD | Proposed |
@@ -42,25 +42,29 @@ Directions are relative to IPC-100. `Power out` entries are limited logic/interf
 
 ## 4. J2 — Axis 1 Motor Driver Logic
 
+J2 preserves the current six-pin BTS7960-style reference contract; it does not promise universal compatibility with arbitrary motor drivers. Logic levels, polarity, PWM behavior, enable behavior, grounding, cable assumptions, protection, output drive capability, and backfeed prevention remain `TBD`. The `+5V` pin is a limited logic/interface supply subject to the approved power budget, and neither it nor `GND` carries motor operating current. Output drive stages may be required; direct processor-GPIO drive is not assumed.
+
 | Pin | Signal name | Direction | Voltage domain | Active state | Description | Protection | Notes | Status |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | `+5V` | Power out | 5 V | N/A | Limited external-driver logic supply provision | Current limit/filter TBD | Not motor power | Proposed |
 | 2 | `GND` | Power return | 0 V | N/A | Logic reference | TBD | Not motor return | Locked |
-| 3 | `AXIS1_RPWM` | Output | TBD logic | High/PWM | Axis 1 right/forward PWM command | Series/ESD TBD | Level compatibility TBD | Locked |
-| 4 | `AXIS1_LPWM` | Output | TBD logic | High/PWM | Axis 1 left/reverse PWM command | Series/ESD TBD | Level compatibility TBD | Locked |
-| 5 | `AXIS1_REN` | Output | TBD logic | High enables | Axis 1 right enable provision | Pull to disabled state; ESD TBD | Exact enable implementation may change | Locked |
-| 6 | `AXIS1_LEN` | Output | TBD logic | High enables | Axis 1 left enable provision | Pull to disabled state; ESD TBD | Exact enable implementation may change | Locked |
+| 3 | `AXIS1_RPWM` | Output | TBD logic | TBD/PWM | Axis 1 direction-A PWM command | Pull to inactive; drive/protection TBD | Polarity and level compatibility TBD | Locked |
+| 4 | `AXIS1_LPWM` | Output | TBD logic | TBD/PWM | Axis 1 direction-B PWM command | Pull to inactive; drive/protection TBD | Polarity and level compatibility TBD | Locked |
+| 5 | `AXIS1_REN` | Output | TBD logic | TBD | Axis 1 direction-A enable provision | Hardware pull to disabled; drive/protection TBD | Exact enable implementation may change | Locked |
+| 6 | `AXIS1_LEN` | Output | TBD logic | TBD | Axis 1 direction-B enable provision | Hardware pull to disabled; drive/protection TBD | Exact enable implementation may change | Locked |
 
 ## 5. J3 — Axis 2 Motor Driver Logic
 
+J3 preserves the current six-pin BTS7960-style reference contract; it does not promise universal compatibility with arbitrary motor drivers. Logic levels, polarity, PWM behavior, enable behavior, grounding, cable assumptions, protection, output drive capability, and backfeed prevention remain `TBD`. The `+5V` pin is a limited logic/interface supply subject to the approved power budget, and neither it nor `GND` carries motor operating current. Output drive stages may be required; direct processor-GPIO drive is not assumed.
+
 | Pin | Signal name | Direction | Voltage domain | Active state | Description | Protection | Notes | Status |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | `+5V` | Power out | 5 V | N/A | Limited external-driver logic supply provision | Current limit/filter TBD | Not motor power | Proposed |
 | 2 | `GND` | Power return | 0 V | N/A | Logic reference | TBD | Not motor return | Locked |
-| 3 | `AXIS2_RPWM` | Output | TBD logic | High/PWM | Axis 2 right/up PWM command | Series/ESD TBD | Level compatibility TBD | Locked |
-| 4 | `AXIS2_LPWM` | Output | TBD logic | High/PWM | Axis 2 left/down PWM command | Series/ESD TBD | Level compatibility TBD | Locked |
-| 5 | `AXIS2_REN` | Output | TBD logic | High enables | Axis 2 right enable provision | Pull to disabled state; ESD TBD | Exact enable implementation may change | Locked |
-| 6 | `AXIS2_LEN` | Output | TBD logic | High enables | Axis 2 left enable provision | Pull to disabled state; ESD TBD | Exact enable implementation may change | Locked |
+| 3 | `AXIS2_RPWM` | Output | TBD logic | TBD/PWM | Axis 2 direction-A PWM command | Pull to inactive; drive/protection TBD | Polarity and level compatibility TBD | Locked |
+| 4 | `AXIS2_LPWM` | Output | TBD logic | TBD/PWM | Axis 2 direction-B PWM command | Pull to inactive; drive/protection TBD | Polarity and level compatibility TBD | Locked |
+| 5 | `AXIS2_REN` | Output | TBD logic | TBD | Axis 2 direction-A enable provision | Hardware pull to disabled; drive/protection TBD | Exact enable implementation may change | Locked |
+| 6 | `AXIS2_LEN` | Output | TBD logic | TBD | Axis 2 direction-B enable provision | Hardware pull to disabled; drive/protection TBD | Exact enable implementation may change | Locked |
 
 ## 6. J4 — Directional Limit Inputs 1
 
@@ -109,6 +113,8 @@ The exact sensor population and physical connector remain `TBD`. BME280 is the c
 
 J8 input active states, voltage domains, field-contact assumptions, grounding, pull/bias, filtering, and protection remain `TBD`; no input is assumed to connect directly to processor GPIO. `STOP_IN` is safety-relevant and must remain independent of the encoder, ARM, FIRE, display, wireless, and optional expansion functions.
 
+The RGB channels and buzzer are reusable outputs. RGB LED topology, polarity, current, brightness control, and protection, plus buzzer device type, drive domain, acoustic behavior, and onboard versus external population remain `TBD`. Driver stages may be required; direct processor-GPIO drive is not assumed.
+
 | Pin | Signal name | Direction | Voltage domain | Active state | Description | Protection | Notes | Status |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | `GND` | Power return | 0 V | N/A | Control reference | TBD | Product panel wiring external | Locked |
@@ -125,7 +131,9 @@ J8 input active states, voltage domains, field-contact assumptions, grounding, p
 | 12 | `BUZZER_OUT` | Output | TBD | TBD/PWM | Buzzer control | Driver/flyback TBD | Buzzer type TBD | Locked |
 | 13 | `+5V` | Power out | 5 V | N/A | Optional indicator/buzzer supply provision | Current protection TBD | Use depends on final loads | Proposed |
 
-## 11. J9 — Thrower Relay Contacts
+## 11. J9 — Isolated Relay Contacts
+
+J9 exposes an isolated, externally powered dry-contact set and is not a power source. Contact voltage, current, load type, minimum-load behavior, switching frequency, isolation rating, creepage, clearance, fusing, environmental derating, and relay selection remain `TBD`.
 
 | Pin | Signal name | Direction | Voltage domain | Active state | Description | Protection | Notes | Status |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- |

@@ -111,9 +111,9 @@ flowchart TD
 | --- | --- | --- |
 | Processing | ESP32-family module, reset/boot/recovery support, base firmware interfaces | Product behavior and configuration |
 | Power | Accept protected 9–21 V DC during normal operation; generate 5 V and 3.3 V | Battery mount, main fuse, distribution, actuator power |
-| Motor control | Low-current command and enable signals | Driver module, motor power, motor, mechanics |
-| Relay | Isolated NC/COM/NO contacts | External load power, fuse, load wiring |
-| Human interface | Product-neutral electrical interfaces for four directional limits, rotary encoder, dedicated ARM/FIRE/STOP controls, a nominal 128x64 monochrome OLED, RGB, and buzzer | Switch and control types, labels, operator workflow, motion interpretation, application recovery, screens, panel, enclosure, legends, and ergonomics |
+| Motor control | Two product-neutral low-current command and enable channels; BTS7960-style signaling is the reference contract only | Driver module, motor power, motors, high-current distribution, motion behavior, speed, acceleration, homing, braking, and mechanics |
+| Relay | Isolated NC/COM/NO dry contacts and hardware-safe de-energized control | External load source, current, fuse, load wiring, and firing or trigger sequence |
+| Human interface | Product-neutral electrical interfaces for four directional limits, rotary encoder, dedicated ARM/FIRE/STOP controls, a nominal 128x64 monochrome OLED, reusable RGB channels, and reusable buzzer output | Switch and control types, labels, operator workflow, motion interpretation, application recovery, screens, status meanings, audible patterns, panel, enclosure, legends, and ergonomics |
 | Sensors | Environmental temperature/humidity/pressure and battery-sense interfaces | Product-level interpretation, placement validation, and environmental strategy |
 | Communications | Wi-Fi, Bluetooth, ESP-NOW; future wired provisions | Network topology and product integration |
 
@@ -139,7 +139,7 @@ Future CAN and RS485 are expansion provisions only. Rev A does not require popul
 
 ## 8. Firmware responsibility boundary
 
-IPC-100 base firmware will own board initialization, safe GPIO defaults, hardware abstraction, reusable device drivers, diagnostics, and platform communication services. Product repositories own motion sequencing, thrower behavior, user workflows, product safety logic above the platform boundary, and product configuration.
+IPC-100 base firmware will own hardware-safe output initialization, logical output abstraction, reusable device drivers and output services, command validation, diagnostics, and platform communication services. Product repositories own motion sequencing, speed and acceleration, homing, braking, firing or trigger sequences, status meanings, audible patterns, user workflows, product safety logic above the platform boundary, and product configuration.
 
 Base firmware must not assume that CrossWind-specific hardware is connected.
 
@@ -178,7 +178,7 @@ USB-C is the locked external programming and diagnostics interface. Native USB v
 
 Only the first four layers belong in the IPC-100 repository. Product application code belongs in the consuming product repository.
 
-Base firmware shall initialize hardware-safe outputs and make safety-relevant stop and motion-limit inputs available before nonessential communication, display, sensor, encoder-interface, and product-application services where practical. Communication loss or failure must not defeat safe states or local stop and limit availability. Detectable input faults shall be reported through base diagnostics. Hardware revision compatibility is a platform responsibility; processor memory allocation and watchdog strategy remain `TBD` pending approval.
+Base firmware shall initialize hardware-safe relay, motor, RGB, and buzzer outputs and make safety-relevant stop and motion-limit inputs available before nonessential communication, USB service, display, sensor, encoder-interface, optional-expansion, and product-application services. Relay and motor-enable commands require validated platform state. `STOP_IN` takes priority over motor commands, and applicable limits inhibit commands toward asserted limits. Communication loss or failure must not defeat safe states or leave motion or relay commands active indefinitely. Detectable input and output faults shall be reported through base diagnostics where hardware supports detection. Command validity, timeout, stale-command handling, and arbitration remain `TBD`.
 
 The display and environmental-sensor drivers shall remain reusable and product-neutral. Display refresh, contrast, burn-in mitigation, startup, and low-power behavior remain `TBD`. Environmental sampling, filtering, calibration, and validity rules remain `TBD`. I2C operations, including faults on optional expansion wiring, must not delay or defeat hardware-safe output initialization; timeout and bus-recovery strategies remain `TBD`.
 
@@ -190,8 +190,11 @@ A product consumes a released IPC-100 hardware revision, connector definition, G
 
 - Motor power and motor fault energy remain outside IPC-100.
 - External high-current branches are independently fused.
-- Relay contacts are isolated from controller logic and fail open on loss of board power.
-- Motor-driver controls must default to disabled during reset, boot, and uninitialized firmware states.
+- Relay contacts are isolated from controller logic, receive external load power only, and default with `RELAY_NO` open while the coil is de-energized.
+- Motor-driver controls must have hardware-defined disabled states during reset, boot, brownout, firmware failure, loss of power, and uninitialized operation.
+- Motor drivers, motor power, motors, and high-current distribution remain product responsibilities; motor current never passes through IPC-100.
+- STOP and applicable directional limits take priority over motion commands independently of wireless, display, sensor, or optional expansion services.
+- RGB and buzzer outputs are reusable indicators with hardware-safe defaults; product repositories define their meanings and patterns.
 - Board-level field inputs require approved protection, conditioning, filtering, and biasing. Exact voltage domains, field-contact assumptions, protection components, and filter values remain `TBD`.
 - Input hardware must establish safe defined states during reset, boot, disconnected wiring, and detectable faults.
 - STOP is a dedicated physical input independent of wireless, display, encoder, ARM, FIRE, and optional expansion functions.
