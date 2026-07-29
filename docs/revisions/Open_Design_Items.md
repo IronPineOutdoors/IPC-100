@@ -107,6 +107,17 @@ Category is inherited from each section heading. Iron Pine Outdoors Engineering 
 | ODI-CONN-009 | Harness grouping | Approve safety, noisy, isolated, bus, and UI partitioning | Grouping affects faults, service, and product flexibility | Connector architecture review | Before schematic release | TBD |
 | ODI-CONN-010 | Pin-count approval | Approve provisional counts after electrical and harness contracts | Logical reservations are not released pinouts | Connector Specification and Review | Before schematic | TBD |
 
+## Schematic implementation
+
+| ID | Topic | Decision needed | Why it matters | Dependencies | Required review stage | Status |
+| --- | --- | --- | --- | --- | --- | --- |
+| ODI-SCH-001 | Hierarchy approval | Approve Sheets 00–09 and single-owner block boundaries | KiCad capture requires stable interfaces | Schematic Hierarchy Definition; ADR-031 | Before KiCad project creation | Proposed |
+| ODI-SCH-002 | Master-inhibit sheet boundary | Approve Sheet 06 ownership and all status inputs/authorization outputs | Prevents split or bypassed safety ownership | ADR-027, ADR-032; input/output reviews | Before Sheets 05/06 | Proposed |
+| ODI-SCH-003 | Connector-symbol ownership | Approve Sheet 09 as sole connector/test-access owner | Prevents duplicated connector symbols and pinouts | Connector Review; ADR-033 | Before connector capture | Proposed |
+| ODI-SCH-004 | Test-access coverage | Approve required production/prototype nodes and fixture workflow | Critical safe states and recovery must be verifiable | GPIO Review; Test Plan; Sheet 09 | Before preliminary schematic completion | Block strategy selected; physical implementation TBD |
+| ODI-SCH-005 | Ground/return architecture | Approve common logic ground, dedicated supervised returns, isolated relay contacts, and external motor-current boundary | Avoids false isolation and uncontrolled return paths | Power/Input/Output reviews; ADR-035 | Before detailed capture | Proposed |
+| ODI-SCH-006 | Optional populations | Define controlled base, peripheral, expansion, and test-only populations | Prevents undocumented assembly variants | Power Budget; firmware populations | Before BOM/component release | Minimal option set proposed |
+
 ## Mechanical
 
 | ID | Topic | Decision needed | Why it matters | Dependencies | Required review stage | Status |

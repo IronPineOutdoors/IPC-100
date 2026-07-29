@@ -11,11 +11,11 @@
 
 ## 1. Purpose and scope
 
-This review audits architecture definition, requirements, traceability, processor resources, connectors, power, safety, firmware interfaces, verification, and open decisions. It does not authorize PCB layout, component selection, firmware implementation, or product-specific design. The later GPIO allocation package authorizes only a proposed pin plan and defines a conditional MCU-sheet entry gate.
+This review audits architecture definition, requirements, traceability, processor resources, connectors, power, safety, firmware interfaces, verification, and open decisions. It does not authorize PCB layout, component selection, firmware implementation, or product-specific design. The GPIO allocation and [Schematic Hierarchy and Block Interface Definition](../hardware/Schematic_Hierarchy_and_Block_Interface_Definition.md) authorize only a proposed pin plan, empty KiCad hierarchy, controlled ports, and generic functional blocks under their gates.
 
 ## 2. Documents reviewed
 
-The review covered the repository README; hardware, functional, wiring, mechanical, and nonfunctional requirements; system architecture, product boundaries, design philosophy, and ADRs; connector specification, connector review, and GPIO map; power architecture and budget; test plan; revision history and open items; firmware documentation; and all other repository Markdown found by consistency search.
+The review covered the repository README; hardware, functional, wiring, mechanical, and nonfunctional requirements; system architecture, product boundaries, design philosophy, and ADRs; connector specification, connector review, GPIO map, and schematic hierarchy; power architecture and budget; test plan; revision history and open items; firmware documentation; and all other repository Markdown found by consistency search.
 
 ## 3. Rev A platform summary
 
@@ -45,6 +45,7 @@ IPC-100 is a product-neutral ESP32-family outdoor controller with protected 9–
 - Motor enable/resource-reduction architecture
 - Spare GPIO and daughterboard provisions
 - Connector allocations and partitioning
+- Ten-sheet schematic hierarchy, Sheet 06 master-inhibit ownership, Sheet 09 connector ownership, common-ground boundary, and documentation-only J11 disposition
 - Intended Rev A architecture-freeze gate
 
 ## 5. Blocking unresolved decisions
@@ -58,6 +59,7 @@ IPC-100 is a product-neutral ESP32-family outdoor controller with protected 9–
 | I2C | `OLED_VCC`, `SENSOR_VCC`, exact approved modules, pull-up ownership, addresses, external segmentation and power contract |
 | Connectors | Provisional pin-count approval; J8, J11, J12 dispositions; required interface electrical definitions |
 | Mechanical | Preliminary PCB envelope, mounting concept, connector-access assumptions, antenna keepout |
+| Schematic implementation | Gate 1 hierarchy approval, exact module entry condition, master-inhibit feedback/watchdog boundary, J11 disposition, and quantitative sheet contracts |
 | Verification | Traceability exists at architecture level, but acceptance criteria and component-dependent tests remain TBD |
 
 ## 6. Nonblocking unresolved decisions
@@ -83,6 +85,7 @@ Final component part numbers and passive values, connector manufacturer, final e
 | Diagnostics/firmware abstraction | Substantially complete | Watchdog/timeouts/population mechanism | Product semantics | None | Interface scaffolding only |
 | Testing | Substantially complete | Acceptance criteria and hardware-dependent procedures | Environmental/product validation | Test IDs overlap requirement-style namespaces | Establish traceable procedure IDs later |
 | Revision control | Complete for architecture | Freeze approval absent | Production workflow later | None | Use formal gates |
+| Schematic implementation | Complete at block level | Gate 1 approval and quantitative electrical packages | Final components/values | No duplicate ownership identified | Create hierarchy, then follow sheet gates |
 
 ### Requirement quality findings
 
@@ -164,6 +167,9 @@ Architecture-level concepts cover safe startup, reset, brownout, watchdog recove
 
 | Area | Criterion | Classification |
 | --- | --- | --- |
+| Schematic | Ten-sheet hierarchy and block ownership defined | Satisfied; Gate 1 approval pending |
+| Schematic | Rail, signal, connector, test, and ground ownership defined | Satisfied at block level |
+| Schematic | Quantitative sheet interface contracts complete | Not satisfied |
 | Processor | Candidate module selected for schematic study | Satisfied at family level; exact variant not satisfied |
 | Processor | Usable resource feasibility demonstrated | Satisfied conditionally; 27/27 required signals assigned |
 | Processor | USB architecture selected | Satisfied at architecture level |
@@ -215,18 +221,18 @@ Freeze does not require final part numbers, passive values, PCB layout, connecto
 
 **Architecture-freeze recommendation: Do not freeze Rev A.**
 
-**Final readiness classification: Not ready for released schematic. Conditional preliminary MCU-sheet capture may begin only after the GPIO review's exact-variant, J11, and inhibit-resource entry conditions are closed.**
+**Final readiness classification: Ready for Gate 1 hierarchy approval and generic block capture; not ready for complete electrical capture or released schematic. Detailed MCU-sheet capture additionally requires the GPIO review's exact-variant, J11, and inhibit-resource entry conditions.**
 
-The architecture is substantially documented, but multiple mandatory Gate 1 criteria are not satisfied. Block-level studies may continue, but controlled schematic capture is not authorized.
+The architecture is substantially documented. Empty Sheets 00–09, controlled hierarchical ports, architecture notes, and generic functional blocks may be created after Gate 1 approval. Complete circuits, final components/values, footprints, released schematics, and PCB layout remain unauthorized.
 
 ## 19. Required next actions
 
-1. Select the exact compatible ESP32-S3-WROOM-1 variant and release or revise the proposed direct allocation.
-2. Implement the selected native USB, ADC1, boot, and UART0 recovery paths at the next authorized design stage.
+1. Approve the Schematic Hierarchy and Block Interface Definition at Gate 1.
+2. Select the exact compatible ESP32-S3-WROOM-1 variant and release or revise the proposed direct allocation.
 3. Approve block-level rails, supported power states, protection objectives, and load envelopes.
 4. Approve field-input polarity/contact/fault/protection contracts.
 5. Approve relay and motor-driver electrical and safe-disable contracts.
 6. Approve display/sensor modules, supply domains, and shared-I2C architecture.
 7. Resolve J8, J11, inhibit feedback, J12, and provisional connector pin counts.
 8. Define preliminary PCB envelope, mounting, connector access, and antenna constraints.
-9. Re-run Gate 1 and approve or reject the proposed freeze ADR.
+9. Complete **IPC-100 Rev A Critical Component Selection and Electrical Quantification**, then advance affected sheets through their capture gates.

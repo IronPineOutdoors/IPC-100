@@ -1,4 +1,5 @@
 # Schematics
 
-Reviewed schematic source and PDF releases belong here. No schematic has been generated for the initial repository baseline.
+Controlled IPC-100 schematic source and approved exports belong here after the applicable capture gate is passed.
 
+Use the [Rev A Schematic Hierarchy and Block Interface Definition](../../docs/hardware/Schematic_Hierarchy_and_Block_Interface_Definition.md) as the authoritative sheet, ownership, net-stage, connector, and review plan. No complete schematic, footprint assignment, or PCB-layout authorization exists in the current baseline.

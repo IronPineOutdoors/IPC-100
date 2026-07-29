@@ -58,6 +58,8 @@ CAN and RS485 have different transceiver, direction-control, termination, biasin
 
 ## 5. Preliminary schematic readiness
 
+The [Schematic Hierarchy and Block Interface Definition](../hardware/Schematic_Hierarchy_and_Block_Interface_Definition.md) assigns Sheet 09 sole ownership of every physical connector symbol. Functional sheets own interface circuitry and export controlled raw, conditioned, MCU-command, or hardware-safe nets to Sheet 09; connector symbols shall not be duplicated.
+
 | ID | Readiness | Blocking definition or condition |
 | --- | --- | --- |
 | J1 | Conditionally ready | Purpose and range are defined, but protection objectives, transient/undervoltage behavior, current envelope, USB interaction, and block-level rail architecture must be approved |
@@ -70,7 +72,7 @@ CAN and RS485 have different transceiver, direction-control, termination, biasin
 | J8 | Architecture defined; quantitative contracts blocking | Input behavior and main-only RGB-off/buzzer-silent defaults are selected; dedicated STOP partition, output loads/drives, supply limits, and `CONN-TBD-001` block released pinout capture |
 | J9 | Architecture defined; quantitative contract blocking | Main-only master-inhibited actuation and de-energized/`RELAY_NO`-open safe behavior are selected; contact/isolation ratings, external load contract, actuation implementation, and fault containment remain open |
 | J10 | Blocking definition missing | Supply, pull-up ownership, loading, hot-plug policy, protection, and segmentation decision |
-| J11 | Architecture disposition blocking | GPIO allocation cannot guarantee both spare concepts; decide resource reduction, conditional single spare, removal, or later revision before any connector schematic |
+| J11 | Documentation-only disposition proposed | GPIO allocation cannot guarantee both spare concepts; ADR-034 recommends no released Rev A connector symbol or fabricated pin promise |
 | J12 | Future provision only | Shared/separate/footprint/daughterboard disposition remains open; no pinout is authorized |
 | J13 | Architecture defined; implementation blocking | Native ESP32-S3 USB Serial/JTAG and bounded USB-only core service are selected; CC, protection, source selection, recovery access, shield, backfeed ratings, and transition criteria remain open |
 

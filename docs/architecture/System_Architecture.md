@@ -265,5 +265,6 @@ Rev A covers architecture definition, requirements, protected power entry, logic
 - [Non-Functional Requirements](../requirements/Non_Functional_Requirements.md)
 - [Connector Specification](../connectors/Connector_Specification.md)
 - [GPIO Map](../connectors/GPIO_Map.md)
+- [Schematic Hierarchy and Block Interface Definition](../hardware/Schematic_Hierarchy_and_Block_Interface_Definition.md)
 - [Power Architecture](../power/Power_Architecture.md)
 - [Design Decisions](Design_Decisions.md)

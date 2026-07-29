@@ -43,6 +43,7 @@ Motor drivers, motors, thrower power, and all high-current distribution are exte
 | [Connector Architecture Review](docs/connectors/Connector_Architecture_Review.md) | Cross-connector partitioning, harness, safety, and unresolved architecture review |
 | [GPIO Map](docs/connectors/GPIO_Map.md) | ESP32 resource plan and allocation gate |
 | [GPIO and Peripheral Allocation Review](docs/connectors/GPIO_and_Peripheral_Allocation_Review.md) | Proposed ESP32-S3 pin map, peripheral assignments, restrictions, conflicts, reserves, and readiness gate |
+| [Schematic Hierarchy and Block Interface Definition](docs/hardware/Schematic_Hierarchy_and_Block_Interface_Definition.md) | Rev A KiCad sheet structure, block/net/connector ownership, capture sequence, and review gates |
 | [Safety Input Architecture Review](docs/interfaces/Safety_Input_Architecture_Review.md) | Input classifications, supervised safety loops, electrical contracts, fault behavior, and input schematic-entry gate |
 | [Output Electrical Architecture Review](docs/interfaces/Output_Electrical_Architecture_Review.md) | Motor, relay, status, reset, safe-state, sequencing, fault, and output schematic-entry contracts |
 | [Power Architecture](docs/power/Power_Architecture.md) | Source boundary, power tree, protection, and rail behavior |
@@ -70,6 +71,7 @@ The Engineering Blueprint must be reviewed before schematic development continue
 | `docs/requirements/` | Hardware, wiring, and mechanical requirements |
 | `docs/connectors/` | Connector contract and GPIO allocation |
 | `docs/interfaces/` | Controlled electrical-interface architecture and reviews |
+| `docs/hardware/` | Schematic implementation planning, ownership, and capture gates |
 | `docs/power/` | Power architecture and budget |
 | `docs/testing/` | Controller verification planning |
 | `docs/revisions/` | Revision and configuration-control history |
@@ -106,13 +108,12 @@ Tool versions will be pinned when design sources are introduced.
 
 ## 8. Next milestones
 
-1. Approve Engineering Blueprint
-2. Finalize power-component selection
-3. Complete Sheet 01
-4. Select the exact ESP32-S3-WROOM-1 variant and release the proposed GPIO allocation
-5. Complete remaining schematic sheets
-6. Run ERC
-7. Begin PCB layout
+1. Approve the Rev A schematic hierarchy
+2. Complete critical component selection and electrical quantification
+3. Select the exact ESP32-S3-WROOM-1 variant and release the proposed GPIO allocation
+4. Capture and review schematic sheets through the controlled gates
+5. Complete cross-sheet review and ERC
+6. Authorize PCB layout only after schematic release
 
 ## 9. Licensing
 

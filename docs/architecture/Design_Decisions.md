@@ -344,3 +344,58 @@ Statuses are `Accepted`, `Proposed`, `Superseded`, or `Rejected`. Accepted decis
 - **Consequences:** The motor service gains paired motor-oriented timing resources without consuming LEDC status capacity. Hardware master inhibit remains independent and final PWM timing remains open.
 - **Alternatives considered:** LEDC for all PWM; software PWM; split motor commands across unrelated peripherals.
 - **Follow-up actions:** Validate simultaneous MCPWM allocation in the selected framework and approve the quantitative motor timing contract.
+
+### ADR-031: Rev A uses a ten-sheet functional schematic hierarchy
+
+- **Decision ID:** ADR-031
+- **Date:** 2026-07-29
+- **Status:** Proposed
+- **Context:** Preliminary capture needs stable boundaries that keep unresolved electrical contracts visible.
+- **Decision:** Partition Rev A into Sheets 00–09 for top level, power entry, power conversion, MCU/service, safety inputs, motor interfaces, relay/master inhibit, UI/peripherals, expansion, and connectors/test access.
+- **Consequences:** Each functional circuit has one owner and crosses sheets only through controlled ports. The hierarchy adds review discipline but does not authorize complete electrical capture.
+- **Alternatives considered:** Flat schematic; power/MCU/output-only hierarchy; product-specific sheets.
+- **Follow-up actions:** Approve Gate 1 before creating the KiCad hierarchy.
+
+### ADR-032: Sheet 06 solely owns master-inhibit decision logic
+
+- **Decision ID:** ADR-032
+- **Date:** 2026-07-29
+- **Status:** Proposed
+- **Context:** Splitting actuator authorization among power, input, motor, and relay sheets risks inconsistent safe-state behavior.
+- **Decision:** Sheet 06 owns the complete master-inhibit decision and watchdog interaction. Power and input sheets provide qualified status; motor and relay blocks consume the resulting inhibit.
+- **Consequences:** No other sheet may create an authorization bypass. The inhibit implementation, feedback, timing, and fault analysis remain open.
+- **Alternatives considered:** Power-sheet ownership; separate motor/relay inhibits; distributed gating without a single owner.
+- **Follow-up actions:** Quantify and capture the inhibit implementation before output-sheet release.
+
+### ADR-033: Sheet 09 solely owns connector and production-access symbols
+
+- **Decision ID:** ADR-033
+- **Date:** 2026-07-29
+- **Status:** Proposed
+- **Context:** Physical connectors and fixture access affect multiple functional sheets and are prone to duplicate or inconsistent symbols.
+- **Decision:** Sheet 09 is the sole schematic owner of J1–J13 symbols and all production/test-access symbols. Functional sheets own circuitry and export staged interface nets.
+- **Consequences:** Connector pinout review is centralized while functional ownership remains separate. No connector symbol may be duplicated elsewhere.
+- **Alternatives considered:** Place each connector on its functional sheet; duplicate connectors at both functional and physical views.
+- **Follow-up actions:** Validate all J1–J13 ports during the cross-sheet interface review.
+
+### ADR-034: J11 remains documentation-only for Rev A
+
+- **Decision ID:** ADR-034
+- **Date:** 2026-07-29
+- **Status:** Proposed
+- **Context:** The proposed direct GPIO allocation cannot guarantee two spare processor GPIOs while preserving required functions, USB, and UART recovery.
+- **Decision:** Do not create a released J11 connector symbol, pinout, or fabricated pad promise in Rev A. Retain the spare-GPIO concept as a future requirement pending resource reduction or revision.
+- **Consequences:** Rev A avoids a false expansion claim. GPIO37 remains a conditional internal reserve only.
+- **Alternatives considered:** One conditional spare; sacrifice UART recovery; use strapping pins; add unapproved resource-reduction circuitry.
+- **Follow-up actions:** Approve this disposition before Sheet 08/09 completion and update external compatibility claims.
+
+### ADR-035: Rev A uses common logic ground with explicit isolated-contact and dedicated-return boundaries
+
+- **Decision ID:** ADR-035
+- **Date:** 2026-07-29
+- **Status:** Proposed
+- **Context:** “Clean” and “dirty” terminology can accidentally imply galvanic isolation that does not exist.
+- **Decision:** Regulated controller, USB, interface, and battery-reference returns use a controlled common logic-ground architecture. Supervised inputs retain dedicated sense returns, motor power/return stays external, and relay contacts remain galvanically isolated.
+- **Consequences:** Noise/current segregation is enforced by ownership and later layout rather than invented ground domains. Shield/chassis coupling remains a separate mechanical/electrical decision.
+- **Alternatives considered:** Multiple loosely defined grounds; isolated motor-logic interfaces by default; tie relay contacts to logic return.
+- **Follow-up actions:** Validate return-current and shield strategy during component and PCB reviews.
