@@ -150,6 +150,22 @@ At 21 V, 7.5 W output and 90% efficiency imply about 0.83 W converter loss. With
 
 Loss of any required condition removes actuator authorization before the corresponding rail leaves valid logic range. Core switchover may reset the processor; no-glitch operation is desirable but not safety-significant. A reset is acceptable if all outputs remain safe.
 
+### 5.4 AR-01 interface and domain closure
+
+ADR-039 fixes the preliminary-capture branch domains and enable contract:
+
+| Branch | Domain | Control |
+| --- | --- | --- |
+| `RELAY_VCC` | 5 V main-only | Hardware-enabled with qualified main |
+| `MOTOR_LOGIC_5V_A/B` | 5 V main-only | Hardware-enabled with qualified main; separate current-limited branches |
+| `FIELD_SENSE_VCC` | 5 V main-only | Hardware-enabled with qualified main |
+| `OLED_VCC` | 3.3 V main-only | `OLED_POWER_REQ`, active high, hardware pull-down and main qualification |
+| `SENSOR_VCC` | 3.3 V main-only | `SENSOR_POWER_REQ`, active high, hardware pull-down and main qualification |
+| `UI_VCC` | 5 V main-only | `UI_POWER_REQ`, active high, hardware pull-down and main qualification |
+| `EXPANSION_VCC` | 3.3 V main-only, optional/DNP | `EXPANSION_POWER_REQ`, active high, hardware pull-down and main qualification |
+
+Sheet 01 exports released-valid open-drain `MAIN_INPUT_VALID` from its eFuse PGOOD node. Sheet 02 combines the qualified result with LMR38020-Q1 PGOOD to create `MAIN_POWER_GOOD`. These interface decisions close ODI-SCH-007 but do not close exact passives, branch protection parts, thermal calculations, or source-transition validation.
+
 ## 6. USB-C service — Sheets 02, 03, and 09
 
 Use J13 as a USB 2.0 **sink/device only** connector. Do not implement USB Power Delivery, source VBUS, battery charging, or USB host mode.

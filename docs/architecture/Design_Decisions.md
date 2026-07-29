@@ -195,9 +195,9 @@ Statuses are `Accepted`, `Proposed`, `Superseded`, or `Rejected`. Accepted decis
 
 - **Decision ID:** ADR-017
 - **Date:** 2026-07-29
-- **Status:** Accepted
+- **Status:** Superseded by ADR-039
 - **Context:** Final OLED and environmental-sensor supply domains are not approved.
-- **Decision:** Preserve `OLED_VCC` and `SENSOR_VCC` as stable connector signals while their voltages remain `TBD`.
+- **Decision:** Preserve `OLED_VCC` and `SENSOR_VCC` as stable connector signals while their voltages remain `TBD`. ADR-039 subsequently fixed both domains at switched, main-qualified 3.3 V.
 - **Consequences:** Final modules must be compatible with approved supply and logic architectures.
 - **Alternatives considered:** Encode an unapproved voltage in each signal name.
 - **Follow-up actions:** Approve exact modules and supply domains before schematic release.
@@ -432,3 +432,14 @@ Statuses are `Accepted`, `Proposed`, `Superseded`, or `Rejected`. Accepted decis
 - **Consequences:** Loss, absence, or indeterminate state of any qualifier disables actuators. Rev A provides fixture access but no MCU permit-feedback GPIO.
 - **Alternatives considered:** Active-high inhibit distributed among output blocks; firmware-only authorization; separate unrelated relay and motor permits.
 - **Follow-up actions:** Complete timing, power-sequence, and single-fault review before schematic release.
+
+### ADR-039: Regulated rail enable ownership and main-source qualification
+
+- **Decision ID:** ADR-039
+- **Date:** 2026-07-29
+- **Status:** Accepted
+- **Context:** Sheet 02 lacked the request inputs and upstream qualifier required to implement default-off main-only branches and unambiguous `MAIN_POWER_GOOD`.
+- **Decision:** Sheet 01 exports released-valid open-drain `MAIN_INPUT_VALID`; Sheet 03 owns four active-high peripheral power requests; Sheet 02 owns pull-down defaults, physical switching, main-power qualification, regulated rails, and `MAIN_POWER_GOOD`. Fixed branch domains and USB-only behavior are defined in the standalone ADR.
+- **Consequences:** Sheets 00–03 gain synchronized ports. Sheet 06 remains sole actuator-authorization owner. Four Sheet 03 request outputs require resource implementation before Sheet 03 release.
+- **Alternatives considered:** Always-on peripherals; permanently disabled outputs; Sheet 02 policy ownership; routing all requests through Sheet 06.
+- **Follow-up actions:** Implement Package 03R against [ADR-039](../decisions/ADR-039_Regulated_Rail_Enable_Ownership_and_Main_Source_Qualification.md), then close request-generation resources before Sheet 03 capture.

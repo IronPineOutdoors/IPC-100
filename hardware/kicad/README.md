@@ -50,6 +50,6 @@ See [Schematic Hierarchy and Block Interface Definition](../../docs/hardware/Sch
 
 ## Current status
 
-Package 02 implements Sheet 01 Power Entry and Protection with preliminary battery and USB protected-power paths, programming networks, filtering, battery sensing, and fault/status outputs. Sheets 02–09 remain port-complete placeholders. No footprints, PCB layout, downstream regulators, or connector implementation are present.
+Package 02 implements Sheet 01 Power Entry and Protection. AR-01/ADR-039 synchronizes the main-input-valid and peripheral-request interfaces across Sheets 00–03. Sheets 02–09 remain circuitry-free placeholders. No footprints, PCB layout, downstream regulators, or connector implementation are present.
 
-The next package is **IPC-100 Rev A Preliminary KiCad Capture — Package 03 — Sheet 02 Power Conversion and Rail Control**.
+The next package is **IPC-100 Rev A Preliminary KiCad Capture — Package 03R — Sheet 02 Power Conversion and Rail Control Implementation Resumption**.

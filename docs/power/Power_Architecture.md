@@ -61,8 +61,10 @@ flowchart TD
 | `USB_5V_PROTECTED` | 5 V nominal | USB host through protected reverse-blocking entry | Core-source selector only | Service-only source; implementation TBD |
 | `CORE_SOURCE` | TBD | Non-backfeeding selection of `+5V_MAIN` or `USB_5V_PROTECTED` | 3.3 V core regulation | Source priority/transition implementation TBD |
 | `+3V3_CORE` | 3.3 V | 3.3 V regulator from `CORE_SOURCE` | ESP32-S3 and essential logic | Available from main or bounded USB service power |
-| `OLED_VCC` / `SENSOR_VCC` | 3.3 V or 5 V TBD | Separately switched approved rail | Approved OLED/environmental sensor | Main-only, default-off; exact voltage TBD |
-| Motor/UI/expansion interface power | 5 V or 3.3 V as released | Protected switched branches from main rails | Approved external logic/accessories only | Main-only; limited and fault-contained |
+| `OLED_VCC` / `SENSOR_VCC` | 3.3 V | Separately switched `+3V3_CORE`, qualified by main validity | Approved OLED/environmental sensor | Main-only, request-controlled, default-off |
+| `UI_VCC` | 5 V | Switched `+5V_MAIN` | Approved UI loads only | Main-only, request-controlled, default-off |
+| `FIELD_SENSE_VCC` | 5 V | Hardware-enabled qualified `+5V_MAIN` branch | Supervised field-contact loops | Main-only; available before firmware initialization |
+| `EXPANSION_VCC` | 3.3 V | Protected switched `+3V3_CORE`, qualified by main validity | Approved J10 expansion only | Main-only, request-controlled, optional/DNP, 100 mA maximum |
 | External high-current | Product-defined | Separately fused product branch | Converter, motor drivers, motors | Off-board |
 | Relay-contact load | Product-defined | Product-level external source | External circuit switched through isolated contacts | Off-board; not supplied by IPC-100 |
 
@@ -108,7 +110,13 @@ The final 5 V regulator is `TBD`. MP1584 is not selected for Rev A and must not 
 
 ## 9. 3.3 V rail
 
-The 3.3 V regulator supplies ESP32 and logic loads. Selection must account for wireless transmit peaks, peripheral loading, transient response, dropout margin, thermal dissipation, and expansion reserve. Whether 3.3 V is generated from the 5 V rail or another approved source remains `TBD`; the regulator and capacitor values are also `TBD`.
+The 3.3 V regulator supplies ESP32 and essential logic loads from the non-backfeeding `CORE_SOURCE`. ADR-039 fixes `CORE_SOURCE` as the main-priority selection of `+5V_MAIN` or `USB_5V_PROTECTED` and fixes `+3V3_CORE` at 3.3 V. TPS62130 remains the selected preliminary-capture converter; its detailed passive, layout, tolerance, and thermal implementation remains subject to capture review.
+
+### 9.1 Controlled branch domains
+
+ADR-039 fixes `OLED_VCC` and `SENSOR_VCC` as main-qualified switched 3.3 V, `UI_VCC` as main-qualified switched 5 V, `FIELD_SENSE_VCC` as hardware-enabled main-only 5 V, and `EXPANSION_VCC` as optional protected switched 3.3 V. Sheet 03 requests the OLED, sensor, UI, and expansion branches with active-high signals; Sheet 02 supplies hardware pull-down defaults and main-power qualification.
+
+`RELAY_VCC` and `MOTOR_LOGIC_5V_A/B` are hardware-enabled main-only 5 V branches. Their electrical presence never constitutes actuator authorization.
 
 ## 10. USB power interaction
 

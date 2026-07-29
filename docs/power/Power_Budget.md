@@ -46,8 +46,8 @@ Required onboard loads, reference or optional platform loads, external interface
 
 | Load | Quantity | Typical current | Peak current | Duty cycle | Estimated average current | Rail | Confidence | Notes |
 | --- | ---: | ---: | ---: | ---: | ---: | --- | --- | --- |
-| Reference OLED module | 1 | TBD | TBD | Active, dimmed, sleep, and startup conditions TBD | TBD | `OLED_VCC` TBD | Low | Exact module and supply domain are not approved |
-| Reference environmental sensor | 1 | TBD | TBD | Measurement mode and duty-cycled behavior TBD | TBD | `SENSOR_VCC` TBD | Low | BME280 is the reference implementation; exact sensor and supply domain are not approved |
+| Reference OLED module | 1 | TBD | 150 mA allocation | Active, dimmed, sleep, and startup conditions TBD | TBD | `OLED_VCC`, switched 3.3 V | Low | Domain approved by ADR-039; exact module and measured load remain open |
+| Reference environmental sensor | 1 | TBD | 50 mA allocation | Measurement mode and duty-cycled behavior TBD | TBD | `SENSOR_VCC`, switched 3.3 V | Low | Domain approved by ADR-039; exact sensor and measured load remain open |
 | J8 external control/indicator supply load | Product configuration dependent | TBD | TBD | Product configuration dependent | TBD | `+3V3` and/or `+5V` | Low | Both supplies are preliminary and limited |
 | J10 controlled I2C expansion reserve | Optional | TBD | TBD | Attachment dependent | TBD | Proposed `+3V3` | Low | Not guaranteed; fault containment and connector approval required |
 | J11 spare-interface expansion reserve | Optional | TBD | TBD | Attachment dependent | TBD | TBD | Low | Power provision and pin count are unresolved |

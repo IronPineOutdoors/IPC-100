@@ -94,7 +94,7 @@ The exact display module and physical connector remain `TBD`. The 2.42-inch SSD1
 
 | Pin | Signal name | Direction | Voltage domain | Active state | Description | Protection | Notes | Status |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `OLED_VCC` | Power out | TBD | N/A | OLED module supply | Decoupling/current protection TBD | Verify module compatibility | TBD |
+| 1 | `OLED_VCC` | Power out | 3.3 V nominal | N/A | Main-qualified switched OLED supply | 150 mA allocation; controlled rise/discharge; exact containment TBD | Verify exact module compatibility | ADR-039 |
 | 2 | `GND` | Power return | 0 V | N/A | OLED return | TBD |  | Locked |
 | 3 | `I2C_SDA` | Bidirectional | TBD logic | N/A | Shared I2C data | ESD/series resistor TBD | Pull-up ownership and level compatibility TBD | Locked |
 | 4 | `I2C_SCL` | Output | TBD logic | N/A | Shared I2C clock | ESD/series resistor TBD | Pull-up ownership and level compatibility TBD | Locked |
@@ -106,7 +106,7 @@ The exact sensor population and physical connector remain `TBD`. BME280 is the c
 
 | Pin | Signal name | Direction | Voltage domain | Active state | Description | Protection | Notes | Status |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `SENSOR_VCC` | Power out | TBD | N/A | Environmental-sensor supply | Decoupling/current limit TBD | Supply compatibility and module current TBD | TBD |
+| 1 | `SENSOR_VCC` | Power out | 3.3 V nominal | N/A | Main-qualified switched environmental-sensor supply | 50 mA allocation; controlled rise/discharge; exact containment TBD | Exact module current/compatibility TBD | ADR-039 |
 | 2 | `GND` | Power return | 0 V | N/A | Sensor return | TBD |  | Locked |
 | 3 | `I2C_SDA` | Bidirectional | TBD logic | N/A | Shared I2C data | ESD/series resistor TBD | Address, pull-ups, and level compatibility TBD | Locked |
 | 4 | `I2C_SCL` | Output | TBD logic | N/A | Shared I2C clock | ESD/series resistor TBD | Level compatibility TBD | Locked |

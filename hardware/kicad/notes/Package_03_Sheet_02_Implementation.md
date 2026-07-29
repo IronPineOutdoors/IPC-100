@@ -2,9 +2,9 @@
 
 ## Status
 
-**Blocked before schematic modification.**
+**Entry-gate conflict resolved by Architecture Resolution Package AR-01 and ADR-039. Package 03R is authorized.**
 
-Preliminary KiCad Capture Package 03 cannot be implemented without changing or contradicting frozen cross-sheet interfaces. Sheet 02 remains the Package 01 placeholder. Sheet 01 and Sheet 00 are unchanged.
+Preliminary KiCad Capture Package 03 initially stopped before circuitry was added. AR-01 subsequently approved and synchronized the missing interfaces. Sheet 02 remains a circuitry-free placeholder pending Package 03R.
 
 ## Blocking conflict
 
@@ -48,18 +48,22 @@ Architecture review must approve one coherent interface contract before Package 
 
 Because this decision changes platform cross-sheet interfaces and power-state behavior, it requires an ADR or an accepted revision to the existing power/hierarchy ADRs. This note does not propose or approve that change.
 
+## AR-01 resolution
+
+ADR-039 approves `MAIN_INPUT_VALID`, four active-high Sheet 03 peripheral requests with Sheet 02 pull-down defaults, fixed branch voltage domains, main-only hardware branches, exact power-good semantics, and the USB-only state. See [Power Control Interface Resolution](../../../docs/hardware/Power_Control_Interface_Resolution.md).
+
 ## ERC and review disposition
 
-No ERC run is claimed for Package 03 because no Sheet 02 circuit was captured. The repository hierarchy remains in its last validated Package 02 state.
+No ERC run is claimed because AR-01 adds hierarchy only. Repository structural validation must confirm the synchronized Sheet 00/01/02/03 ports. Package 03R must run the applicable capture checks after circuitry is added.
 
 ## Manual review checklist before resumption
 
-- [ ] Enable-request ownership and polarity approved.
-- [ ] Sheet 00 and Sheet 02 ports approved and synchronized.
-- [ ] USB-only state proven unable to energize main-only outputs.
-- [ ] Peripheral supply voltage domains approved.
+- [x] Enable-request ownership and polarity approved by ADR-039.
+- [x] Sheet 00 and Sheet 02 ports approved and synchronized by AR-01.
+- [x] USB-only state defined to prevent main-only outputs.
+- [x] Peripheral supply voltage domains approved.
 - [ ] External branch limits and protection components approved.
-- [ ] Main-valid qualification source approved.
-- [ ] Brownout and rail-collapse thresholds approved.
+- [x] Main-valid qualification source and semantics approved.
+- [ ] Brownout numeric thresholds and rail-collapse component values approved during detailed capture.
 - [ ] LMR38020-Q1, TPS2121, and TPS62130 detailed design calculations reviewed.
-- [ ] Package 03 authorization reissued against the revised frozen interface.
+- [x] Package 03R authorization issued against ADR-039.

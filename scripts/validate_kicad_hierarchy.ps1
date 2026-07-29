@@ -137,6 +137,37 @@ if (($sheetFiles | Sort-Object -Unique).Count -ne $sheetFiles.Count) {
     $errors.Add('Duplicate hierarchical sheet file references exist.')
 }
 
+$interfaceContracts = @(
+    @{ Signal = 'MAIN_INPUT_VALID'; Producer = '01 Power Entry & Protection'; Consumer = '02 Power Conversion' },
+    @{ Signal = 'OLED_POWER_REQ'; Producer = '03 ESP32 Core'; Consumer = '02 Power Conversion' },
+    @{ Signal = 'SENSOR_POWER_REQ'; Producer = '03 ESP32 Core'; Consumer = '02 Power Conversion' },
+    @{ Signal = 'UI_POWER_REQ'; Producer = '03 ESP32 Core'; Consumer = '02 Power Conversion' },
+    @{ Signal = 'EXPANSION_POWER_REQ'; Producer = '03 ESP32 Core'; Consumer = '02 Power Conversion' }
+)
+
+foreach ($contract in $interfaceContracts) {
+    $producerBlock = $sheetBlocks | Where-Object {
+        $_.Value.Contains('(property "Sheetname" "' + $contract.Producer + '"')
+    }
+    $consumerBlock = $sheetBlocks | Where-Object {
+        $_.Value.Contains('(property "Sheetname" "' + $contract.Consumer + '"')
+    }
+    $escapedSignal = [regex]::Escape($contract.Signal)
+
+    if (-not $producerBlock -or $producerBlock.Value -notmatch '\(pin "' + $escapedSignal + '" output') {
+        $errors.Add("$($contract.Signal) has no unambiguous output on $($contract.Producer).")
+    }
+    if (-not $consumerBlock -or $consumerBlock.Value -notmatch '\(pin "' + $escapedSignal + '" input') {
+        $errors.Add("$($contract.Signal) has no unambiguous input on $($contract.Consumer).")
+    }
+
+    $rootPinCount = [regex]::Matches($rootContent, '\(pin "' + $escapedSignal + '"').Count
+    $rootLabelCount = [regex]::Matches($rootContent, '\(label "' + $escapedSignal + '"').Count
+    if ($rootPinCount -ne 2 -or $rootLabelCount -ne 2) {
+        $errors.Add("$($contract.Signal) must have exactly one producer and one consumer; found $rootPinCount pins and $rootLabelCount labels.")
+    }
+}
+
 $placeholderFiles = @($rootFile) + @(
     Get-ChildItem -LiteralPath $sheetDirectory -Filter '*.kicad_sch' |
         Where-Object Name -ne '01_Power_Entry.kicad_sch' |
@@ -163,5 +194,6 @@ Write-Host "Child sheets: $($sheetBlocks.Count)"
 Write-Host 'Project JSON: valid'
 Write-Host 'S-expressions: balanced'
 Write-Host 'Root/child ports: matched and unique'
+Write-Host 'AR-01 interfaces: one producer and one consumer each'
 Write-Host 'Component symbols: confined to implemented Sheet 01'
 Write-Host 'Footprint assignments: 0'

@@ -96,7 +96,7 @@ Normal operating input range and transient-survival range are separate requireme
 - The current reference display is a 2.42-inch, 128x64 OLED using the SSD1309 controller. Final production-display approval requires verification of supply voltage, logic compatibility, initialization behavior, connector pinout, mounting, viewing requirements, environmental suitability, availability, and lifecycle.
 - Do not assume that every SSD1309 module accepts the same supply voltage or logic levels. Final approval shall use exact module documentation or verified bench testing.
 - BME280 is the current reference sensor. Final sensor approval requires verification of supply voltage, logic compatibility, I2C address behavior, accuracy, operating range, calibration needs, placement, self-heating, airflow exposure, condensation risk, availability, and lifecycle.
-- `OLED_VCC` and `SENSOR_VCC` are stable logical connector-supply names; their voltage domains remain `TBD`. Final display and sensor modules must be compatible with the approved supply and logic architecture.
+- `OLED_VCC` and `SENSOR_VCC` are stable logical connector-supply names assigned by ADR-039 to main-qualified switched 3.3 V. Final display and sensor modules must be verified compatible with the approved 3.3 V supply and logic architecture.
 - SNS-002 is supported by the ADC-safety and measurement-performance requirements in PWR-012 and PWR-013.
 - The exact bus-isolation, timeout, recovery, or switching implementation for SNS-007 remains `TBD`.
 

@@ -42,8 +42,8 @@ Category is inherited from each section heading. Iron Pine Outdoors Engineering 
 
 | ID | Topic | Decision needed | Why it matters | Dependencies | Required review stage | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| ODI-DS-001 | `OLED_VCC` | Approve supply and logic compatibility | Stable name does not define voltage | J6, power, display selection | Before schematic release | TBD |
-| ODI-DS-002 | `SENSOR_VCC` | Approve supply and logic compatibility | Stable name does not define voltage | J7, power, sensor selection | Before schematic release | TBD |
+| ODI-DS-001 | `OLED_VCC` | Verify the exact OLED module is compatible with the approved switched 3.3 V supply and 3.3 V logic | Domain is fixed, but module implementation may include incompatible onboard circuitry | J6, power, display selection | Before peripheral schematic release | 3.3 V domain closed by ADR-039; exact-module compatibility open |
+| ODI-DS-002 | `SENSOR_VCC` | Verify the exact sensor/module is compatible with the approved switched 3.3 V supply and shared-bus contract | Domain is fixed, but module implementation affects loading and accuracy | J7, power, sensor selection | Before peripheral schematic release | 3.3 V domain closed by ADR-039; exact-module compatibility open |
 | ODI-DS-003 | Final OLED | Approve exact module and interface | Controls pinout, initialization, mechanics, lifecycle | J6, firmware, enclosure | Before schematic release | TBD |
 | ODI-DS-004 | Environmental sensor | Approve exact sensor/module | Controls accuracy, address, placement, lifecycle | J7, firmware, calibration | Before schematic release | TBD |
 | ODI-DS-005 | I2C pull-ups | Define ownership for every population | Parallel pulls may violate the bus contract | J6, J7, J10, expansion | Before schematic release | TBD |
@@ -117,7 +117,7 @@ Category is inherited from each section heading. Iron Pine Outdoors Engineering 
 | ODI-SCH-004 | Test-access coverage | Approve required production/prototype nodes and fixture workflow | Critical safe states and recovery must be verifiable | GPIO Review; Test Plan; Sheet 09 | Before preliminary schematic completion | Block strategy selected; physical implementation TBD |
 | ODI-SCH-005 | Ground/return architecture | Approve common logic ground, dedicated supervised returns, isolated relay contacts, and external motor-current boundary | Avoids false isolation and uncontrolled return paths | Power/Input/Output reviews; ADR-035 | Before detailed capture | Proposed |
 | ODI-SCH-006 | Optional populations | Define controlled base, peripheral, expansion, and test-only populations | Prevents undocumented assembly variants | Power Budget; firmware populations | Before BOM/component release | Minimal option set proposed |
-| ODI-SCH-007 | Sheet 02 enable-request interface | Define branch-enable ownership, polarity, and Sheet 00/02 ports for main-only request-controlled rails; also define the upstream qualifier for `MAIN_POWER_GOOD` | Sheet 02 cannot implement default-off post-initialization branches or fully qualified main status with only protected-source inputs | ADR-022, ADR-023, ADR-031; Power Architecture; Schematic Hierarchy; Package 03 entry-gate review | Before Sheet 02 capture | Blocking conflict documented; architecture decision required |
+| ODI-SCH-007 | Sheet 02 enable-request interface | Define branch-enable ownership, polarity, and Sheet 00/02 ports for main-only request-controlled rails; also define the upstream qualifier for `MAIN_POWER_GOOD` | Sheet 02 cannot implement default-off post-initialization branches or fully qualified main status with only protected-source inputs | ADR-022, ADR-023, ADR-031, ADR-039; Power Architecture; Schematic Hierarchy; Package 03 entry-gate review | Before Sheet 02 capture | Closed by AR-01 / ADR-039; synchronized hierarchy authorizes Package 03R |
 
 ## Mechanical
 

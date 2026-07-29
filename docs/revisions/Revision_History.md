@@ -92,6 +92,8 @@ Documentation-only changes still require document revision control and review. A
 
 | 2026-07-29 | Preliminary KiCad Capture Package 03 entry-gate review | Stopped before Sheet 02 modification because the frozen hierarchy lacks required controlled-branch enable requests and an upstream main-valid qualifier | Iron Pine Outdoors Engineering | Blocked pending architecture/interface decision |
 
+| 2026-07-29 | Power-Control Interface Resolution AR-01 | Accepted ADR-039; defined rail states, main-source qualification, branch requests, voltage domains, and synchronized Sheets 00–03 | Iron Pine Outdoors Engineering | ODI-SCH-007 closed; Package 03R authorized |
+
 ## 8. Prototype traceability
 
 Every physical prototype shall be marked and recorded with:

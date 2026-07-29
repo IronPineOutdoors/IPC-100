@@ -402,6 +402,18 @@ Production coverage must prove rails, reset/boot, native USB or UART recovery, m
 
 Keep assembly variants minimal. Any omitted baseline safety or required interface creates a separate controlled hardware population, not an undocumented BOM choice.
 
+## 15.1 AR-01 controlled interface amendment
+
+ADR-039 amends the Sheet 01–03 contract as follows:
+
+- Sheet 01 additionally outputs released-valid open-drain `MAIN_INPUT_VALID`.
+- Sheet 02 additionally receives `MAIN_INPUT_VALID`, `OLED_POWER_REQ`, `SENSOR_POWER_REQ`, `UI_POWER_REQ`, and `EXPANSION_POWER_REQ`.
+- Sheet 03 additionally outputs the four active-high request signals.
+- Sheet 02 hardware-pulls every request low and qualifies it with `MAIN_POWER_GOOD`.
+- Sheet 06 receives no new request signals and remains the sole owner of actuator authorization.
+
+`OLED_VCC` and `SENSOR_VCC` are switched 3.3 V; `UI_VCC` is switched 5 V; `FIELD_SENSE_VCC` is hardware-enabled main-only 5 V; and `EXPANSION_VCC` is optional protected switched 3.3 V. The complete interface and state tables are in [Power Control Interface Resolution](Power_Control_Interface_Resolution.md).
+
 ## 16. Schematic-capture sequence
 
 | Stage | Required inputs | Completion criteria | Blocker | Review output |
