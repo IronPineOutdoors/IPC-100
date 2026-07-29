@@ -6,12 +6,12 @@
 | Platform | Iron Pine IPC-100 |
 | Hardware revision | Rev A |
 | Document status | Architecture and requirements definition |
-| Last updated | 2026-07-28 |
+| Last updated | 2026-07-29 |
 | Owner | Iron Pine Outdoors Engineering |
 
 ## 1. Purpose
 
-This document defines the Rev A control-power boundary and the design requirements that must be resolved before the power schematic is released. It does not define product battery mounting or high-current motor distribution.
+This document defines the Rev A control-power boundary and design baseline. The [Power Architecture Engineering Review](Power_Architecture_Engineering_Review.md) is the authoritative state, ownership, fault, USB, sequencing, and schematic-entry review. This document does not define product battery mounting or high-current motor distribution.
 
 ## 2. Product-level source architecture
 
@@ -56,10 +56,13 @@ flowchart TD
 | Domain | Nominal range | Source | Loads | Status |
 | --- | --- | --- | --- | --- |
 | `VIN_RAW` | 9–21 V DC normal operation | J1 after product control fuse | Input protection, regulator input, battery divider | Locked normal range; transient survival TBD |
-| Protected input | TBD | Input protection stage | 5 V buck | TBD |
-| `+5V` | 5 V | Wide-input buck | Relay coil, optional interface loads, 3.3 V regulator input, other verified 5 V loads | Regulator TBD |
-| `+3V3` | 3.3 V | 3.3 V regulator from an approved source TBD | ESP32, logic, approved 3.3 V peripherals, I2C, verified expansion loads | Regulator and rail architecture TBD |
-| USB VBUS | 5 V nominal | USB host | Programming/diagnostics path | Interaction TBD |
+| `VIN_PROTECTED` | TBD | Input protection stage | Main 5 V regulation | Block fixed; implementation and abnormal-input profile TBD |
+| `+5V_MAIN` | 5 V | Wide-input regulation from `VIN_PROTECTED` | Relay coil branch, limited main-powered interface loads, core-source selector | Main-only rail; regulator TBD |
+| `USB_5V_PROTECTED` | 5 V nominal | USB host through protected reverse-blocking entry | Core-source selector only | Service-only source; implementation TBD |
+| `CORE_SOURCE` | TBD | Non-backfeeding selection of `+5V_MAIN` or `USB_5V_PROTECTED` | 3.3 V core regulation | Source priority/transition implementation TBD |
+| `+3V3_CORE` | 3.3 V | 3.3 V regulator from `CORE_SOURCE` | ESP32-S3 and essential logic | Available from main or bounded USB service power |
+| `OLED_VCC` / `SENSOR_VCC` | 3.3 V or 5 V TBD | Separately switched approved rail | Approved OLED/environmental sensor | Main-only, default-off; exact voltage TBD |
+| Motor/UI/expansion interface power | 5 V or 3.3 V as released | Protected switched branches from main rails | Approved external logic/accessories only | Main-only; limited and fault-contained |
 | External high-current | Product-defined | Separately fused product branch | Converter, motor drivers, motors | Off-board |
 | Relay-contact load | Product-defined | Product-level external source | External circuit switched through isolated contacts | Off-board; not supplied by IPC-100 |
 
@@ -109,16 +112,16 @@ The 3.3 V regulator supplies ESP32 and logic loads. Selection must account for w
 
 ## 10. USB power interaction
 
-J13 provides USB programming and diagnostics. Prevention of unsafe backfeed is a locked requirement; the implementation and source-selection method remain `TBD`. The design shall cover:
+J13 provides native ESP32-S3 USB Serial/JTAG programming and diagnostics. USB VBUS may power a bounded core service domain through protected, non-backfeeding source selection. USB is not a battery charger, product-power input, USB host, Power Delivery implementation, or source of external interface power.
 
-- Main power only
-- USB only, if USB-only controller operation is supported
-- Main power and USB connected simultaneously
-- USB connected to a host while product power is active
+- Main power supplies `+5V_MAIN`, `CORE_SOURCE`, `+3V3_CORE`, and sequenced main loads.
+- USB only supplies `USB_5V_PROTECTED`, `CORE_SOURCE`, and `+3V3_CORE` for programming, console, JTAG, and recovery.
+- USB-only operation shall not energize relay, motor-driver logic power, OLED, sensor, UI-accessory, or expansion-power domains.
+- With both sources present, source selection prevents current between them and main power owns all main-only loads.
+- USB removal shall not disturb valid main-powered operation; main removal with USB present transitions to bounded service mode without keeping main-powered outputs active.
+- No connection order may backfeed the host, J1, product battery, external drivers, accessories, or unpowered rails.
 
-Whether USB powers the entire controller or only the programming and diagnostics interface remains `TBD`.
-
-Output interfaces shall remain hardware-safe with main power only; USB only if supported; USB and main power simultaneously; loss of either source; and externally powered motor-driver modules while IPC-100 is unpowered. Backfeed prevention is required among external drivers, USB, IPC-100 rails, isolated relay contacts, and product wiring. External modules may be independently powered, but no power-switch, isolation, or source-selection implementation is approved.
+The protection, source-selection, transition-continuity, CC, shield, reset/recovery, and VBUS-sensing implementations remain schematic decisions.
 
 ## 11. Battery-voltage measurement
 
@@ -134,8 +137,10 @@ Provide labeled test access for at least:
 
 - `VIN_RAW`
 - Protected input after reverse/transient protection
-- `+5V`
-- `+3V3`
+- `+5V_MAIN`
+- `USB_5V_PROTECTED`
+- `CORE_SOURCE`
+- `+3V3_CORE`
 - `GND`
 - `BATTERY_SENSE`
 - Regulator enable and power-good signals when used
@@ -157,7 +162,7 @@ Motor enables shall remain disabled and the relay coil shall remain de-energized
 
 ## 17. Startup and shutdown
 
-Hardware pulls shall establish safe outputs before firmware initialization. Startup sequencing among protected input, 5 V, 3.3 V, ESP32 enable, and external interface power is `TBD`. Shutdown shall not create motor-enable pulses, relay actuation, USB backfeed, or out-of-range input injection through unpowered interfaces.
+Hardware pulls and gating shall establish safe outputs before firmware initialization. Valid `CORE_SOURCE` establishes `+3V3_CORE`; the processor then validates source/reset state and safety inputs before any main-powered peripheral or external supply branch is enabled. Relay and motor commands remain inactive until separately authorized. USB-only operation never enables main-powered loads. Numeric rail timing and enable/discharge implementation remain `TBD`. Shutdown shall disable commands before controllable loads where firmware can run and shall remain passively safe when it cannot.
 
 Optional expansion shall initialize only after hardware-safe outputs and safety-relevant local inputs are established. Expansion power outputs require current limiting, protection, budget allocation, and fault containment; exact limits and implementation remain `TBD`. Externally powered expansion or communications modules shall not backfeed controller rails, USB, GPIO, or other interfaces. External field-bus power may require a product-level supply.
 
@@ -183,6 +188,7 @@ Regulator, protection, relay-coil, indicator, and interface losses shall be eval
 ## 20. Related documents
 
 - [Power Budget](Power_Budget.md)
+- [Power Architecture Engineering Review](Power_Architecture_Engineering_Review.md)
 - [Hardware Requirements](../requirements/Hardware_Requirements.md)
 - [System Architecture](../architecture/System_Architecture.md)
 - [Connector Specification](../connectors/Connector_Specification.md)

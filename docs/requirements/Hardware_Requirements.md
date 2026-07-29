@@ -46,8 +46,8 @@ Normal operating input range and transient-survival range are separate requireme
 **Engineering notes:**
 
 - Rev A currently assumes a standalone nominal 12 V battery system. Direct connection to a vehicle charging system and automotive load-dump qualification remain outside the approved baseline unless separately added as requirements.
-- PWR-011 applies to main power only; USB only if USB-only controller operation is supported; main power and USB connected simultaneously; and USB connected to a host while product power is active.
-- Whether USB powers the entire controller or only the programming and diagnostics interface remains `TBD`.
+- PWR-011 applies to main-only, bounded USB-only service, simultaneous main/USB, all connection/removal orders, and externally powered interface conditions.
+- USB-only power supports the ESP32-S3 core programming, console, JTAG, and recovery domain. It shall not energize relay, motor-driver logic power, OLED, sensor, UI-accessory, or expansion-power domains. IPC-100 does not charge the product battery or source USB VBUS.
 
 ## 4. Processor and communications requirements
 

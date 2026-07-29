@@ -75,7 +75,7 @@ Evaluate open and shorted inputs, disconnected peripherals, output-interface fau
 
 Input-interface coverage shall include inactive and asserted states; disconnection; short to ground; short to each approved supply domain; contact bounce; induced noise; reset, boot, brownout, and recovery; simultaneous states; conflicting opposite limits; stuck limit, ARM, FIRE, and STOP inputs; unavailable wireless and display services; an I2C bus fault; USB connected during product power; safe-state output response; and diagnostic reporting. Exact electrical levels, timing, repetition counts, and pass/fail thresholds remain `TBD`.
 
-Relay coverage shall include reset and boot, brownout, watchdog recovery, loss of main power, USB-only power if supported, simultaneous USB and main power, floating or disconnected control, repeated trigger commands, contact-state verification, isolation and backfeed concepts, absent external load, and external-load fault.
+Relay coverage shall include reset and boot, brownout, watchdog recovery, loss of main power, bounded USB-only core service, simultaneous USB and main power, floating or disconnected control, repeated trigger commands, contact-state verification, isolation and backfeed concepts, absent external load, and external-load fault.
 
 Motor-interface coverage shall include reset and boot; both enables inactive; both PWM commands inactive; conflicting direction commands; asserted STOP and applicable limits; disconnected, independently powered, and unpowered drivers; cable disconnect; backfeed; brownout; watchdog recovery; communication loss; and malformed or stale commands.
 
@@ -89,7 +89,7 @@ Future-communications coverage shall confirm that unpopulated provisions do not 
 
 Connector-architecture coverage shall include misconnection, partial insertion, reversed insertion where mechanically possible, missing return, incorrect product harness, unused connector exposure, STOP-path faults, J8 partition review, and J4/J5 shared-return fault implications.
 
-Expansion-power coverage shall include maximum approved expansion load, rail overload and short concepts, simultaneous loads, startup peak, main-only and USB-only conditions where supported, simultaneous USB and main power, and both external-module-first and IPC-100-first sequencing. Exact timing, voltage, current, fault duration, cable length, repetition count, environmental condition, and pass/fail thresholds remain `TBD`.
+Expansion-power coverage shall include maximum approved expansion load, rail overload and short concepts, simultaneous loads, startup peak, main-only operation, confirmation that expansion remains unpowered during bounded USB-only service, simultaneous USB and main power, and both external-module-first and IPC-100-first sequencing. Exact timing, voltage, current, fault duration, cable length, repetition count, environmental condition, and pass/fail thresholds remain `TBD`.
 
 ## Environmental and durability testing
 

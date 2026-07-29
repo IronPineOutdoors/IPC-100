@@ -122,9 +122,11 @@ flowchart TD
 | Domain | Nominal level | Scope | Notes |
 | --- | --- | --- | --- |
 | `VIN_RAW` | 9–21 V DC normal operation | IPC-100 input only | Transient-survival profile and protection topology TBD |
-| `+5V` | 5 V | On-board and limited interface loads | Final regulator TBD |
-| `+3V3` | 3.3 V | ESP32 and logic | Final regulator TBD |
-| USB VBUS | 5 V nominal | Programming/diagnostics interface | Backfeed prevention locked; implementation and USB-only behavior TBD |
+| `+5V_MAIN` | 5 V | Main-powered onboard and limited interface loads | Off during USB-only service; final regulator TBD |
+| `USB_5V_PROTECTED` | 5 V nominal | Core service source only | Protected and reverse-blocked; no charging or external-load power |
+| `CORE_SOURCE` | TBD | Input to core regulation | Non-backfeeding selection from main or USB |
+| `+3V3_CORE` | 3.3 V | ESP32-S3 and essential logic | Available from main power or bounded USB-only service |
+| Switched peripheral/interface domains | 3.3 V or 5 V as approved | OLED, sensor, UI, motor-driver logic, expansion | Main-only, default-off, limited, fault-contained |
 | External high-current | Product-defined | Off-board only | Must not pass through IPC-100 |
 
 ## 7. External interfaces

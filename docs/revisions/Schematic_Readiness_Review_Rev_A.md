@@ -52,7 +52,7 @@ IPC-100 is a product-neutral ESP32-family outdoor controller with protected 9–
 | Area | Blocking decision |
 | --- | --- |
 | Processor | Exact ESP32-S3-WROOM-1 ordering variant, pin-level usable resources, memory budget, ADC path, boot/programming/recovery implementation, antenna constraints |
-| Power | Block-level 5 V/3.3 V architecture, USB-only/main interaction, load envelopes, transient/undervoltage objectives, backfeed boundaries |
+| Power | Numeric load envelopes, abnormal-input profile, peripheral/interface supply voltages and limits, source-transition criteria, component-level regulation/protection implementation |
 | Inputs | Field voltage/contact contract, polarity, bias, NO/NC philosophy, STOP/limit fault detection, protection objectives |
 | Outputs | Relay electrical/driver contract, motor-driver logic compatibility, enable and safe-disable architecture, RGB/buzzer load assumptions |
 | I2C | `OLED_VCC`, `SENSOR_VCC`, exact approved modules, pull-up ownership, addresses, external segmentation and power contract |
@@ -69,7 +69,7 @@ Final component part numbers and passive values, connector manufacturer, final e
 | Category | Completeness | Blocking gaps | Nonblocking gaps | Contradictions | Recommended action |
 | --- | --- | --- | --- | --- | --- |
 | Platform scope/product boundary | Complete for architecture | None | Product compatibility records later | None found | Freeze after gate approval |
-| Power | Partial | Rail blocks, USB behavior, protection objectives, load envelope | Exact components/values | No current contradiction | Resolve block architecture |
+| Power | Substantially complete at architecture level | Load envelopes, abnormal-input profiles, peripheral/interface domains, transition criteria | Exact components/values | No current contradiction | Close quantitative design inputs |
 | Processor | Partial | Exact variant/resources/ADC/boot/memory | Procurement/lifecycle evidence later | No false final selection found | Complete ESP32-S3 pin-level gate |
 | Communications | Complete for architecture | USB implementation only | Protocol details | None | Preserve wireless baseline |
 | Display/sensor | Partial | Supply domains, modules, shared-bus contract | Calibration details | None | Approve interface population |
@@ -114,14 +114,16 @@ The [Connector Architecture Review](../connectors/Connector_Architecture_Review.
 | Reverse polarity/transients/fuse boundary | Objectives partial | Yes | Component ratings and topology depend on approved environment | Define profiles and block objectives |
 | Undervoltage/overvoltage behavior | TBD | Yes | Safe rail decay and recovery depend on it | Define required behavior |
 | Controller input-path concept | Proposed | Yes | Not a closed load budget or 5 V rating | Close approximate envelopes |
-| 5 V and 3.3 V rails | Required; architecture TBD | Yes | Sources and sequencing unknown | Approve block-level rail tree |
-| USB-only/main/simultaneous states | TBD | Yes | Affects source selection and backfeed | Select supported states |
+| 5 V and 3.3 V rails | Block architecture selected | Yes, implementation | `+5V_MAIN`, `CORE_SOURCE`, and `+3V3_CORE` roles and sequence fixed; loads/topologies open | Close loads and implement circuits |
+| USB-only/main/simultaneous states | Architecture selected | Yes, implementation | Bounded USB core service and main-only external loads are fixed | Define source-transition criteria and circuit |
 | `OLED_VCC` / `SENSOR_VCC` | TBD | Yes for J6/J7 | Module compatibility unknown | Approve modules/domains |
 | Relay/indicator/buzzer/driver logic loads | TBD | Yes | Rail and driver sizing need envelopes | Establish load assumptions |
 | Expansion reserves | TBD | Conditional | Can be omitted/reserved from first schematic | Approve disposition |
 | External motor/relay load power | External/locked | No | Boundary is clear | Preserve |
 
-Power is not ready for component-level design. Parameterized block diagrams may proceed after rail-tree and supported-power-state approval.
+The [Power Architecture Engineering Review](../power/Power_Architecture_Engineering_Review.md) fixes ownership; main, USB, core, peripheral, interface, measurement, and future domains; all supported power states; a bounded USB-only service mode; source/backfeed boundaries; sequencing; protection objectives; failure allocation; and expansion policy. Block architecture is complete.
+
+Power is not ready for component selection or released schematic capture. Numeric load envelopes, abnormal-input profiles, exact OLED/sensor voltages, external-interface supply limits, source-transition criteria, and component-level protection/regulation realization remain blocking.
 
 ## 12. Safety readiness
 
@@ -164,13 +166,13 @@ Architecture-level concepts cover safe startup, reset, brownout, watchdog recove
 | --- | --- | --- |
 | Processor | Candidate module selected for schematic study | Not satisfied |
 | Processor | Usable resource feasibility demonstrated | Not satisfied |
-| Processor | USB architecture selected | Not satisfied |
+| Processor | USB architecture selected | Satisfied at architecture level |
 | Processor | ADC path selected | Not satisfied |
 | Processor | Boot/programming and antenna constraints defined | Partially satisfied |
-| Power | Block-level rail architecture approved | Not satisfied |
-| Power | USB/main behavior defined | Not satisfied |
+| Power | Block-level rail architecture approved | Satisfied at architecture level |
+| Power | USB/main behavior defined | Satisfied at architecture level |
 | Power | Approximate load envelopes available | Partially satisfied |
-| Power | Backfeed boundaries and power states documented | Partially satisfied |
+| Power | Backfeed boundaries and power states documented | Satisfied at architecture level |
 | Inputs | Field-input contract and active states selected | Not satisfied |
 | Inputs | Bias and STOP/limit fault philosophy defined | Not satisfied |
 | Inputs | Protection objectives defined | Partially satisfied |

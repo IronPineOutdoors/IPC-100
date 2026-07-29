@@ -43,6 +43,7 @@ Motor drivers, motors, thrower power, and all high-current distribution are exte
 | [Connector Architecture Review](docs/connectors/Connector_Architecture_Review.md) | Cross-connector partitioning, harness, safety, and unresolved architecture review |
 | [GPIO Map](docs/connectors/GPIO_Map.md) | ESP32 resource plan and allocation gate |
 | [Power Architecture](docs/power/Power_Architecture.md) | Source boundary, power tree, protection, and rail behavior |
+| [Power Architecture Engineering Review](docs/power/Power_Architecture_Engineering_Review.md) | Power ownership, domains, operating states, sequencing, faults, USB service, and schematic-entry gate |
 | [Power Budget](docs/power/Power_Budget.md) | Preliminary loads, margins, and prototype measurement plan |
 | [Open Design Items](docs/revisions/Open_Design_Items.md) | Consolidated unresolved decisions and required engineering review gates |
 | [Rev A Schematic Readiness Review](docs/revisions/Schematic_Readiness_Review_Rev_A.md) | Architecture-freeze recommendation, blockers, and schematic-entry criteria |

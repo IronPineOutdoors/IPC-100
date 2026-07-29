@@ -6,7 +6,7 @@
 | Platform | Iron Pine IPC-100 |
 | Hardware revision | Rev A |
 | Document status | Architecture and requirements definition |
-| Last updated | 2026-07-28 |
+| Last updated | 2026-07-29 |
 | Owner | Iron Pine Outdoors Engineering |
 
 ## 1. Budget rules
@@ -51,7 +51,7 @@ Required onboard loads, reference or optional platform loads, external interface
 | J11 spare-interface expansion reserve | Optional | TBD | TBD | Attachment dependent | TBD | TBD | Low | Power provision and pin count are unresolved |
 | Future communications reserve | Optional future | TBD | TBD | Implementation dependent | TBD | TBD | Low | No CAN or RS485 implementation is approved |
 | Daughterboard reserve | Optional future | TBD | TBD | Module dependent | TBD | TBD | Low | No daughterboard power contract is approved |
-| USB-related controller condition | 1 | TBD | TBD | Main only, USB only if supported, or simultaneous | TBD | USB/main interaction TBD | Low | USB-only scope and source selection unresolved |
+| USB core-service condition | 1 | TBD | TBD | Main only, bounded USB-only service, or simultaneous | TBD | `USB_5V_PROTECTED` / `CORE_SOURCE` | Low | USB-only powers core/service only; source-selection losses and exact load unresolved |
 
 ## 5. Raw-input loads
 
@@ -74,6 +74,20 @@ Required onboard loads, reference or optional platform loads, external interface
 | Product user-interface lighting | Product-defined | TBD | TBD | Product-defined | TBD | Product-defined | Product-owned | Excluded unless explicitly budgeted |
 
 ## 7. Design margin policy
+
+### 7.1 Architecture confidence
+
+| Budget aspect | Confidence | Basis |
+| --- | --- | --- |
+| Motors, power-stage drivers, and relay-contact loads excluded | High | Locked ownership boundary |
+| Main/core/USB/peripheral domain partition | High | Power Architecture Engineering Review |
+| USB-only scope | High | Core programming/recovery only; external/main loads remain off |
+| Known required load inventory | Medium | Functional loads are enumerated; final devices/topologies are not selected |
+| Numeric typical, peak, startup, and fault loads | Low | Datasheet and schematic inputs are not yet available |
+| Expansion reserve | Low | No connector receives a guaranteed numeric reserve |
+| Preliminary 2.0 A input-path target | Low as a capacity basis | Study target only; not derived from closed loads |
+
+No numeric reserve is released. Unallocated capacity is design margin until a controlled connector/interface budget assigns it.
 
 - Verify peak current for every populated load.
 - Apply component and rail derating appropriate to temperature and production tolerance.
@@ -116,7 +130,7 @@ Separate 3.3 V, 5 V, J10, J11, future-communications, and daughterboard reserves
 
 ## 12. Prototype measurement plan
 
-1. Instrument `VIN_RAW`, `+5V`, and `+3V3` with current and voltage logging.
+1. Instrument `VIN_RAW`, `+5V_MAIN`, `USB_5V_PROTECTED`, `CORE_SOURCE`, and `+3V3_CORE` with current and voltage logging.
 2. Capture ESP32 wireless peaks with an oscilloscope or suitable current probe.
 3. Measure rail droop during relay, buzzer, RGB, and interface switching.
 4. Exercise the simultaneous-load cases in Section 9.

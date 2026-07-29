@@ -40,7 +40,7 @@ Verification methods are inspection, analysis, demonstration, or test.
 | FUNC-PWR-003 | IPC-100 shall protect downstream logic from the approved input-transient profile. | Supports electrically noisy outdoor equipment. | Analysis and test | TBD |
 | FUNC-PWR-004 | IPC-100 shall generate regulated 5 V and 3.3 V logic rails. | Supplies platform electronics and approved interface loads. | Test | Locked |
 | FUNC-PWR-005 | IPC-100 shall measure input battery voltage through `BATTERY_SENSE`. | Supports diagnostics and product power awareness. | Test | Locked |
-| FUNC-PWR-006 | IPC-100 shall prevent unsafe backfeed between USB power and main controller power under all approved operating and service conditions. | Protects the host computer, USB interface, and controller power paths. | Analysis and test | Locked |
+| FUNC-PWR-006 | IPC-100 shall prevent unsafe backfeed between USB, main controller power, regulated rails, and external interfaces under all approved operating and service conditions. USB-only power shall support only the ESP32-S3 core service/recovery domain. | Protects the host computer and controller while preventing service power from energizing product-facing loads. | Analysis and test | Locked |
 | FUNC-PWR-007 | IPC-100 shall maintain motor-power isolation by carrying no motor current. | Limits heat, noise, and fault energy. | Inspection | Locked |
 | FUNC-PWR-008 | IPC-100 shall expose test access for principal input and logic rails. | Supports bring-up and service. | Inspection | Locked |
 
@@ -50,7 +50,7 @@ Verification methods are inspection, analysis, demonstration, or test.
 | --- | --- | --- | --- | --- |
 | FUNC-CPU-001 | IPC-100 shall use an ESP32-family module that provides the required Wi-Fi, Bluetooth, and ESP-NOW capabilities. ESP32-S3-WROOM-1 is the preferred Rev A module family; its exact ordering variant and pin allocation are not released. | Preserves the approved processor family while recording the comparative recommendation without prematurely fixing the orderable variant. | Inspection and analysis | Proposed |
 | FUNC-CPU-002 | IPC-100 shall support reliable reset, normal boot, programming boot, brownout recovery, and watchdog recovery under approved power and interface conditions. | Enables manufacturing, predictable startup, and fault recovery. | Analysis and test | Locked |
-| FUNC-CPU-003 | IPC-100 shall provide a USB-C service interface for programming and diagnostics; native USB versus an external USB-to-UART implementation remains `TBD`. | Provides a standard physical service connection while preserving implementation flexibility. | Demonstration | Locked |
+| FUNC-CPU-003 | IPC-100 shall provide a USB-C service interface using native ESP32-S3 USB Serial/JTAG for programming, console, debug, and recovery. | Provides a standard service connection without requiring an on-board USB-to-UART bridge. | Demonstration | Proposed |
 | FUNC-CPU-004 | IPC-100 shall establish hardware-safe outputs before application initialization. | Prevents unintended external activation. | Analysis and test | Locked |
 | FUNC-CPU-005 | The final GPIO allocation shall avoid unavailable module pins and unresolved boot conflicts. | Ensures reliable boot and operation. | Inspection and test | TBD |
 | FUNC-CPU-006 | The selected processor module shall provide sufficient program memory, runtime memory, nonvolatile storage, and approved expansion margin for base-platform functions. | Prevents module selection before firmware resource needs are understood. | Analysis and test | TBD |

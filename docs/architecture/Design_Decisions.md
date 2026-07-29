@@ -245,3 +245,25 @@ Statuses are `Accepted`, `Proposed`, `Superseded`, or `Rejected`. Accepted decis
 - **Consequences:** Bluetooth services must remain compatible with Bluetooth LE unless the decision is revisited. The exact flash/PSRAM suffix, GPIO map, ADC path, boot allocation, power implementation, antenna constraints, and recovery/test access remain unresolved.
 - **Alternatives considered:** ESP32-WROOM-32E, ESP32-C6-WROOM-1, and ESP32-C3-WROOM-02.
 - **Follow-up actions:** Complete an ESP32-S3 pin-level feasibility study, memory budget, mechanical/RF review, and procurement/lifecycle approval before schematic release.
+
+### ADR-022: USB-only power is a bounded core service state
+
+- **Decision ID:** ADR-022
+- **Date:** 2026-07-29
+- **Status:** Proposed
+- **Context:** IPC-100 needs native USB programming and recovery without allowing a host port to energize external controller loads or product power.
+- **Decision:** Main power creates `+5V_MAIN`; main power or protected USB VBUS may feed a non-backfeeding `CORE_SOURCE` and `+3V3_CORE`. USB-only operation powers the ESP32-S3 core/service domain only. Relay, motor-driver logic power, OLED, sensor, UI-accessory, and expansion-power domains remain off.
+- **Consequences:** Source selection, USB protection, and main/USB transition behavior require schematic implementation and validation. IPC-100 does not charge the product battery, source VBUS, or provide USB Power Delivery.
+- **Alternatives considered:** Require main power for all USB service; allow USB to power the complete controller and external interfaces.
+- **Follow-up actions:** Close load envelopes, transition criteria, USB/current contracts, and component-level source-selection design.
+
+### ADR-023: External power outputs are main-only and fault-contained
+
+- **Decision ID:** ADR-023
+- **Date:** 2026-07-29
+- **Status:** Proposed
+- **Context:** Motor-driver logic, UI, I2C expansion, and future accessories can be absent, shorted, miswired, or independently powered.
+- **Decision:** Every IPC-100 external power output is a limited main-power-only branch with a released voltage/current contract, appropriate fault containment, and backfeed blocking. Optional expansion power defaults off and is not required for safe startup.
+- **Consequences:** No Rev A connector receives an implied general-purpose power budget. Hot plug is unsupported unless separately validated.
+- **Alternatives considered:** Connect external power pins directly to unrestricted core or main rails.
+- **Follow-up actions:** Approve per-connector load envelopes and protection implementation before connector/schematic release.

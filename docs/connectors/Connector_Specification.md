@@ -182,7 +182,7 @@ J13 is the USB-C USB 2.0 service interface for programming and diagnostics. Exac
 
 | USB-C pins | Signal name | Direction | Voltage domain | Active state | Description | Protection | Notes | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| A4, A9, B4, B9 | `USB_VBUS` | Power in | 5 V nominal | N/A | USB host power detection/source | ESD, fuse/current limit, backfeed block TBD | Power interaction TBD | Locked |
+| A4, A9, B4, B9 | `USB_VBUS` | Power in | 5 V nominal | N/A | Protected source for bounded ESP32-S3 core service only | ESD, current bounding, and reverse-current block TBD | No charging, VBUS sourcing, or external-load power | Locked |
 | A1, A12, B1, B12 | `GND` | Power return | 0 V | N/A | USB return | TBD |  | Locked |
 | A6, B6 | `USB_D+` | Bidirectional | USB 2.0 | Differential | USB data positive | Low-capacitance ESD TBD | Route as differential pair | Locked |
 | A7, B7 | `USB_D-` | Bidirectional | USB 2.0 | Differential | USB data negative | Low-capacitance ESD TBD | Route as differential pair | Locked |

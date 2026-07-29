@@ -28,13 +28,15 @@ Category is inherited from each section heading. Iron Pine Outdoors Engineering 
 
 | ID | Topic | Decision needed | Why it matters | Dependencies | Required review stage | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| ODI-PWR-001 | Regulator architecture | Approve 5 V and 3.3 V sources and components | Defines rail capability and thermal behavior | Power architecture, budget, schematic | Before schematic release | TBD |
+| ODI-PWR-001 | Regulator implementation | Implement `VIN_PROTECTED` to `+5V_MAIN`, non-backfeeding `CORE_SOURCE`, and `+3V3_CORE`; select topologies/components after load and abnormal-input closure | Defines rail capability and thermal behavior | Power Architecture Engineering Review, budget, schematic | Before schematic release | Block architecture selected; implementation TBD |
 | ODI-PWR-002 | Controller current budget | Close all typical, peak, startup, and simultaneous cases | Prevents undersized input and rails | Power budget, component selection | Before schematic release | TBD |
 | ODI-PWR-003 | Expansion reserves | Allocate J10, J11, communications, and daughterboard reserves | Prevents optional loads from displacing required loads | Power budget, connectors | Before connector release | TBD |
-| ODI-PWR-004 | USB power behavior | Define USB-only scope and source interaction | Controls service, startup, shutdown, and backfeed | J13, output states, testing | Before schematic release | TBD |
-| ODI-PWR-005 | Backfeed protection | Approve protection among USB, rails, and external modules | Independently powered interfaces may inject power | Power, expansion, outputs | Before schematic release | TBD |
+| ODI-PWR-004 | USB power implementation | Implement bounded USB-only core service and simultaneous-source behavior without energizing main-only loads | Controls service, startup, shutdown, and backfeed | J13, output states, testing, Power Architecture Engineering Review | Before schematic release | Behavior selected; implementation TBD |
+| ODI-PWR-005 | Backfeed protection | Implement approved blocking boundaries among USB, source selector, rails, and external modules | Independently powered interfaces may inject power | Power, expansion, outputs | Before schematic release | Boundaries selected; circuits/ratings TBD |
 | ODI-PWR-006 | External interface supply limits | Allocate protected J2/J3/J8/J10/J11 supply envelopes | Interface loads may overload required rails | EXP-008, OUT-020; Power Budget, connectors | Before schematic | TBD |
-| ODI-PWR-007 | Brownout behavior | Define rail thresholds, sequencing, decay, and recovery objectives | Safe relay and motor states depend on controlled power behavior | CPU-005, OUT-013, OUT-033; Power Architecture | Before schematic | TBD |
+| ODI-PWR-007 | Brownout implementation | Select thresholds, hysteresis, supervision, discharge, and recovery implementation under the approved safe-state sequence | Safe relay and motor states depend on controlled power behavior | CPU-005, OUT-013, OUT-033; Power Architecture Engineering Review | Before schematic | Behavior selected; numeric implementation TBD |
+| ODI-PWR-008 | Abnormal-input profile | Approve reverse-polarity, surge/transient, undervoltage, and overvoltage conditions and upstream source/fuse assumptions | Protection parts and ratings cannot be selected without an energy/voltage profile | Requirements, product integrations, test plan | Before schematic | TBD |
+| ODI-PWR-009 | Source-transition criteria | Define allowed core-rail interruption, switchover behavior, inrush, and acceptance criteria for main/USB connection order | Controls service continuity, reset behavior, and source-selector design | USB, processor, testing | Before schematic | Architecture objective defined; numeric criteria TBD |
 
 ## Display and sensors
 

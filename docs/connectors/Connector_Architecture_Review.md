@@ -72,6 +72,6 @@ CAN and RS485 have different transceiver, direction-control, termination, biasin
 | J10 | Blocking definition missing | Supply, pull-up ownership, loading, hot-plug policy, protection, and segmentation decision |
 | J11 | Blocking definition missing | Pin count, function, power, protection, and processor allocation unresolved; current evidence supports reservation only, not a connector schematic |
 | J12 | Future provision only | Shared/separate/footprint/daughterboard disposition remains open; no pinout is authorized |
-| J13 | Blocking definition missing | USB-C external type is locked, but native USB versus USB-to-UART, device role, backfeed, USB-only behavior, and processor resources must be selected |
+| J13 | Architecture defined; implementation blocking | Native ESP32-S3 USB Serial/JTAG and bounded USB-only core service are selected; CC, protection, source selection, recovery access, shield, backfeed ratings, and transition criteria remain open |
 
 No connector is ready for a released component-level schematic. J1 and the J8 logical grouping can inform preliminary block diagrams; all other required interfaces have blocking electrical definitions.
