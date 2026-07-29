@@ -26,7 +26,7 @@ CrossWind is the first planned application. It is maintained in a separate exter
 
 ### 3.1 On the IPC-100 PCB
 
-- ESP32 controller
+- ESP32-family controller module; ESP32-WROOM-32E is the current reference candidate
 - USB-C programming and diagnostics interface
 - Wide-input power protection and regulation
 - 5 V and 3.3 V logic rails
@@ -109,7 +109,7 @@ flowchart TD
 
 | Function | IPC-100 responsibility | Product responsibility |
 | --- | --- | --- |
-| Processing | ESP32 module, reset/boot support, base firmware interfaces | Product behavior and configuration |
+| Processing | ESP32-family module, reset/boot/recovery support, base firmware interfaces | Product behavior and configuration |
 | Power | Accept protected 9–21 V DC during normal operation; generate 5 V and 3.3 V | Battery mount, main fuse, distribution, actuator power |
 | Motor control | Low-current command and enable signals | Driver module, motor power, motor, mechanics |
 | Relay | Isolated NC/COM/NO contacts | External load power, fuse, load wiring |
@@ -133,7 +133,9 @@ The preliminary connector set is J1 through J13. Stable signal names, directions
 
 ### 7.1 Communications philosophy
 
-Wi-Fi, Bluetooth, and ESP-NOW are platform capabilities exposed through reusable services. Product firmware selects and configures the communication behavior it needs. Physical controls and safe states must not depend solely on a wireless link. Future CAN and RS485 remain provisions until their transceivers, connectors, and firmware responsibilities are approved.
+Wi-Fi, Bluetooth, and ESP-NOW are baseline platform capabilities exposed through reusable services. Product firmware selects and configures pairing flows, message semantics, network topology, and application behavior. Physical controls and hardware-safe output states must not depend on a wireless link.
+
+Future CAN and RS485 are expansion provisions only. Rev A does not require populated transceivers, production connectors, or active CAN/RS485 firmware.
 
 ## 8. Firmware responsibility boundary
 
@@ -145,7 +147,24 @@ Base firmware must not assume that CrossWind-specific hardware is connected.
 
 The hardware-abstraction layer should expose stable logical capabilities instead of product names or direct register assumptions. It should isolate application code from GPIO assignments, active polarity, device-driver details, hardware revision differences, and optional peripheral population.
 
-### 8.2 Firmware architecture overview
+### 8.2 Processor-selection boundary
+
+ESP32 remains the approved processor family. ESP32-WROOM-32E is the current reference candidate, not the locked production module. Final module selection depends on:
+
+- Sufficient usable GPIO and resolution of boot-strapping constraints
+- Program memory, runtime memory, and nonvolatile-storage needs
+- USB architecture
+- Peak and average power demand
+- Availability and lifecycle suitability
+- Antenna keepout, grounding, enclosure clearance, and radio performance
+
+Module selection requires approval before schematic release. Memory capacities, GPIO assignments, antenna dimensions, and enclosure clearances remain `TBD`.
+
+### 8.3 USB service architecture
+
+USB-C is the locked external programming and diagnostics interface. Native USB versus an external USB-to-UART implementation remains `TBD`; no bridge component is selected.
+
+### 8.4 Firmware architecture overview
 
 | Layer | Responsibility |
 | --- | --- |
@@ -156,6 +175,8 @@ The hardware-abstraction layer should expose stable logical capabilities instead
 | Product application | Product workflows, motion sequencing, user experience, and product-level safety logic |
 
 Only the first four layers belong in the IPC-100 repository. Product application code belongs in the consuming product repository.
+
+Base firmware shall initialize hardware-safe outputs before communication services start. Communication loss or failure must not defeat those safe states. Hardware revision compatibility is a platform responsibility; processor memory allocation and watchdog strategy remain `TBD` pending approval.
 
 ## 9. Product integration model
 

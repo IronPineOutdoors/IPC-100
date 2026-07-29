@@ -11,7 +11,7 @@
 
 ## 1. Allocation status
 
-This is a resource-allocation worksheet, not a final pin assignment. No ESP32 GPIO number is approved. Candidate GPIO values remain `TBD` until the ESP32-WROOM-32E module pinout, boot behavior, radio/ADC interaction, peripheral routing, and total GPIO demand are reviewed together.
+This is a resource-allocation worksheet, not a final pin assignment. No ESP32 GPIO number is approved. Candidate GPIO values remain `TBD` until the final ESP32-family module is approved and its pinout, boot behavior, memory needs, USB architecture, radio/ADC interaction, peripheral routing, and total GPIO demand are reviewed together. ESP32-WROOM-32E is the current reference candidate only.
 
 Directions are relative to the ESP32. External voltage translation or driver stages may change the electrical direction at a connector.
 
@@ -70,7 +70,7 @@ Strapping pins are sampled during reset and can prevent boot or change boot mode
 
 ### 4.2 Flash-connected pins
 
-Pins used internally for module flash are unavailable for general IPC-100 signals. The final review must use the ESP32-WROOM-32E module documentation, not only the bare ESP32 chip pinout.
+Pins used internally for module flash are unavailable for general IPC-100 signals. The final review must use the approved module documentation, not only a bare ESP32 chip pinout or the current reference candidate.
 
 ### 4.3 Input-only pins
 
@@ -90,7 +90,7 @@ Planned digital inputs should use interrupt-capable GPIO where needed. Interrupt
 
 ### 4.7 USB and UART
 
-ESP32-WROOM-32E does not imply a native USB peripheral. J13 may require a USB-to-UART bridge and automatic boot/reset circuitry. The implementation and consumed signals are `TBD`.
+J13 is the external USB-C service interface. Native USB versus an external USB-to-UART implementation, automatic boot/reset circuitry, and consumed GPIO remain `TBD` until processor and schematic approval.
 
 ### 4.8 I2C flexibility
 
@@ -102,7 +102,7 @@ Motor enables, motor PWM, relay control, RGB channels, and buzzer control requir
 
 ## 5. Resource-risk note
 
-The preliminary feature set may demand more independent GPIO than is practical after boot, UART, ADC1, and future communications reservations are considered. GPIO expanders, shared enables, multiplexing, or unpopulated future provisions may be required. No such approach is approved yet.
+The preliminary feature set may demand more independent GPIO than the selected module can provide after unavailable, flash-connected, boot-strapping, input-only, programming, ADC1, and future-expansion constraints are considered. GPIO expanders, shared enables, multiplexing, or unpopulated future provisions may be required. No such approach is approved yet.
 
 ## 6. Allocation checklist before Sheet 02
 

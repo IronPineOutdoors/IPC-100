@@ -53,11 +53,24 @@ Normal operating input range and transient-survival range are separate requireme
 
 | ID | Requirement | Rationale | Verification method | Status |
 | --- | --- | --- | --- | --- |
-| CPU-001 | The processor shall be ESP32-WROOM-32E or an approved compatible ESP32 module. | Provides the required processing and radios. | Inspection | Locked |
-| CPU-002 | The design shall provide USB-C programming and diagnostics. | Provides a standard service interface. | Demonstration | Locked |
-| COM-001 | The platform shall support Wi-Fi. | Required wireless capability. | Test | Locked |
-| COM-002 | The platform shall support Bluetooth. | Required local wireless capability. | Test | Locked |
-| COM-003 | The platform shall support ESP-NOW. | Required low-latency peer communication. | Test | Locked |
+| CPU-001 | IPC-100 Rev A shall use an ESP32-family module that provides Wi-Fi, Bluetooth, and ESP-NOW support and is compatible with the approved Rev A GPIO, memory, programming, power, availability, and lifecycle requirements. | Defines the required processor platform capabilities without prematurely locking Rev A to one specific ESP32 module variant before GPIO allocation, memory needs, USB implementation, procurement availability, and lifecycle suitability are verified. | Inspection and analysis | Proposed |
+| CPU-002 | The design shall provide a USB-C service interface for programming and diagnostics. | Provides a standard physical service connection while leaving the internal USB implementation architecture unresolved. | Demonstration | Locked |
+| CPU-003 | The selected processor module shall provide sufficient usable GPIO for all locked Rev A functions, approved expansion provisions, boot-safe output behavior, and programming requirements without relying on unavailable pins or unresolved boot-strapping conflicts. | Processor-family compatibility alone does not ensure that the complete Rev A interface set can be implemented safely. | Inspection and analysis | TBD |
+| CPU-004 | The selected processor module shall provide sufficient program memory, runtime memory, and nonvolatile storage for the IPC-100 base firmware, diagnostics, communication services, configuration storage, and approved expansion margin. | Avoids locking the production module before firmware memory needs and reserve requirements are understood. | Analysis and test | TBD |
+| CPU-005 | The selected processor module shall support reliable reset, normal boot, programming boot, brownout recovery, and watchdog recovery under the approved IPC-100 power and interface conditions. | Reliable startup and recovery are required for an outdoor embedded controller. | Analysis and test | Locked |
+| CPU-006 | The selected processor module and associated design shall preserve the approved antenna keepout, grounding, enclosure-clearance, and radio-performance requirements. | Wireless capability depends on both module selection and physical implementation. | Inspection and test | TBD |
+| COM-001 | The platform shall support Wi-Fi. | Provides reusable local-network and configuration capability. | Test | Locked |
+| COM-002 | The platform shall support Bluetooth. | Provides reusable local-device communication capability. | Test | Locked |
+| COM-003 | The platform shall support ESP-NOW. | Provides a low-latency peer-to-peer communication option for compatible Iron Pine devices and controllers. | Test | Locked |
+| COM-004 | Wireless communications shall not be required to establish or maintain the IPC-100 hardware-safe output state. | Loss, delay, interference, or absence of a wireless link shall not create unintended motion or triggering. | Analysis and test | Locked |
+| COM-005 | The base platform shall expose reusable communication services while product-specific pairing flows, user workflows, message semantics, and application behavior remain product-level responsibilities. | Preserves platform reuse and prevents product workflows from becoming embedded in the controller platform. | Inspection and demonstration | Locked |
+
+**Engineering notes:**
+
+- ESP32-WROOM-32E is the current reference candidate, but it is not the locked production module. Final module selection requires approval before schematic release.
+- USB-C defines the external service connector. Native USB versus an external USB-to-UART implementation remains `TBD` and depends on processor selection and schematic approval.
+- CPU-005 implementation details and acceptance thresholds remain `TBD`.
+- Bluetooth mode selection remains `TBD`; Bluetooth Classic and Bluetooth Low Energy are not locked by COM-002.
 
 ## 5. Display and sensor requirements
 
@@ -101,8 +114,8 @@ Normal operating input range and transient-survival range are separate requireme
 | --- | --- | --- | --- | --- |
 | EXP-001 | Spare GPIO shall be exposed through a documented expansion interface. | Preserves controlled extensibility. | Inspection | Locked |
 | EXP-002 | An additional I2C connector shall be provided. | Supports low-speed peripherals. | Inspection and test | Locked |
-| EXP-003 | Rev A shall preserve future CAN provision. | Avoids blocking later wired networking. | Inspection | Locked |
-| EXP-004 | Rev A shall preserve future RS485 provision. | Avoids blocking later robust serial networking. | Inspection | Locked |
+| EXP-003 | Rev A shall preserve a documented future CAN expansion provision where practical, without requiring a populated CAN transceiver or active CAN firmware in the baseline design. | Avoids blocking a future wired-networking option without adding unapproved Rev A complexity. | Inspection and analysis | Proposed |
+| EXP-004 | Rev A shall preserve a documented future RS485 expansion provision where practical, without requiring a populated RS485 transceiver or active RS485 firmware in the baseline design. | Avoids blocking a future robust wired communication option without adding unapproved Rev A complexity. | Inspection and analysis | Proposed |
 | EXP-005 | Future daughterboard compatibility should be preserved where practical. | Supports platform evolution. | Inspection and analysis | Proposed |
 
 ## 9. Environmental and mechanical requirements

@@ -48,11 +48,12 @@ Verification methods are inspection, analysis, demonstration, or test.
 
 | ID | Requirement | Rationale | Verification method | Status |
 | --- | --- | --- | --- | --- |
-| FUNC-CPU-001 | IPC-100 shall use ESP32-WROOM-32E or an approved compatible ESP32 module as its primary controller. | Provides the required compute and radio capabilities. | Inspection | Locked |
-| FUNC-CPU-002 | IPC-100 shall support reset, normal boot, and programming boot modes. | Enables manufacturing and recovery. | Demonstration | Locked |
-| FUNC-CPU-003 | IPC-100 shall provide USB-C programming and diagnostics. | Provides a standard service connection. | Demonstration | Locked |
+| FUNC-CPU-001 | IPC-100 shall use an ESP32-family module that provides the required Wi-Fi, Bluetooth, and ESP-NOW capabilities. ESP32-WROOM-32E is the current reference candidate, not the locked production module. | Preserves the approved processor family without prematurely fixing the module variant. | Inspection and analysis | Proposed |
+| FUNC-CPU-002 | IPC-100 shall support reliable reset, normal boot, programming boot, brownout recovery, and watchdog recovery under approved power and interface conditions. | Enables manufacturing, predictable startup, and fault recovery. | Analysis and test | Locked |
+| FUNC-CPU-003 | IPC-100 shall provide a USB-C service interface for programming and diagnostics; native USB versus an external USB-to-UART implementation remains `TBD`. | Provides a standard physical service connection while preserving implementation flexibility. | Demonstration | Locked |
 | FUNC-CPU-004 | IPC-100 shall establish hardware-safe outputs before application initialization. | Prevents unintended external activation. | Analysis and test | Locked |
 | FUNC-CPU-005 | The final GPIO allocation shall avoid unavailable module pins and unresolved boot conflicts. | Ensures reliable boot and operation. | Inspection and test | TBD |
+| FUNC-CPU-006 | The selected processor module shall provide sufficient program memory, runtime memory, nonvolatile storage, and approved expansion margin for base-platform functions. | Prevents module selection before firmware resource needs are understood. | Analysis and test | TBD |
 
 ## 5. Input and output functions
 
@@ -95,8 +96,8 @@ Verification methods are inspection, analysis, demonstration, or test.
 | FUNC-COM-002 | IPC-100 shall support Bluetooth. | Required local communication capability. | Test | Locked |
 | FUNC-COM-003 | IPC-100 shall support ESP-NOW. | Required peer communication capability. | Test | Locked |
 | FUNC-COM-004 | Base firmware shall present reusable communication services without embedding product workflows. | Preserves application separation. | Inspection and demonstration | Locked |
-| FUNC-COM-005 | Rev A shall preserve future CAN and RS485 provisions. | Supports future wired communications. | Inspection | Locked |
-| FUNC-COM-006 | Final CAN and RS485 transceiver population and firmware behavior shall remain TBD until approved. | Avoids inventing an implementation. | Inspection | TBD |
+| FUNC-COM-005 | Rev A should preserve documented future CAN and RS485 expansion provisions where practical without requiring populated transceivers or active baseline firmware. | Preserves future wired options without adding unapproved Rev A complexity. | Inspection and analysis | Proposed |
+| FUNC-COM-006 | CAN and RS485 transceivers, connectors, termination, biasing, isolation, voltage standards, protocols, and firmware behavior shall remain `TBD` until approved. | Avoids inventing an implementation. | Inspection | TBD |
 
 ## 9. Safety-related functions
 

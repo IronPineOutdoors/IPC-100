@@ -19,7 +19,7 @@ The preliminary Rev A target is an input power path capable of at least 2.0 A co
 
 | Load | Quantity | Typical current | Peak current | Duty cycle | Estimated average current | Rail | Confidence | Notes |
 | --- | ---: | ---: | ---: | ---: | ---: | --- | --- | --- |
-| ESP32-WROOM-32E or compatible | 1 | TBD | TBD | Application-dependent | TBD | 3.3 V | Medium | Include Wi-Fi/Bluetooth/ESP-NOW transmit peaks |
+| ESP32-family module | 1 | TBD | TBD | Application-dependent | TBD | 3.3 V | Low | ESP32-WROOM-32E is the reference candidate; include Wi-Fi/Bluetooth/ESP-NOW transmit peaks |
 | BME280 interface/module | 1 | TBD | TBD | TBD | TBD | 3.3 V | Low | Verify selected module and operating mode |
 | I2C pull-up networks | TBD | TBD | TBD | Bus-dependent | TBD | 3.3 V | Low | Depends on resistor values and bus activity |
 | Logic and input networks | 1 set | TBD | TBD | Continuous | TBD | 3.3 V | Low | Include expanders/level translation if selected |

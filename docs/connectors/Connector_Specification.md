@@ -30,8 +30,8 @@ Directions are relative to IPC-100. `Power out` entries are limited logic/interf
 | J9 | Thrower Relay Contacts | 3 | Proposed |
 | J10 | I2C Expansion | 4 | Proposed |
 | J11 | Spare GPIO Expansion | TBD | TBD |
-| J12 | Future Communications | 6 | Proposed reservation |
-| J13 | USB-C | USB-C USB 2.0 pin groups | Locked interface type |
+| J12 | Future Communications Reservation | TBD | Proposed |
+| J13 | USB-C Service Interface | USB-C USB 2.0 pin groups | Locked |
 
 ## 3. J1 — Power Input
 
@@ -145,20 +145,18 @@ Final pin count and GPIO allocation are `TBD`.
 
 ## 14. J12 — Future Communications
 
-This connector reserves signals only. Transceiver population and final pinout are `TBD`.
+J12 is an identifier reserved for future communications expansion; it is not a defined production connector. No pin count, pin numbering, connector family, transceiver population, termination, biasing, isolation, bus voltage, or protocol is approved.
 
-| Pin | Signal name | Direction | Voltage domain | Active state | Description | Protection | Notes | Status |
-| ---: | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `CAN_H` | Bidirectional | CAN physical layer | Differential | Future CAN high | TVS/termination TBD | Provision only | TBD |
-| 2 | `CAN_L` | Bidirectional | CAN physical layer | Differential | Future CAN low | TVS/termination TBD | Provision only | TBD |
-| 3 | `RS485_A` | Bidirectional | RS485 physical layer | Differential | Future RS485 A | TVS/termination/bias TBD | Provision only | TBD |
-| 4 | `RS485_B` | Bidirectional | RS485 physical layer | Differential | Future RS485 B | TVS/termination/bias TBD | Provision only | TBD |
-| 5 | `GND` | Power return | 0 V | N/A | Communications reference | TBD | Isolation TBD | Proposed |
-| 6 | `+5V` | Power out | 5 V | N/A | Optional transceiver/expansion supply | Current protection TBD | Population TBD | TBD |
+| Reserved concept | Direction | Voltage domain | Description | Implementation | Status |
+| --- | --- | --- | --- | --- | --- |
+| `CAN_H` | Bidirectional | TBD | Future CAN differential high concept | Transceiver, connector, termination, isolation, and protocol TBD | Proposed |
+| `CAN_L` | Bidirectional | TBD | Future CAN differential low concept | Transceiver, connector, termination, isolation, and protocol TBD | Proposed |
+| `RS485_A` | Bidirectional | TBD | Future RS485 differential A concept | Transceiver, connector, termination, biasing, isolation, and protocol TBD | Proposed |
+| `RS485_B` | Bidirectional | TBD | Future RS485 differential B concept | Transceiver, connector, termination, biasing, isolation, and protocol TBD | Proposed |
 
 ## 15. J13 — USB-C
 
-J13 is reserved as a USB-C USB 2.0 programming and diagnostics interface. Exact receptacle and USB-to-UART/native USB implementation are `TBD`.
+J13 is the USB-C USB 2.0 service interface for programming and diagnostics. Exact receptacle and native USB versus external USB-to-UART implementation are `TBD`.
 
 | USB-C pins | Signal name | Direction | Voltage domain | Active state | Description | Protection | Notes | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |

@@ -1,4 +1,3 @@
 # Firmware Source
 
-Future application source files and subsystem implementations belong here. Firmware development has not started.
-
+Future IPC-100 board support, reusable drivers, and platform-service implementations belong here. Product application workflows belong in their respective product repositories. Firmware development has not started.
