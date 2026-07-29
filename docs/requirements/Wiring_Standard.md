@@ -50,10 +50,13 @@ This is a recommendation, not a locked production standard. Every released harne
 ## 6. Logic and communication wiring
 
 - Keep logic wiring separated from motor leads and switching nodes.
+- Route each external control or motion-limit signal with its documented common or return conductor where practical.
 - Use twisted signal/return pairs for noise-sensitive or longer digital runs where practical.
 - Use twisted differential pairs for future CAN and RS485.
 - Maintain pair integrity through connectors and junctions.
 - Document I2C cable-length limits after prototype validation.
+
+Shielding requirements, mandatory twisted-pair use, conductor gauge, maximum cable length, and grounding method for external inputs remain `TBD`. Product harnesses own strain relief, abrasion protection, connector retention, and service-loop implementation.
 
 ## 7. Shielding guidance
 
@@ -104,6 +107,8 @@ Each released harness drawing shall include:
 - Labels and orientation
 - Applicable assembly and inspection standards
 - Continuity and hipot/insulation tests where applicable
+
+For every external control and motion-limit input, product wiring documentation shall also identify the contact type, active state, common or return, fault interpretation, and connector pinout.
 
 ## 14. Continuity-test expectations
 

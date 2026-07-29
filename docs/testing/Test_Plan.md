@@ -41,6 +41,8 @@ Record for every execution:
 | IO-002 | Inputs | Operator controls | Test | TBD | Test log | Planned |
 | IO-003 | Outputs | Isolated dry-contact relay | Test | TBD | Waveforms/log | Planned |
 | IO-004 | Outputs | External motor-driver control interfaces | Test | TBD | Waveforms/log | Planned |
+| IO-005 | Inputs | Field-input electrical states, conditioning, faults, and diagnostics | Inspection, analysis, and test | TBD | Waveforms/test log | Planned |
+| IO-006 | Inputs | Safety-relevant input priority and service independence | Analysis and test | TBD | Timing data/test log | Planned |
 | UI-001 | UI | OLED interface (SSD1309 reference), RGB LED, buzzer | Test | TBD | Photos/log | Planned |
 | SNS-001 | Sensors | Environmental sensor (BME280 reference) | Test | TBD | Comparison data | Planned |
 | SNS-002 | Sensors | Battery monitoring | Test | TBD | Calibration data | Planned |
@@ -63,6 +65,8 @@ Test minimum and maximum controller input voltage, relay interface switching, ex
 ## Fault-injection testing
 
 Evaluate open and shorted inputs, disconnected peripherals, output-interface faults where safely supported, external-driver fault indications, communication loss, processor reset, brownout, and STOP activation.
+
+Input-interface coverage shall include inactive and asserted states; disconnection; short to ground; short to each approved supply domain; contact bounce; induced noise; reset, boot, brownout, and recovery; simultaneous states; conflicting opposite limits; stuck limit, ARM, FIRE, and STOP inputs; unavailable wireless and display services; an I2C bus fault; USB connected during product power; safe-state output response; and diagnostic reporting. Exact electrical levels, timing, repetition counts, and pass/fail thresholds remain `TBD`.
 
 ## Environmental and durability testing
 

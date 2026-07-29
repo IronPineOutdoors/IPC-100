@@ -22,8 +22,8 @@ Directions are relative to IPC-100. `Power out` entries are limited logic/interf
 | J1 | Power Input | 2 | Proposed |
 | J2 | Axis 1 Motor Driver Logic | 6 | Proposed |
 | J3 | Axis 2 Motor Driver Logic | 6 | Proposed |
-| J4 | Horizontal Limit Inputs | 3 | Proposed |
-| J5 | Vertical Limit Inputs | 3 | Proposed |
+| J4 | Directional Limit Inputs 1 | 3 | Proposed |
+| J5 | Directional Limit Inputs 2 | 3 | Proposed |
 | J6 | OLED | 5 | Proposed |
 | J7 | Environmental Sensor | 4 | Proposed |
 | J8 | User Controls and Indicators | 13 | Proposed |
@@ -62,21 +62,25 @@ Directions are relative to IPC-100. `Power out` entries are limited logic/interf
 | 5 | `AXIS2_REN` | Output | TBD logic | High enables | Axis 2 right enable provision | Pull to disabled state; ESD TBD | Exact enable implementation may change | Locked |
 | 6 | `AXIS2_LEN` | Output | TBD logic | High enables | Axis 2 left enable provision | Pull to disabled state; ESD TBD | Exact enable implementation may change | Locked |
 
-## 6. J4 — Horizontal Limit Inputs
+## 6. J4 — Directional Limit Inputs 1
+
+J4 reserves two product-neutral directional motion-limit interfaces with a shared preliminary return. Active polarity, field voltage domain, wet-contact versus dry-contact support, grounding, pull/bias, filtering, protection, and normally-open versus normally-closed topology remain `TBD`. These signals are not assumed to connect directly to processor GPIO. If the approved field-input contract cannot support this preliminary three-pin reservation, the connector definition must be revised through design review.
 
 | Pin | Signal name | Direction | Voltage domain | Active state | Description | Protection | Notes | Status |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | `GND` | Power return | 0 V | N/A | Switch reference | TBD | Topology TBD | Proposed |
-| 2 | `LIMIT_LEFT` | Input | 3.3 V logic | TBD | Horizontal left limit | ESD, filtering, and external pull provision | Contact convention TBD | Locked |
-| 3 | `LIMIT_RIGHT` | Input | 3.3 V logic | TBD | Horizontal right limit | ESD, filtering, and external pull provision | Contact convention TBD | Locked |
+| 2 | `LIMIT_LEFT` | Input | TBD | TBD | Product-neutral left-direction motion-limit interface | ESD, transient, filtering, and biasing TBD | Contact and fault convention TBD | Locked |
+| 3 | `LIMIT_RIGHT` | Input | TBD | TBD | Product-neutral right-direction motion-limit interface | ESD, transient, filtering, and biasing TBD | Contact and fault convention TBD | Locked |
 
-## 7. J5 — Vertical Limit Inputs
+## 7. J5 — Directional Limit Inputs 2
+
+J5 reserves two product-neutral directional motion-limit interfaces with a shared preliminary return. Active polarity, field voltage domain, wet-contact versus dry-contact support, grounding, pull/bias, filtering, protection, and normally-open versus normally-closed topology remain `TBD`. These signals are not assumed to connect directly to processor GPIO. If the approved field-input contract cannot support this preliminary three-pin reservation, the connector definition must be revised through design review.
 
 | Pin | Signal name | Direction | Voltage domain | Active state | Description | Protection | Notes | Status |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | `GND` | Power return | 0 V | N/A | Switch reference | TBD | Topology TBD | Proposed |
-| 2 | `LIMIT_UP` | Input | 3.3 V logic | TBD | Vertical upper limit | ESD, filtering, and external pull provision | Contact convention TBD | Locked |
-| 3 | `LIMIT_DOWN` | Input | 3.3 V logic | TBD | Vertical lower limit | ESD, filtering, and external pull provision | Contact convention TBD | Locked |
+| 2 | `LIMIT_UP` | Input | TBD | TBD | Product-neutral up-direction motion-limit interface | ESD, transient, filtering, and biasing TBD | Contact and fault convention TBD | Locked |
+| 3 | `LIMIT_DOWN` | Input | TBD | TBD | Product-neutral down-direction motion-limit interface | ESD, transient, filtering, and biasing TBD | Contact and fault convention TBD | Locked |
 
 ## 8. J6 — OLED
 
@@ -103,16 +107,18 @@ The exact sensor population and physical connector remain `TBD`. BME280 is the c
 
 ## 10. J8 — User Controls and Indicators
 
+J8 input active states, voltage domains, field-contact assumptions, grounding, pull/bias, filtering, and protection remain `TBD`; no input is assumed to connect directly to processor GPIO. `STOP_IN` is safety-relevant and must remain independent of the encoder, ARM, FIRE, display, wireless, and optional expansion functions.
+
 | Pin | Signal name | Direction | Voltage domain | Active state | Description | Protection | Notes | Status |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | `GND` | Power return | 0 V | N/A | Control reference | TBD | Product panel wiring external | Locked |
 | 2 | `+3V3` | Power out | 3.3 V | N/A | Limited control supply | Current protection TBD | Budget TBD | Proposed |
-| 3 | `ENCODER_A` | Input | 3.3 V logic | TBD | Encoder phase A | ESD/filter/pull TBD | Interrupt preferred | Locked |
-| 4 | `ENCODER_B` | Input | 3.3 V logic | TBD | Encoder phase B | ESD/filter/pull TBD | Interrupt preferred | Locked |
-| 5 | `ENCODER_SW` | Input | 3.3 V logic | TBD | Encoder push button | ESD/filter/pull TBD |  | Locked |
-| 6 | `ARM_IN` | Input | 3.3 V logic | TBD | ARM physical input | ESD/filter/pull TBD | Product behavior external | Locked |
-| 7 | `FIRE_IN` | Input | 3.3 V logic | TBD | FIRE physical input | ESD/filter/pull TBD | Product behavior external | Locked |
-| 8 | `STOP_IN` | Input | 3.3 V logic | TBD | Dedicated STOP input | ESD/filter/pull TBD | Safety-relevant | Locked |
+| 3 | `ENCODER_A` | Input | TBD | TBD | Encoder phase A | ESD/transient/filter/bias TBD | Interrupt capability preferred; decoding behavior TBD | Locked |
+| 4 | `ENCODER_B` | Input | TBD | TBD | Encoder phase B | ESD/transient/filter/bias TBD | Interrupt capability preferred; decoding behavior TBD | Locked |
+| 5 | `ENCODER_SW` | Input | TBD | TBD | Encoder push button | ESD/transient/filter/bias TBD | Interaction behavior TBD | Locked |
+| 6 | `ARM_IN` | Input | TBD | TBD | Dedicated ARM physical input | ESD/transient/filter/bias TBD | Permission/readiness only; product behavior external | Locked |
+| 7 | `FIRE_IN` | Input | TBD | TBD | Dedicated FIRE physical input | ESD/transient/filter/bias TBD | Must not trigger from startup or wiring faults | Locked |
+| 8 | `STOP_IN` | Input | TBD | TBD | Dedicated safety-relevant STOP input | ESD/transient/filter/bias TBD | Hardware-safe fault interpretation required; topology TBD | Locked |
 | 9 | `RGB_R` | Output | TBD | TBD | Red status channel | Driver/current limit TBD | LED topology TBD | Locked |
 | 10 | `RGB_G` | Output | TBD | TBD | Green status channel | Driver/current limit TBD | LED topology TBD | Locked |
 | 11 | `RGB_B` | Output | TBD | TBD | Blue status channel | Driver/current limit TBD | LED topology TBD | Locked |

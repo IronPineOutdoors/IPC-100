@@ -33,7 +33,7 @@ CrossWind is the first planned application. It is maintained in a separate exter
 - Battery-voltage monitoring
 - Isolated dry-contact relay
 - Two motor-driver logic interfaces
-- Four limit-switch interfaces
+- Four product-neutral directional motion-limit interfaces
 - Local monochrome graphical I2C OLED interface; 2.42-inch SSD1309 is the reference implementation
 - I2C environmental-sensor interface for temperature, relative humidity, and barometric pressure; BME280 is the reference implementation
 - Rotary-encoder interface and push-button input
@@ -113,7 +113,7 @@ flowchart TD
 | Power | Accept protected 9–21 V DC during normal operation; generate 5 V and 3.3 V | Battery mount, main fuse, distribution, actuator power |
 | Motor control | Low-current command and enable signals | Driver module, motor power, motor, mechanics |
 | Relay | Isolated NC/COM/NO contacts | External load power, fuse, load wiring |
-| Human interface | Electrical interfaces for controls, a nominal 128x64 monochrome OLED, RGB, and buzzer | Product screens, menus, panel, enclosure, legends, and ergonomics |
+| Human interface | Product-neutral electrical interfaces for four directional limits, rotary encoder, dedicated ARM/FIRE/STOP controls, a nominal 128x64 monochrome OLED, RGB, and buzzer | Switch and control types, labels, operator workflow, motion interpretation, application recovery, screens, panel, enclosure, legends, and ergonomics |
 | Sensors | Environmental temperature/humidity/pressure and battery-sense interfaces | Product-level interpretation, placement validation, and environmental strategy |
 | Communications | Wi-Fi, Bluetooth, ESP-NOW; future wired provisions | Network topology and product integration |
 
@@ -147,6 +147,8 @@ Base firmware must not assume that CrossWind-specific hardware is connected.
 
 The hardware-abstraction layer should expose stable logical capabilities instead of product names or direct register assumptions. It should isolate application code from GPIO assignments, active polarity, device-driver details, hardware revision differences, and optional peripheral population.
 
+The four directional limit names describe platform interfaces rather than physical mechanics. Product repositories map them to actual axes, mechanisms, directions, and endpoints. `ARM_IN`, `FIRE_IN`, and `STOP_IN` remain dedicated physical interfaces; `STOP_IN` is independent of wireless, display, encoder, and optional expansion functions.
+
 ### 8.2 Processor-selection boundary
 
 ESP32 remains the approved processor family. ESP32-WROOM-32E is the current reference candidate, not the locked production module. Final module selection depends on:
@@ -176,7 +178,7 @@ USB-C is the locked external programming and diagnostics interface. Native USB v
 
 Only the first four layers belong in the IPC-100 repository. Product application code belongs in the consuming product repository.
 
-Base firmware shall initialize hardware-safe outputs before communication services start. Communication loss or failure must not defeat those safe states. Hardware revision compatibility is a platform responsibility; processor memory allocation and watchdog strategy remain `TBD` pending approval.
+Base firmware shall initialize hardware-safe outputs and make safety-relevant stop and motion-limit inputs available before nonessential communication, display, sensor, encoder-interface, and product-application services where practical. Communication loss or failure must not defeat safe states or local stop and limit availability. Detectable input faults shall be reported through base diagnostics. Hardware revision compatibility is a platform responsibility; processor memory allocation and watchdog strategy remain `TBD` pending approval.
 
 The display and environmental-sensor drivers shall remain reusable and product-neutral. Display refresh, contrast, burn-in mitigation, startup, and low-power behavior remain `TBD`. Environmental sampling, filtering, calibration, and validity rules remain `TBD`. I2C operations, including faults on optional expansion wiring, must not delay or defeat hardware-safe output initialization; timeout and bus-recovery strategies remain `TBD`.
 
@@ -190,8 +192,10 @@ A product consumes a released IPC-100 hardware revision, connector definition, G
 - External high-current branches are independently fused.
 - Relay contacts are isolated from controller logic and fail open on loss of board power.
 - Motor-driver controls must default to disabled during reset, boot, and uninitialized firmware states.
-- Field inputs require noise and ESD protection.
-- STOP is a dedicated physical input.
+- Board-level field inputs require approved protection, conditioning, filtering, and biasing. Exact voltage domains, field-contact assumptions, protection components, and filter values remain `TBD`.
+- Input hardware must establish safe defined states during reset, boot, disconnected wiring, and detectable faults.
+- STOP is a dedicated physical input independent of wireless, display, encoder, ARM, FIRE, and optional expansion functions.
+- Safety-relevant stop and motion-limit inputs take priority over nonessential services where practical, and detectable input faults are available to base diagnostics.
 - Wireless control is supplemental and is not the sole means of reaching a safe state.
 - Faults on expansion interfaces should not defeat core controller operation where practical.
 

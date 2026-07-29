@@ -27,19 +27,19 @@ Directions are relative to the ESP32. External voltage translation or driver sta
 | Axis 2 PWM B | `AXIS2_LPWM` | TBD | Output | Review | No | Yes | No | Hardware pull to inactive TBD | Low/inactive | External driver logic | TBD |
 | Axis 2 enable A | `AXIS2_REN` | TBD | Output | Review | No | No | No | Hardware pull-down required | Low/disabled | Exact gating may change | TBD |
 | Axis 2 enable B | `AXIS2_LEN` | TBD | Output | Review | No | No | No | Hardware pull-down required | Low/disabled | Exact gating may change | TBD |
-| Horizontal left limit | `LIMIT_LEFT` | TBD | Input | Avoid strap if possible | No | No | Yes preferred | External pull and filter required | Defined inactive | Field input protection required | TBD |
-| Horizontal right limit | `LIMIT_RIGHT` | TBD | Input | Avoid strap if possible | No | No | Yes preferred | External pull and filter required | Defined inactive | Field input protection required | TBD |
-| Vertical upper limit | `LIMIT_UP` | TBD | Input | Avoid strap if possible | No | No | Yes preferred | External pull and filter required | Defined inactive | Field input protection required | TBD |
-| Vertical lower limit | `LIMIT_DOWN` | TBD | Input | Avoid strap if possible | No | No | Yes preferred | External pull and filter required | Defined inactive | Field input protection required | TBD |
+| Left-direction limit | `LIMIT_LEFT` | TBD | Input | Avoid unresolved strap conflicts | No | No | Preferred where useful | Pull direction and filter TBD | Defined state TBD | High-priority local input; protected field interface required | TBD |
+| Right-direction limit | `LIMIT_RIGHT` | TBD | Input | Avoid unresolved strap conflicts | No | No | Preferred where useful | Pull direction and filter TBD | Defined state TBD | High-priority local input; protected field interface required | TBD |
+| Up-direction limit | `LIMIT_UP` | TBD | Input | Avoid unresolved strap conflicts | No | No | Preferred where useful | Pull direction and filter TBD | Defined state TBD | High-priority local input; protected field interface required | TBD |
+| Down-direction limit | `LIMIT_DOWN` | TBD | Input | Avoid unresolved strap conflicts | No | No | Preferred where useful | Pull direction and filter TBD | Defined state TBD | High-priority local input; protected field interface required | TBD |
 | OLED reset | `OLED_RESET` | TBD | Output | Review | No | No | No | Pull for reset state TBD | Reset asserted or defined safe | Dedicated signal | TBD |
 | I2C data | `I2C_SDA` | TBD | Bidirectional | Avoid strap if possible | No | No | No | Bus pull-up required; ownership TBD | High/open-drain | Shared OLED/BME280/expansion | TBD |
 | I2C clock | `I2C_SCL` | TBD | Output/open-drain | Avoid strap if possible | No | No | No | Bus pull-up required; ownership TBD | High/open-drain | Shared OLED/BME280/expansion | TBD |
-| Encoder phase A | `ENCODER_A` | TBD | Input | Avoid strap if possible | No | No | Yes | Pull/filter TBD | Defined inactive | Debounce in hardware/firmware TBD | TBD |
-| Encoder phase B | `ENCODER_B` | TBD | Input | Avoid strap if possible | No | No | Yes | Pull/filter TBD | Defined inactive | Debounce in hardware/firmware TBD | TBD |
+| Encoder phase A | `ENCODER_A` | TBD | Input | Avoid strap if possible | No | No | Preferred where useful | Pull direction/filter TBD | Defined state TBD | Lower allocation priority than STOP and limits; debounce TBD | TBD |
+| Encoder phase B | `ENCODER_B` | TBD | Input | Avoid strap if possible | No | No | Preferred where useful | Pull direction/filter TBD | Defined state TBD | Lower allocation priority than STOP and limits; debounce TBD | TBD |
 | Encoder push | `ENCODER_SW` | TBD | Input | Avoid strap if possible | No | No | Preferred | Pull/filter TBD | Defined inactive |  | TBD |
-| ARM input | `ARM_IN` | TBD | Input | Avoid strap | No | No | Preferred | External pull/filter required | Disarmed | Dedicated physical input | TBD |
-| FIRE input | `FIRE_IN` | TBD | Input | Avoid strap | No | No | Preferred | External pull/filter required | Inactive | Dedicated physical input | TBD |
-| STOP input | `STOP_IN` | TBD | Input | Avoid strap | No | No | Yes | External pull/filter required | Stop/inactive convention TBD | Dedicated safety-relevant input | TBD |
+| ARM input | `ARM_IN` | TBD | Input | Avoid unresolved strap conflicts | No | No | Preferred where useful | Pull direction/filter TBD | Defined safe state TBD | Dedicated physical input; protected interface required | TBD |
+| FIRE input | `FIRE_IN` | TBD | Input | Avoid unresolved strap conflicts | No | No | Preferred where useful | Pull direction/filter TBD | Defined non-triggering state TBD | Dedicated physical input; protected interface required | TBD |
+| STOP input | `STOP_IN` | TBD | Input | Avoid unresolved strap conflicts | No | No | Preferred where useful | Pull direction/filter TBD | Hardware-safe interpretation; polarity TBD | Highest input-allocation priority; protected independent interface required | TBD |
 | RGB red | `RGB_R` | TBD | Output | Review | No | Yes preferred | No | Pull to off TBD | Off | Driver topology TBD | TBD |
 | RGB green | `RGB_G` | TBD | Output | Review | No | Yes preferred | No | Pull to off TBD | Off | Driver topology TBD | TBD |
 | RGB blue | `RGB_B` | TBD | Output | Review | No | Yes preferred | No | Pull to off TBD | Off | Driver topology TBD | TBD |
@@ -88,6 +88,8 @@ ESP32 LEDC PWM channels are flexible but finite. Axis PWM, RGB dimming, and buzz
 
 Planned digital inputs should use interrupt-capable GPIO where needed. Interrupt assignment does not eliminate hardware filtering, debounce, or safe-state requirements.
 
+Input allocation priority is `STOP_IN` first, then the four motion-limit inputs, then the remaining dedicated controls and encoder inputs. External inputs require approved interface circuitry and shall not be assumed to tolerate field voltages directly. Allocation must account for reset and boot behavior, unavailable and flash-connected pins, input-only limitations, ADC constraints, programming interfaces, and hardware-safe startup.
+
 ### 4.7 USB and UART
 
 J13 is the external USB-C service interface. Native USB versus an external USB-to-UART implementation, automatic boot/reset circuitry, and consumed GPIO remain `TBD` until processor and schematic approval.
@@ -115,6 +117,9 @@ The preliminary feature set may demand more independent GPIO than the selected m
 - [ ] Reserve programming UART, boot, and reset resources.
 - [ ] Count LEDC PWM channels and timing constraints.
 - [ ] Confirm interrupt capability for limits and controls.
+- [ ] Allocate `STOP_IN` first, then motion limits, without unresolved boot-strapping conflicts.
+- [ ] Verify that external inputs use approved field-interface circuitry rather than direct field-voltage connection.
+- [ ] Define active state, pull direction, disconnected-input behavior, and reset state for every input.
 - [ ] Define external pulls and reset-time states for every output.
 - [ ] Confirm `STOP_IN` has a dedicated, noise-protected input.
 - [ ] Decide whether motor enables are independent, shared, or hardware-gated.

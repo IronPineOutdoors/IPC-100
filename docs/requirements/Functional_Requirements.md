@@ -59,16 +59,26 @@ Verification methods are inspection, analysis, demonstration, or test.
 
 | ID | Requirement | Rationale | Verification method | Status |
 | --- | --- | --- | --- | --- |
-| FUNC-IO-001 | IPC-100 shall read `LIMIT_LEFT`, `LIMIT_RIGHT`, `LIMIT_UP`, and `LIMIT_DOWN`. | Provides four universal limit inputs. | Test | Locked |
-| FUNC-IO-002 | IPC-100 shall read `ENCODER_A`, `ENCODER_B`, and `ENCODER_SW`. | Supports local navigation input. | Test | Locked |
-| FUNC-IO-003 | IPC-100 shall read dedicated `ARM_IN`, `FIRE_IN`, and `STOP_IN` signals. | Supports accessible physical control. | Test | Locked |
-| FUNC-IO-004 | External digital inputs shall tolerate the approved wiring-noise and ESD test levels. | Supports field wiring. | Test | TBD |
+| FUNC-IO-001 | IPC-100 shall read the product-neutral motion-limit interfaces `LIMIT_LEFT`, `LIMIT_RIGHT`, `LIMIT_UP`, and `LIMIT_DOWN`; product repositories shall map those names to physical axes, mechanisms, directions, and travel endpoints. | Preserves four stable platform inputs without embedding product mechanics. | Inspection and test | Locked |
+| FUNC-IO-002 | IPC-100 shall read `ENCODER_A`, `ENCODER_B`, and `ENCODER_SW`. | Supports a stable reusable local input interface. | Inspection and test | Locked |
+| FUNC-IO-003 | IPC-100 shall read dedicated physical `ARM_IN`, `FIRE_IN`, and `STOP_IN` signals, with `STOP_IN` independent of the other controls and nonessential platform services. | Preserves direct local command and intervention inputs. | Inspection, analysis, and test | Locked |
+| FUNC-IO-004 | External digital inputs shall tolerate approved field-wiring ESD, transient, induced-noise, miswiring, and cable-exposure conditions without violating processor limits or causing unsafe backfeed. | Provides controlled field interfaces without assuming direct GPIO compatibility. | Analysis and test | Locked |
 | FUNC-IO-005 | IPC-100 shall control `AXIS1_RPWM`, `AXIS1_LPWM`, `AXIS1_REN`, and `AXIS1_LEN`. | Supports one external motor-driver logic interface. | Test | Locked |
 | FUNC-IO-006 | IPC-100 shall control `AXIS2_RPWM`, `AXIS2_LPWM`, `AXIS2_REN`, and `AXIS2_LEN`. | Supports a second external motor-driver logic interface. | Test | Locked |
 | FUNC-IO-007 | IPC-100 shall provide limited 5 V logic-power provisions for external motor-driver interfaces subject to the approved power budget. | Supports external logic without carrying motor power. | Analysis and test | Proposed |
 | FUNC-IO-008 | IPC-100 shall expose isolated `RELAY_NC`, `RELAY_COM`, and `RELAY_NO` contacts. | Provides a product-neutral trigger interface. | Inspection and test | Locked |
 | FUNC-IO-009 | IPC-100 shall control the relay coil without sourcing power to the switched load. | Maintains isolation and product ownership. | Inspection and test | Locked |
 | FUNC-IO-010 | IPC-100 shall expose at least two documented spare GPIO provisions. | Supports controlled expansion. | Inspection | Proposed |
+| FUNC-IO-011 | Base firmware shall receive the approved inactive, asserted, and detectable disconnected-wire states for each limit input and shall report stuck, implausible, wiring, and conflicting-opposite-limit faults to diagnostics. | Makes the approved electrical contract and detectable motion-limit faults observable without defining product recovery. | Demonstration and test | TBD |
+| FUNC-IO-012 | Encoder failure, disconnection, or erratic operation shall not prevent hardware-safe output initialization or dedicated safety-input operation. | Keeps the navigation input nonessential to safe-state operation. | Analysis and test | Locked |
+| FUNC-IO-013 | `STOP_IN` shall default to the hardware-safe interpretation during reset, boot, firmware failure, loss of input power, and detectable field-wiring faults. | Prevents fault conditions from making STOP permissive. | Analysis and test | Locked |
+| FUNC-IO-014 | `FIRE_IN` shall not cause an output trigger solely because of reset, boot, brownout, disconnected wiring, or electrical noise, and its handling shall remain subject to hardware-safe output checks. | Prevents unintended triggering from ambiguous or transient inputs. | Analysis and test | Locked |
+| FUNC-IO-015 | `ARM_IN` shall represent permission or readiness only and shall not directly energize a motor-driver output or the isolated relay. | Separates authorization from actuator commands. | Analysis and test | Locked |
+| FUNC-IO-016 | Conflicting, simultaneous, repeated, stuck, or implausible control-input states shall be reportable to diagnostics without defeating the hardware-safe output state. | Keeps abnormal local-control states visible and safe. | Demonstration and test | Locked |
+| FUNC-IO-017 | Every input shall have an approved defined state during reset, boot, unpowered field wiring, and disconnection; field-contact type, voltage domain, active polarity, pull/bias arrangement, grounding, and common-mode contract remain `TBD`. | Prevents floating or electrically ambiguous external inputs. | Inspection, analysis, and test | TBD |
+| FUNC-IO-018 | Hardware conditioning and firmware filtering shall reject approved bounce and noise while recognizing valid `STOP_IN` and motion-limit changes without an unapproved delay. | Balances field reliability with timely safety-relevant response. | Analysis and test | Proposed |
+| FUNC-IO-019 | Safety-relevant stop and motion-limit states shall be processed before nonessential display, sensor, network, encoder-interface, or product-application work where applicable. | Gives local hardware-safe behavior deterministic priority. | Analysis and test | Locked |
+| FUNC-IO-020 | Encoder decoding direction, acceleration, debounce, long-press, and multi-click behavior shall be defined before firmware release where applicable. | Keeps interaction behavior configurable without weakening the locked electrical interface. | Inspection and demonstration | TBD |
 
 ## 6. User-interface functions
 
