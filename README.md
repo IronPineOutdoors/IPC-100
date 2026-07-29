@@ -6,7 +6,7 @@ Reusable ESP32-based outdoor controller platform for Iron Pine Outdoors.
 | --- | --- |
 | Product platform | Iron Pine IPC-100 |
 | Current hardware revision | Rev A |
-| Status | Architecture and requirements definition |
+| Status | Preliminary CAD implementation |
 | Repository purpose | Reusable controller platform |
 | First planned application | CrossWind |
 | CrossWind repository | Separate external product repository |
@@ -45,6 +45,7 @@ Motor drivers, motors, thrower power, and all high-current distribution are exte
 | [GPIO and Peripheral Allocation Review](docs/connectors/GPIO_and_Peripheral_Allocation_Review.md) | Proposed ESP32-S3 pin map, peripheral assignments, restrictions, conflicts, reserves, and readiness gate |
 | [Schematic Hierarchy and Block Interface Definition](docs/hardware/Schematic_Hierarchy_and_Block_Interface_Definition.md) | Rev A KiCad sheet structure, block/net/connector ownership, capture sequence, and review gates |
 | [Critical Component Selection and Electrical Quantification](docs/hardware/Critical_Component_Selection_and_Electrical_Quantification.md) | Rev A circuit topologies, preferred components, values, calculations, margins, and preliminary-capture gate |
+| [KiCad CAD Source](hardware/kicad/README.md) | Rev A KiCad project, Sheet 00 root hierarchy, child-sheet structure, and CAD review workflow |
 | [Safety Input Architecture Review](docs/interfaces/Safety_Input_Architecture_Review.md) | Input classifications, supervised safety loops, electrical contracts, fault behavior, and input schematic-entry gate |
 | [Output Electrical Architecture Review](docs/interfaces/Output_Electrical_Architecture_Review.md) | Motor, relay, status, reset, safe-state, sequencing, fault, and output schematic-entry contracts |
 | [Power Architecture](docs/power/Power_Architecture.md) | Source boundary, power tree, protection, and rail behavior |
@@ -77,6 +78,7 @@ The Engineering Blueprint must be reviewed before schematic development continue
 | `docs/testing/` | Controller verification planning |
 | `docs/revisions/` | Revision and configuration-control history |
 | `docs/images/` | Controlled diagram sources and exports |
+| `hardware/kicad/` | Controlled KiCad project and hierarchical schematic sources |
 | `electrical/` | Future electrical design sources and controlled outputs |
 | `mechanical/` | Controller enclosure, PCB mounting, and connector interfaces |
 | `firmware/` | Future base firmware, reusable drivers, and tests |
@@ -109,9 +111,9 @@ Tool versions will be pinned when design sources are introduced.
 
 ## 8. Next milestones
 
-1. Capture the preliminary Rev A KiCad hierarchy and Sheets 00–09
-2. Close the blockers retained in the electrical quantification
-3. Review every sheet through its controlled gate
+1. Capture Sheet 01 Power Entry and Protection
+2. Implement Sheets 02–09 through their package-specific entry gates
+3. Close the blockers retained in the electrical quantification
 4. Complete cross-sheet review and ERC
 5. Release exact orderable parts and connector implementations
 6. Authorize PCB layout only after schematic release

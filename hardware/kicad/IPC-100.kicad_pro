@@ -1,0 +1,27 @@
+{
+  "board": {},
+  "boards": [],
+  "cvpcb": {},
+  "erc": {},
+  "libraries": {},
+  "meta": {
+    "filename": "IPC-100.kicad_pro",
+    "version": 1
+  },
+  "net_settings": {
+    "classes": [],
+    "meta": {
+      "version": 3
+    }
+  },
+  "pcbnew": {},
+  "schematic": {
+    "legacy_lib_dir": "",
+    "legacy_lib_list": []
+  },
+  "text_variables": {
+    "COMPANY": "Iron Pine Outdoors",
+    "HARDWARE_REVISION": "Rev A",
+    "PACKAGE": "Preliminary KiCad Capture Package 01"
+  }
+}

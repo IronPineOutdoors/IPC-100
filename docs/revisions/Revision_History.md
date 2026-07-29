@@ -86,6 +86,7 @@ Documentation-only changes still require document revision control and review. A
 | 2026-07-29 | Safety input electrical architecture review | Classified all inputs; selected supervised NC STOP/limit loops, sequenced NO ARM/FIRE commands, non-safety encoder behavior, dedicated safety-loop returns, and remaining quantitative/connector gates | Iron Pine Outdoors Engineering | Architecture review complete |
 | 2026-07-29 | Output electrical architecture review | Classified all outputs; selected common hardware master inhibit, disabled/coast motor safe state, relay de-energized state, status/peripheral defaults, sequencing, fault ownership, and remaining quantitative gates | Iron Pine Outdoors Engineering | Architecture review complete |
 | 2026-07-29 | Critical component selection and electrical quantification | Selected preliminary-capture circuit topologies, preferred components, values, calculations, margins, test access, and retained schematic-release blockers | Iron Pine Outdoors Engineering | Preliminary capture basis; engineering review required |
+| 2026-07-29 | Preliminary KiCad Capture Package 01 | Created the KiCad project, Sheet 00 root hierarchy, named cross-sheet interfaces, and empty Sheets 01–09 without circuitry or footprints | Iron Pine Outdoors Engineering | CAD hierarchy implemented; validation and Gate 1 review required |
 
 ## 8. Prototype traceability
 
