@@ -40,9 +40,11 @@ Motor drivers, motors, thrower power, and all high-current distribution are exte
 | [Wiring Standard](docs/requirements/Wiring_Standard.md) | Platform wiring, labeling, termination, and inspection practices |
 | [Mechanical Interface](docs/requirements/Mechanical_Interface.md) | PCB mounting, access, enclosure, service, and marking requirements |
 | [Connector Specification](docs/connectors/Connector_Specification.md) | Preliminary J1–J13 interface reservations and stable signal names |
+| [Connector Architecture Review](docs/connectors/Connector_Architecture_Review.md) | Cross-connector partitioning, harness, safety, and unresolved architecture review |
 | [GPIO Map](docs/connectors/GPIO_Map.md) | ESP32 resource plan and allocation gate |
 | [Power Architecture](docs/power/Power_Architecture.md) | Source boundary, power tree, protection, and rail behavior |
 | [Power Budget](docs/power/Power_Budget.md) | Preliminary loads, margins, and prototype measurement plan |
+| [Open Design Items](docs/revisions/Open_Design_Items.md) | Consolidated unresolved decisions and required engineering review gates |
 | [Revision History](docs/revisions/Revision_History.md) | Rev A, prototype-build, document, and firmware version policy |
 
 Supporting verification: [Rev A Test Plan](docs/testing/Test_Plan.md).

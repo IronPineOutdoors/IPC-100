@@ -135,11 +135,11 @@ The preliminary connector set is J1 through J13. Stable signal names, directions
 
 Wi-Fi, Bluetooth, and ESP-NOW are baseline platform capabilities exposed through reusable services. Product firmware selects and configures pairing flows, message semantics, network topology, and application behavior. Physical controls and hardware-safe output states must not depend on a wireless link.
 
-Future CAN and RS485 are expansion provisions only. Rev A does not require populated transceivers, production connectors, or active CAN/RS485 firmware.
+Future CAN and RS485 are expansion provisions only, contingent on resources remaining after required functions are allocated. Rev A does not require populated transceivers, production connectors, or active CAN/RS485 firmware, and products must not claim support from a reservation alone.
 
 ## 8. Firmware responsibility boundary
 
-IPC-100 base firmware will own hardware-safe output initialization, logical output abstraction, reusable device drivers and output services, command validation, diagnostics, and platform communication services. Product repositories own motion sequencing, speed and acceleration, homing, braking, firing or trigger sequences, status meanings, audible patterns, user workflows, product safety logic above the platform boundary, and product configuration.
+IPC-100 base firmware will own hardware-safe output initialization, logical output abstraction, hardware-revision compatibility, reusable device drivers and output services, optional-device handling, command validation, diagnostics, and platform communication services. Product repositories own installed expansion hardware, external harnesses and enclosures, application protocols and command semantics, remote panels, distributed topology, motion sequencing, sensor interpretation, status meanings, audible patterns, user workflows, product validation, and safety logic above the platform boundary.
 
 Base firmware must not assume that CrossWind-specific hardware is connected.
 
@@ -208,9 +208,11 @@ Connectors should be locking, polarized, labeled, accessible, and replaceable wh
 
 ## 12. Expansion philosophy
 
-Rev A provides shared I2C and spare GPIO. The OLED, environmental sensor, and optional expansion may share I2C only after address compatibility, bus loading, pull-up ownership, supply domains, cable assumptions, fault behavior, startup, and recovery are verified. External I2C expansion must not become a dependency for establishing hardware-safe outputs.
+Rev A provides optional controlled local I2C expansion and proposed spare-GPIO capability. I2C is not an unrestricted field bus. The OLED, environmental sensor, optional external expansion, and future approved onboard devices may share a logical bus only after address compatibility, bus loading, pull-up ownership, supply domains, wiring assumptions, segmentation, hot-plug policy, fault behavior, startup, and recovery are verified. The final architecture may isolate, switch, buffer, translate, or otherwise segment the external branch; no method is selected. External I2C expansion must not become a dependency for hardware-safe outputs, local safety inputs, or core diagnostics.
 
-Future CAN, RS485, and daughterboard compatibility should be preserved where practical without committing unverified transceivers or connector families. Expansion loads must remain within the approved power budget.
+Spare GPIO requires an approved electrical contract and is non-safety-critical. Future CAN, RS485, and daughterboard compatibility may be preserved where practical without committing unverified transceivers, connectors, pin resources, or mechanical architecture. Expansion power is limited and protected through the approved power budget; unused reserve is not guaranteed. Externally powered modules require backfeed protection. Required onboard, optional onboard, external optional, and future unpopulated devices are distinct platform populations.
+
+The final connector architecture remains subject to electrical, GPIO, power, mechanical, safety, service, and product-harness review. J4/J5 shared returns, J8 partitioning, J11 definition, and J12 communications architecture remain open.
 
 ## 13. Environmental assumptions
 

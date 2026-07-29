@@ -122,7 +122,7 @@ Output interfaces shall remain hardware-safe with main power only; USB only if s
 
 ## 11. Battery-voltage measurement
 
-`BATTERY_SENSE` is derived from `VIN_RAW` through a protected divider and filter into an ADC1-capable ESP32 input. Divider values, ADC full-scale margin, input protection, measurement accuracy, resolution, filter bandwidth, calibration method, allowable error, leakage error, and acceptable source impedance are `TBD`.
+`BATTERY_SENSE` is derived from `VIN_RAW` through a protected divider and filter into an ADC1-capable processor input or another approved ADC path. ADC2 availability shall not be assumed during active Wi-Fi operation unless verified for the selected processor. Divider values, ADC full-scale margin, input protection, measurement accuracy, resolution, filter bandwidth, calibration method, allowable error, leakage error, and acceptable source impedance are `TBD`.
 
 ## 12. Power-status indicators
 
@@ -158,6 +158,8 @@ Motor enables shall remain disabled and the relay coil shall remain de-energized
 ## 17. Startup and shutdown
 
 Hardware pulls shall establish safe outputs before firmware initialization. Startup sequencing among protected input, 5 V, 3.3 V, ESP32 enable, and external interface power is `TBD`. Shutdown shall not create motor-enable pulses, relay actuation, USB backfeed, or out-of-range input injection through unpowered interfaces.
+
+Optional expansion shall initialize only after hardware-safe outputs and safety-relevant local inputs are established. Expansion power outputs require current limiting, protection, budget allocation, and fault containment; exact limits and implementation remain `TBD`. Externally powered expansion or communications modules shall not backfeed controller rails, USB, GPIO, or other interfaces. External field-bus power may require a product-level supply.
 
 ## 18. Thermal considerations
 

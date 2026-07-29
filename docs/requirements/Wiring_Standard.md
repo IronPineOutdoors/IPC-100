@@ -58,6 +58,10 @@ This is a recommendation, not a locked production standard. Every released harne
 
 Shielding requirements, mandatory twisted-pair use, conductor gauge, maximum cable length, and grounding method for external inputs remain `TBD`. Product harnesses own strain relief, abrasion protection, connector retention, and service-loop implementation.
 
+External expansion wiring shall be defined in the consuming product repository. J10 I2C shall not be treated as unrestricted field wiring; supported cable length and hot-plug behavior remain `TBD`. CAN and RS485 cable, shielding, grounding, and termination requirements remain `TBD`. Communication and expansion wiring should remain separated from motor and other high-current conductors where practical.
+
+Product harness documentation shall identify optional and unsupported connectors. Connector keying and labeling shall prevent foreseeable cross-connection where practical. Safety-relevant controls shall not share connectors or harness paths with nonessential circuits without explicit review; STOP wiring partitioning and the combined J8 architecture remain open design decisions.
+
 ## 7. Shielding guidance
 
 Shielding is application-dependent and remains TBD until EMC testing. Where used, document shield material, termination point, drain wire, and whether one-end or both-end termination is required. Do not leave shields floating without an explicit reason.

@@ -46,6 +46,10 @@ Record for every execution:
 | IO-007 | Outputs | Relay safe states, isolation, external-load faults, and backfeed | Inspection, analysis, and test | TBD | Waveforms/test log | Planned |
 | IO-008 | Outputs | Motor-interface safe states, command conflicts, local inhibition, and backfeed | Inspection, analysis, and test | TBD | Waveforms/test log | Planned |
 | IO-009 | Outputs | RGB and buzzer safe states, faults, and simultaneous loading | Inspection, analysis, and test | TBD | Waveforms/test log | Planned |
+| EXP-001 | Expansion | Shared-I2C populations, faults, timeout, recovery, and safe startup | Inspection, analysis, and test | TBD | Waveforms/test log | Planned |
+| EXP-002 | Expansion | Spare-GPIO states, faults, unsupported requests, and revision mismatch | Inspection, analysis, and test | TBD | Waveforms/test log | Planned |
+| EXP-003 | Expansion | Future communications provisions and unsupported-feature reporting | Inspection and test | TBD | Review/test log | Planned |
+| CONN-001 | Connectors | Architecture, misconnection, partitioning, and safety-path fault review | Inspection and analysis | TBD | Review/test log | Planned |
 | UI-001 | UI | OLED interface (SSD1309 reference), RGB LED, buzzer | Test | TBD | Photos/log | Planned |
 | SNS-001 | Sensors | Environmental sensor (BME280 reference) | Test | TBD | Comparison data | Planned |
 | SNS-002 | Sensors | Battery monitoring | Test | TBD | Calibration data | Planned |
@@ -76,6 +80,16 @@ Relay coverage shall include reset and boot, brownout, watchdog recovery, loss o
 Motor-interface coverage shall include reset and boot; both enables inactive; both PWM commands inactive; conflicting direction commands; asserted STOP and applicable limits; disconnected, independently powered, and unpowered drivers; cable disconnect; backfeed; brownout; watchdog recovery; communication loss; and malformed or stale commands.
 
 RGB and buzzer coverage shall include reset, brownout, and power-loss states; output-short and disconnect concepts; maximum planned simultaneous loading; and nonfatal failure behavior. Exact voltages, currents, timing, repetitions, environmental conditions, and pass/fail thresholds for all output tests remain `TBD`.
+
+Shared-I2C coverage shall include no optional device; OLED only; environmental sensor only; both reference devices; approved external expansion; duplicate addresses; excessive parallel pull-up concept; SDA or SCL stuck low; absent, reset, unsupported, unpowered, or independently powered devices; operational disconnect; bounded timeout; recovery; and safe startup with a failed bus.
+
+Spare-GPIO coverage shall include unconnected state; input short to ground or an approved supply; output open and short concepts; external voltage while IPC-100 is off; reset and boot states; unsupported function request; and hardware-revision mismatch.
+
+Future-communications coverage shall confirm that unpopulated provisions do not affect required operation, firmware does not advertise unsupported CAN or RS485, reserved-pin conflicts are reviewed, backfeed is considered, and absent external transceivers are nonfatal.
+
+Connector-architecture coverage shall include misconnection, partial insertion, reversed insertion where mechanically possible, missing return, incorrect product harness, unused connector exposure, STOP-path faults, J8 partition review, and J4/J5 shared-return fault implications.
+
+Expansion-power coverage shall include maximum approved expansion load, rail overload and short concepts, simultaneous loads, startup peak, main-only and USB-only conditions where supported, simultaneous USB and main power, and both external-module-first and IPC-100-first sequencing. Exact timing, voltage, current, fault duration, cable length, repetition count, environmental condition, and pass/fail thresholds remain `TBD`.
 
 ## Environmental and durability testing
 

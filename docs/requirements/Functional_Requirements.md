@@ -130,7 +130,24 @@ Verification methods are inspection, analysis, demonstration, or test.
 | FUNC-COM-005 | Rev A should preserve documented future CAN and RS485 expansion provisions where practical without requiring populated transceivers or active baseline firmware. | Preserves future wired options without adding unapproved Rev A complexity. | Inspection and analysis | Proposed |
 | FUNC-COM-006 | CAN and RS485 transceivers, connectors, termination, biasing, isolation, voltage standards, protocols, and firmware behavior shall remain `TBD` until approved. | Avoids inventing an implementation. | Inspection | TBD |
 
-## 9. Safety-related functions
+## 9. Expansion functions
+
+| ID | Requirement | Rationale | Verification method | Status |
+| --- | --- | --- | --- | --- |
+| FUNC-EXP-001 | IPC-100 shall support an optional controlled J10 I2C expansion interface without assuming that an external device is present or compatible. | Provides limited approved expansion while preserving safe operation with no attachment. | Inspection and test | Locked |
+| FUNC-EXP-002 | IPC-100 shall expose spare expansion through stable logical signals whose physical GPIO assignments and electrical capabilities remain hardware-revision controlled. | Prevents product code from depending on processor pins or unverified capabilities. | Inspection | Proposed |
+| FUNC-EXP-003 | CAN and RS485 shall be represented as future provisions only and shall not be advertised as supported unless validated hardware and firmware are present. | Distinguishes reserved concepts from released features. | Inspection and demonstration | Locked |
+| FUNC-EXP-004 | Base firmware shall distinguish required onboard, optional onboard, external optional, and future unpopulated devices using approved hardware-revision or configuration information where necessary. | Supports controlled initialization and compatibility diagnostics. | Inspection and demonstration | Proposed |
+| FUNC-EXP-005 | IPC-100 shall establish hardware-safe outputs, evaluate safety-relevant local inputs, and provide core diagnostics with no optional expansion attached. | Keeps expansion subordinate to essential controller operation. | Analysis and test | Locked |
+| FUNC-EXP-006 | A missing, faulted, unsupported, or hardware-revision-incompatible expansion device shall be diagnostic and nonfatal to hardware-safe startup. | Prevents optional hardware from becoming a safety dependency. | Demonstration and test | Locked |
+| FUNC-EXP-007 | Shared-I2C initialization shall detect approved address conflicts and use bounded transaction behavior so a stuck or failed external device cannot indefinitely block safe startup or core diagnostics. | Contains common shared-bus faults. | Analysis and test | Locked |
+| FUNC-EXP-008 | Pull-up ownership, supported loading, wiring assumptions, segmentation, timeout, and recovery behavior for shared I2C shall be approved before release. | Defines the unresolved controlled-bus contract. | Inspection, analysis, and test | TBD |
+| FUNC-EXP-009 | Expansion power use shall remain within approved, protected rail allocations and shall not imply that unused budget reserve is guaranteed to a product. | Protects required platform loads and rail stability. | Analysis and test | Locked |
+| FUNC-EXP-010 | Externally powered expansion hardware shall not backfeed IPC-100 rails, USB, processor interfaces, or other external interfaces under approved normal and single-fault conditions. | Contains independently powered module faults. | Analysis and test | Locked |
+| FUNC-EXP-011 | Spare GPIO shall start non-driving or approved inactive and shall reject unsupported function requests rather than assuming analog, PWM, interrupt, voltage, or drive capabilities. | Prevents unsafe or undefined use of unresolved expansion channels. | Inspection and test | Locked |
+| FUNC-EXP-012 | Future daughterboards shall remain unsupported until their electrical, mechanical, firmware, power, identification, serviceability, and safety contracts are approved. | Prevents electrical pin similarity from being treated as module compatibility. | Architecture review and test | Proposed |
+
+## 10. Safety-related functions
 
 | ID | Requirement | Rationale | Verification method | Status |
 | --- | --- | --- | --- | --- |
@@ -140,7 +157,7 @@ Verification methods are inspection, analysis, demonstration, or test.
 | FUNC-SAFE-004 | IPC-100 shall not require a wireless link to establish its hardware-safe output state. | Wireless communication may fail. | Test | Locked |
 | FUNC-SAFE-005 | Faults detected by platform diagnostics shall be available to the product application. | Supports product-level fault response. | Demonstration | Proposed |
 
-## 10. Base-firmware functions
+## 11. Base-firmware functions
 
 | ID | Requirement | Rationale | Verification method | Status |
 | --- | --- | --- | --- | --- |
@@ -151,7 +168,7 @@ Verification methods are inspection, analysis, demonstration, or test.
 | FUNC-FW-005 | Base firmware shall report a version compatible with the controlled hardware revision. | Supports configuration management. | Demonstration | Proposed |
 | FUNC-FW-006 | Watchdog strategy, persistent configuration, update mechanism, and diagnostic protocol shall be defined before base-firmware release. | These behaviors are unresolved. | Inspection and test | TBD |
 
-## 11. Related documents
+## 12. Related documents
 
 - [System Architecture](../architecture/System_Architecture.md)
 - [Product Boundaries](../architecture/Product_Boundaries.md)

@@ -46,8 +46,8 @@ Directions are relative to the ESP32. External voltage translation or driver sta
 | Buzzer control | `BUZZER_OUT` | TBD | Output | Avoid unresolved strap conflicts | No | Preferred for passive device | No | Hardware pull to inactive required; direction TBD | Inactive; polarity TBD | PWM need depends on buzzer type; driver topology TBD | TBD |
 | Battery monitor | `BATTERY_SENSE` | TBD | Input | Avoid strap | ADC1-capable input or equivalent approved ADC path | No | No | Divider/filter TBD | N/A | Do not assume ADC2 availability during Wi-Fi operation | TBD |
 | Relay coil control | `RELAY_CTRL` | TBD | Output | Avoid unresolved strap conflicts | No | No | No | Hardware pull to de-energized required; direction TBD | Coil de-energized; polarity TBD | Highest output safety priority; `RELAY_NO` open | TBD |
-| Spare expansion 1 | `SPARE_GPIO1` | TBD | Bidirectional | Review | TBD | TBD | TBD | TBD | High impedance | Capability depends on assigned pin | TBD |
-| Spare expansion 2 | `SPARE_GPIO2` | TBD | Bidirectional | Review | TBD | TBD | TBD | TBD | High impedance | Capability depends on assigned pin | TBD |
+| Spare expansion 1 | `SPARE_GPIO1` | TBD | TBD | Avoid unresolved strap conflicts | TBD | TBD | TBD | TBD | Non-driving or approved inactive | Direction and capability depend on approved allocation and interface circuitry | TBD |
+| Spare expansion 2 | `SPARE_GPIO2` | TBD | TBD | Avoid unresolved strap conflicts | TBD | TBD | TBD | TBD | Non-driving or approved inactive | Direction and capability depend on approved allocation and interface circuitry | TBD |
 | Future CAN transmit | `CAN_TX` | TBD | Output | Review | No | No | No | Defined recessive state TBD | Inactive | Internal transceiver-side provision | TBD |
 | Future CAN receive | `CAN_RX` | TBD | Input | Avoid strap | No | No | Yes preferred | TBD | Defined | Internal transceiver-side provision | TBD |
 | Future RS485 transmit | `RS485_TX` | TBD | Output | Review | No | No | No | TBD | Inactive | May share UART after review | TBD |
@@ -110,6 +110,18 @@ Relay control and motor enables receive the highest output-allocation safety pri
 
 The preliminary feature set may demand more independent GPIO than the selected module can provide after unavailable, flash-connected, boot-strapping, input-only, programming, ADC1, and future-expansion constraints are considered. GPIO expanders, shared enables, multiplexing, or unpopulated future provisions may be required. No such approach is approved yet.
 
+### 5.1 Proposed allocation priority
+
+1. Hardware-safe and safety-relevant inputs and outputs
+2. Required power and board-management functions
+3. Required service and programming interface
+4. Required onboard peripherals
+5. Required product-neutral user interfaces
+6. Optional expansion
+7. Future CAN and RS485 provisions
+
+This priority is proposed pending final processor and schematic review. Expansion shall not consume resources until required functions, USB architecture, boot-strapping constraints, unavailable and flash-connected pins, ADC needs, PWM needs, interrupt needs, and hardware-safe startup are resolved. Processor-native peripheral routing remains `TBD`. CAN and RS485 provisions may be reduced or omitted if resources are insufficient.
+
 ## 6. Allocation checklist before Sheet 02
 
 - [ ] Confirm exact ESP32 module variant and module pinout.
@@ -129,6 +141,8 @@ The preliminary feature set may demand more independent GPIO than the selected m
 - [ ] Confirm `STOP_IN` has a dedicated, noise-protected input.
 - [ ] Decide whether motor enables are independent, shared, or hardware-gated.
 - [ ] Decide whether CAN and RS485 logic is populated or provision-only.
+- [ ] Confirm optional expansion remains below every required function in allocation priority.
+- [ ] Define each spare signal's actual digital, analog, PWM, interrupt, open-drain, and drive capability.
 - [ ] Resolve total GPIO demand and any expander/multiplexer need.
 - [ ] Cross-check every signal against J1–J13.
 - [ ] Review radio, ADC, UART, I2C, and boot interactions.

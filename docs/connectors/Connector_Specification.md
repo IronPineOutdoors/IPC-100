@@ -68,7 +68,7 @@ J3 preserves the current six-pin BTS7960-style reference contract; it does not p
 
 ## 6. J4 — Directional Limit Inputs 1
 
-J4 reserves two product-neutral directional motion-limit interfaces with a shared preliminary return. Active polarity, field voltage domain, wet-contact versus dry-contact support, grounding, pull/bias, filtering, protection, and normally-open versus normally-closed topology remain `TBD`. These signals are not assumed to connect directly to processor GPIO. If the approved field-input contract cannot support this preliminary three-pin reservation, the connector definition must be revised through design review.
+J4 reserves two product-neutral directional motion-limit interfaces with a shared preliminary return. Active polarity, field voltage domain, wet-contact versus dry-contact support, grounding, pull/bias, filtering, protection, and normally-open versus normally-closed topology remain `TBD`. These signals are not assumed to connect directly to processor GPIO. The preliminary three-pin allocation is subject to revision during schematic and harness design if the approved field-input contract requires individual returns, shield or drain conductors, wet-contact sensing, powered sensors, fault-detection resistors, separate commons, differential signaling, improved fault isolation, additional mechanical keying, or different product harness partitioning. This is a connector-architecture risk, not a released-design defect.
 
 | Pin | Signal name | Direction | Voltage domain | Active state | Description | Protection | Notes | Status |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -78,7 +78,7 @@ J4 reserves two product-neutral directional motion-limit interfaces with a share
 
 ## 7. J5 — Directional Limit Inputs 2
 
-J5 reserves two product-neutral directional motion-limit interfaces with a shared preliminary return. Active polarity, field voltage domain, wet-contact versus dry-contact support, grounding, pull/bias, filtering, protection, and normally-open versus normally-closed topology remain `TBD`. These signals are not assumed to connect directly to processor GPIO. If the approved field-input contract cannot support this preliminary three-pin reservation, the connector definition must be revised through design review.
+J5 reserves two product-neutral directional motion-limit interfaces with a shared preliminary return. Active polarity, field voltage domain, wet-contact versus dry-contact support, grounding, pull/bias, filtering, protection, and normally-open versus normally-closed topology remain `TBD`. These signals are not assumed to connect directly to processor GPIO. The preliminary three-pin allocation is subject to revision during schematic and harness design if the approved field-input contract requires individual returns, shield or drain conductors, wet-contact sensing, powered sensors, fault-detection resistors, separate commons, differential signaling, improved fault isolation, additional mechanical keying, or different product harness partitioning. This is a connector-architecture risk, not a released-design defect.
 
 | Pin | Signal name | Direction | Voltage domain | Active state | Description | Protection | Notes | Status |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -115,6 +115,8 @@ J8 input active states, voltage domains, field-contact assumptions, grounding, p
 
 The RGB channels and buzzer are reusable outputs. RGB LED topology, polarity, current, brightness control, and protection, plus buzzer device type, drive domain, acoustic behavior, and onboard versus external population remain `TBD`. Driver stages may be required; direct processor-GPIO drive is not assumed.
 
+The combined 13-pin J8 allocation is preliminary. Safety-related controls and indicators may occupy different physical locations; STOP may require a distinct connector or harness route; encoder wiring may terminate at a handheld or panel controller; and RGB or buzzer wiring may terminate at another assembly. Combining 3.3 V logic, 5 V supply, inputs, and driven outputs increases harness complexity and may reduce product flexibility, while partitioning would increase connector count, enclosure penetrations, cost, and assembly complexity. Products may omit signals. Final partitioning requires explicit connector, safety, harness, and product-family review.
+
 | Pin | Signal name | Direction | Voltage domain | Active state | Description | Protection | Notes | Status |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | `GND` | Power return | 0 V | N/A | Control reference | TBD | Product panel wiring external | Locked |
@@ -143,7 +145,7 @@ J9 exposes an isolated, externally powered dry-contact set and is not a power so
 
 ## 12. J10 — I2C Expansion
 
-J10 is an optional shared-bus expansion provision and does not promise compatibility with arbitrary peripherals or wiring. Pull-up ownership, available power, supply domains, address compatibility, cable assumptions, supported loading, fault behavior, and recovery remain `TBD`.
+J10 is an optional controlled local shared-bus expansion provision, not a general-purpose field bus, and does not promise compatibility with arbitrary peripherals or wiring. Pull-up ownership, available power, supply domains, address compatibility, cable assumptions, supported loading, hot-plug policy, physical segmentation, fault behavior, and recovery remain `TBD`.
 
 | Pin | Signal name | Direction | Voltage domain | Active state | Description | Protection | Notes | Status |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -154,18 +156,18 @@ J10 is an optional shared-bus expansion provision and does not promise compatibi
 
 ## 13. J11 — Spare GPIO Expansion
 
-Final pin count and GPIO allocation are `TBD`.
+Final pin count, signal count, electrical function, protection, voltage domain, power availability, and GPIO allocation are `TBD`. The concepts below are not a four-pin pinout and do not guarantee bidirectional, analog, PWM, interrupt, open-drain, current-drive, direct-processor, or universal-voltage capability.
 
-| Pin | Signal name | Direction | Voltage domain | Active state | Description | Protection | Notes | Status |
-| ---: | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `+3V3` | Power out | 3.3 V | N/A | Limited expansion supply | Current protection TBD | Optional pending budget | Proposed |
-| 2 | `GND` | Power return | 0 V | N/A | Expansion return | TBD |  | Proposed |
-| 3 | `SPARE_GPIO1` | Bidirectional | 3.3 V logic | TBD | Spare GPIO provision | ESD/series resistor TBD | Final capability TBD | TBD |
-| 4 | `SPARE_GPIO2` | Bidirectional | 3.3 V logic | TBD | Spare GPIO provision | ESD/series resistor TBD | Final capability TBD | TBD |
+| Concept | Signal name | Direction | Voltage domain | Active state | Description | Protection | Notes | Status |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Power provision | `+3V3` | Power out | 3.3 V | N/A | Candidate limited expansion supply | Current protection TBD | Inclusion and availability pending approved budget and connector architecture | Proposed |
+| Return provision | `GND` | Power return | 0 V | N/A | Candidate expansion return | TBD | Inclusion pending connector architecture | Proposed |
+| Expansion signal | `SPARE_GPIO1` | TBD | TBD | TBD | Stable spare-interface concept | TBD | Final capability and interface circuitry TBD | TBD |
+| Expansion signal | `SPARE_GPIO2` | TBD | TBD | TBD | Stable spare-interface concept | TBD | Final capability and interface circuitry TBD | TBD |
 
 ## 14. J12 — Future Communications
 
-J12 is an identifier reserved for future communications expansion; it is not a defined production connector. No pin count, pin numbering, connector family, transceiver population, termination, biasing, isolation, bus voltage, or protocol is approved.
+J12 is an identifier reserved for future communications expansion; it is not a defined production connector. CAN and RS485 are electrically different interfaces and are not interchangeable without approved circuitry. No pin count, pin numbering, connector family, shared-versus-separate architecture, transceiver population, termination, biasing, isolation, bus voltage, power provision, or protocol is approved.
 
 | Reserved concept | Direction | Voltage domain | Description | Implementation | Status |
 | --- | --- | --- | --- | --- | --- |
@@ -187,6 +189,16 @@ J13 is the USB-C USB 2.0 service interface for programming and diagnostics. Exac
 | A5 | `USB_CC1` | Bidirectional | USB Type-C CC | N/A | Configuration channel 1 | Resistor/ESD TBD | Device role TBD | TBD |
 | B5 | `USB_CC2` | Bidirectional | USB Type-C CC | N/A | Configuration channel 2 | Resistor/ESD TBD | Device role TBD | TBD |
 | Shield | `USB_SHIELD` | Chassis/shield | N/A | N/A | Cable shield | Chassis/ground coupling TBD | Mechanical tabs per receptacle | TBD |
+
+## 16. Formal open connector-design items
+
+| ID | Open decision | Required stage | Status |
+| --- | --- | --- | --- |
+| CONN-TBD-001 | Determine whether J8 remains one combined connector or is partitioned into dedicated safety-control, navigation, and indicator connectors. | Before schematic release | TBD |
+| CONN-TBD-002 | Define J11 signal count, electrical function, protection, voltage domain, power availability, and connector pin count after processor GPIO allocation and expansion-architecture review. | Before schematic release | TBD |
+| CONN-TBD-003 | Determine whether future CAN and RS485 provisions share one configurable connector, use separate connectors, remain unpopulated footprints, or move to daughterboard expansion. | Before schematic release | TBD |
+
+See [Connector Architecture Review](Connector_Architecture_Review.md) for cross-connector risks, partitioning concerns, and unresolved mechanical decisions.
 
 ## 16. Internal stable signals
 

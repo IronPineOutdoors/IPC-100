@@ -26,6 +26,8 @@ This document prevents product-specific functionality from entering IPC-100 with
 - Controller enclosure and PCB-mounting requirements
 - Controller assembly, inspection, and verification
 - Hardware revision and interface compatibility records
+- Documented electrical expansion contracts and base-driver support for approved platform devices
+- Safe handling and diagnostics for absent, faulted, or unsupported optional devices
 
 ## 3. Product responsibilities
 
@@ -38,6 +40,9 @@ This document prevents product-specific functionality from entering IPC-100 with
 - Product-specific safety analysis and interlocks
 - Product assembly, installation, labeling, and service procedures
 - Product environmental, ingress, endurance, and compliance validation
+- Selection and installation of product expansion hardware
+- Expansion harnesses, enclosures, remote panels, field-bus wiring, and distributed product topology
+- Product application protocols, command semantics, sensor interpretation, and expansion validation
 
 ## 4. Shared responsibilities
 
@@ -50,6 +55,7 @@ This document prevents product-specific functionality from entering IPC-100 with
 | Environment | Defines controller-level assumptions and tests | Provides enclosure, condensation control, and product validation |
 | Service | Provides diagnostics and replaceable controller interfaces | Defines access, replacement procedure, and field support |
 | Compatibility | Versions platform interfaces | Records the platform revision and firmware baseline consumed |
+| Expansion | Defines approved electrical interfaces, revision abstraction, optional-device handling, and platform diagnostics | Selects installed devices, harnessing, application protocols, topology, and product validation |
 
 Shared responsibilities require traceable interface requirements in both repositories.
 

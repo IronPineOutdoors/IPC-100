@@ -15,6 +15,8 @@ The preliminary Rev A target is an input power path capable of at least 2.0 A co
 
 `TBD` values require confirmation from selected-part datasheets or prototype measurement. No table total is valid until those values are resolved.
 
+Required onboard loads, reference or optional platform loads, external interface loads, and uncommitted expansion reserves shall be tracked separately. An unused reserve is not guaranteed available to a product, and final rail allocation requires component, connector, protection, and thermal approval.
+
 ## 2. 3.3 V loads
 
 | Load | Quantity | Typical current | Peak current | Duty cycle | Estimated average current | Rail | Confidence | Notes |
@@ -44,6 +46,12 @@ The preliminary Rev A target is an input power path capable of at least 2.0 A co
 | --- | ---: | ---: | ---: | ---: | ---: | --- | --- | --- |
 | Reference OLED module | 1 | TBD | TBD | Active, dimmed, sleep, and startup conditions TBD | TBD | `OLED_VCC` TBD | Low | Exact module and supply domain are not approved |
 | Reference environmental sensor | 1 | TBD | TBD | Measurement mode and duty-cycled behavior TBD | TBD | `SENSOR_VCC` TBD | Low | BME280 is the reference implementation; exact sensor and supply domain are not approved |
+| J8 external control/indicator supply load | Product configuration dependent | TBD | TBD | Product configuration dependent | TBD | `+3V3` and/or `+5V` | Low | Both supplies are preliminary and limited |
+| J10 controlled I2C expansion reserve | Optional | TBD | TBD | Attachment dependent | TBD | Proposed `+3V3` | Low | Not guaranteed; fault containment and connector approval required |
+| J11 spare-interface expansion reserve | Optional | TBD | TBD | Attachment dependent | TBD | TBD | Low | Power provision and pin count are unresolved |
+| Future communications reserve | Optional future | TBD | TBD | Implementation dependent | TBD | TBD | Low | No CAN or RS485 implementation is approved |
+| Daughterboard reserve | Optional future | TBD | TBD | Module dependent | TBD | TBD | Low | No daughterboard power contract is approved |
+| USB-related controller condition | 1 | TBD | TBD | Main only, USB only if supported, or simultaneous | TBD | USB/main interaction TBD | Low | USB-only scope and source selection unresolved |
 
 ## 5. Raw-input loads
 
@@ -63,7 +71,7 @@ The preliminary Rev A target is an input power path capable of at least 2.0 A co
 | External motor-driver power stages | Product-defined | TBD | TBD | Product-defined | TBD | Product high-current | Product-owned | Logic may be powered by IPC-100 only if budgeted |
 | Motors | Product-defined | TBD | TBD | Product-defined | TBD | Product high-current | Product-owned | Explicitly excluded from IPC-100 budget |
 | External load connected to relay | Product-defined | TBD | TBD | Product-defined | TBD | Product-defined | Product-owned | Excluded from IPC-100 budget; relay contacts do not source power |
-| Product user-interface lighting | Product-defined | TBD | TBD | Product-defined | TBD | Product-defined | Product-owned unless explicitly budgeted |
+| Product user-interface lighting | Product-defined | TBD | TBD | Product-defined | TBD | Product-defined | Product-owned | Excluded unless explicitly budgeted |
 
 ## 7. Design margin policy
 
@@ -91,10 +99,12 @@ At minimum, analyze:
 - Both external motor-driver logic loads plus relay, RGB, and buzzer at their maximum planned simultaneous states
 - Maximum approved expansion load
 - USB connected while main power is present
+- External expansion powered before IPC-100 and IPC-100 powered before the external module
+- Maximum approved expansion load and expansion-output fault containment
 
 ## 10. Expansion reserve
 
-Separate 3.3 V and 5 V reserves are `TBD`. Connector documentation shall not advertise a current capability until the rail, connector, protection, and thermal limits are verified.
+Separate 3.3 V, 5 V, J10, J11, future-communications, and daughterboard reserves are `TBD`. Connector documentation shall not advertise a current capability until rail allocation, connector, protection, fault containment, and thermal limits are verified. External field-bus power may require a product-level source.
 
 ## 11. Thermal estimate
 
