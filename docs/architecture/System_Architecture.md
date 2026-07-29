@@ -34,8 +34,8 @@ CrossWind is the first planned application. It is maintained in a separate exter
 - Isolated dry-contact relay
 - Two motor-driver logic interfaces
 - Four limit-switch interfaces
-- 2.42-inch SSD1309 OLED interface
-- BME280 interface
+- Local monochrome graphical I2C OLED interface; 2.42-inch SSD1309 is the reference implementation
+- I2C environmental-sensor interface for temperature, relative humidity, and barometric pressure; BME280 is the reference implementation
 - Rotary-encoder interface and push-button input
 - Dedicated ARM, FIRE, and STOP inputs
 - RGB status output
@@ -113,8 +113,8 @@ flowchart TD
 | Power | Accept protected 9–21 V DC during normal operation; generate 5 V and 3.3 V | Battery mount, main fuse, distribution, actuator power |
 | Motor control | Low-current command and enable signals | Driver module, motor power, motor, mechanics |
 | Relay | Isolated NC/COM/NO contacts | External load power, fuse, load wiring |
-| Human interface | Electrical interfaces for controls, OLED, RGB, buzzer | Product panel, enclosure, legends, ergonomics |
-| Sensors | BME280 and battery-sense interfaces | Product-level sensor placement and environmental strategy |
+| Human interface | Electrical interfaces for controls, a nominal 128x64 monochrome OLED, RGB, and buzzer | Product screens, menus, panel, enclosure, legends, and ergonomics |
+| Sensors | Environmental temperature/humidity/pressure and battery-sense interfaces | Product-level interpretation, placement validation, and environmental strategy |
 | Communications | Wi-Fi, Bluetooth, ESP-NOW; future wired provisions | Network topology and product integration |
 
 ## 6. Power domains
@@ -170,13 +170,15 @@ USB-C is the locked external programming and diagnostics interface. Native USB v
 | --- | --- |
 | Boot and board initialization | Establish hardware safe states, clocks, rails, reset behavior, and diagnostics |
 | Board support | Pin allocation, revision identification, and low-level peripheral configuration |
-| Reusable drivers | OLED, BME280, inputs, relay, RGB, buzzer, battery monitoring, and communications |
+| Reusable drivers | OLED, environmental sensor, inputs, relay, RGB, buzzer, battery monitoring, and communications |
 | Platform services | Events, diagnostics, configuration, health reporting, and communication abstractions |
 | Product application | Product workflows, motion sequencing, user experience, and product-level safety logic |
 
 Only the first four layers belong in the IPC-100 repository. Product application code belongs in the consuming product repository.
 
 Base firmware shall initialize hardware-safe outputs before communication services start. Communication loss or failure must not defeat those safe states. Hardware revision compatibility is a platform responsibility; processor memory allocation and watchdog strategy remain `TBD` pending approval.
+
+The display and environmental-sensor drivers shall remain reusable and product-neutral. Display refresh, contrast, burn-in mitigation, startup, and low-power behavior remain `TBD`. Environmental sampling, filtering, calibration, and validity rules remain `TBD`. I2C operations, including faults on optional expansion wiring, must not delay or defeat hardware-safe output initialization; timeout and bus-recovery strategies remain `TBD`.
 
 ## 9. Product integration model
 
@@ -199,11 +201,15 @@ Connectors should be locking, polarized, labeled, accessible, and replaceable wh
 
 ## 12. Expansion philosophy
 
-Rev A provides shared I2C and spare GPIO. Future CAN, RS485, and daughterboard compatibility should be preserved where practical without committing unverified transceivers or connector families. Expansion loads must remain within the approved power budget.
+Rev A provides shared I2C and spare GPIO. The OLED, environmental sensor, and optional expansion may share I2C only after address compatibility, bus loading, pull-up ownership, supply domains, cable assumptions, fault behavior, startup, and recovery are verified. External I2C expansion must not become a dependency for establishing hardware-safe outputs.
+
+Future CAN, RS485, and daughterboard compatibility should be preserved where practical without committing unverified transceivers or connector families. Expansion loads must remain within the approved power budget.
 
 ## 13. Environmental assumptions
 
-IPC-100 is intended for outdoor equipment installed within a product-level enclosure targeting IP65. Locking connectors and production conformal coating are anticipated. PCB operating-temperature limits are TBD. Product repositories own condensation management, drip loops, cable entry, enclosure validation, and final ingress performance.
+IPC-100 is intended for outdoor equipment installed within a product-level enclosure targeting IP65. Environmental-sensor readings are controller-enclosure measurements by default; they shall not be represented as true external ambient conditions without product-level validation. Locking connectors and production conformal coating are anticipated. PCB operating-temperature limits are TBD. Product repositories own condensation management, drip loops, cable entry, enclosure validation, and final ingress performance.
+
+Display or environmental-sensor absence, initialization failure, or loss of response must not defeat hardware-safe operation or core service diagnostics. Exact fault reporting and product user-interface behavior remain outside this architecture.
 
 ## 14. Rev A scope
 

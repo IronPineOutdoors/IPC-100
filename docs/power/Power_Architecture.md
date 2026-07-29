@@ -58,7 +58,7 @@ flowchart TD
 | `VIN_RAW` | 9–21 V DC normal operation | J1 after product control fuse | Input protection, regulator input, battery divider | Locked normal range; transient survival TBD |
 | Protected input | TBD | Input protection stage | 5 V buck | TBD |
 | `+5V` | 5 V | Wide-input buck | Relay coil, optional interface loads, 3.3 V regulator input, other verified 5 V loads | Regulator TBD |
-| `+3V3` | 3.3 V | 3.3 V regulator from an approved source TBD | ESP32, logic, BME280, I2C, verified expansion loads | Regulator and rail architecture TBD |
+| `+3V3` | 3.3 V | 3.3 V regulator from an approved source TBD | ESP32, logic, approved 3.3 V peripherals, I2C, verified expansion loads | Regulator and rail architecture TBD |
 | USB VBUS | 5 V nominal | USB host | Programming/diagnostics path | Interaction TBD |
 | External high-current | Product-defined | Separately fused product branch | Converter, motor drivers, motors | Off-board |
 

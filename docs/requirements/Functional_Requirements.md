@@ -74,19 +74,26 @@ Verification methods are inspection, analysis, demonstration, or test.
 
 | ID | Requirement | Rationale | Verification method | Status |
 | --- | --- | --- | --- | --- |
-| FUNC-UI-001 | IPC-100 shall interface with a 2.42-inch, 128x64, SSD1309 OLED over I2C. | Provides the planned display interface. | Demonstration | Locked |
+| FUNC-UI-001 | IPC-100 shall provide a nominal 128x64-pixel I2C monochrome graphical OLED interface. The 2.42-inch SSD1309 OLED is the current reference implementation, not a permanent platform dependency. | Provides the required local display capability while preserving module flexibility. | Inspection and demonstration | Proposed |
 | FUNC-UI-002 | IPC-100 shall provide dedicated `OLED_RESET`. | Supports deterministic display recovery. | Test | Locked |
-| FUNC-UI-003 | The final `OLED_VCC` domain shall be selected after module compatibility verification. | Avoids an unsupported supply assumption. | Analysis and test | TBD |
+| FUNC-UI-003 | The final `OLED_VCC` domain and allowable display-interface voltage levels shall be approved after exact module compatibility is verified. | Avoids unsupported supply and logic-level assumptions. | Analysis and test | TBD |
 | FUNC-UI-004 | IPC-100 shall control `RGB_R`, `RGB_G`, and `RGB_B` status channels. | Supports visible status indication. | Test | Locked |
 | FUNC-UI-005 | IPC-100 shall control `BUZZER_OUT`. | Supports audible feedback and alerts. | Test | Locked |
+| FUNC-UI-006 | An absent or nonresponsive display shall be reportable or handled gracefully without preventing core diagnostics or hardware-safe operation. | Keeps a display fault nonfatal to controller safety and service. | Demonstration and test | Locked |
+| FUNC-UI-007 | Display refresh, contrast, burn-in mitigation, startup timing, and low-power behavior shall be defined before base-firmware release. | Controls OLED reliability and user-interface performance without inventing values. | Analysis and test | TBD |
 
 ## 7. Sensor functions
 
 | ID | Requirement | Rationale | Verification method | Status |
 | --- | --- | --- | --- | --- |
-| FUNC-SNS-001 | IPC-100 shall communicate with a BME280 through the shared I2C interface. | Supports environmental measurement. | Demonstration | Locked |
-| FUNC-SNS-002 | IPC-100 shall convert `BATTERY_SENSE` measurements into a calibrated input-voltage value using approved accuracy, resolution, filtering, calibration, and allowable-error definitions. | Provides useful and repeatable diagnostics; performance values remain TBD. | Analysis and test | TBD |
-| FUNC-SNS-003 | Sensor faults or absence shall be reportable without preventing core controller diagnostics. | Improves fault isolation. | Test | Proposed |
+| FUNC-SNS-001 | IPC-100 shall provide shared-I2C environmental measurement of temperature, relative humidity, and barometric pressure. BME280 is the current reference sensor, not a permanent platform dependency. | Preserves the required measurements while allowing controlled sensor approval. | Inspection and demonstration | Proposed |
+| FUNC-SNS-002 | IPC-100 shall convert `BATTERY_SENSE` measurements into a calibrated input-voltage value under the approved PWR-012 and PWR-013 criteria. | Provides useful and repeatable power diagnostics without duplicating ADC-performance requirements. | Analysis and test | TBD |
+| FUNC-SNS-003 | The OLED, environmental sensor, and I2C expansion interface may share `I2C_SDA` and `I2C_SCL` only after address, loading, pull-up, supply-domain, cable, fault, and startup behavior are verified. | A shared bus saves GPIO but requires a controlled electrical and firmware contract. | Analysis and test | Proposed |
+| FUNC-SNS-004 | Environmental readings shall be identified as controller-enclosure measurements unless product-level validation establishes external ambient equivalence. | Prevents enclosure-biased readings from being misrepresented. | Inspection and analysis | Locked |
+| FUNC-SNS-005 | A missing, failed, or nonresponsive environmental sensor shall be reportable or handled gracefully without preventing core diagnostics or hardware-safe operation. | Keeps sensor faults nonfatal to startup, safety, and service. | Demonstration and test | Locked |
+| FUNC-SNS-006 | Environmental measurement accuracy, resolution, sampling, filtering, calibration, allowable error, and valid operating range shall be approved before design release. | Defines useful and repeatable measurements without inventing performance values. | Analysis and test | TBD |
+| FUNC-SNS-007 | An optional external I2C expansion fault shall not prevent hardware-safe output initialization during reset or startup. | Prevents expansion wiring or peripherals from becoming a safety dependency. | Analysis and test | Locked |
+| FUNC-SNS-008 | I2C pull-up ownership, allowed supply domains, supported loading, cable assumptions, address-conflict handling, timeout, and recovery behavior shall be defined before schematic release. | Establishes a reusable bus contract. | Inspection, analysis, and test | TBD |
 
 ## 8. Communications functions
 

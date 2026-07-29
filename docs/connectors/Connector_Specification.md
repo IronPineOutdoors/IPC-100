@@ -25,7 +25,7 @@ Directions are relative to IPC-100. `Power out` entries are limited logic/interf
 | J4 | Horizontal Limit Inputs | 3 | Proposed |
 | J5 | Vertical Limit Inputs | 3 | Proposed |
 | J6 | OLED | 5 | Proposed |
-| J7 | BME280 | 4 | Proposed |
+| J7 | Environmental Sensor | 4 | Proposed |
 | J8 | User Controls and Indicators | 13 | Proposed |
 | J9 | Thrower Relay Contacts | 3 | Proposed |
 | J10 | I2C Expansion | 4 | Proposed |
@@ -80,22 +80,26 @@ Directions are relative to IPC-100. `Power out` entries are limited logic/interf
 
 ## 8. J6 — OLED
 
+The exact display module and physical connector remain `TBD`. The 2.42-inch SSD1309 OLED is the current reference implementation only.
+
 | Pin | Signal name | Direction | Voltage domain | Active state | Description | Protection | Notes | Status |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | `OLED_VCC` | Power out | TBD | N/A | OLED module supply | Decoupling/current protection TBD | Verify module compatibility | TBD |
 | 2 | `GND` | Power return | 0 V | N/A | OLED return | TBD |  | Locked |
-| 3 | `I2C_SDA` | Bidirectional | 3.3 V logic | N/A | Shared I2C data | ESD/series resistor TBD | Pull-up ownership TBD | Locked |
-| 4 | `I2C_SCL` | Output | 3.3 V logic | N/A | Shared I2C clock | ESD/series resistor TBD | Pull-up ownership TBD | Locked |
-| 5 | `OLED_RESET` | Output | 3.3 V logic | Low resets | Dedicated OLED reset | Series/pull TBD | Boot behavior TBD | Locked |
+| 3 | `I2C_SDA` | Bidirectional | TBD logic | N/A | Shared I2C data | ESD/series resistor TBD | Pull-up ownership and level compatibility TBD | Locked |
+| 4 | `I2C_SCL` | Output | TBD logic | N/A | Shared I2C clock | ESD/series resistor TBD | Pull-up ownership and level compatibility TBD | Locked |
+| 5 | `OLED_RESET` | Output | TBD logic | Low resets | Dedicated OLED reset | Series/pull TBD | Boot behavior and level compatibility TBD | Locked |
 
-## 9. J7 — BME280
+## 9. J7 — Environmental Sensor
+
+The exact sensor population and physical connector remain `TBD`. BME280 is the current reference implementation only.
 
 | Pin | Signal name | Direction | Voltage domain | Active state | Description | Protection | Notes | Status |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `+3V3` | Power out | 3.3 V | N/A | Sensor supply | Decoupling/current limit TBD | Module current TBD | Proposed |
+| 1 | `SENSOR_VCC` | Power out | TBD | N/A | Environmental-sensor supply | Decoupling/current limit TBD | Supply compatibility and module current TBD | TBD |
 | 2 | `GND` | Power return | 0 V | N/A | Sensor return | TBD |  | Locked |
-| 3 | `I2C_SDA` | Bidirectional | 3.3 V logic | N/A | Shared I2C data | ESD/series resistor TBD | Address/pull-ups TBD | Locked |
-| 4 | `I2C_SCL` | Output | 3.3 V logic | N/A | Shared I2C clock | ESD/series resistor TBD |  | Locked |
+| 3 | `I2C_SDA` | Bidirectional | TBD logic | N/A | Shared I2C data | ESD/series resistor TBD | Address, pull-ups, and level compatibility TBD | Locked |
+| 4 | `I2C_SCL` | Output | TBD logic | N/A | Shared I2C clock | ESD/series resistor TBD | Level compatibility TBD | Locked |
 
 ## 10. J8 — User Controls and Indicators
 
@@ -125,12 +129,14 @@ Directions are relative to IPC-100. `Power out` entries are limited logic/interf
 
 ## 12. J10 — I2C Expansion
 
+J10 is an optional shared-bus expansion provision and does not promise compatibility with arbitrary peripherals or wiring. Pull-up ownership, available power, supply domains, address compatibility, cable assumptions, supported loading, fault behavior, and recovery remain `TBD`.
+
 | Pin | Signal name | Direction | Voltage domain | Active state | Description | Protection | Notes | Status |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `+3V3` | Power out | 3.3 V | N/A | Limited expansion supply | Current protection TBD | Reserve defined by power budget | Proposed |
+| 1 | `+3V3` | Power out | 3.3 V | N/A | Proposed limited expansion supply | Current protection TBD | Availability and reserve defined by approved power budget | Proposed |
 | 2 | `GND` | Power return | 0 V | N/A | Expansion return | TBD |  | Locked |
-| 3 | `I2C_SDA` | Bidirectional | 3.3 V logic | N/A | Shared I2C data | ESD/series resistor TBD | Bus length and pull-ups TBD | Locked |
-| 4 | `I2C_SCL` | Output | 3.3 V logic | N/A | Shared I2C clock | ESD/series resistor TBD |  | Locked |
+| 3 | `I2C_SDA` | Bidirectional | TBD logic | N/A | Shared I2C data | ESD/series resistor TBD | Bus loading, cable, address, and pull-ups TBD | Locked |
+| 4 | `I2C_SCL` | Output | TBD logic | N/A | Shared I2C clock | ESD/series resistor TBD | Bus loading, cable, and pull-ups TBD | Locked |
 
 ## 13. J11 — Spare GPIO Expansion
 

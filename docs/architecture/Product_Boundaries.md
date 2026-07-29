@@ -20,7 +20,7 @@ This document prevents product-specific functionality from entering IPC-100 with
 - Base firmware, hardware abstraction, reusable drivers, and diagnostics
 - Stable signal names, PCB connector definitions, and GPIO allocation
 - Protected universal inputs and low-current outputs
-- OLED, BME280, battery-monitoring, I2C, and expansion interfaces
+- Product-neutral OLED, environmental-sensor, battery-monitoring, I2C, and expansion interfaces
 - Low-current external motor-driver control interfaces
 - Isolated relay contacts
 - Controller enclosure and PCB-mounting requirements

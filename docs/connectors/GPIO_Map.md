@@ -44,7 +44,7 @@ Directions are relative to the ESP32. External voltage translation or driver sta
 | RGB green | `RGB_G` | TBD | Output | Review | No | Yes preferred | No | Pull to off TBD | Off | Driver topology TBD | TBD |
 | RGB blue | `RGB_B` | TBD | Output | Review | No | Yes preferred | No | Pull to off TBD | Off | Driver topology TBD | TBD |
 | Buzzer control | `BUZZER_OUT` | TBD | Output | Review | No | Yes preferred | No | Pull to off required | Off | Buzzer/driver topology TBD | TBD |
-| Battery monitor | `BATTERY_SENSE` | TBD | Input | Avoid strap | ADC1 required | No | No | Divider/filter TBD | N/A | Do not use ADC2 because Wi-Fi is required | TBD |
+| Battery monitor | `BATTERY_SENSE` | TBD | Input | Avoid strap | ADC1-capable input or equivalent approved ADC path | No | No | Divider/filter TBD | N/A | Do not assume ADC2 availability during Wi-Fi operation | TBD |
 | Relay coil control | `RELAY_CTRL` | TBD | Output | Review | No | No | No | Pull to off required | Off; contacts de-energized | `RELAY_NO` must remain open | TBD |
 | Spare expansion 1 | `SPARE_GPIO1` | TBD | Bidirectional | Review | TBD | TBD | TBD | TBD | High impedance | Capability depends on assigned pin | TBD |
 | Spare expansion 2 | `SPARE_GPIO2` | TBD | Bidirectional | Review | TBD | TBD | TBD | TBD | High impedance | Capability depends on assigned pin | TBD |
@@ -60,7 +60,7 @@ Directions are relative to the ESP32. External voltage translation or driver sta
 
 ## 3. Non-GPIO connector signals
 
-The following stable connector signals do not directly consume ESP32 GPIO: `VIN_RAW`, `GND`, `+5V`, `+3V3`, `OLED_VCC`, `RELAY_NC`, `RELAY_COM`, `RELAY_NO`, `CAN_H`, `CAN_L`, `RS485_A`, `RS485_B`, `USB_VBUS`, `USB_D+`, `USB_D-`, `USB_CC1`, `USB_CC2`, and `USB_SHIELD`.
+The following stable connector signals do not directly consume ESP32 GPIO: `VIN_RAW`, `GND`, `+5V`, `+3V3`, `OLED_VCC`, `SENSOR_VCC`, `RELAY_NC`, `RELAY_COM`, `RELAY_NO`, `CAN_H`, `CAN_L`, `RS485_A`, `RS485_B`, `USB_VBUS`, `USB_D+`, `USB_D-`, `USB_CC1`, `USB_CC2`, and `USB_SHIELD`.
 
 ## 4. ESP32 allocation constraints
 
@@ -78,7 +78,7 @@ Input-only GPIO may be candidates for limits, controls, or `BATTERY_SENSE`, subj
 
 ### 4.4 ADC and Wi-Fi
 
-ADC2 resources can be unavailable or constrained while Wi-Fi is active. Because Wi-Fi is locked, `BATTERY_SENSE` requires a verified ADC1-capable pin.
+ADC2 resources can be unavailable or constrained while Wi-Fi is active. Because Wi-Fi is locked, `BATTERY_SENSE` requires a verified ADC1-capable input or an equivalent approved ADC path. No ADC channel is assigned.
 
 ### 4.5 PWM
 
@@ -96,6 +96,8 @@ J13 is the external USB-C service interface. Native USB versus an external USB-t
 
 ESP32 I2C signals can be routed through the GPIO matrix, but candidate pins must still satisfy boot, loading, signal-integrity, and connector-routing constraints.
 
+`I2C_SDA` and `I2C_SCL` are shared by the reference OLED, reference environmental sensor, and optional expansion interface. Allocation review must include attached-device startup behavior, address compatibility, bus loading, pull-up ownership, supply domains, cable assumptions, and recovery behavior. I2C initialization must occur without delaying hardware-safe output establishment.
+
 ### 4.9 Safe default outputs
 
 Motor enables, motor PWM, relay control, RGB channels, and buzzer control require hardware-defined safe states before firmware configures GPIO. Firmware initialization is not the only safe-state mechanism.
@@ -109,7 +111,7 @@ The preliminary feature set may demand more independent GPIO than the selected m
 - [ ] Confirm exact ESP32 module variant and module pinout.
 - [ ] Exclude flash-connected and unavailable module pins.
 - [ ] Record every strap pin and required reset level.
-- [ ] Reserve ADC1 for `BATTERY_SENSE`.
+- [ ] Reserve an ADC1-capable input or approve an equivalent ADC path for `BATTERY_SENSE`.
 - [ ] Reserve programming UART, boot, and reset resources.
 - [ ] Count LEDC PWM channels and timing constraints.
 - [ ] Confirm interrupt capability for limits and controls.
@@ -120,6 +122,7 @@ The preliminary feature set may demand more independent GPIO than the selected m
 - [ ] Resolve total GPIO demand and any expander/multiplexer need.
 - [ ] Cross-check every signal against J1–J13.
 - [ ] Review radio, ADC, UART, I2C, and boot interactions.
+- [ ] Verify shared-I2C address, loading, pull-up, supply-domain, cable, startup, fault, and recovery assumptions.
 - [ ] Record and approve final GPIO numbers before Sheet 02 is wired.
 
 ## 7. Related documents

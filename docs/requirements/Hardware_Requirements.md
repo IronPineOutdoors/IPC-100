@@ -76,13 +76,28 @@ Normal operating input range and transient-survival range are separate requireme
 
 | ID | Requirement | Rationale | Verification method | Status |
 | --- | --- | --- | --- | --- |
-| DSP-001 | The display interface shall support a 2.42-inch OLED with SSD1309 controller and 128x64 resolution. | Defines the planned display class. | Inspection and demonstration | Locked |
-| DSP-002 | The OLED interface shall use I2C. | Aligns with the shared low-speed bus. | Inspection | Locked |
-| DSP-003 | The OLED interface shall provide dedicated `OLED_RESET`. | Supports deterministic display reset. | Inspection and test | Locked |
-| DSP-004 | `OLED_VCC` shall remain TBD until module compatibility is verified. | Candidate modules may require different supply voltages. | Analysis and test | TBD |
-| SNS-001 | The platform shall provide a BME280 I2C interface. | Supports environmental sensing. | Demonstration | Locked |
-| SNS-002 | The platform shall provide battery-voltage monitoring. | Supports power diagnostics. | Test | Locked |
-| SNS-003 | OLED, BME280, and I2C expansion may share `I2C_SDA` and `I2C_SCL`, subject to bus verification. | Reduces GPIO use while preserving expansion. | Analysis and test | Proposed |
+| DSP-001 | IPC-100 Rev A shall provide a local monochrome graphical display interface supporting a nominal 128x64-pixel I2C OLED module. The 2.42-inch SSD1309 OLED is the current reference implementation, not a permanent platform dependency. | Locks the required local display capability while avoiding unnecessary dependence on one physical module size or controller before electrical and mechanical compatibility are verified. | Inspection and demonstration | Proposed |
+| DSP-002 | The Rev A display interface shall use the shared I2C bus unless a documented engineering review approves another interface before schematic release. | Reduces GPIO demand and supports the current display architecture while preserving a controlled exception process if compatibility issues are discovered. | Inspection and test | Locked |
+| DSP-003 | The display interface shall provide a dedicated `OLED_RESET` signal. | Supports deterministic display initialization and recovery independent of shared bus state. | Inspection and test | Locked |
+| DSP-004 | The approved `OLED_VCC` supply domain and allowable display-interface voltage levels shall be verified before schematic release. | Candidate OLED modules may use different supply and logic-voltage arrangements, and module markings alone are not sufficient evidence of compatibility. | Analysis and test | TBD |
+| DSP-005 | The display interface shall support detection, reporting, or graceful handling of an absent or nonresponsive display without preventing core IPC-100 diagnostics or hardware-safe operation. | A failed or disconnected display shall not disable controller safety functions or basic service diagnostics. | Demonstration and test | Locked |
+| DSP-006 | Display update behavior, refresh rate, contrast control, burn-in mitigation, startup timing, and low-power behavior shall be defined before base-firmware release. | OLED reliability and user-interface performance depend on controlled firmware behavior as well as electrical compatibility. | Analysis and test | TBD |
+| SNS-001 | IPC-100 Rev A shall provide an I2C environmental-sensor interface supporting measurement of ambient temperature, relative humidity, and barometric pressure. The BME280 is the current reference implementation, not a permanent platform dependency. | Locks the intended environmental-measurement capability while allowing later approval of a compatible sensor if availability, lifecycle, accuracy, or environmental requirements justify a change. | Inspection and demonstration | Proposed |
+| SNS-002 | The platform shall provide battery-voltage monitoring through the approved `BATTERY_SENSE` interface. | Supports controller power diagnostics and product-level battery-status decisions. | Test | Locked |
+| SNS-003 | The OLED, environmental sensor, and I2C expansion interface may share `I2C_SDA` and `I2C_SCL`, subject to verified address compatibility, bus capacitance, pull-up design, supply-domain compatibility, cable length, fault behavior, and startup operation. | A shared bus reduces GPIO use but requires verification of all attached devices and external expansion conditions. | Analysis and test | Proposed |
+| SNS-004 | Environmental-sensor readings shall be identified as controller-enclosure measurements unless product-specific validation establishes that they represent external ambient conditions. | Sensor readings inside an enclosure may be affected by regulator heat, processor heat, sunlight, restricted airflow, and condensation. | Inspection and analysis | Locked |
+| SNS-005 | The environmental-sensor interface shall support detection, reporting, or graceful handling of a missing, failed, or nonresponsive sensor without preventing core IPC-100 diagnostics or hardware-safe operation. | A sensor fault shall not prevent controller startup, safe-state behavior, or service access. | Demonstration and test | Locked |
+| SNS-006 | Environmental-sensor accuracy, resolution, sampling interval, filtering, calibration method, allowable error, and valid operating range shall be defined before design release. | Providing an electrical interface does not by itself guarantee useful or repeatable environmental measurements. | Analysis and test | TBD |
+| SNS-007 | A fault on an optional external I2C expansion device shall not prevent IPC-100 from establishing hardware-safe outputs during reset or startup. | External expansion wiring or a failed peripheral shall not defeat the controller safe state. | Analysis and test | Locked |
+| SNS-008 | The final I2C bus architecture shall define pull-up ownership, allowed supply domains, maximum supported bus loading, external cable assumptions, address-conflict handling, and bus-recovery behavior before schematic release. | A reusable expansion bus requires a documented electrical and firmware contract. | Inspection, analysis, and test | TBD |
+
+**Engineering notes:**
+
+- The current reference display is a 2.42-inch, 128x64 OLED using the SSD1309 controller. Final production-display approval requires verification of supply voltage, logic compatibility, initialization behavior, connector pinout, mounting, viewing requirements, environmental suitability, availability, and lifecycle.
+- Do not assume that every SSD1309 module accepts the same supply voltage or logic levels. Final approval shall use exact module documentation or verified bench testing.
+- BME280 is the current reference sensor. Final sensor approval requires verification of supply voltage, logic compatibility, I2C address behavior, accuracy, operating range, calibration needs, placement, self-heating, airflow exposure, condensation risk, availability, and lifecycle.
+- SNS-002 is supported by the ADC-safety and measurement-performance requirements in PWR-012 and PWR-013.
+- The exact bus-isolation, timeout, recovery, or switching implementation for SNS-007 remains `TBD`.
 
 ## 6. Input requirements
 

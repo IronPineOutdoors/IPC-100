@@ -13,5 +13,12 @@ Reserved for future IPC-100 base firmware, board support, reusable drivers, plat
 - Reset, normal boot, programming boot, brownout recovery, and watchdog recovery shall be supported.
 - Processor memory allocation, reserve targets, watchdog strategy, persistent storage, update behavior, and recovery thresholds remain `TBD`.
 - Future CAN and RS485 are proposed expansion provisions, not required baseline firmware functions.
+- Reusable base-firmware drivers shall own display and environmental-sensor device access.
+- Product-specific screens, menus, alerts, environmental interpretation, and battery policies belong in product repositories.
+- Display and environmental-sensor initialization failures shall be reportable and nonfatal to core diagnostics and hardware-safe operation.
+- Hardware-safe output initialization shall not wait on I2C peripheral or optional expansion communication.
+- I2C timeout, bus-recovery, and optional-expansion fault-containment strategies remain `TBD`.
+- Display refresh, contrast, burn-in mitigation, startup timing, and low-power behavior remain `TBD`.
+- Environmental sampling, filtering, calibration, allowable-error, and validity rules remain `TBD`.
 
 See [Functional Requirements](../docs/requirements/Functional_Requirements.md), [System Architecture](../docs/architecture/System_Architecture.md), and [GPIO Map](../docs/connectors/GPIO_Map.md).

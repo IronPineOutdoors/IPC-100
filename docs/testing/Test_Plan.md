@@ -41,8 +41,8 @@ Record for every execution:
 | IO-002 | Inputs | Operator controls | Test | TBD | Test log | Planned |
 | IO-003 | Outputs | Isolated dry-contact relay | Test | TBD | Waveforms/log | Planned |
 | IO-004 | Outputs | External motor-driver control interfaces | Test | TBD | Waveforms/log | Planned |
-| UI-001 | UI | OLED, RGB LED, buzzer | Test | TBD | Photos/log | Planned |
-| SNS-001 | Sensors | BME280 | Test | TBD | Comparison data | Planned |
+| UI-001 | UI | OLED interface (SSD1309 reference), RGB LED, buzzer | Test | TBD | Photos/log | Planned |
+| SNS-001 | Sensors | Environmental sensor (BME280 reference) | Test | TBD | Comparison data | Planned |
 | SNS-002 | Sensors | Battery monitoring | Test | TBD | Calibration data | Planned |
 | SAF-001 | Safety | STOP behavior | Test | TBD | Timing data | Planned |
 | ENV-001 | Environment | Temperature exposure | Test | TBD | Chamber data | Planned |

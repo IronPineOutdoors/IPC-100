@@ -56,7 +56,7 @@ The controller remains product-neutral while exposing documented capabilities th
 
 ## 6. High-level overview
 
-Rev A combines a protected 9–21 V DC controller input, 5 V and 3.3 V logic rails, an ESP32-family module, wireless communications, local controls and indicators, sensor interfaces, two external motor-driver logic interfaces, isolated relay contacts, and documented expansion provisions. ESP32-WROOM-32E is the current reference candidate only.
+Rev A combines a protected 9–21 V DC controller input, 5 V and 3.3 V logic rails, an ESP32-family module, wireless communications, local controls and a monochrome graphical OLED interface, environmental temperature/humidity/pressure sensing, battery monitoring, two external motor-driver logic interfaces, isolated relay contacts, and documented expansion provisions. ESP32-WROOM-32E, the 2.42-inch SSD1309 OLED, and BME280 are current reference implementations only.
 
 ## 7. Intended audience
 
