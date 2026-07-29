@@ -19,7 +19,7 @@ Product repositories consume released IPC-100 electrical and firmware interfaces
 
 ## 2. Architecture summary
 
-Rev A uses the ESP32 processor family with Wi-Fi, Bluetooth, and ESP-NOW. The processor study recommends ESP32-S3-WROOM-1 as the preferred module family; the exact flash/PSRAM ordering variant and GPIO allocation are not released. IPC-100 accepts 9–21 V DC during normal operation, creates 5 V and 3.3 V logic rails, and provides a USB-C service interface, battery monitoring, protected inputs, a local monochrome graphical OLED interface, temperature/humidity/pressure sensing, two low-current external motor-driver interfaces, isolated relay contacts, RGB and buzzer outputs, I2C expansion, spare GPIO, and future CAN/RS485 provisions. The 2.42-inch SSD1309 OLED and BME280 are reference implementations rather than permanent dependencies. The primary integration case is an external nominal 18 V lithium-ion tool-battery system; DeWalt 20V MAX is the initial reference implementation rather than a platform dependency.
+Rev A uses the ESP32 processor family with Wi-Fi, Bluetooth, and ESP-NOW. The processor study recommends ESP32-S3-WROOM-1 as the preferred module family. A complete proposed direct GPIO allocation now maps all 27 required non-USB application signals, preserves native USB and UART0 recovery, and remains blocked from release by exact module-variant, inhibit-feedback, J11, and implementation decisions. IPC-100 accepts 9–21 V DC during normal operation, creates 5 V and 3.3 V logic rails, and provides a USB-C service interface, battery monitoring, protected inputs, a local monochrome graphical OLED interface, temperature/humidity/pressure sensing, two low-current external motor-driver interfaces, isolated relay contacts, RGB and buzzer outputs, controlled I2C expansion, proposed spare GPIO, and future CAN/RS485 provisions. The 2.42-inch SSD1309 OLED and BME280 are reference implementations rather than permanent dependencies. The primary integration case is an external nominal 18 V lithium-ion tool-battery system; DeWalt 20V MAX is the initial reference implementation rather than a platform dependency.
 
 Motor drivers, motors, thrower power, and all high-current distribution are external. Motor current must not pass through IPC-100.
 
@@ -42,6 +42,7 @@ Motor drivers, motors, thrower power, and all high-current distribution are exte
 | [Connector Specification](docs/connectors/Connector_Specification.md) | Preliminary J1–J13 interface reservations and stable signal names |
 | [Connector Architecture Review](docs/connectors/Connector_Architecture_Review.md) | Cross-connector partitioning, harness, safety, and unresolved architecture review |
 | [GPIO Map](docs/connectors/GPIO_Map.md) | ESP32 resource plan and allocation gate |
+| [GPIO and Peripheral Allocation Review](docs/connectors/GPIO_and_Peripheral_Allocation_Review.md) | Proposed ESP32-S3 pin map, peripheral assignments, restrictions, conflicts, reserves, and readiness gate |
 | [Safety Input Architecture Review](docs/interfaces/Safety_Input_Architecture_Review.md) | Input classifications, supervised safety loops, electrical contracts, fault behavior, and input schematic-entry gate |
 | [Output Electrical Architecture Review](docs/interfaces/Output_Electrical_Architecture_Review.md) | Motor, relay, status, reset, safe-state, sequencing, fault, and output schematic-entry contracts |
 | [Power Architecture](docs/power/Power_Architecture.md) | Source boundary, power tree, protection, and rail behavior |
@@ -50,7 +51,7 @@ Motor drivers, motors, thrower power, and all high-current distribution are exte
 | [Open Design Items](docs/revisions/Open_Design_Items.md) | Consolidated unresolved decisions and required engineering review gates |
 | [Rev A Schematic Readiness Review](docs/revisions/Schematic_Readiness_Review_Rev_A.md) | Architecture-freeze recommendation, blockers, and schematic-entry criteria |
 | [Requirements Traceability Matrix](docs/revisions/Requirements_Traceability_Matrix.md) | Architecture-level mapping from requirements to interfaces, verification, and open decisions |
-| [Processor Resource Feasibility](docs/architecture/Processor_Resource_Feasibility.md) | Direct and illustrative reduced-resource demand without GPIO assignment |
+| [Processor Resource Feasibility](docs/architecture/Processor_Resource_Feasibility.md) | Resource demand and proposed ESP32-S3 allocation feasibility |
 | [Revision History](docs/revisions/Revision_History.md) | Rev A, prototype-build, document, and firmware version policy |
 
 Supporting verification: [Rev A Test Plan](docs/testing/Test_Plan.md).
@@ -108,7 +109,7 @@ Tool versions will be pinned when design sources are introduced.
 1. Approve Engineering Blueprint
 2. Finalize power-component selection
 3. Complete Sheet 01
-4. Allocate ESP32 GPIO
+4. Select the exact ESP32-S3-WROOM-1 variant and release the proposed GPIO allocation
 5. Complete remaining schematic sheets
 6. Run ERC
 7. Begin PCB layout

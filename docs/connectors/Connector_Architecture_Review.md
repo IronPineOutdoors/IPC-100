@@ -26,7 +26,7 @@ Connector identifiers and pin counts remain preliminary unless explicitly locked
 | J8 | User controls and indicators | 14 logical if combined | Dedicated STOP pair; ARM/FIRE; encoder; RGB; buzzer; `+3V3`; `+5V`; command return | Mixed; includes STOP | Preliminary limited supplies plus dedicated field-sense loop | External; likely product/service disconnect | Required capabilities; population varies | STOP physical partition, field voltage, output load/drive contracts, supply limits | Partitioning, location mismatch, harness complexity, keying | Input/output behavior defined; partition and quantitative contracts open |
 | J9 | Isolated relay contacts | 3 | `RELAY_NC`, `RELAY_COM`, `RELAY_NO` | High | Externally supplied switched circuit | External; product/service dependent | Required interface | Ratings, isolation, load contract, protection, and inhibit implementation | Family, spacing, keying, separation from logic harnesses | Safe behavior defined; quantitative contract open |
 | J10 | Controlled I2C expansion | 4 | `+3V3`, `GND`, `I2C_SDA`, `I2C_SCL` | Optional but fault-relevant | Proposed limited expansion supply | External optional; disconnect frequency TBD | Optional | Pull-ups, loading, segmentation, protection, hot-plug, backfeed | Family, exposure, cable and harness grouping | Proposed |
-| J11 | Spare GPIO expansion | TBD | Candidate power, return, `SPARE_GPIO1`, `SPARE_GPIO2` | Non-safety-critical | Availability TBD | External optional | Optional | Signal count, function, voltage, protection, drive, backfeed | Pin count, family, keying, retention, exposure | TBD |
+| J11 | Spare GPIO expansion | TBD | Candidate power, return, `SPARE_GPIO1`, `SPARE_GPIO2` | Non-safety-critical | Availability TBD | External optional | Optional | Direct allocation leaves one conditional reserve and cannot guarantee two signals; function, voltage, protection, drive, backfeed | Pin count, family, keying, retention, exposure | Allocation conflict; disposition required |
 | J12 | Future communications reservation | TBD | CAN and RS485 concepts only | Future fault-relevant | Power provision TBD | Not yet defined | Future provision | Separate electrical contracts, transceivers, protection, isolation, termination, biasing | Shared/separate/footprint/daughterboard architecture | Proposed reservation |
 | J13 | USB-C service interface | USB-C groups | USB power, data, CC, shield | Service and power-state relevant | USB VBUS | Externally accessible; frequent service use possible | Required service connector | Native ESP32-S3 USB Serial/JTAG preferred; role, protection, recovery access, backfeed, USB-only behavior | Receptacle, retention, enclosure access, shield coupling | Locked external type; implementation TBD |
 
@@ -42,7 +42,7 @@ J8 combines safety-relevant controls, navigation, indicators, two preliminary su
 
 ### 3.3 J11 unresolved capability
 
-J11 does not yet have an approved signal count or pin count. Stable spare-signal names do not guarantee analog, PWM, interrupt, bidirectional, current-drive, direct-GPIO, or voltage-tolerance capability. `CONN-TBD-002` remains open.
+J11 does not yet have an approved signal count or pin count. The proposed direct GPIO allocation consumes all common non-strap application pins while preserving native USB and UART0 recovery; only GPIO37 remains as a module-variant-dependent reserve. Stable spare-signal names therefore do not guarantee two physical pins or any analog, PWM, interrupt, bidirectional, current-drive, direct-GPIO, or voltage-tolerance capability. `CONN-TBD-002` remains open.
 
 ### 3.4 J12 interface conflation
 
@@ -70,7 +70,7 @@ CAN and RS485 have different transceiver, direction-control, termination, biasin
 | J8 | Architecture defined; quantitative contracts blocking | Input behavior and main-only RGB-off/buzzer-silent defaults are selected; dedicated STOP partition, output loads/drives, supply limits, and `CONN-TBD-001` block released pinout capture |
 | J9 | Architecture defined; quantitative contract blocking | Main-only master-inhibited actuation and de-energized/`RELAY_NO`-open safe behavior are selected; contact/isolation ratings, external load contract, actuation implementation, and fault containment remain open |
 | J10 | Blocking definition missing | Supply, pull-up ownership, loading, hot-plug policy, protection, and segmentation decision |
-| J11 | Blocking definition missing | Pin count, function, power, protection, and processor allocation unresolved; current evidence supports reservation only, not a connector schematic |
+| J11 | Architecture disposition blocking | GPIO allocation cannot guarantee both spare concepts; decide resource reduction, conditional single spare, removal, or later revision before any connector schematic |
 | J12 | Future provision only | Shared/separate/footprint/daughterboard disposition remains open; no pinout is authorized |
 | J13 | Architecture defined; implementation blocking | Native ESP32-S3 USB Serial/JTAG and bounded USB-only core service are selected; CC, protection, source selection, recovery access, shield, backfeed ratings, and transition criteria remain open |
 

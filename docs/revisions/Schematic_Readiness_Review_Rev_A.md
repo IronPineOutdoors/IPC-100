@@ -11,7 +11,7 @@
 
 ## 1. Purpose and scope
 
-This review audits architecture definition, requirements, traceability, processor resources, connectors, power, safety, firmware interfaces, verification, and open decisions. It does not authorize schematic capture, PCB layout, component selection, GPIO assignment, firmware implementation, or product-specific design.
+This review audits architecture definition, requirements, traceability, processor resources, connectors, power, safety, firmware interfaces, verification, and open decisions. It does not authorize PCB layout, component selection, firmware implementation, or product-specific design. The later GPIO allocation package authorizes only a proposed pin plan and defines a conditional MCU-sheet entry gate.
 
 ## 2. Documents reviewed
 
@@ -96,11 +96,11 @@ The [Requirements Traceability Matrix](Requirements_Traceability_Matrix.md) maps
 
 The [Processor Resource Feasibility](../architecture/Processor_Resource_Feasibility.md) derives 10 independent digital inputs, 14 independent outputs, two I2C signals, one ADC path, and two possible service signals: approximately 29 MCU signal resources before boot/reset and optional controls. An illustrative, non-approved external-interface scenario could reduce direct demand to approximately 19.
 
-The [Processor Selection Study](../architecture/Processor_Selection_Study.md) reduces processor uncertainty by recommending ESP32-S3-WROOM-1 as the preferred module family and native USB Serial/JTAG as the preferred service architecture. Its 36 module GPIOs make direct implementation plausible, but no pin-level allocation has demonstrated simultaneous GPIO, PWM, ADC, USB, boot-safe, and service feasibility. Candidate-level feasibility has improved; final feasibility remains **Not demonstrated**.
+The [Processor Selection Study](../architecture/Processor_Selection_Study.md) recommends ESP32-S3-WROOM-1 and native USB Serial/JTAG. The [GPIO and Peripheral Allocation Review](../connectors/GPIO_and_Peripheral_Allocation_Review.md) now assigns all 27 required non-USB application signals, preserves fixed USB GPIO19/20 and UART0 recovery GPIO43/44, and proposes MCPWM, ADC1, and I2C0 allocations. Pin-level feasibility is **demonstrated conditionally**, not released.
 
 ### Processor-selection gate
 
-Final selection requires an exact ESP32-S3-WROOM-1 ordering variant with sufficient usable GPIO, PWM, ADC, communications, memory, boot-safe compatibility, service-interface compatibility, lifecycle/availability review, approved footprint, antenna/enclosure compatibility, programming/recovery method, and applicable module regulatory status.
+Final selection requires an exact ESP32-S3-WROOM-1 ordering variant that leaves GPIO35/36 available and provides compatible GPIO47/48 behavior, plus sufficient memory, lifecycle/availability review, approved footprint, antenna/enclosure compatibility, programming/recovery implementation, and applicable module regulatory status. The direct plan cannot guarantee two J11 spare GPIOs, and inhibit diagnostic feedback remains unresolved.
 
 ## 10. Connector readiness
 
@@ -143,7 +143,7 @@ IPC-100 is not a certified emergency-stop device. Product-level emergency-stop a
 
 | Service / abstraction | Stable interface? | Hardware dependency | Blocking decision | Firmware stage |
 | --- | --- | --- | --- | --- |
-| Logical GPIO abstraction | Yes | Final mapping/polarity | Hardware revision definition | Can begin interface scaffolding |
+| Logical GPIO abstraction | Yes | Proposed mapping; electrical polarity | Exact module/J11/inhibit disposition | Can begin interface scaffolding against proposed map |
 | Safe output initialization | Behavior yes | Pulls/gating/rails | Schematic mechanisms | Requires schematic definition |
 | Inputs and diagnostics | Names/behavior yes | Supervision, thresholds, protection, connector implementation | Quantitative input contract | Requires schematic definition |
 | Motor/relay services | Names/behavior yes | Master inhibit, driver conditioning, isolation | Quantitative electrical contracts and circuit implementation | Requires schematic definition |
@@ -164,11 +164,11 @@ Architecture-level concepts cover safe startup, reset, brownout, watchdog recove
 
 | Area | Criterion | Classification |
 | --- | --- | --- |
-| Processor | Candidate module selected for schematic study | Not satisfied |
-| Processor | Usable resource feasibility demonstrated | Not satisfied |
+| Processor | Candidate module selected for schematic study | Satisfied at family level; exact variant not satisfied |
+| Processor | Usable resource feasibility demonstrated | Satisfied conditionally; 27/27 required signals assigned |
 | Processor | USB architecture selected | Satisfied at architecture level |
-| Processor | ADC path selected | Not satisfied |
-| Processor | Boot/programming and antenna constraints defined | Partially satisfied |
+| Processor | ADC path selected | Satisfied at allocation level; analog design open |
+| Processor | Boot/programming and antenna constraints defined | Partially satisfied; pin resources reserved |
 | Power | Block-level rail architecture approved | Satisfied at architecture level |
 | Power | USB/main behavior defined | Satisfied at architecture level |
 | Power | Approximate load envelopes available | Partially satisfied |
@@ -215,18 +215,18 @@ Freeze does not require final part numbers, passive values, PCB layout, connecto
 
 **Architecture-freeze recommendation: Do not freeze Rev A.**
 
-**Final readiness classification: Not ready for schematic.**
+**Final readiness classification: Not ready for released schematic. Conditional preliminary MCU-sheet capture may begin only after the GPIO review's exact-variant, J11, and inhibit-resource entry conditions are closed.**
 
 The architecture is substantially documented, but multiple mandatory Gate 1 criteria are not satisfied. Block-level studies may continue, but controlled schematic capture is not authorized.
 
 ## 19. Required next actions
 
-1. Select a candidate ESP32 module for study and close the direct-versus-reduced resource architecture.
-2. Select USB and ADC architectural paths.
+1. Select the exact compatible ESP32-S3-WROOM-1 variant and release or revise the proposed direct allocation.
+2. Implement the selected native USB, ADC1, boot, and UART0 recovery paths at the next authorized design stage.
 3. Approve block-level rails, supported power states, protection objectives, and load envelopes.
 4. Approve field-input polarity/contact/fault/protection contracts.
 5. Approve relay and motor-driver electrical and safe-disable contracts.
 6. Approve display/sensor modules, supply domains, and shared-I2C architecture.
-7. Resolve J8, J11, and J12 dispositions and provisional connector pin counts.
+7. Resolve J8, J11, inhibit feedback, J12, and provisional connector pin counts.
 8. Define preliminary PCB envelope, mounting, connector access, and antenna constraints.
 9. Re-run Gate 1 and approve or reject the proposed freeze ADR.

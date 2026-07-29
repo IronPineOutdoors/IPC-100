@@ -4,15 +4,30 @@
 | --- | --- |
 | Platform | Iron Pine IPC-100 |
 | Hardware revision | Rev A |
-| Purpose | Evaluate processor-resource demand without assigning GPIO |
-| Status | Preliminary feasibility study |
+| Purpose | Evaluate processor-resource demand and summarize the proposed allocation |
+| Status | Pin-level feasibility demonstrated conditionally; release blocked |
 | Owner | Iron Pine Outdoors Engineering |
 
 ## 1. Conclusion
 
-Feasibility status: **Candidate-level feasibility improved; pin-level feasibility not demonstrated**.
+Feasibility status: **Pin-level feasibility demonstrated conditionally; allocation release blocked**.
 
-ESP32 remains the processor family. The [Processor Selection Study](Processor_Selection_Study.md) recommends ESP32-S3-WROOM-1 as the preferred module family and native USB Serial/JTAG as the preferred service architecture. Its 36 module GPIOs make the approximately 29-signal direct scenario plausible, but exact usable pins, boot-strapping behavior, memory configuration, ADC suitability, safe startup, and simultaneous peripheral routing remain unproven. No GPIO is assigned.
+ESP32 remains the processor family. The [Processor Selection Study](Processor_Selection_Study.md) recommends ESP32-S3-WROOM-1 as the preferred module family and native USB Serial/JTAG as the preferred service architecture. The [GPIO and Peripheral Allocation Review](../connectors/GPIO_and_Peripheral_Allocation_Review.md) assigns all 27 required non-USB application signals, preserves fixed USB on GPIO19/20, and reserves GPIO43/44 for UART0 recovery. The proposal is feasible only with an exact module variant that leaves GPIO35/36 available and provides compatible GPIO47/48 voltage behavior. No map is released until that variant, J11, inhibit feedback, and framework-level validation are closed.
+
+### 1.1 Allocation outcome
+
+| Item | Result |
+| --- | --- |
+| Required non-USB application signals | 27 |
+| Proposed required assignments | 27 |
+| Unassigned required application signals | 0 |
+| Fixed USB signals | GPIO19/20 |
+| Motor PWM | Four MCPWM0 generators |
+| Battery ADC | GPIO1 / ADC1_CH0 |
+| Shared I2C | GPIO47/48 / I2C0 |
+| Recovery | GPIO0, EN, and reserved UART0 GPIO43/44 |
+| Physical expansion margin | GPIO37 conditional only |
+| Primary blockers | Exact module variant, J11, inhibit diagnostics, validation |
 
 ## 2. Required resource inventory
 
@@ -85,4 +100,4 @@ An illustrative, non-approved scenario could reduce direct MCU demand to approxi
 
 Selection requires demonstrated usable GPIO, PWM, ADC path, communications, memory, boot-safe behavior, wireless support, service compatibility, lifecycle and availability review, approved footprint, antenna/enclosure compatibility, programming/recovery method, and applicable regulatory module status. Final CAN/RS485 resource availability remains future and contingent.
 
-The module-family comparison and preferred service direction are now complete. Selection of the exact ESP32-S3-WROOM-1 ordering variant remains gated by a pin-level allocation study and the other criteria above.
+The module-family comparison, preferred service direction, and proposed pin-level allocation are complete. Selection of the exact ESP32-S3-WROOM-1 ordering variant and release of the allocation remain gated by the dependencies above.

@@ -159,7 +159,7 @@ J10 is an optional controlled local shared-bus expansion provision, not a genera
 
 ## 13. J11 — Spare GPIO Expansion
 
-Final pin count, signal count, electrical function, protection, voltage domain, power availability, and GPIO allocation are `TBD`. The concepts below are not a four-pin pinout and do not guarantee bidirectional, analog, PWM, interrupt, open-drain, current-drive, direct-processor, or universal-voltage capability.
+Final pin count, signal count, electrical function, protection, voltage domain, and power availability are `TBD`. The proposed direct processor allocation leaves only one conditional GPIO reserve and cannot guarantee both concepts below. They are not a four-pin pinout and do not guarantee bidirectional, analog, PWM, interrupt, open-drain, current-drive, direct-processor, or universal-voltage capability.
 
 | Concept | Signal name | Direction | Voltage domain | Active state | Description | Protection | Notes | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -198,14 +198,14 @@ J13 is the USB-C USB 2.0 service interface for programming and diagnostics. Exac
 | ID | Open decision | Required stage | Status |
 | --- | --- | --- | --- |
 | CONN-TBD-001 | Determine whether J8 remains one combined connector or is partitioned into dedicated safety-control, navigation, and indicator connectors. | Before schematic release | TBD |
-| CONN-TBD-002 | Define J11 signal count, electrical function, protection, voltage domain, power availability, and connector pin count after processor GPIO allocation and expansion-architecture review. | Before schematic release | TBD |
+| CONN-TBD-002 | Resolve J11 through resource reduction, a conditional single spare, removal from released Rev A, or another reviewed architecture; then define function, protection, voltage, power, and pin count. | Before schematic release | Proposed direct GPIO plan cannot guarantee two spares |
 | CONN-TBD-003 | Determine whether future CAN and RS485 provisions share one configurable connector, use separate connectors, remain unpopulated footprints, or move to daughterboard expansion. | Before schematic release | TBD |
 
 See [Connector Architecture Review](Connector_Architecture_Review.md) for cross-connector risks, partitioning concerns, and unresolved mechanical decisions.
 
 ## 16. Internal stable signals
 
-`BATTERY_SENSE` is an internal protected analog signal derived from `VIN_RAW`; it is not exposed on an external connector. Relay-coil control, USB programming UART signals, and future transceiver-side logic signals are also internal and will be assigned in the GPIO map.
+`BATTERY_SENSE` is an internal protected analog signal derived from `VIN_RAW`; it is not exposed on an external connector. Relay-coil control and native USB are assigned in the proposed GPIO map. UART0 is reserved for recovery/test access; future transceiver-side logic signals have no physical Rev A pin guarantee.
 
 ## 17. Connector-selection requirements
 
@@ -233,5 +233,6 @@ Physical connector families, plating, pitch, current rating, ingress accessories
 - [System Architecture](../architecture/System_Architecture.md)
 - [Hardware Requirements](../requirements/Hardware_Requirements.md)
 - [GPIO Map](GPIO_Map.md)
+- [GPIO and Peripheral Allocation Review](GPIO_and_Peripheral_Allocation_Review.md)
 - [Wiring Standard](../requirements/Wiring_Standard.md)
 - [Power Budget](../power/Power_Budget.md)

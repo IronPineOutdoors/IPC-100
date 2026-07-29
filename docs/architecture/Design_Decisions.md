@@ -322,3 +322,25 @@ Statuses are `Accepted`, `Proposed`, `Superseded`, or `Rejected`. Accepted decis
 - **Consequences:** Active braking, hold torque, or regeneration is not a baseline feature and requires a selected external-driver/product contract. Numeric PWM and transition timing remain open.
 - **Alternatives considered:** Active braking as the universal safe state; direct direction reversal; leave enables active while stopped.
 - **Follow-up actions:** Approve external-driver electrical/timing contract and validate behavior before firmware release.
+
+### ADR-029: Preserve native USB and an independent UART0 recovery reservation
+
+- **Decision ID:** ADR-029
+- **Date:** 2026-07-29
+- **Status:** Proposed
+- **Context:** Native USB is the preferred service path, but application misconfiguration can make USB Serial/JTAG unavailable.
+- **Decision:** Reserve GPIO19/20 exclusively for native USB Serial/JTAG, keep GPIO0 and EN accessible for manual download recovery, and reserve GPIO43/44 for UART0 production/service access.
+- **Consequences:** Recovery remains practical without an on-board USB-to-UART bridge, but two common GPIOs cannot serve application or expansion functions. J11 cannot be guaranteed by the direct allocation.
+- **Alternatives considered:** Native USB only with no UART reserve; on-board bridge; share UART0 pins with application outputs.
+- **Follow-up actions:** Define physical fixture access and validate USB/manual/UART recovery before schematic release.
+
+### ADR-030: Use MCPWM for Rev A motor command generation
+
+- **Decision ID:** ADR-030
+- **Date:** 2026-07-29
+- **Status:** Proposed
+- **Context:** Rev A requires four independent motor PWM commands with safe reversal and potential synchronization while RGB and buzzer may also need modulation.
+- **Decision:** Allocate MCPWM0 operators 0 and 1, generators A/B, to the four motor PWM commands. Reserve LEDC primarily for non-safety status modulation.
+- **Consequences:** The motor service gains paired motor-oriented timing resources without consuming LEDC status capacity. Hardware master inhibit remains independent and final PWM timing remains open.
+- **Alternatives considered:** LEDC for all PWM; software PWM; split motor commands across unrelated peripherals.
+- **Follow-up actions:** Validate simultaneous MCPWM allocation in the selected framework and approve the quantitative motor timing contract.

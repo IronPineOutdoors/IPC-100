@@ -16,13 +16,13 @@ Category is inherited from each section heading. Iron Pine Outdoors Engineering 
 
 | ID | Topic | Decision needed | Why it matters | Dependencies | Required review stage | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| ODI-CPU-001 | Final ESP32 module | Preferred family is ESP32-S3-WROOM-1; approve exact flash/PSRAM ordering variant after pin, memory, mechanical, lifecycle, and procurement review | Controls pinout, memory, radio, lifecycle, and USB options | Processor Selection Study, requirements, GPIO, power, PCB | Before schematic release | Preferred family selected; exact variant TBD |
-| ODI-CPU-002 | GPIO sufficiency | Prove required functions fit before optional provisions | Prevents resource overcommitment | GPIO map, connectors, expansion | Before schematic release | TBD |
+| ODI-CPU-001 | Final ESP32 module | Select an exact ESP32-S3-WROOM-1 flash/PSRAM ordering variant compatible with GPIO35/36 and GPIO47/48 assumptions after memory, mechanical, lifecycle, and procurement review | Controls pinout, memory, radio, lifecycle, and USB options | Processor Selection Study, GPIO Allocation Review, power, PCB | Before MCU schematic | Preferred family selected; exact variant blocks map release |
+| ODI-CPU-002 | GPIO sufficiency | Approve the complete 27-signal direct plan and disposition J11/inhibit diagnostics | Prevents resource overcommitment | GPIO map, connectors, expansion | Before MCU schematic | Required functions fit conditionally; expansion conflict open |
 | ODI-CPU-003 | Memory sufficiency | Define program, runtime, storage, and reserve needs; PSRAM is not currently demonstrated as required | Controls exact ESP32-S3-WROOM-1 ordering variant | Firmware architecture, Processor Selection Study | Before firmware architecture release | Budget TBD; baseline PSRAM need not established |
-| ODI-CPU-004 | USB architecture | Preferred architecture is native ESP32-S3 USB Serial/JTAG; approve recovery/test UART access, USB-C circuitry, VBUS behavior, and boot/reset implementation | Affects processor, GPIO, power, service behavior | J13, GPIO, power, Processor Selection Study | Before schematic release | Preferred architecture selected; implementation TBD |
-| ODI-CPU-005 | Boot-straps and allocation | Approve reset, boot, programming, and strap-safe allocation | Prevents boot and safe-state conflicts | GPIO map, all interfaces | Before schematic release | TBD |
+| ODI-CPU-004 | USB and recovery implementation | Implement native USB Serial/JTAG, GPIO0/EN manual recovery, and reserved UART0 GPIO43/44 fixture access; approve VBUS and production workflow | Affects processor, GPIO, power, service behavior | J13, GPIO Allocation Review, power | Before MCU schematic | Pin resources selected; physical implementation TBD |
+| ODI-CPU-005 | Boot straps and allocation | Validate the proposed avoidance of GPIO3/45/46 and dedicated GPIO0 recovery against exact module, fixture, and external loading | Prevents boot and safe-state conflicts | GPIO Allocation Review, all interfaces | Before MCU schematic | Proposed allocation is strap-safe; implementation test TBD |
 | ODI-CPU-006 | Watchdog strategy | Define supervision, timeout, and recovery behavior | Affects output safety and diagnostics | Firmware, testing, outputs | Before firmware release | TBD |
-| ODI-CPU-007 | ADC path | Select processor ADC capability or another approved ADC path | Battery monitoring must coexist with active Wi-Fi and approved accuracy | PWR-012, PWR-013, SNS-002; GPIO and power docs | Before schematic | TBD |
+| ODI-CPU-007 | ADC path | Approve GPIO1/ADC1_CH0 battery-monitor path and its quantitative analog/accuracy contract | Battery monitoring must coexist with active Wi-Fi and approved accuracy | PWR-012, PWR-013, SNS-002; GPIO and power docs | Before schematic | ADC1 allocation selected; analog design TBD |
 
 ## Power
 
@@ -85,7 +85,7 @@ Category is inherited from each section heading. Iron Pine Outdoors Engineering 
 | ID | Topic | Decision needed | Why it matters | Dependencies | Required review stage | Status |
 | --- | --- | --- | --- | --- | --- | --- |
 | ODI-EXP-001 | J10 contract | Define domains, power, loading, wiring, protection, hot-plug, timeout, and recovery | Connector presence does not guarantee compatibility | I2C, power, firmware | Before schematic release | TBD |
-| ODI-EXP-002 | J11 function | Define signal count, functions, voltage, protection, power, and pin count | Current concepts imply no guaranteed capability | GPIO, power, connector review | Before schematic release | TBD |
+| ODI-EXP-002 | J11 function | Choose resource reduction, conditional single GPIO37, removal from released Rev A, or future-revision implementation | Direct allocation cannot guarantee two spare GPIOs | GPIO Allocation Review, power, connector review | Before MCU schematic | Explicit allocation conflict open |
 | ODI-EXP-003 | CAN provision | Define resources and future external contract | Provision is not a released feature | GPIO, J12, PCB planning | Before PCB layout | TBD |
 | ODI-EXP-004 | RS485 provision | Define resources and future external contract | Provision is not a released feature | GPIO, J12, PCB planning | Before PCB layout | TBD |
 | ODI-EXP-005 | Daughterboards | Define electrical, mechanical, power, service, and safety architecture | Pin compatibility alone is insufficient | Connectors, mechanics, firmware | Before daughterboard design | TBD |
@@ -98,7 +98,7 @@ Category is inherited from each section heading. Iron Pine Outdoors Engineering 
 | --- | --- | --- | --- | --- | --- | --- |
 | ODI-CONN-001 | J8 partitioning | Keep combined J8 or split safety, navigation, and indicators | Mixed locations, voltages, criticality, and harness routes | `CONN-TBD-001`, product families | Before schematic release | TBD |
 | ODI-CONN-002 | J4/J5 connector implementation | Implement individually returned supervised loops and approve conductor grouping | Fault isolation requires four logical conductors per limit pair | Safety Input Architecture Review, harnesses | Before schematic release | Individual returns selected; physical implementation TBD |
-| ODI-CONN-003 | J11 pin count | Approve only after capability and GPIO review | Avoids a false four-pin commitment | `CONN-TBD-002`, GPIO | Before schematic release | TBD |
+| ODI-CONN-003 | J11 pin count | Approve only after resolving the documented GPIO allocation conflict | Avoids a false four-pin commitment | `CONN-TBD-002`, GPIO Allocation Review | Before MCU schematic | Direct two-signal pinout unsupported |
 | ODI-CONN-004 | J12 architecture | Choose shared, separate, footprint, or daughterboard provisions | CAN and RS485 are electrically different | `CONN-TBD-003`, expansion | Before schematic release | TBD |
 | ODI-CONN-005 | Connector families | Select compatible families for each interface | Controls ratings, lifecycle, assembly, and mating | All connector contracts | Before PCB layout | TBD |
 | ODI-CONN-006 | Keying and cross-connection | Define polarization, coding, and labels | Prevents foreseeable incorrect mating | Harness and safety review | Before PCB layout | TBD |

@@ -51,6 +51,7 @@ Record for every execution:
 | EXP-002 | Expansion | Spare-GPIO states, faults, unsupported requests, and revision mismatch | Inspection, analysis, and test | TBD | Waveforms/test log | Planned |
 | EXP-003 | Expansion | Future communications provisions and unsupported-feature reporting | Inspection and test | TBD | Review/test log | Planned |
 | CONN-001 | Connectors | Architecture, misconnection, partitioning, and safety-path fault review | Inspection and analysis | TBD | Review/test log | Planned |
+| CPU-001 | Processor | Exact-module pin availability, strap, USB, UART recovery, peripheral coexistence, and reset-state allocation | Inspection, analysis, and test | TBD | Allocation/fixture/test log | Planned |
 | UI-001 | UI | OLED interface (SSD1309 reference), RGB LED, buzzer | Test | TBD | Photos/log | Planned |
 | SNS-001 | Sensors | Environmental sensor (BME280 reference) | Test | TBD | Comparison data | Planned |
 | SNS-002 | Sensors | Battery monitoring | Test | TBD | Calibration data | Planned |
@@ -90,6 +91,8 @@ Spare-GPIO coverage shall include unconnected state; input short to ground or an
 
 Future-communications coverage shall confirm that unpopulated provisions do not affect required operation, firmware does not advertise unsupported CAN or RS485, reserved-pin conflicts are reviewed, backfeed is considered, and absent external transceivers are nonfatal.
 
+Processor-allocation coverage shall verify the exact module ordering code; GPIO35/36 availability; GPIO47/48 voltage compatibility; GPIO0/3/45/46 strap behavior with all connected circuitry and fixtures; native USB on GPIO19/20; manual GPIO0/EN recovery; UART0 fixture recovery on GPIO43/44; ADC1 battery sampling with wireless active; four simultaneous MCPWM outputs; encoder PCNT or fallback handling; all GPIO interrupt inputs; I2C0 recovery with main-only peripherals unpowered; reset/brownout output defaults; and absence of undocumented physical claims for J11, CAN, or RS485.
+
 Connector-architecture coverage shall include misconnection, partial insertion, reversed insertion where mechanically possible, missing individual loop returns, incorrect product harness, unused connector exposure, STOP-path faults, J8 partition review, and J4/J5 cross-loop faults.
 
 Expansion-power coverage shall include maximum approved expansion load, rail overload and short concepts, simultaneous loads, startup peak, main-only operation, confirmation that expansion remains unpowered during bounded USB-only service, simultaneous USB and main power, and both external-module-first and IPC-100-first sequencing. Exact timing, voltage, current, fault duration, cable length, repetition count, environmental condition, and pass/fail thresholds remain `TBD`.
@@ -113,7 +116,7 @@ Requirement identifiers and status are controlled in [Hardware Requirements](../
 | Requirement area | Inspection | Analysis | Bench test | Fault injection | Environmental test | Product-level test | Current readiness |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | Platform and boundaries | Planned | Planned | N/A | N/A | N/A | Compatibility record | Ready at architecture level |
-| Processor/resources | Planned | Required | Prototype required | Recovery faults | Radio/environment later | Enclosure/radio integration | Blocked by module selection |
+| Processor/resources | Planned | Required | Prototype required | Recovery faults | Radio/environment later | Enclosure/radio integration | Proposed allocation complete; blocked by exact variant and validation |
 | Power and USB | Planned | Required | Prototype required | Required | Thermal/environment later | Source-system validation | Blocked by rail and USB architecture |
 | Inputs and STOP/limits | Planned | Required | Prototype required | Required | Wiring/environment later | Product hazard response | Blocked by electrical contract |
 | Relay, motor, and status outputs | Planned | Required | Prototype required | Required | Load/environment later | Product motion/load safety | Behavior defined; blocked by quantitative contracts and implementation |

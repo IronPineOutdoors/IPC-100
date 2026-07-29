@@ -41,4 +41,4 @@ Reserved for future IPC-100 base firmware, board support, reusable drivers, plat
 - `FIRE_IN` handling shall not bypass hardware-safe output checks, and `ARM_IN` shall not directly control outputs.
 - Input conditioning and debounce parameters, plus encoder direction, acceleration, long-press, and multi-click behavior, remain `TBD`.
 
-See [Functional Requirements](../docs/requirements/Functional_Requirements.md), [System Architecture](../docs/architecture/System_Architecture.md), and [GPIO Map](../docs/connectors/GPIO_Map.md).
+See [Functional Requirements](../docs/requirements/Functional_Requirements.md), [System Architecture](../docs/architecture/System_Architecture.md), [GPIO Map](../docs/connectors/GPIO_Map.md), and [GPIO and Peripheral Allocation Review](../docs/connectors/GPIO_and_Peripheral_Allocation_Review.md). Physical GPIO values remain board-support configuration and shall not leak into product application interfaces.

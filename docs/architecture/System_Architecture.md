@@ -155,7 +155,7 @@ STOP and the four directional limits use individually returned, normally-closed 
 
 ### 8.2 Processor-selection boundary
 
-ESP32 remains the approved processor family. The [Processor Selection Study](Processor_Selection_Study.md) recommends ESP32-S3-WROOM-1 as the preferred Rev A module family and native USB Serial/JTAG as the preferred service architecture. The exact flash/PSRAM ordering variant and pin allocation are not released. Final selection depends on:
+ESP32 remains the approved processor family. The [Processor Selection Study](Processor_Selection_Study.md) recommends ESP32-S3-WROOM-1 as the preferred Rev A module family and native USB Serial/JTAG as the preferred service architecture. The [GPIO and Peripheral Allocation Review](../connectors/GPIO_and_Peripheral_Allocation_Review.md) proposes a complete direct pin plan, but the exact flash/PSRAM ordering variant and allocation are not released. Final selection depends on:
 
 - Sufficient usable GPIO and resolution of boot-strapping constraints
 - Program memory, runtime memory, and nonvolatile-storage needs
@@ -164,7 +164,7 @@ ESP32 remains the approved processor family. The [Processor Selection Study](Pro
 - Availability and lifecycle suitability
 - Antenna keepout, grounding, enclosure clearance, and radio performance
 
-Module selection requires approval before schematic release. Memory capacities, GPIO assignments, antenna dimensions, and enclosure clearances remain `TBD`.
+Module selection requires approval before schematic release. The proposed assignments depend on GPIO35/36 availability and GPIO47/48 voltage compatibility; J11 and inhibit diagnostics remain unresolved. Memory capacities, released GPIO assignments, antenna dimensions, and enclosure clearances remain `TBD`.
 
 ### 8.3 USB service architecture
 
