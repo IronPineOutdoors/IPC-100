@@ -19,11 +19,11 @@ Connector identifiers and pin counts remain preliminary unless explicitly locked
 | J1 | Controller power input | 2 | `VIN_RAW`, `GND` | High | Controller input power | External; service disconnect expected | Required | Protection, current rating, transient contract | Family, keying, retention, sealing, routing from product fuse | Proposed |
 | J2 | Axis 1 motor-driver logic | 6 | `+5V`, `GND`, `AXIS1_RPWM`, `AXIS1_LPWM`, `AXIS1_REN`, `AXIS1_LEN` | High | Limited logic/interface power only | External; product/service dependent | Required interface | Logic levels, polarity, drive, protection, backfeed, enable contract | Family, retention, motor-noise separation, harness grouping | Proposed |
 | J3 | Axis 2 motor-driver logic | 6 | `+5V`, `GND`, `AXIS2_RPWM`, `AXIS2_LPWM`, `AXIS2_REN`, `AXIS2_LEN` | High | Limited logic/interface power only | External; product/service dependent | Required interface | Same unresolved contract as J2 | Same unresolved concerns as J2 | Proposed |
-| J4 | Directional limits 1 | 3 | `GND`, `LIMIT_LEFT`, `LIMIT_RIGHT` | High | Reference only under current concept | External; product/service dependent | Required interface | Active states, field domain, contact type, fault detection, protection | Shared-return suitability, keying, routing, partitioning | Proposed / risk |
-| J5 | Directional limits 2 | 3 | `GND`, `LIMIT_UP`, `LIMIT_DOWN` | High | Reference only under current concept | External; product/service dependent | Required interface | Same unresolved contract as J4 | Same unresolved concerns as J4 | Proposed / risk |
+| J4 | Directional limits 1 | 4 logical | Individually returned `LIMIT_LEFT` / `LIMIT_RIGHT` supervised NC loops | High | Dedicated field-sense loops | External; product/service dependent | Required interface | Field voltage, supervision windows/termination, cable, protection | Family, keying, routing, partitioning | Architecture revised; implementation open |
+| J5 | Directional limits 2 | 4 logical | Individually returned `LIMIT_UP` / `LIMIT_DOWN` supervised NC loops | High | Dedicated field-sense loops | External; product/service dependent | Required interface | Same quantitative contract as J4 | Same implementation concerns as J4 | Architecture revised; implementation open |
 | J6 | OLED | 5 | `OLED_VCC`, `GND`, `I2C_SDA`, `I2C_SCL`, `OLED_RESET` | Low | Limited display supply | External module; service frequency TBD | Optional population / platform interface | `OLED_VCC`, logic levels, bus contract, protection | Module pinout, mounting, retention, cable routing | Proposed |
 | J7 | Environmental sensor | 4 | `SENSOR_VCC`, `GND`, `I2C_SDA`, `I2C_SCL` | Low | Limited sensor supply | External module; service frequency TBD | Optional population / platform interface | `SENSOR_VCC`, logic levels, address, bus contract | Sensor placement, airflow, retention, cable routing | Proposed |
-| J8 | User controls and indicators | 13 | Controls, encoder, RGB, buzzer, `+3V3`, `+5V`, `GND` | Mixed; includes STOP | Preliminary limited supplies | External; likely product/service disconnect | Required capabilities; population varies | Input contract, output drivers, supply limits, safe states | Partitioning, location mismatch, harness complexity, keying | Proposed / open partition |
+| J8 | User controls and indicators | 14 logical if combined | Dedicated STOP pair; ARM/FIRE; encoder; RGB; buzzer; `+3V3`; `+5V`; command return | Mixed; includes STOP | Preliminary limited supplies plus dedicated field-sense loop | External; likely product/service disconnect | Required capabilities; population varies | STOP physical partition, field voltage, output drivers, supply limits | Partitioning, location mismatch, harness complexity, keying | Input architecture defined; partition open |
 | J9 | Isolated relay contacts | 3 | `RELAY_NC`, `RELAY_COM`, `RELAY_NO` | High | Externally supplied switched circuit | External; product/service dependent | Required interface | Ratings, isolation, load contract, protection | Family, spacing, keying, separation from logic harnesses | Proposed |
 | J10 | Controlled I2C expansion | 4 | `+3V3`, `GND`, `I2C_SDA`, `I2C_SCL` | Optional but fault-relevant | Proposed limited expansion supply | External optional; disconnect frequency TBD | Optional | Pull-ups, loading, segmentation, protection, hot-plug, backfeed | Family, exposure, cable and harness grouping | Proposed |
 | J11 | Spare GPIO expansion | TBD | Candidate power, return, `SPARE_GPIO1`, `SPARE_GPIO2` | Non-safety-critical | Availability TBD | External optional | Optional | Signal count, function, voltage, protection, drive, backfeed | Pin count, family, keying, retention, exposure | TBD |
@@ -32,9 +32,9 @@ Connector identifiers and pin counts remain preliminary unless explicitly locked
 
 ## 3. Partitioning and architecture findings
 
-### 3.1 J4 and J5 shared-return risk
+### 3.1 J4 and J5 independent-loop requirement
 
-The three-pin allocations are subject to revision if the approved field-input contract requires individual returns, shield or drain conductors, wet-contact sensing, powered sensors, fault-detection resistors, separate commons, differential signaling, improved fault isolation, additional keying, or different product harness partitioning. Shared-return fault implications require analysis. This is an architecture risk, not a defect.
+The safety-input review rejects the three-pin shared-return allocations. J4 and J5 each require four logical conductors so every NC supervised loop has an individual return. Physical connector selection, field termination, cable/shield needs, and quantitative fault coverage remain open.
 
 ### 3.2 J8 mixed-interface risk
 
@@ -63,11 +63,11 @@ CAN and RS485 have different transceiver, direction-control, termination, biasin
 | J1 | Conditionally ready | Purpose and range are defined, but protection objectives, transient/undervoltage behavior, current envelope, USB interaction, and block-level rail architecture must be approved |
 | J2 | Blocking definition missing | Logic voltage, polarity, drive capability, enable architecture, safe-state circuitry, and proof that four signals per axis are supportable |
 | J3 | Blocking definition missing | Same as J2 |
-| J4 | Blocking definition missing | Active polarity, NO/NC and wet/dry contract, field voltage, fault detection, protection, and shared-return disposition |
-| J5 | Blocking definition missing | Same as J4 |
+| J4 | Architecture defined; quantitative contract blocking | Individually returned supervised NC dry-contact loops selected; field voltage, supervision termination/windows, cable, and protection remain open |
+| J5 | Architecture defined; quantitative contract blocking | Same as J4 |
 | J6 | Blocking definition missing | `OLED_VCC`, exact module pinout/logic compatibility, reset behavior, and I2C contract |
 | J7 | Blocking definition missing | `SENSOR_VCC`, exact module pinout/address/logic compatibility, and I2C contract |
-| J8 | Conditionally ready | May remain a provisional logical reservation, but `CONN-TBD-001`, input/output electrical contracts, safe states, and limited supply assumptions block released pinout capture |
+| J8 | Conditionally ready | ARM/FIRE/encoder/STOP input behavior is defined, but dedicated STOP partition, output electrical contracts, supply limits, and `CONN-TBD-001` block released pinout capture |
 | J9 | Blocking definition missing | Relay contact/isolation ratings, load contract, coil supply, driver, and hardware de-energized architecture |
 | J10 | Blocking definition missing | Supply, pull-up ownership, loading, hot-plug policy, protection, and segmentation decision |
 | J11 | Blocking definition missing | Pin count, function, power, protection, and processor allocation unresolved; current evidence supports reservation only, not a connector schematic |

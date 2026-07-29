@@ -130,11 +130,11 @@ Normal operating input range and transient-survival range are separate requireme
 **Engineering notes:**
 
 - The `LIMIT_LEFT`, `LIMIT_RIGHT`, `LIMIT_UP`, and `LIMIT_DOWN` logical names define the reusable interface only. Product repositories determine which physical axis, direction, mechanism, or travel endpoint each input represents.
-- Normally-closed field wiring is the current safety-preferred concept because an open circuit can be interpreted as a fault or asserted limit, but the final topology is not yet approved.
-- The platform exposes `ARM_IN`, `FIRE_IN`, and `STOP_IN` as logical inputs. Product repositories define final control type, labels, ergonomics, sequencing, and permitted application behavior.
-- INP-012 and INP-013 refine the dedicated physical STOP requirement in SAF-001. The exact `STOP_IN` circuit topology, polarity, and fault-detection method remain `TBD`.
+- STOP and all four directional limits use individually returned, normally-closed, de-energize-to-safe supervised dry-contact loops. Open, invalid, faulted, and unknown states receive the conservative safe interpretation.
+- ARM and FIRE use momentary normally-open dry contacts. ARM grants no output directly; FIRE requires a new qualified transition after a valid ARM sequence. Product repositories define labels, ergonomics, timeouts, and permitted application behavior.
+- INP-012 and INP-013 refine the dedicated physical STOP requirement in SAF-001. The behavioral contract is approved at architecture level; supervision windows, termination, field voltage, hardware inhibit implementation, and quantitative response remain `TBD`.
 - The exact ESD standard, surge profile, clamping topology, series impedance, filtering, and connector-level protection for INP-005 remain `TBD` until the field-wiring environment is approved.
-- Final pull direction, pull resistance, series impedance, capacitance, hysteresis, debounce interval, and response-time limits remain `TBD`.
+- Final field voltage, cable limits, pull/bias implementation, supervision windows/termination, series impedance, capacitance, hysteresis, debounce interval, and response-time limits remain `TBD`.
 
 ## 7. Output requirements
 

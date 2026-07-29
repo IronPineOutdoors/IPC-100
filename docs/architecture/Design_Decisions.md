@@ -187,7 +187,7 @@ Statuses are `Accepted`, `Proposed`, `Superseded`, or `Rejected`. Accepted decis
 - **Status:** Proposed
 - **Context:** Electrical contracts, harness grouping, keying, retention, and environmental requirements remain unresolved.
 - **Decision:** Keep current identifiers and pin reservations as review inputs until connector and harness architecture is approved.
-- **Consequences:** J4/J5 shared returns, J8 partitioning, J11 pin count, and J12 architecture remain open.
+- **Consequences:** J4/J5 physical connector implementation, J8 partitioning, J11 pin count, and J12 architecture remain open. The later safety-input review requires individual J4/J5 returns.
 - **Alternatives considered:** Release current reservations as production pinouts.
 - **Follow-up actions:** Resolve `CONN-TBD-001` through `CONN-TBD-003` and complete cross-connector review.
 
@@ -267,3 +267,36 @@ Statuses are `Accepted`, `Proposed`, `Superseded`, or `Rejected`. Accepted decis
 - **Consequences:** No Rev A connector receives an implied general-purpose power budget. Hot plug is unsupported unless separately validated.
 - **Alternatives considered:** Connect external power pins directly to unrestricted core or main rails.
 - **Follow-up actions:** Approve per-connector load envelopes and protection implementation before connector/schematic release.
+
+### ADR-024: STOP and limits use supervised de-energize-to-safe loops
+
+- **Decision ID:** ADR-024
+- **Date:** 2026-07-29
+- **Status:** Proposed
+- **Context:** Open wiring, reset, brownout, and loss of input conditioning must not make safety-related inputs permissive.
+- **Decision:** `STOP_IN` and all four directional limits use individually returned, normally-closed supervised dry-contact loops. Open, invalid, faulted, or unknown states receive the conservative STOP or direction-inhibit interpretation.
+- **Consequences:** J4/J5 shared returns are rejected. Each loop needs field supervision termination and quantitative healthy/asserted/fault windows. IPC-100 still is not a certified emergency-stop controller.
+- **Alternatives considered:** Normally-open unsupervised contacts; shared-return NC contacts; direct GPIO wiring.
+- **Follow-up actions:** Close field voltage, termination, cable, protection, response, and hardware-inhibit implementation.
+
+### ADR-025: ARM and FIRE are sequenced momentary commands
+
+- **Decision ID:** ADR-025
+- **Date:** 2026-07-29
+- **Status:** Proposed
+- **Context:** ARM and FIRE must not create output action from reset, held contacts, wiring faults, or illegal ordering.
+- **Decision:** ARM and FIRE use momentary normally-open dry contacts. FIRE requires a new qualified transition after a valid ARM event and all applicable safety checks. STOP cancels authorization; reset/power loss requires release and a new sequence.
+- **Consequences:** Product firmware owns workflow/timeouts, while base firmware owns qualified events and fault reporting. Neither input directly energizes an output.
+- **Alternatives considered:** Maintained ARM state; level-sensitive FIRE; direct hardware triggering.
+- **Follow-up actions:** Define quantitative debounce/response and product integration rules before firmware release.
+
+### ADR-026: Encoder inputs are non-safety UI
+
+- **Decision ID:** ADR-026
+- **Date:** 2026-07-29
+- **Status:** Accepted
+- **Context:** Encoder faults and bounce are foreseeable and must not affect safe initialization.
+- **Decision:** Encoder A, B, and push are optional non-safety UI inputs. Invalid transitions, disconnection, or stuck states cannot directly authorize motor or relay outputs.
+- **Consequences:** Encoder implementation may be changed behind the platform abstraction in a future revision.
+- **Alternatives considered:** Use encoder push as a safety or ARM/FIRE input.
+- **Follow-up actions:** Validate the selected encoder/harness and decoding behavior during prototype testing.

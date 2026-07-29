@@ -54,13 +54,15 @@ Category is inherited from each section heading. Iron Pine Outdoors Engineering 
 
 | ID | Topic | Decision needed | Why it matters | Dependencies | Required review stage | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| ODI-INP-001 | Active polarity | Define inactive and asserted states | Required for deterministic diagnostics and startup | Connectors, GPIO, firmware | Before schematic release | TBD |
-| ODI-INP-002 | NO versus NC | Approve contact and fault strategy | Open-circuit interpretation affects safety | Limits, STOP, harnesses | Before schematic release | TBD |
-| ODI-INP-003 | Wet versus dry contact | Define supported field-contact model | Controls interface voltage and protection | J4, J5, J8 | Before schematic release | TBD |
-| ODI-INP-004 | Protection | Approve field transient and miswiring contract | Prevents processor and rail damage | Inputs, connectors, testing | Before schematic release | TBD |
-| ODI-INP-005 | Filtering and debounce | Approve conditioning, response, and timing | Noise rejection must not mask STOP or limits | Hardware, firmware, testing | Before firmware release | TBD |
-| ODI-INP-006 | STOP fault detection | Define topology and safe interpretation | STOP must remain effective during faults | SAF, J8, firmware | Before schematic release | TBD |
-| ODI-INP-007 | J4/J5 suitability | Decide whether shared-return three-pin allocations remain viable | Field contract may require more conductors or partitioning | Connector review, harnesses | Before schematic release | TBD |
+| ODI-INP-001 | Input quantitative states | Define field voltage and numeric healthy/asserted/fault supervision windows | Required for deterministic circuit implementation | Safety Input Architecture Review, connectors, firmware | Before schematic release | Behavioral states selected; numeric windows TBD |
+| ODI-INP-002 | Safety-loop termination | Define approved end-of-line supervision termination without changing NC de-energize-to-safe philosophy | Required to distinguish healthy, open, and shorted wiring | STOP, limits, harnesses | Before schematic release | NC supervised loops selected; termination TBD |
+| ODI-INP-003 | Field-contact contract | Validate passive dry-contact assumptions and allowed external/common-mode voltages | Controls voltage, protection, and compatibility | J4, J5, J8 | Before schematic release | Dry contacts selected; quantitative contract TBD |
+| ODI-INP-004 | Protection environment | Approve ESD/transient/miswiring profiles, cable routing, and isolation need | Prevents processor/rail damage and false states | Inputs, connectors, testing | Before schematic release | Hazard objectives selected; profiles TBD |
+| ODI-INP-005 | Filtering and debounce | Approve hardware/firmware partition, response limit, and numeric timing | Noise rejection must not mask STOP or limits | Hardware, firmware, testing | Before firmware release | Ownership selected; timing TBD |
+| ODI-INP-006 | STOP hardware inhibit | Define how STOP/invalid supervision removes relay and motor authorization independent of nonessential firmware | STOP must remain effective during faults | SAF, J8, outputs | Before schematic release | Safe interpretation selected; mechanism TBD |
+| ODI-INP-007 | J4/J5 physical implementation | Implement four logical conductors per connector or an equivalently reviewed independent-loop architecture | Shared returns do not meet selected fault-containment philosophy | Connector review, harnesses | Before schematic release | Shared-return concept rejected; implementation TBD |
+| ODI-INP-008 | Field cable limits | Approve maximum length, routing, shielding/drain, capacitance, and noise environment per input class | Conditioning and response cannot be designed for an undefined harness | Product integrations, wiring, EMC | Before schematic | TBD |
+| ODI-INP-009 | J8 STOP partition | Select dedicated physical STOP connector/route or prove combined J8 implementation preserves independence | Mixed harness functions may compromise service and fault containment | Connector review, product families | Before schematic | Dedicated electrical pair selected; physical partition TBD |
 
 ## Outputs
 
@@ -95,7 +97,7 @@ Category is inherited from each section heading. Iron Pine Outdoors Engineering 
 | ID | Topic | Decision needed | Why it matters | Dependencies | Required review stage | Status |
 | --- | --- | --- | --- | --- | --- | --- |
 | ODI-CONN-001 | J8 partitioning | Keep combined J8 or split safety, navigation, and indicators | Mixed locations, voltages, criticality, and harness routes | `CONN-TBD-001`, product families | Before schematic release | TBD |
-| ODI-CONN-002 | J4/J5 partitioning | Retain shared returns or revise conductor grouping | Fault isolation and field contract remain unresolved | Input architecture, harnesses | Before schematic release | TBD |
+| ODI-CONN-002 | J4/J5 connector implementation | Implement individually returned supervised loops and approve conductor grouping | Fault isolation requires four logical conductors per limit pair | Safety Input Architecture Review, harnesses | Before schematic release | Individual returns selected; physical implementation TBD |
 | ODI-CONN-003 | J11 pin count | Approve only after capability and GPIO review | Avoids a false four-pin commitment | `CONN-TBD-002`, GPIO | Before schematic release | TBD |
 | ODI-CONN-004 | J12 architecture | Choose shared, separate, footprint, or daughterboard provisions | CAN and RS485 are electrically different | `CONN-TBD-003`, expansion | Before schematic release | TBD |
 | ODI-CONN-005 | Connector families | Select compatible families for each interface | Controls ratings, lifecycle, assembly, and mating | All connector contracts | Before PCB layout | TBD |

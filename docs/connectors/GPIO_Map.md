@@ -46,19 +46,19 @@ The direct scenario is approximately 29 MCU signal resources when 10 digital inp
 | Axis 2 PWM B | `AXIS2_LPWM` | TBD | Output | Avoid unresolved strap conflicts | No | Yes | No | Hardware pull to inactive required; direction TBD | Inactive; polarity TBD | High safety priority; external-driver logic | TBD |
 | Axis 2 enable A | `AXIS2_REN` | TBD | Output | Avoid unresolved strap conflicts | No | No | No | Hardware pull to disabled required; direction TBD | Disabled; polarity TBD | Highest output safety priority; gating may change | TBD |
 | Axis 2 enable B | `AXIS2_LEN` | TBD | Output | Avoid unresolved strap conflicts | No | No | No | Hardware pull to disabled required; direction TBD | Disabled; polarity TBD | Highest output safety priority; gating may change | TBD |
-| Left-direction limit | `LIMIT_LEFT` | TBD | Input | Avoid unresolved strap conflicts | No | No | Preferred where useful | Pull direction and filter TBD | Defined state TBD | High-priority local input; protected field interface required | TBD |
-| Right-direction limit | `LIMIT_RIGHT` | TBD | Input | Avoid unresolved strap conflicts | No | No | Preferred where useful | Pull direction and filter TBD | Defined state TBD | High-priority local input; protected field interface required | TBD |
-| Up-direction limit | `LIMIT_UP` | TBD | Input | Avoid unresolved strap conflicts | No | No | Preferred where useful | Pull direction and filter TBD | Defined state TBD | High-priority local input; protected field interface required | TBD |
-| Down-direction limit | `LIMIT_DOWN` | TBD | Input | Avoid unresolved strap conflicts | No | No | Preferred where useful | Pull direction and filter TBD | Defined state TBD | High-priority local input; protected field interface required | TBD |
+| Left-direction limit | `LIMIT_LEFT` | TBD | Input | Avoid unresolved strap conflicts | No | No | Preferred where useful | Processor-side bias/filter TBD | Unknown/asserted/faulted inhibits leftward motion | Conditioned output of dedicated supervised NC loop; diagnostic resource impact TBD | TBD |
+| Right-direction limit | `LIMIT_RIGHT` | TBD | Input | Avoid unresolved strap conflicts | No | No | Preferred where useful | Processor-side bias/filter TBD | Unknown/asserted/faulted inhibits rightward motion | Conditioned output of dedicated supervised NC loop; diagnostic resource impact TBD | TBD |
+| Up-direction limit | `LIMIT_UP` | TBD | Input | Avoid unresolved strap conflicts | No | No | Preferred where useful | Processor-side bias/filter TBD | Unknown/asserted/faulted inhibits upward motion | Conditioned output of dedicated supervised NC loop; diagnostic resource impact TBD | TBD |
+| Down-direction limit | `LIMIT_DOWN` | TBD | Input | Avoid unresolved strap conflicts | No | No | Preferred where useful | Processor-side bias/filter TBD | Unknown/asserted/faulted inhibits downward motion | Conditioned output of dedicated supervised NC loop; diagnostic resource impact TBD | TBD |
 | OLED reset | `OLED_RESET` | TBD | Output | Review | No | No | No | Pull for reset state TBD | Reset asserted or defined safe | Dedicated signal | TBD |
 | I2C data | `I2C_SDA` | TBD | Bidirectional | Avoid strap if possible | No | No | No | Bus pull-up required; ownership TBD | High/open-drain | Shared OLED/BME280/expansion | TBD |
 | I2C clock | `I2C_SCL` | TBD | Output/open-drain | Avoid strap if possible | No | No | No | Bus pull-up required; ownership TBD | High/open-drain | Shared OLED/BME280/expansion | TBD |
 | Encoder phase A | `ENCODER_A` | TBD | Input | Avoid strap if possible | No | No | Preferred where useful | Pull direction/filter TBD | Defined state TBD | Lower allocation priority than STOP and limits; debounce TBD | TBD |
 | Encoder phase B | `ENCODER_B` | TBD | Input | Avoid strap if possible | No | No | Preferred where useful | Pull direction/filter TBD | Defined state TBD | Lower allocation priority than STOP and limits; debounce TBD | TBD |
-| Encoder push | `ENCODER_SW` | TBD | Input | Avoid strap if possible | No | No | Preferred | Pull/filter TBD | Defined inactive |  | TBD |
-| ARM input | `ARM_IN` | TBD | Input | Avoid unresolved strap conflicts | No | No | Preferred where useful | Pull direction/filter TBD | Defined safe state TBD | Dedicated physical input; protected interface required | TBD |
-| FIRE input | `FIRE_IN` | TBD | Input | Avoid unresolved strap conflicts | No | No | Preferred where useful | Pull direction/filter TBD | Defined non-triggering state TBD | Dedicated physical input; protected interface required | TBD |
-| STOP input | `STOP_IN` | TBD | Input | Avoid unresolved strap conflicts | No | No | Preferred where useful | Pull direction/filter TBD | Hardware-safe interpretation; polarity TBD | Highest input-allocation priority; protected independent interface required | TBD |
+| Encoder push | `ENCODER_SW` | TBD | Input | Avoid strap if possible | No | No | Preferred | Processor-side bias/filter TBD | Inactive/no event | Momentary NO, non-safety UI input | TBD |
+| ARM input | `ARM_IN` | TBD | Input | Avoid unresolved strap conflicts | No | No | Preferred where useful | Processor-side bias/filter TBD | Inactive; held state invalid | Momentary NO command; protected interface required | TBD |
+| FIRE input | `FIRE_IN` | TBD | Input | Avoid unresolved strap conflicts | No | No | Preferred where useful | Processor-side bias/filter TBD | Inactive; held state invalid | Momentary NO request; qualified edge after ARM required | TBD |
+| STOP input | `STOP_IN` | TBD | Input | Avoid unresolved strap conflicts | No | No | Preferred where useful | Processor-side bias/filter TBD | Unknown/asserted/faulted means STOP | Highest priority; conditioned supervised NC loop plus hardware inhibit path; resource impact TBD | TBD |
 | RGB red | `RGB_R` | TBD | Output | Avoid unresolved strap conflicts | No | Preferred | No | Hardware pull to inactive required; direction TBD | Inactive; polarity TBD | PWM optional pending brightness requirements; driver topology TBD | TBD |
 | RGB green | `RGB_G` | TBD | Output | Avoid unresolved strap conflicts | No | Preferred | No | Hardware pull to inactive required; direction TBD | Inactive; polarity TBD | PWM optional pending brightness requirements; driver topology TBD | TBD |
 | RGB blue | `RGB_B` | TBD | Output | Avoid unresolved strap conflicts | No | Preferred | No | Hardware pull to inactive required; direction TBD | Inactive; polarity TBD | PWM optional pending brightness requirements; driver topology TBD | TBD |
@@ -79,7 +79,7 @@ The direct scenario is approximately 29 MCU signal resources when 10 digital inp
 
 ## 3. Non-GPIO connector signals
 
-The following stable connector signals do not directly consume ESP32 GPIO: `VIN_RAW`, `GND`, `+5V`, `+3V3`, `OLED_VCC`, `SENSOR_VCC`, `RELAY_NC`, `RELAY_COM`, `RELAY_NO`, `CAN_H`, `CAN_L`, `RS485_A`, `RS485_B`, `USB_VBUS`, `USB_D+`, `USB_D-`, `USB_CC1`, `USB_CC2`, and `USB_SHIELD`.
+The following stable connector signals do not directly consume ESP32 GPIO: `VIN_RAW`, `GND`, `+5V`, `+3V3`, `OLED_VCC`, `SENSOR_VCC`, `LIMIT_LEFT_RETURN`, `LIMIT_RIGHT_RETURN`, `LIMIT_UP_RETURN`, `LIMIT_DOWN_RETURN`, `STOP_RETURN`, `RELAY_NC`, `RELAY_COM`, `RELAY_NO`, `CAN_H`, `CAN_L`, `RS485_A`, `RS485_B`, `USB_VBUS`, `USB_D+`, `USB_D-`, `USB_CC1`, `USB_CC2`, and `USB_SHIELD`.
 
 ## 4. ESP32 allocation constraints
 

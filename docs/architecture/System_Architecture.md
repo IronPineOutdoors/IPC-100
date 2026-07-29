@@ -151,6 +151,8 @@ The hardware-abstraction layer should expose stable logical capabilities instead
 
 The four directional limit names describe platform interfaces rather than physical mechanics. Product repositories map them to actual axes, mechanisms, directions, and endpoints. `ARM_IN`, `FIRE_IN`, and `STOP_IN` remain dedicated physical interfaces; `STOP_IN` is independent of wireless, display, encoder, and optional expansion functions.
 
+STOP and the four directional limits use individually returned, normally-closed supervised dry-contact loops with de-energize-to-safe interpretation. ARM and FIRE are momentary normally-open commands whose qualified sequence is subordinate to STOP, valid limits, main power, and hardware-safe output initialization. The encoder is a non-safety UI input. Detailed contracts are defined in the [Safety Input Architecture Review](../interfaces/Safety_Input_Architecture_Review.md).
+
 ### 8.2 Processor-selection boundary
 
 ESP32 remains the approved processor family. The [Processor Selection Study](Processor_Selection_Study.md) recommends ESP32-S3-WROOM-1 as the preferred Rev A module family and native USB Serial/JTAG as the preferred service architecture. The exact flash/PSRAM ordering variant and pin allocation are not released. Final selection depends on:
@@ -214,7 +216,7 @@ Rev A provides optional controlled local I2C expansion and proposed spare-GPIO c
 
 Spare GPIO requires an approved electrical contract and is non-safety-critical. Future CAN, RS485, and daughterboard compatibility may be preserved where practical without committing unverified transceivers, connectors, pin resources, or mechanical architecture. Expansion power is limited and protected through the approved power budget; unused reserve is not guaranteed. Externally powered modules require backfeed protection. Required onboard, optional onboard, external optional, and future unpopulated devices are distinct platform populations.
 
-The final connector architecture remains subject to electrical, GPIO, power, mechanical, safety, service, and product-harness review. J4/J5 shared returns, J8 partitioning, J11 definition, and J12 communications architecture remain open.
+The final connector architecture remains subject to electrical, GPIO, power, mechanical, safety, service, and product-harness review. J4/J5 now require individually returned supervised loops; their physical connector implementation, J8 STOP partitioning, J11 definition, and J12 communications architecture remain open.
 
 ## 13. Environmental assumptions
 

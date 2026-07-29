@@ -6,7 +6,7 @@
 | Platform | Iron Pine IPC-100 |
 | Hardware revision | Rev A |
 | Document status | Architecture and requirements definition |
-| Last updated | 2026-07-28 |
+| Last updated | 2026-07-29 |
 | Owner | Iron Pine Outdoors Engineering |
 
 ## 1. Purpose
@@ -22,11 +22,11 @@ Directions are relative to IPC-100. `Power out` entries are limited logic/interf
 | J1 | Power Input | 2 | Proposed |
 | J2 | Axis 1 Motor Driver Logic | 6 | Proposed |
 | J3 | Axis 2 Motor Driver Logic | 6 | Proposed |
-| J4 | Directional Limit Inputs 1 | 3 | Proposed |
-| J5 | Directional Limit Inputs 2 | 3 | Proposed |
+| J4 | Directional Limit Inputs 1 | 4 logical | Architecture revised; physical connector TBD |
+| J5 | Directional Limit Inputs 2 | 4 logical | Architecture revised; physical connector TBD |
 | J6 | OLED | 5 | Proposed |
 | J7 | Environmental Sensor | 4 | Proposed |
-| J8 | User Controls and Indicators | 13 | Proposed |
+| J8 | User Controls and Indicators | 14 logical if combined | Partition TBD |
 | J9 | Isolated Relay Contacts | 3 | Proposed |
 | J10 | I2C Expansion | 4 | Proposed |
 | J11 | Spare GPIO Expansion | TBD | TBD |
@@ -68,23 +68,25 @@ J3 preserves the current six-pin BTS7960-style reference contract; it does not p
 
 ## 6. J4 — Directional Limit Inputs 1
 
-J4 reserves two product-neutral directional motion-limit interfaces with a shared preliminary return. Active polarity, field voltage domain, wet-contact versus dry-contact support, grounding, pull/bias, filtering, protection, and normally-open versus normally-closed topology remain `TBD`. These signals are not assumed to connect directly to processor GPIO. The preliminary three-pin allocation is subject to revision during schematic and harness design if the approved field-input contract requires individual returns, shield or drain conductors, wet-contact sensing, powered sensors, fault-detection resistors, separate commons, differential signaling, improved fault isolation, additional mechanical keying, or different product harness partitioning. This is a connector-architecture risk, not a released-design defect.
+J4 reserves two individually returned, normally-closed, de-energize-to-safe supervised dry-contact loops. Opening a loop asserts/faults its limit; an invalid or shorted supervision state shall be distinguishable from healthy where required by the approved field termination. These signals do not connect directly to processor GPIO. The four logical conductors below replace the earlier shared-return three-conductor concept; physical connector, field-sense voltage, supervision termination, protection, filtering, and numeric cable limit remain `TBD`.
 
 | Pin | Signal name | Direction | Voltage domain | Active state | Description | Protection | Notes | Status |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `GND` | Power return | 0 V | N/A | Switch reference | TBD | Topology TBD | Proposed |
-| 2 | `LIMIT_LEFT` | Input | TBD | TBD | Product-neutral left-direction motion-limit interface | ESD, transient, filtering, and biasing TBD | Contact and fault convention TBD | Locked |
-| 3 | `LIMIT_RIGHT` | Input | TBD | TBD | Product-neutral right-direction motion-limit interface | ESD, transient, filtering, and biasing TBD | Contact and fault convention TBD | Locked |
+| 1 | `LIMIT_LEFT_RETURN` | Field-sense return | TBD | N/A | Dedicated left-loop return | Fault containment/protection TBD | Not motor or power return | Proposed |
+| 2 | `LIMIT_LEFT` | Input | TBD field sense | Open loop asserted/faulted | Product-neutral left-direction supervised NC limit loop | ESD, transient, supervision, filtering, and biasing TBD | Unknown/fault inhibits leftward motion | Locked |
+| 3 | `LIMIT_RIGHT_RETURN` | Field-sense return | TBD | N/A | Dedicated right-loop return | Fault containment/protection TBD | Not motor or power return | Proposed |
+| 4 | `LIMIT_RIGHT` | Input | TBD field sense | Open loop asserted/faulted | Product-neutral right-direction supervised NC limit loop | ESD, transient, supervision, filtering, and biasing TBD | Unknown/fault inhibits rightward motion | Locked |
 
 ## 7. J5 — Directional Limit Inputs 2
 
-J5 reserves two product-neutral directional motion-limit interfaces with a shared preliminary return. Active polarity, field voltage domain, wet-contact versus dry-contact support, grounding, pull/bias, filtering, protection, and normally-open versus normally-closed topology remain `TBD`. These signals are not assumed to connect directly to processor GPIO. The preliminary three-pin allocation is subject to revision during schematic and harness design if the approved field-input contract requires individual returns, shield or drain conductors, wet-contact sensing, powered sensors, fault-detection resistors, separate commons, differential signaling, improved fault isolation, additional mechanical keying, or different product harness partitioning. This is a connector-architecture risk, not a released-design defect.
+J5 reserves two individually returned, normally-closed, de-energize-to-safe supervised dry-contact loops under the same contract as J4. The four logical conductors replace the earlier shared-return concept. Physical connector, field-sense voltage, supervision termination, protection, filtering, and numeric cable limit remain `TBD`.
 
 | Pin | Signal name | Direction | Voltage domain | Active state | Description | Protection | Notes | Status |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `GND` | Power return | 0 V | N/A | Switch reference | TBD | Topology TBD | Proposed |
-| 2 | `LIMIT_UP` | Input | TBD | TBD | Product-neutral up-direction motion-limit interface | ESD, transient, filtering, and biasing TBD | Contact and fault convention TBD | Locked |
-| 3 | `LIMIT_DOWN` | Input | TBD | TBD | Product-neutral down-direction motion-limit interface | ESD, transient, filtering, and biasing TBD | Contact and fault convention TBD | Locked |
+| 1 | `LIMIT_UP_RETURN` | Field-sense return | TBD | N/A | Dedicated up-loop return | Fault containment/protection TBD | Not motor or power return | Proposed |
+| 2 | `LIMIT_UP` | Input | TBD field sense | Open loop asserted/faulted | Product-neutral up-direction supervised NC limit loop | ESD, transient, supervision, filtering, and biasing TBD | Unknown/fault inhibits upward motion | Locked |
+| 3 | `LIMIT_DOWN_RETURN` | Field-sense return | TBD | N/A | Dedicated down-loop return | Fault containment/protection TBD | Not motor or power return | Proposed |
+| 4 | `LIMIT_DOWN` | Input | TBD field sense | Open loop asserted/faulted | Product-neutral down-direction supervised NC limit loop | ESD, transient, supervision, filtering, and biasing TBD | Unknown/fault inhibits downward motion | Locked |
 
 ## 8. J6 — OLED
 
@@ -111,11 +113,11 @@ The exact sensor population and physical connector remain `TBD`. BME280 is the c
 
 ## 10. J8 — User Controls and Indicators
 
-J8 input active states, voltage domains, field-contact assumptions, grounding, pull/bias, filtering, and protection remain `TBD`; no input is assumed to connect directly to processor GPIO. `STOP_IN` is safety-relevant and must remain independent of the encoder, ARM, FIRE, display, wireless, and optional expansion functions.
+J8 command and encoder voltage domains, pull/bias implementation, filtering, and protection remain `TBD`; no input connects directly to processor GPIO. ARM and FIRE are momentary normally-open dry-contact commands. Encoder A/B and push are non-safety dry-contact UI inputs. `STOP_IN` is a normally-closed supervised loop with a dedicated return and remains independent of encoder, ARM, FIRE, display, wireless, and optional expansion functions.
 
 The RGB channels and buzzer are reusable outputs. RGB LED topology, polarity, current, brightness control, and protection, plus buzzer device type, drive domain, acoustic behavior, and onboard versus external population remain `TBD`. Driver stages may be required; direct processor-GPIO drive is not assumed.
 
-The combined 13-pin J8 allocation is preliminary. Safety-related controls and indicators may occupy different physical locations; STOP may require a distinct connector or harness route; encoder wiring may terminate at a handheld or panel controller; and RGB or buzzer wiring may terminate at another assembly. Combining 3.3 V logic, 5 V supply, inputs, and driven outputs increases harness complexity and may reduce product flexibility, while partitioning would increase connector count, enclosure penetrations, cost, and assembly complexity. Products may omit signals. Final partitioning requires explicit connector, safety, harness, and product-family review.
+The combined J8 allocation remains a logical reservation, not a released physical connector. Adding a dedicated `STOP_RETURN` makes the combined concept 14 conductors. STOP may require a distinct connector or harness route; encoder wiring may terminate at a handheld or panel controller; and RGB or buzzer wiring may terminate elsewhere. Final partitioning requires explicit connector, safety, harness, and product-family review.
 
 | Pin | Signal name | Direction | Voltage domain | Active state | Description | Protection | Notes | Status |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -124,14 +126,15 @@ The combined 13-pin J8 allocation is preliminary. Safety-related controls and in
 | 3 | `ENCODER_A` | Input | TBD | TBD | Encoder phase A | ESD/transient/filter/bias TBD | Interrupt capability preferred; decoding behavior TBD | Locked |
 | 4 | `ENCODER_B` | Input | TBD | TBD | Encoder phase B | ESD/transient/filter/bias TBD | Interrupt capability preferred; decoding behavior TBD | Locked |
 | 5 | `ENCODER_SW` | Input | TBD | TBD | Encoder push button | ESD/transient/filter/bias TBD | Interaction behavior TBD | Locked |
-| 6 | `ARM_IN` | Input | TBD | TBD | Dedicated ARM physical input | ESD/transient/filter/bias TBD | Permission/readiness only; product behavior external | Locked |
-| 7 | `FIRE_IN` | Input | TBD | TBD | Dedicated FIRE physical input | ESD/transient/filter/bias TBD | Must not trigger from startup or wiring faults | Locked |
-| 8 | `STOP_IN` | Input | TBD | TBD | Dedicated safety-relevant STOP input | ESD/transient/filter/bias TBD | Hardware-safe fault interpretation required; topology TBD | Locked |
-| 9 | `RGB_R` | Output | TBD | TBD | Red status channel | Driver/current limit TBD | LED topology TBD | Locked |
-| 10 | `RGB_G` | Output | TBD | TBD | Green status channel | Driver/current limit TBD | LED topology TBD | Locked |
-| 11 | `RGB_B` | Output | TBD | TBD | Blue status channel | Driver/current limit TBD | LED topology TBD | Locked |
-| 12 | `BUZZER_OUT` | Output | TBD | TBD/PWM | Buzzer control | Driver/flyback TBD | Buzzer type TBD | Locked |
-| 13 | `+5V` | Power out | 5 V | N/A | Optional indicator/buzzer supply provision | Current protection TBD | Use depends on final loads | Proposed |
+| 6 | `ARM_IN` | Input | TBD field sense | Contact closed | Momentary normally-open ARM command | ESD/transient/filter/bias TBD | Held at startup is invalid; never directly energizes outputs | Locked |
+| 7 | `FIRE_IN` | Input | TBD field sense | Contact closed/new qualified edge | Momentary normally-open FIRE request | ESD/transient/filter/bias TBD | Requires valid ARM sequence and release-before-retrigger | Locked |
+| 8 | `STOP_RETURN` | Field-sense return | TBD | N/A | Dedicated STOP-loop return | Fault containment/protection TBD | Not shared with command/encoder return | Proposed |
+| 9 | `STOP_IN` | Input | TBD field sense | Open loop asserted/faulted | Dedicated supervised NC STOP loop | ESD, transient, supervision, filtering, and biasing TBD | Unknown/fault forces STOP-safe interpretation | Locked |
+| 10 | `RGB_R` | Output | TBD | TBD | Red status channel | Driver/current limit TBD | LED topology TBD | Locked |
+| 11 | `RGB_G` | Output | TBD | TBD | Green status channel | Driver/current limit TBD | LED topology TBD | Locked |
+| 12 | `RGB_B` | Output | TBD | TBD | Blue status channel | Driver/current limit TBD | LED topology TBD | Locked |
+| 13 | `BUZZER_OUT` | Output | TBD | TBD/PWM | Buzzer control | Driver/flyback TBD | Buzzer type TBD | Locked |
+| 14 | `+5V` | Power out | 5 V | N/A | Optional indicator/buzzer supply provision | Current protection TBD | Use depends on final loads | Proposed |
 
 ## 11. J9 — Isolated Relay Contacts
 
