@@ -117,6 +117,7 @@ Category is inherited from each section heading. Iron Pine Outdoors Engineering 
 | ODI-SCH-004 | Test-access coverage | Approve required production/prototype nodes and fixture workflow | Critical safe states and recovery must be verifiable | GPIO Review; Test Plan; Sheet 09 | Before preliminary schematic completion | Block strategy selected; physical implementation TBD |
 | ODI-SCH-005 | Ground/return architecture | Approve common logic ground, dedicated supervised returns, isolated relay contacts, and external motor-current boundary | Avoids false isolation and uncontrolled return paths | Power/Input/Output reviews; ADR-035 | Before detailed capture | Proposed |
 | ODI-SCH-006 | Optional populations | Define controlled base, peripheral, expansion, and test-only populations | Prevents undocumented assembly variants | Power Budget; firmware populations | Before BOM/component release | Minimal option set proposed |
+| ODI-SCH-007 | Sheet 02 enable-request interface | Define branch-enable ownership, polarity, and Sheet 00/02 ports for main-only request-controlled rails; also define the upstream qualifier for `MAIN_POWER_GOOD` | Sheet 02 cannot implement default-off post-initialization branches or fully qualified main status with only protected-source inputs | ADR-022, ADR-023, ADR-031; Power Architecture; Schematic Hierarchy; Package 03 entry-gate review | Before Sheet 02 capture | Blocking conflict documented; architecture decision required |
 
 ## Mechanical
 

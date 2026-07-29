@@ -90,6 +90,8 @@ Documentation-only changes still require document revision control and review. A
 
 | 2026-07-29 | Preliminary KiCad Capture Package 02 | Implemented Sheet 01 battery and USB protected-power paths, input protection and filtering, battery sensing, and power status without footprints or downstream regulation | Iron Pine Outdoors Engineering | Preliminary functional capture; detailed release blockers retained |
 
+| 2026-07-29 | Preliminary KiCad Capture Package 03 entry-gate review | Stopped before Sheet 02 modification because the frozen hierarchy lacks required controlled-branch enable requests and an upstream main-valid qualifier | Iron Pine Outdoors Engineering | Blocked pending architecture/interface decision |
+
 ## 8. Prototype traceability
 
 Every physical prototype shall be marked and recorded with:
