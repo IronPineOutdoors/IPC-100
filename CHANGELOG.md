@@ -10,3 +10,4 @@ Initial project creation.
 - Incorporated the approved Display and Sensors review, defining product-neutral capabilities, nonfatal peripheral faults, and controlled shared-I2C requirements.
 - Created the Rev A critical-component selection and electrical-quantification package and conditionally authorized preliminary KiCad capture while retaining schematic-release and PCB-layout blockers.
 - Created the IPC-100 KiCad project, Sheet 00 top-level architecture, and empty port-complete Sheets 01–09 for Preliminary KiCad Capture Package 01.
+- Implemented Preliminary KiCad Capture Package 02, Sheet 01 Power Entry and Protection, without footprints or downstream power conversion.

@@ -7,6 +7,7 @@ This directory contains the controlled KiCad source for IPC-100 Rev A.
 - `IPC-100.kicad_pro` — KiCad project configuration.
 - `IPC-100.kicad_sch` — Sheet 00 root system architecture.
 - `sheets/` — Sheets 01–09, one file per approved functional boundary.
+- `notes/` — Package-specific implementation assumptions and expected review findings.
 
 Sheet 00 contains only hierarchical sheet symbols, matching ports, and named top-level interconnect. Physical connectors and manufacturing test symbols belong exclusively to Sheet 09 when that implementation package is authorized.
 
@@ -49,4 +50,6 @@ See [Schematic Hierarchy and Block Interface Definition](../../docs/hardware/Sch
 
 ## Current status
 
-Package 01 creates Sheet 00 and empty Sheets 01–09. No detailed circuitry, component symbols, values, footprints, connector pinouts, or PCB layout are present. The next package is **IPC-100 Rev A Preliminary KiCad Capture — Package 02 — Sheet 01 Power Entry and Protection**.
+Package 02 implements Sheet 01 Power Entry and Protection with preliminary battery and USB protected-power paths, programming networks, filtering, battery sensing, and fault/status outputs. Sheets 02–09 remain port-complete placeholders. No footprints, PCB layout, downstream regulators, or connector implementation are present.
+
+The next package is **IPC-100 Rev A Preliminary KiCad Capture — Package 03 — Sheet 02 Power Conversion and Rail Control**.

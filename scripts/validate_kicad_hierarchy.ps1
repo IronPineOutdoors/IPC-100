@@ -112,9 +112,21 @@ foreach ($sheetBlock in $sheetBlocks) {
         $errors.Add("$sheetName contains duplicate child labels: $($duplicateChildPins.Name -join ', ')")
     }
 
+    $isImplementedPowerEntry = $sheetFile -eq 'sheets/01_Power_Entry.kicad_sch'
     $requiredNote = 'Detailed implementation intentionally deferred to subsequent engineering package.'
-    if (-not $childContent.Contains($requiredNote)) {
+    if (-not $isImplementedPowerEntry -and -not $childContent.Contains($requiredNote)) {
         $errors.Add("$sheetName is missing the required implementation-deferral note.")
+    }
+    if ($isImplementedPowerEntry) {
+        $implementedSymbols = [regex]::Matches($childContent, '(?m)^  \(symbol \(lib_id').Count
+        if ($implementedSymbols -eq 0) {
+            $errors.Add("$sheetName contains no implemented component symbols.")
+        }
+        foreach ($requiredNet in @('VIN_RAW', 'VIN_PROTECTED', 'USB_VBUS_RAW', 'USB_5V_PROTECTED', 'BATTERY_SENSE', 'POWER_FAULT_SUMMARY', 'GND')) {
+            if (-not $childContent.Contains('"' + $requiredNet + '"')) {
+                $errors.Add("$sheetName is missing required net $requiredNet.")
+            }
+        }
     }
 }
 
@@ -125,9 +137,14 @@ if (($sheetFiles | Sort-Object -Unique).Count -ne $sheetFiles.Count) {
     $errors.Add('Duplicate hierarchical sheet file references exist.')
 }
 
-$componentSymbols = Select-String -Path $schematicFiles -Pattern '^  \(symbol ' -ErrorAction SilentlyContinue
-if ($componentSymbols) {
-    $errors.Add('Package 01 contains component symbol declarations.')
+$placeholderFiles = @($rootFile) + @(
+    Get-ChildItem -LiteralPath $sheetDirectory -Filter '*.kicad_sch' |
+        Where-Object Name -ne '01_Power_Entry.kicad_sch' |
+        Select-Object -ExpandProperty FullName
+)
+$placeholderSymbols = Select-String -Path $placeholderFiles -Pattern '^  \(symbol \(lib_id' -ErrorAction SilentlyContinue
+if ($placeholderSymbols) {
+    $errors.Add('Component symbols exist outside the authorized Sheet 01 scope.')
 }
 
 $footprints = Select-String -Path $schematicFiles -Pattern '\(footprint ' -ErrorAction SilentlyContinue
@@ -146,5 +163,5 @@ Write-Host "Child sheets: $($sheetBlocks.Count)"
 Write-Host 'Project JSON: valid'
 Write-Host 'S-expressions: balanced'
 Write-Host 'Root/child ports: matched and unique'
-Write-Host 'Component symbols: 0'
+Write-Host 'Component symbols: confined to implemented Sheet 01'
 Write-Host 'Footprint assignments: 0'

@@ -88,6 +88,8 @@ Documentation-only changes still require document revision control and review. A
 | 2026-07-29 | Critical component selection and electrical quantification | Selected preliminary-capture circuit topologies, preferred components, values, calculations, margins, test access, and retained schematic-release blockers | Iron Pine Outdoors Engineering | Preliminary capture basis; engineering review required |
 | 2026-07-29 | Preliminary KiCad Capture Package 01 | Created the KiCad project, Sheet 00 root hierarchy, named cross-sheet interfaces, and empty Sheets 01–09 without circuitry or footprints | Iron Pine Outdoors Engineering | CAD hierarchy implemented; validation and Gate 1 review required |
 
+| 2026-07-29 | Preliminary KiCad Capture Package 02 | Implemented Sheet 01 battery and USB protected-power paths, input protection and filtering, battery sensing, and power status without footprints or downstream regulation | Iron Pine Outdoors Engineering | Preliminary functional capture; detailed release blockers retained |
+
 ## 8. Prototype traceability
 
 Every physical prototype shall be marked and recorded with:
