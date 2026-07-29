@@ -257,7 +257,7 @@ Normal operating input range and transient-survival range are separate requireme
 | --- | --- | --- | --- | --- |
 | SAF-001 | `STOP_IN` shall be a dedicated physical input. | Avoids dependence on shared or wireless commands. | Inspection and test | Locked |
 | SAF-002 | Motor-driver outputs shall fail to a disabled state during reset and boot. | Prevents unintended motion. | Analysis and test | Locked |
-| SAF-003 | The relay output shall fail open during reset or loss of IPC-100 power. | Prevents unintended triggering. | Analysis and test | Locked |
+| SAF-003 | The relay coil shall default de-energized during reset or loss of IPC-100 power, with `RELAY_NO` open and the passive `RELAY_NC` state carrying no platform-assigned product meaning. | Prevents unintended triggering while accurately describing the isolated changeover contact set. | Analysis and test | Locked |
 | SAF-004 | External high-current branches shall be independently fused. | Limits external fault energy. | Inspection | Locked |
 | SAF-005 | Safe operation shall not rely only on wireless control. | Wireless links may fail or be unavailable. | Analysis and test | Locked |
 | SAF-006 | Product designs shall retain accessible physical controls. | Supports direct intervention. | Inspection | Locked |

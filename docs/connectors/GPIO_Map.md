@@ -15,6 +15,25 @@ This is a resource-allocation worksheet, not a final pin assignment. No ESP32 GP
 
 Directions are relative to the ESP32. External voltage translation or driver stages may change the electrical direction at a connector.
 
+## 1.1 Resource-allocation summary
+
+| Resource class | Direct-GPIO scenario | Potential reduced scenario | Notes |
+| --- | ---: | ---: | --- |
+| Independent digital inputs | 10 | 7 direct | Encoder inputs could move to non-safety external I/O; STOP and limits remain direct/high priority |
+| Independent digital outputs | 14 | 7 direct | Illustrative external control for enables, RGB, buzzer, and OLED reset; not approved |
+| Required/preferred PWM outputs | 4 required; 4 additional preferred/TBD | At least 4 direct | Motor PWM is required by the reference contract; RGB/buzzer depend on architecture |
+| ADC inputs | 1 | 0 or 1 direct | `BATTERY_SENSE` may use an approved external ADC path |
+| Interrupt-preferred inputs | 10 preferred | At least 5 high-priority | Exact interrupt requirements remain TBD |
+| Required communications | Shared I2C plus Wi-Fi/Bluetooth/ESP-NOW and USB-C service | Same logical capabilities | Native USB versus USB-to-UART unresolved |
+| Optional communications | Future CAN and RS485 | Future only | Resources not reserved until required allocation is proven |
+| Required boot-safe outputs | 14 | 7 direct plus externally controlled outputs | Every logical output still requires a defined hardware-safe state |
+| High-priority safety inputs | 5 | 5 | `STOP_IN` and four directional limits |
+| Proposed expansion signals | 2 concepts plus possible controls | TBD | No capability or MCU-pin commitment |
+
+The direct scenario is approximately 29 MCU signal resources when 10 digital inputs, 14 digital outputs, two I2C signals, one ADC input, and two service signals are counted. Boot/reset/module-management resources and optional identification or I2C-segmentation controls are additional or module-specific. An illustrative external-interface scenario could reduce the direct count to approximately 19, but no reduction architecture is approved.
+
+**Feasibility status: Not demonstrated.** Final feasibility cannot be proven until a candidate ESP32 module, USB architecture, ADC path, boot/programming scheme, and any required resource-reduction architecture are selected and checked against exact module restrictions.
+
 ## 2. Preliminary allocation table
 
 | Function | Signal name | Candidate GPIO | Input/output | Boot-strap concern | ADC requirement | PWM requirement | Interrupt requirement | Pull-up/pull-down requirement | Boot-safe state | Notes | Status |
@@ -154,3 +173,4 @@ This priority is proposed pending final processor and schematic review. Expansio
 - [Connector Specification](Connector_Specification.md)
 - [Hardware Requirements](../requirements/Hardware_Requirements.md)
 - [System Architecture](../architecture/System_Architecture.md)
+- [Processor Resource Feasibility](../architecture/Processor_Resource_Feasibility.md)

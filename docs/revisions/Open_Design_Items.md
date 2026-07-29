@@ -10,6 +10,8 @@
 
 `TBD` identifies an unresolved decision, not permission to select an implementation without the required review. Closing an item requires updates to every dependent controlled document.
 
+Category is inherited from each section heading. Iron Pine Outdoors Engineering is the default review owner. The decision-needed and dependency fields define the current decision space, dependent requirements, and dependent documents. Stage labels in this register map to the controlled gates as follows: “Before schematic release” means **Before schematic**; “Before firmware release/architecture” means **Before firmware implementation**; “Before connector release” means **Before PCB layout**; “Before verification release” means **Before validation**; “Before product integration” means **Before production** for the platform and a separate product gate for the consuming product.
+
 ## Processor
 
 | ID | Topic | Decision needed | Why it matters | Dependencies | Required review stage | Status |
@@ -20,6 +22,7 @@
 | ODI-CPU-004 | USB architecture | Select native USB or USB-to-UART approach | Affects processor, GPIO, power, service behavior | J13, GPIO, power | Before schematic release | TBD |
 | ODI-CPU-005 | Boot-straps and allocation | Approve reset, boot, programming, and strap-safe allocation | Prevents boot and safe-state conflicts | GPIO map, all interfaces | Before schematic release | TBD |
 | ODI-CPU-006 | Watchdog strategy | Define supervision, timeout, and recovery behavior | Affects output safety and diagnostics | Firmware, testing, outputs | Before firmware release | TBD |
+| ODI-CPU-007 | ADC path | Select processor ADC capability or another approved ADC path | Battery monitoring must coexist with active Wi-Fi and approved accuracy | PWR-012, PWR-013, SNS-002; GPIO and power docs | Before schematic | TBD |
 
 ## Power
 
@@ -30,6 +33,8 @@
 | ODI-PWR-003 | Expansion reserves | Allocate J10, J11, communications, and daughterboard reserves | Prevents optional loads from displacing required loads | Power budget, connectors | Before connector release | TBD |
 | ODI-PWR-004 | USB power behavior | Define USB-only scope and source interaction | Controls service, startup, shutdown, and backfeed | J13, output states, testing | Before schematic release | TBD |
 | ODI-PWR-005 | Backfeed protection | Approve protection among USB, rails, and external modules | Independently powered interfaces may inject power | Power, expansion, outputs | Before schematic release | TBD |
+| ODI-PWR-006 | External interface supply limits | Allocate protected J2/J3/J8/J10/J11 supply envelopes | Interface loads may overload required rails | EXP-008, OUT-020; Power Budget, connectors | Before schematic | TBD |
+| ODI-PWR-007 | Brownout behavior | Define rail thresholds, sequencing, decay, and recovery objectives | Safe relay and motor states depend on controlled power behavior | CPU-005, OUT-013, OUT-033; Power Architecture | Before schematic | TBD |
 
 ## Display and sensors
 
@@ -67,6 +72,9 @@
 | ODI-OUT-006 | RGB topology | Define package, polarity, drive, current, and brightness control | Logical channels do not define hardware | J8, power, firmware | Before schematic release | TBD |
 | ODI-OUT-007 | Buzzer topology | Define device, drive, power, and acoustic contract | Active and passive devices differ | J8, power, firmware | Before schematic release | TBD |
 | ODI-OUT-008 | Safe-state timing | Approve transition and recovery criteria | Required for verification across faults | Outputs, power, testing | Before verification release | TBD |
+| ODI-OUT-009 | Relay contact ratings | Define voltage, current, load, life, isolation, and derating contract | Relay selection cannot begin without it | OUT-012; J9, power, testing | Before schematic | TBD |
+| ODI-OUT-010 | Relay driver | Define coil supply, hardware disable, drive, and protection architecture | Firmware cannot be the sole safeguard | OUT-009–OUT-011, OUT-029; GPIO and power | Before schematic | TBD |
+| ODI-OUT-011 | Output protection | Define external-driver, RGB, buzzer, and relay-control fault protection | External faults must not backfeed or damage logic | OUT-018, OUT-022, OUT-026, OUT-034; connectors | During schematic | TBD |
 
 ## Expansion
 
@@ -93,4 +101,16 @@
 | ODI-CONN-007 | Retention | Define vibration and service retention | Outdoor equipment requires reliable mating | Mechanical and product environment | Before PCB layout | TBD |
 | ODI-CONN-008 | Environmental sealing | Define connector-versus-enclosure sealing ownership | Board connectors alone do not establish ingress rating | Product enclosure, harnesses | Before product integration | TBD |
 | ODI-CONN-009 | Harness grouping | Approve safety, noisy, isolated, bus, and UI partitioning | Grouping affects faults, service, and product flexibility | Connector architecture review | Before schematic release | TBD |
+| ODI-CONN-010 | Pin-count approval | Approve provisional counts after electrical and harness contracts | Logical reservations are not released pinouts | Connector Specification and Review | Before schematic | TBD |
 
+## Mechanical
+
+| ID | Topic | Decision needed | Why it matters | Dependencies | Required review stage | Status |
+| --- | --- | --- | --- | --- | --- | --- |
+| ODI-MEC-001 | PCB envelope | Define preliminary maximum envelope and edge constraints | Schematic connector and RF planning need physical bounds | MEC-TBD-001; Mechanical Interface | Before schematic | TBD |
+| ODI-MEC-002 | Mounting holes | Define preliminary mounting concept and supported regions | Controls board outline and placement constraints | MEC-TBD-002, MEC-TBD-003 | Before PCB layout | TBD |
+| ODI-MEC-003 | Enclosure constraints | Define controller-level clearance and environmental boundary assumptions | Affects connectors, thermal design, and service | ENV requirements; Mechanical Interface | Before PCB layout | TBD |
+| ODI-MEC-004 | Connector-edge access | Define mating, latch, tool, and harness approach envelopes | Connector placement cannot be validated without access | MEC-TBD-004; Connector Review | Before PCB layout | TBD |
+| ODI-MEC-005 | Antenna keepout | Define candidate-module antenna clearance and enclosure assumptions | Wireless performance depends on physical implementation | CPU-006; processor feasibility | Before schematic | TBD |
+| ODI-MEC-006 | Service access | Define USB, reset, programming, diagnostics, and replacement access | Serviceability affects connector and placement architecture | MEC-001; Mechanical Interface | Before PCB layout | TBD |
+| ODI-MEC-007 | Environmental assumptions | Approve board temperature, vibration, coating, and enclosure interfaces | Parts and mechanics require defined qualification targets | ENV-001–ENV-006; testing | Before prototype build | TBD |

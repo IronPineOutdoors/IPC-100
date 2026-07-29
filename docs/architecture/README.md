@@ -1,5 +1,7 @@
 # Architecture
 
+[Processor Resource Feasibility](Processor_Resource_Feasibility.md) inventories Rev A processor demand without assigning GPIO.
+
 Controlled system boundaries, block diagrams, technology choices, and decision records:
 
 - [Executive Summary](Executive_Summary.md) — blueprint scope and current baseline

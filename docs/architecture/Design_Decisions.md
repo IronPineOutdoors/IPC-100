@@ -212,3 +212,25 @@ Statuses are `Accepted`, `Proposed`, `Superseded`, or `Rejected`. Accepted decis
 - **Consequences:** Logic levels, polarity, drive, enable, PWM, braking, protection, and backfeed behavior require approval.
 - **Alternatives considered:** Lock one external motor-driver module.
 - **Follow-up actions:** Complete schematic-level interface validation.
+
+### ADR-019: Rev A architecture freeze is a formal schematic-entry gate
+
+- **Decision ID:** ADR-019
+- **Date:** 2026-07-29
+- **Status:** Proposed
+- **Context:** The architecture is substantially documented, but processor, power, safety-interface, I2C, connector, and mechanical decisions still block controlled schematic capture.
+- **Decision:** Rev A architecture will be frozen only after the schematic-entry criteria in the Rev A readiness review are satisfied and processor-resource feasibility is demonstrated.
+- **Consequences:** Rev A is not currently frozen and controlled schematic capture is not authorized.
+- **Alternatives considered:** Begin schematic capture while blocking architecture decisions remain unresolved.
+- **Follow-up actions:** Close Gate 1 blockers and repeat the readiness review.
+
+### ADR-020: Requirements traceability is required for release gates
+
+- **Decision ID:** ADR-020
+- **Date:** 2026-07-29
+- **Status:** Accepted
+- **Context:** Requirements, design decisions, verification concepts, and open dependencies must remain connected as Rev A progresses.
+- **Decision:** Architecture, schematic, prototype, and validation gates shall maintain controlled requirement traceability.
+- **Consequences:** Prototype release requires traceable verification coverage and disposition of blocking open items.
+- **Alternatives considered:** Reconstruct traceability after prototype fabrication.
+- **Follow-up actions:** Expand grouped architecture traceability into procedure-level evidence as designs and tests are released.

@@ -104,3 +104,20 @@ Create a repeatable regression suite as firmware and test fixtures become availa
 Formal Rev A verification is complete only when all approved requirements have passing evidence, deviations are dispositioned, and the released design and test records are configuration-controlled.
 
 Requirement identifiers and status are controlled in [Hardware Requirements](../requirements/Hardware_Requirements.md).
+
+## Test-readiness matrix
+
+| Requirement area | Inspection | Analysis | Bench test | Fault injection | Environmental test | Product-level test | Current readiness |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Platform and boundaries | Planned | Planned | N/A | N/A | N/A | Compatibility record | Ready at architecture level |
+| Processor/resources | Planned | Required | Prototype required | Recovery faults | Radio/environment later | Enclosure/radio integration | Blocked by module selection |
+| Power and USB | Planned | Required | Prototype required | Required | Thermal/environment later | Source-system validation | Blocked by rail and USB architecture |
+| Inputs and STOP/limits | Planned | Required | Prototype required | Required | Wiring/environment later | Product hazard response | Blocked by electrical contract |
+| Relay and motor outputs | Planned | Required | Prototype required | Required | Load/environment later | Product motion/load safety | Blocked by interface contracts |
+| Display/sensor/battery | Planned | Required | Prototype required | Required | Sensor/environment later | Ambient interpretation | Blocked by module and supply choices |
+| Shared I2C/expansion | Planned | Required | Prototype required | Required | Cable/environment later | Installed-device validation | Blocked by bus contract |
+| Connectors and wiring | Planned | Required | Mating prototypes required | Misconnection concepts | Retention/environment later | Harness validation | Blocked by connector architecture |
+| Firmware abstraction | Planned | Planned | Hardware required for drivers | Timeout/recovery required | N/A | Product application separate | Interface scaffolding only |
+| Mechanical/environment | Planned | Required | Mechanical prototype required | Service/access concepts | Required | Product enclosure validation | Blocked by envelope/environment |
+
+Architecture-level coverage exists for safe startup, reset, brownout, watchdog recovery, STOP and limit priority, relay de-energized state, motor disable, opposing-command rejection, USB/main-power interactions, external-module backfeed, I2C faults, absent optional devices, unsupported hardware, expansion overload, and connector faults. Numeric acceptance criteria remain `TBD`.

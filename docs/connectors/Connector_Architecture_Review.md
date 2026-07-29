@@ -56,3 +56,22 @@ CAN and RS485 have different transceiver, direction-control, termination, biasin
 - Verify power-domain backfeed and fault containment for every independently powered attachment.
 - Review all pin counts after electrical contracts, GPIO allocation, power budget, and harness partitioning are approved.
 
+## 5. Preliminary schematic readiness
+
+| ID | Readiness | Blocking definition or condition |
+| --- | --- | --- |
+| J1 | Conditionally ready | Purpose and range are defined, but protection objectives, transient/undervoltage behavior, current envelope, USB interaction, and block-level rail architecture must be approved |
+| J2 | Blocking definition missing | Logic voltage, polarity, drive capability, enable architecture, safe-state circuitry, and proof that four signals per axis are supportable |
+| J3 | Blocking definition missing | Same as J2 |
+| J4 | Blocking definition missing | Active polarity, NO/NC and wet/dry contract, field voltage, fault detection, protection, and shared-return disposition |
+| J5 | Blocking definition missing | Same as J4 |
+| J6 | Blocking definition missing | `OLED_VCC`, exact module pinout/logic compatibility, reset behavior, and I2C contract |
+| J7 | Blocking definition missing | `SENSOR_VCC`, exact module pinout/address/logic compatibility, and I2C contract |
+| J8 | Conditionally ready | May remain a provisional logical reservation, but `CONN-TBD-001`, input/output electrical contracts, safe states, and limited supply assumptions block released pinout capture |
+| J9 | Blocking definition missing | Relay contact/isolation ratings, load contract, coil supply, driver, and hardware de-energized architecture |
+| J10 | Blocking definition missing | Supply, pull-up ownership, loading, hot-plug policy, protection, and segmentation decision |
+| J11 | Blocking definition missing | Pin count, function, power, protection, and processor allocation unresolved; current evidence supports reservation only, not a connector schematic |
+| J12 | Future provision only | Shared/separate/footprint/daughterboard disposition remains open; no pinout is authorized |
+| J13 | Blocking definition missing | USB-C external type is locked, but native USB versus USB-to-UART, device role, backfeed, USB-only behavior, and processor resources must be selected |
+
+No connector is ready for a released component-level schematic. J1 and the J8 logical grouping can inform preliminary block diagrams; all other required interfaces have blocking electrical definitions.

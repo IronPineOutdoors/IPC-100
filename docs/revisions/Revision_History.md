@@ -78,6 +78,7 @@ Documentation-only changes still require document revision control and review. A
 | 2026-07-28 | Platform boundary | Separated IPC-100 from product-specific CrossWind development | Iron Pine Outdoors Engineering | Historical |
 | 2026-07-28 | Rev A Engineering Blueprint | Defined architecture, requirements, connectors, GPIO planning, power, wiring, mechanics, revision policy, and ADRs | Iron Pine Outdoors Engineering | Pending approval |
 | 2026-07-29 | Expansion and connector architecture review | Defined controlled expansion requirements, connector risks, accumulated consistency corrections, ADRs, and the open-design-items register | Iron Pine Outdoors Engineering | Pending approval |
+| 2026-07-29 | Rev A schematic-readiness gate | Audited requirements and resources, created architecture traceability, classified schematic blockers, and recorded that Rev A is not ready for controlled schematic capture | Iron Pine Outdoors Engineering | Gate review complete |
 
 ## 8. Prototype traceability
 
