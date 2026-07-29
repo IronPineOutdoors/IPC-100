@@ -16,10 +16,10 @@ Category is inherited from each section heading. Iron Pine Outdoors Engineering 
 
 | ID | Topic | Decision needed | Why it matters | Dependencies | Required review stage | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| ODI-CPU-001 | Final ESP32 module | Approve exact module variant | Controls pinout, memory, radio, lifecycle, and USB options | Requirements, GPIO, power, PCB | Before schematic release | TBD |
+| ODI-CPU-001 | Final ESP32 module | Preferred family is ESP32-S3-WROOM-1; approve exact flash/PSRAM ordering variant after pin, memory, mechanical, lifecycle, and procurement review | Controls pinout, memory, radio, lifecycle, and USB options | Processor Selection Study, requirements, GPIO, power, PCB | Before schematic release | Preferred family selected; exact variant TBD |
 | ODI-CPU-002 | GPIO sufficiency | Prove required functions fit before optional provisions | Prevents resource overcommitment | GPIO map, connectors, expansion | Before schematic release | TBD |
-| ODI-CPU-003 | Memory sufficiency | Define program, runtime, storage, and reserve needs | Controls module suitability | Firmware architecture, processor approval | Before firmware architecture release | TBD |
-| ODI-CPU-004 | USB architecture | Select native USB or USB-to-UART approach | Affects processor, GPIO, power, service behavior | J13, GPIO, power | Before schematic release | TBD |
+| ODI-CPU-003 | Memory sufficiency | Define program, runtime, storage, and reserve needs; PSRAM is not currently demonstrated as required | Controls exact ESP32-S3-WROOM-1 ordering variant | Firmware architecture, Processor Selection Study | Before firmware architecture release | Budget TBD; baseline PSRAM need not established |
+| ODI-CPU-004 | USB architecture | Preferred architecture is native ESP32-S3 USB Serial/JTAG; approve recovery/test UART access, USB-C circuitry, VBUS behavior, and boot/reset implementation | Affects processor, GPIO, power, service behavior | J13, GPIO, power, Processor Selection Study | Before schematic release | Preferred architecture selected; implementation TBD |
 | ODI-CPU-005 | Boot-straps and allocation | Approve reset, boot, programming, and strap-safe allocation | Prevents boot and safe-state conflicts | GPIO map, all interfaces | Before schematic release | TBD |
 | ODI-CPU-006 | Watchdog strategy | Define supervision, timeout, and recovery behavior | Affects output safety and diagnostics | Firmware, testing, outputs | Before firmware release | TBD |
 | ODI-CPU-007 | ADC path | Select processor ADC capability or another approved ADC path | Battery monitoring must coexist with active Wi-Fi and approved accuracy | PWR-012, PWR-013, SNS-002; GPIO and power docs | Before schematic | TBD |

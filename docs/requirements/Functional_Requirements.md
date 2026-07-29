@@ -48,7 +48,7 @@ Verification methods are inspection, analysis, demonstration, or test.
 
 | ID | Requirement | Rationale | Verification method | Status |
 | --- | --- | --- | --- | --- |
-| FUNC-CPU-001 | IPC-100 shall use an ESP32-family module that provides the required Wi-Fi, Bluetooth, and ESP-NOW capabilities. ESP32-WROOM-32E is the current reference candidate, not the locked production module. | Preserves the approved processor family without prematurely fixing the module variant. | Inspection and analysis | Proposed |
+| FUNC-CPU-001 | IPC-100 shall use an ESP32-family module that provides the required Wi-Fi, Bluetooth, and ESP-NOW capabilities. ESP32-S3-WROOM-1 is the preferred Rev A module family; its exact ordering variant and pin allocation are not released. | Preserves the approved processor family while recording the comparative recommendation without prematurely fixing the orderable variant. | Inspection and analysis | Proposed |
 | FUNC-CPU-002 | IPC-100 shall support reliable reset, normal boot, programming boot, brownout recovery, and watchdog recovery under approved power and interface conditions. | Enables manufacturing, predictable startup, and fault recovery. | Analysis and test | Locked |
 | FUNC-CPU-003 | IPC-100 shall provide a USB-C service interface for programming and diagnostics; native USB versus an external USB-to-UART implementation remains `TBD`. | Provides a standard physical service connection while preserving implementation flexibility. | Demonstration | Locked |
 | FUNC-CPU-004 | IPC-100 shall establish hardware-safe outputs before application initialization. | Prevents unintended external activation. | Analysis and test | Locked |

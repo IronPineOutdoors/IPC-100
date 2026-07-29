@@ -79,6 +79,7 @@ Documentation-only changes still require document revision control and review. A
 | 2026-07-28 | Rev A Engineering Blueprint | Defined architecture, requirements, connectors, GPIO planning, power, wiring, mechanics, revision policy, and ADRs | Iron Pine Outdoors Engineering | Pending approval |
 | 2026-07-29 | Expansion and connector architecture review | Defined controlled expansion requirements, connector risks, accumulated consistency corrections, ADRs, and the open-design-items register | Iron Pine Outdoors Engineering | Pending approval |
 | 2026-07-29 | Rev A schematic-readiness gate | Audited requirements and resources, created architecture traceability, classified schematic blockers, and recorded that Rev A is not ready for controlled schematic capture | Iron Pine Outdoors Engineering | Gate review complete |
+| 2026-07-29 | Processor selection study | Compared ESP32 module candidates, recommended ESP32-S3-WROOM-1 and native USB Serial/JTAG, and retained exact-variant, GPIO, memory, ADC, boot, RF, and procurement gates | Iron Pine Outdoors Engineering | Engineering recommendation |
 
 ## 8. Prototype traceability
 

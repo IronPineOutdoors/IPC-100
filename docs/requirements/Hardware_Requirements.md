@@ -67,8 +67,8 @@ Normal operating input range and transient-survival range are separate requireme
 
 **Engineering notes:**
 
-- ESP32-WROOM-32E is the current reference candidate, but it is not the locked production module. Final module selection requires approval before schematic release.
-- USB-C defines the external service connector. Native USB versus an external USB-to-UART implementation remains `TBD` and depends on processor selection and schematic approval.
+- ESP32-S3-WROOM-1 is the preferred Rev A module family. The exact flash/PSRAM ordering variant, pin allocation, and final module approval remain gated before schematic release.
+- USB-C defines the external service connector. Native ESP32-S3 USB Serial/JTAG is the preferred service architecture; recovery/test UART access, USB-C circuitry, VBUS behavior, and boot/reset implementation remain `TBD` pending schematic approval.
 - CPU-005 implementation details and acceptance thresholds remain `TBD`.
 - Bluetooth mode selection remains `TBD`; Bluetooth Classic and Bluetooth Low Energy are not locked by COM-002.
 

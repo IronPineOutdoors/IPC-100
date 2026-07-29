@@ -39,7 +39,7 @@ IPC-100 is a product-neutral ESP32-family outdoor controller with protected 9–
 
 ### Proposed
 
-- Exact processor candidate for schematic study
+- ESP32-S3-WROOM-1 as the preferred processor module family and native USB Serial/JTAG as the preferred service architecture
 - Input-path capability and rail architecture
 - Display and sensor implementations
 - Motor enable/resource-reduction architecture
@@ -51,7 +51,7 @@ IPC-100 is a product-neutral ESP32-family outdoor controller with protected 9–
 
 | Area | Blocking decision |
 | --- | --- |
-| Processor | Candidate module, exact usable resources, memory, USB path, ADC path, boot/programming/debug, antenna constraints |
+| Processor | Exact ESP32-S3-WROOM-1 ordering variant, pin-level usable resources, memory budget, ADC path, boot/programming/recovery implementation, antenna constraints |
 | Power | Block-level 5 V/3.3 V architecture, USB-only/main interaction, load envelopes, transient/undervoltage objectives, backfeed boundaries |
 | Inputs | Field voltage/contact contract, polarity, bias, NO/NC philosophy, STOP/limit fault detection, protection objectives |
 | Outputs | Relay electrical/driver contract, motor-driver logic compatibility, enable and safe-disable architecture, RGB/buzzer load assumptions |
@@ -70,7 +70,7 @@ Final component part numbers and passive values, connector manufacturer, final e
 | --- | --- | --- | --- | --- | --- |
 | Platform scope/product boundary | Complete for architecture | None | Product compatibility records later | None found | Freeze after gate approval |
 | Power | Partial | Rail blocks, USB behavior, protection objectives, load envelope | Exact components/values | No current contradiction | Resolve block architecture |
-| Processor | Partial | Module/resources/USB/ADC/boot/memory | Lifecycle evidence later | No false selection found | Complete processor gate |
+| Processor | Partial | Exact variant/resources/ADC/boot/memory | Procurement/lifecycle evidence later | No false final selection found | Complete ESP32-S3 pin-level gate |
 | Communications | Complete for architecture | USB implementation only | Protocol details | None | Preserve wireless baseline |
 | Display/sensor | Partial | Supply domains, modules, shared-bus contract | Calibration details | None | Approve interface population |
 | Battery monitoring | Substantially complete | ADC path | Accuracy/calibration | ADC1-only wording corrected previously | Select ADC path |
@@ -94,11 +94,13 @@ The [Requirements Traceability Matrix](Requirements_Traceability_Matrix.md) maps
 
 ## 9. Processor resource feasibility
 
-The [Processor Resource Feasibility](../architecture/Processor_Resource_Feasibility.md) derives 10 independent digital inputs, 14 independent outputs, two I2C signals, one ADC path, and two possible service signals: approximately 29 MCU signal resources before boot/reset and optional controls. An illustrative, non-approved external-interface scenario could reduce direct demand to approximately 19. Exact module capacity is not established, so feasibility is **Not demonstrated**.
+The [Processor Resource Feasibility](../architecture/Processor_Resource_Feasibility.md) derives 10 independent digital inputs, 14 independent outputs, two I2C signals, one ADC path, and two possible service signals: approximately 29 MCU signal resources before boot/reset and optional controls. An illustrative, non-approved external-interface scenario could reduce direct demand to approximately 19.
+
+The [Processor Selection Study](../architecture/Processor_Selection_Study.md) reduces processor uncertainty by recommending ESP32-S3-WROOM-1 as the preferred module family and native USB Serial/JTAG as the preferred service architecture. Its 36 module GPIOs make direct implementation plausible, but no pin-level allocation has demonstrated simultaneous GPIO, PWM, ADC, USB, boot-safe, and service feasibility. Candidate-level feasibility has improved; final feasibility remains **Not demonstrated**.
 
 ### Processor-selection gate
 
-Selection requires sufficient usable GPIO, PWM, ADC, communications, memory, boot-safe compatibility, wireless support, service-interface compatibility, lifecycle/availability review, approved footprint, antenna/enclosure compatibility, programming/recovery method, and applicable module regulatory status.
+Final selection requires an exact ESP32-S3-WROOM-1 ordering variant with sufficient usable GPIO, PWM, ADC, communications, memory, boot-safe compatibility, service-interface compatibility, lifecycle/availability review, approved footprint, antenna/enclosure compatibility, programming/recovery method, and applicable module regulatory status.
 
 ## 10. Connector readiness
 
@@ -226,4 +228,3 @@ The architecture is substantially documented, but multiple mandatory Gate 1 crit
 7. Resolve J8, J11, and J12 dispositions and provisional connector pin counts.
 8. Define preliminary PCB envelope, mounting, connector access, and antenna constraints.
 9. Re-run Gate 1 and approve or reject the proposed freeze ADR.
-

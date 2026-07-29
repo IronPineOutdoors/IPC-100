@@ -21,7 +21,7 @@ Required onboard loads, reference or optional platform loads, external interface
 
 | Load | Quantity | Typical current | Peak current | Duty cycle | Estimated average current | Rail | Confidence | Notes |
 | --- | ---: | ---: | ---: | ---: | ---: | --- | --- | --- |
-| ESP32-family module | 1 | TBD | TBD | Application-dependent | TBD | 3.3 V | Low | ESP32-WROOM-32E is the reference candidate; include Wi-Fi/Bluetooth/ESP-NOW transmit peaks |
+| ESP32-family module | 1 | TBD | TBD | Application-dependent | TBD | 3.3 V | Low | ESP32-S3-WROOM-1 is the preferred module family; exact variant TBD; include Wi-Fi/Bluetooth/ESP-NOW transmit peaks |
 | I2C pull-up networks | TBD | TBD | TBD | Bus-dependent | TBD | 3.3 V | Low | Depends on resistor values and bus activity |
 | Logic and input networks | 1 set | TBD | TBD | Continuous | TBD | 3.3 V | Low | Include expanders/level translation if selected |
 | Status LEDs, if 3.3 V powered | TBD | TBD | TBD | TBD | TBD | 3.3 V | Low | Final topology TBD |

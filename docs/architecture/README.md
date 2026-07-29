@@ -1,6 +1,6 @@
 # Architecture
 
-[Processor Resource Feasibility](Processor_Resource_Feasibility.md) inventories Rev A processor demand without assigning GPIO.
+[Processor Resource Feasibility](Processor_Resource_Feasibility.md) inventories Rev A processor demand without assigning GPIO. [Processor Selection Study](Processor_Selection_Study.md) compares ESP32-family modules and recommends ESP32-S3-WROOM-1 as the preferred module family without releasing an ordering variant or pin allocation.
 
 Controlled system boundaries, block diagrams, technology choices, and decision records:
 

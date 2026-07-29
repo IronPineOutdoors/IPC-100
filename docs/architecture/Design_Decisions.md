@@ -234,3 +234,14 @@ Statuses are `Accepted`, `Proposed`, `Superseded`, or `Rejected`. Accepted decis
 - **Consequences:** Prototype release requires traceable verification coverage and disposition of blocking open items.
 - **Alternatives considered:** Reconstruct traceability after prototype fabrication.
 - **Follow-up actions:** Expand grouped architecture traceability into procedure-level evidence as designs and tests are released.
+
+### ADR-021: ESP32-S3-WROOM-1 is the preferred Rev A module family
+
+- **Decision ID:** ADR-021
+- **Date:** 2026-07-29
+- **Status:** Proposed
+- **Context:** Rev A has approximately 29 direct MCU signals before module-specific management resources, while long-term IPC-100 reuse benefits from native USB, processing margin, memory options, and expansion headroom.
+- **Decision:** Use ESP32-S3-WROOM-1 as the preferred Rev A module family and native USB Serial/JTAG as the preferred service architecture. ESP32-WROOM-32E remains the acceptable second choice if approved resource reduction and a USB-to-UART service path are adopted.
+- **Consequences:** Bluetooth services must remain compatible with Bluetooth LE unless the decision is revisited. The exact flash/PSRAM suffix, GPIO map, ADC path, boot allocation, power implementation, antenna constraints, and recovery/test access remain unresolved.
+- **Alternatives considered:** ESP32-WROOM-32E, ESP32-C6-WROOM-1, and ESP32-C3-WROOM-02.
+- **Follow-up actions:** Complete an ESP32-S3 pin-level feasibility study, memory budget, mechanical/RF review, and procurement/lifecycle approval before schematic release.

@@ -26,7 +26,7 @@ CrossWind is the first planned application. It is maintained in a separate exter
 
 ### 3.1 On the IPC-100 PCB
 
-- ESP32-family controller module; ESP32-WROOM-32E is the current reference candidate
+- ESP32-family controller module; ESP32-S3-WROOM-1 is the preferred Rev A module family
 - USB-C programming and diagnostics interface
 - Wide-input power protection and regulation
 - 5 V and 3.3 V logic rails
@@ -151,7 +151,7 @@ The four directional limit names describe platform interfaces rather than physic
 
 ### 8.2 Processor-selection boundary
 
-ESP32 remains the approved processor family. ESP32-WROOM-32E is the current reference candidate, not the locked production module. Final module selection depends on:
+ESP32 remains the approved processor family. The [Processor Selection Study](Processor_Selection_Study.md) recommends ESP32-S3-WROOM-1 as the preferred Rev A module family and native USB Serial/JTAG as the preferred service architecture. The exact flash/PSRAM ordering variant and pin allocation are not released. Final selection depends on:
 
 - Sufficient usable GPIO and resolution of boot-strapping constraints
 - Program memory, runtime memory, and nonvolatile-storage needs
@@ -164,7 +164,7 @@ Module selection requires approval before schematic release. Memory capacities, 
 
 ### 8.3 USB service architecture
 
-USB-C is the locked external programming and diagnostics interface. Native USB versus an external USB-to-UART implementation remains `TBD`; no bridge component is selected.
+USB-C is the locked external programming and diagnostics interface. Native ESP32-S3 USB Serial/JTAG is the preferred programming, console, and debug architecture. An on-board USB-to-UART bridge is not preferred by default, but may be reconsidered if recovery, manufacturing, USB-application, or field-service validation requires it. Recovery UART/test access, USB-C circuitry, VBUS behavior, and boot/reset implementation remain `TBD`; no bridge component is selected.
 
 ### 8.4 Firmware architecture overview
 

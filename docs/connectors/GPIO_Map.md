@@ -11,7 +11,7 @@
 
 ## 1. Allocation status
 
-This is a resource-allocation worksheet, not a final pin assignment. No ESP32 GPIO number is approved. Candidate GPIO values remain `TBD` until the final ESP32-family module is approved and its pinout, boot behavior, memory needs, USB architecture, radio/ADC interaction, peripheral routing, and total GPIO demand are reviewed together. ESP32-WROOM-32E is the current reference candidate only.
+This is a resource-allocation worksheet, not a final pin assignment. No ESP32 GPIO number is approved. Candidate GPIO values remain `TBD` until the preferred ESP32-S3-WROOM-1 module family is reduced to an approved ordering variant and its pinout, boot behavior, memory needs, native USB architecture, radio/ADC interaction, peripheral routing, and total GPIO demand are reviewed together.
 
 Directions are relative to the ESP32. External voltage translation or driver stages may change the electrical direction at a connector.
 
@@ -24,7 +24,7 @@ Directions are relative to the ESP32. External voltage translation or driver sta
 | Required/preferred PWM outputs | 4 required; 4 additional preferred/TBD | At least 4 direct | Motor PWM is required by the reference contract; RGB/buzzer depend on architecture |
 | ADC inputs | 1 | 0 or 1 direct | `BATTERY_SENSE` may use an approved external ADC path |
 | Interrupt-preferred inputs | 10 preferred | At least 5 high-priority | Exact interrupt requirements remain TBD |
-| Required communications | Shared I2C plus Wi-Fi/Bluetooth/ESP-NOW and USB-C service | Same logical capabilities | Native USB versus USB-to-UART unresolved |
+| Required communications | Shared I2C plus Wi-Fi/Bluetooth/ESP-NOW and USB-C service | Same logical capabilities | Native ESP32-S3 USB Serial/JTAG preferred; implementation unresolved |
 | Optional communications | Future CAN and RS485 | Future only | Resources not reserved until required allocation is proven |
 | Required boot-safe outputs | 14 | 7 direct plus externally controlled outputs | Every logical output still requires a defined hardware-safe state |
 | High-priority safety inputs | 5 | 5 | `STOP_IN` and four directional limits |
@@ -89,7 +89,7 @@ Strapping pins are sampled during reset and can prevent boot or change boot mode
 
 ### 4.2 Flash-connected pins
 
-Pins used internally for module flash are unavailable for general IPC-100 signals. The final review must use the approved module documentation, not only a bare ESP32 chip pinout or the current reference candidate.
+Pins used internally for module flash or PSRAM are unavailable for general IPC-100 signals. The final review must use the exact approved module-variant documentation, not only a bare ESP32-S3 chip pinout or a module-family maximum.
 
 ### 4.3 Input-only pins
 
@@ -111,7 +111,7 @@ Input allocation priority is `STOP_IN` first, then the four motion-limit inputs,
 
 ### 4.7 USB and UART
 
-J13 is the external USB-C service interface. Native USB versus an external USB-to-UART implementation, automatic boot/reset circuitry, and consumed GPIO remain `TBD` until processor and schematic approval.
+J13 is the external USB-C service interface. Native ESP32-S3 USB Serial/JTAG is preferred over an on-board USB-to-UART bridge. Automatic boot/reset circuitry, recovery/test UART access, USB-C implementation, and consumed GPIO remain `TBD` until schematic approval.
 
 ### 4.8 I2C flexibility
 

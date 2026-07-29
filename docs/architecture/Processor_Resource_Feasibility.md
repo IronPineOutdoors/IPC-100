@@ -10,9 +10,9 @@
 
 ## 1. Conclusion
 
-Feasibility status: **Not demonstrated**.
+Feasibility status: **Candidate-level feasibility improved; pin-level feasibility not demonstrated**.
 
-ESP32 remains the processor family and ESP32-WROOM-32E remains a reference candidate only. Direct implementation produces a high resource demand, while exact usable pins, boot-strapping behavior, memory, ADC, USB, flash, and module restrictions cannot be proven until a candidate module and service architecture are selected.
+ESP32 remains the processor family. The [Processor Selection Study](Processor_Selection_Study.md) recommends ESP32-S3-WROOM-1 as the preferred module family and native USB Serial/JTAG as the preferred service architecture. Its 36 module GPIOs make the approximately 29-signal direct scenario plausible, but exact usable pins, boot-strapping behavior, memory configuration, ADC suitability, safe startup, and simultaneous peripheral routing remain unproven. No GPIO is assigned.
 
 ## 2. Required resource inventory
 
@@ -85,3 +85,4 @@ An illustrative, non-approved scenario could reduce direct MCU demand to approxi
 
 Selection requires demonstrated usable GPIO, PWM, ADC path, communications, memory, boot-safe behavior, wireless support, service compatibility, lifecycle and availability review, approved footprint, antenna/enclosure compatibility, programming/recovery method, and applicable regulatory module status. Final CAN/RS485 resource availability remains future and contingent.
 
+The module-family comparison and preferred service direction are now complete. Selection of the exact ESP32-S3-WROOM-1 ordering variant remains gated by a pin-level allocation study and the other criteria above.
