@@ -443,3 +443,14 @@ Statuses are `Accepted`, `Proposed`, `Superseded`, or `Rejected`. Accepted decis
 - **Consequences:** Sheets 00–03 gain synchronized ports. Sheet 06 remains sole actuator-authorization owner. Four Sheet 03 request outputs require resource implementation before Sheet 03 release.
 - **Alternatives considered:** Always-on peripherals; permanently disabled outputs; Sheet 02 policy ownership; routing all requests through Sheet 06.
 - **Follow-up actions:** Implement Package 03R against [ADR-039](../decisions/ADR-039_Regulated_Rail_Enable_Ownership_and_Main_Source_Qualification.md), then close request-generation resources before Sheet 03 capture.
+
+### ADR-040: ESP32 GPIO allocation and interface ownership
+
+- **Decision ID:** ADR-040
+- **Date:** 2026-07-29
+- **Status:** Accepted
+- **Context:** ADR-039 added four request outputs after the original direct allocation was full, while Package 04 also exposed conflicts in power-status and USB ownership.
+- **Decision:** Move five low-risk UI functions behind the Sheet 07 I²C boundary; assign GPIO35/36/40/41 to the four ADR-039 requests; reserve GPIO37/42 as a two-pin future pool; keep raw GPIO names on Sheet 03 only; retain ADR-039 status semantics and Sheet 09 connector ownership.
+- **Consequences:** Package 04R can capture the ESP32 subsystem without duplicate pins or strap conflicts. Sheet 07 must later implement a safe-default I²C expander. CAN and automatic-direction half-duplex RS-485 are mutually exclusive future uses, not Rev A implementations.
+- **Alternatives considered:** Duplicate assignments; strapping-pin use; removal of UART recovery; removal of baseline functions; larger processor or external general-purpose expansion architecture.
+- **Follow-up actions:** Implement Package 04R against [ADR-040](../decisions/ADR-040_ESP32_GPIO_Allocation_and_Interface_Ownership.md), validate reset-low request behavior, and resolve the Sheet 07 expander before its capture package.

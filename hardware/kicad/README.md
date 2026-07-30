@@ -50,6 +50,6 @@ See [Schematic Hierarchy and Block Interface Definition](../../docs/hardware/Sch
 
 ## Current status
 
-Package 02 implements Sheet 01 Power Entry and Protection. Package 03R implements Sheet 02 Power Conversion and Rail Control against AR-01/ADR-039. Package 04 stopped at its entry gate because the four ADR-039 request outputs have no approved GPIO allocation and the requested Sheet 03 status/USB boundaries do not match the frozen hierarchy. Sheets 03–09 remain circuitry-free placeholders. No footprints, PCB layout, ESP32, USB data, actuator drivers, or connector implementation are present.
+Package 02 implements Sheet 01 Power Entry and Protection. Package 03R implements Sheet 02 Power Conversion and Rail Control against AR-01/ADR-039. AR-02/ADR-040 resolves the Package 04 GPIO, status, and USB ownership entry gate and authorizes Package 04R. Sheets 03–09 remain circuitry-free placeholders. No footprints, PCB layout, ESP32, USB data, actuator drivers, or connector implementation are present.
 
-The next required work is a controlled **Sheet 03 GPIO and Status-Interface Resolution**. After approval and hierarchy synchronization, resume **IPC-100 Rev A Preliminary KiCad Capture — Package 04R — Sheet 03 ESP32-S3 Core, Programming, Recovery, and System Control**.
+The next package is **IPC-100 Rev A Preliminary KiCad Capture — Package 04R — Sheet 03 ESP32-S3 Core & Programming**.

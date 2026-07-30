@@ -2,9 +2,9 @@
 
 ## Status
 
-**Blocked before schematic modification.**
+**Entry-gate conflict resolved by Architecture Resolution Package AR-02 and ADR-040. Package 04R is authorized.**
 
-Package 04 cannot implement Sheet 03 without assigning processor pins or changing frozen cross-sheet interfaces beyond the authority of the accepted design. Sheet 03 remains a circuitry-free placeholder. No component, net, port, footprint, PCB object, or application circuit was added.
+Package 04 correctly stopped before assigning processor pins or changing frozen cross-sheet interfaces beyond the authority of the accepted design. AR-02 subsequently approved the required GPIO and ownership amendment. Sheet 03 remains a circuitry-free placeholder pending Package 04R. No component, net, port, footprint, PCB object, or application circuit was added by the entry-gate package.
 
 This stop preserves ADR-039, the approved GPIO review, and the single-owner schematic hierarchy. It is an interface and resource-allocation conflict, not a component-selection detail.
 
@@ -117,8 +117,14 @@ Because these choices affect platform GPIO resources, boot safety, cross-sheet i
 - [ ] Sheet 00 and Sheet 03 ports synchronized after any approved amendment.
 - [ ] Package 04R authorization recorded.
 
+## AR-02 resolution
+
+ADR-040 moves `RGB_R`, `RGB_G`, `RGB_B`, `BUZZER_OUT`, and `OLED_RESET` behind the Sheet 07 I²C functional boundary. It assigns GPIO35, GPIO36, GPIO40, and GPIO41 to `OLED_POWER_REQ`, `SENSOR_POWER_REQ`, `UI_POWER_REQ`, and `EXPANSION_POWER_REQ`, respectively. GPIO37/GPIO42 form a non-exported two-pin future pool.
+
+It also confirms the ADR-039 status boundary: Sheet 03 consumes `MAIN_POWER_GOOD`, creates local `CORE_POWER_GOOD`, and exports `RESET_VALID`; neither `MAIN_INPUT_VALID` nor `POWER_FAULT_SUMMARY` becomes a Sheet 03 input. Sheet 09 retains all connector symbols, including USB-C and fixture access.
+
 ## Package handoff
 
-Package 04 remains blocked at its entry gate. After the GPIO and interface amendment is accepted and synchronized, resume as **IPC-100 Rev A Preliminary KiCad Capture Package 04R — Sheet 03 ESP32-S3 Core, Programming, Recovery, and System Control**.
+Package 04R is authorized as **IPC-100 Rev A Preliminary KiCad Capture Package 04R — Sheet 03 ESP32-S3 Core, Programming, Recovery, and System Control**.
 
 Do not begin Package 05 until Sheet 03 is implemented and reviewed.

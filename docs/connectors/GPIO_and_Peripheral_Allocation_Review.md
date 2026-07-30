@@ -5,7 +5,7 @@
 | Platform | Iron Pine IPC-100 |
 | Hardware revision | Rev A |
 | Processor basis | ESP32-S3-WROOM-1 module family |
-| Status | Allocation review complete; pin-map release blocked |
+| Status | Amended by ADR-040; accepted for Package 04R preliminary capture |
 | Date | 2026-07-29 |
 | Owner | Iron Pine Outdoors Engineering |
 
@@ -348,3 +348,24 @@ Processor facts must be reverified against the current controlled Espressif docu
 [Critical Component Selection and Electrical Quantification](../hardware/Critical_Component_Selection_and_Electrical_Quantification.md) selects **ESP32-S3-WROOM-1-N8** for preliminary capture. Its Quad-SPI flash/no-PSRAM configuration preserves GPIO35/36 and ordinary 3.3 V GPIO47/48 behavior assumed by this allocation. ADR-034 dispositions J11 as documentation-only, and ADR-038 uses no processor command or feedback GPIO for the hardware actuator permit.
 
 The MCU sheet may therefore enter preliminary capture. Pin-map release remains blocked by N8 memory/RF/mechanical/lifecycle/procurement review, framework-level simultaneous-peripheral validation, and confirmation that no omitted diagnostic GPIO becomes mandatory. This addendum supersedes earlier exact-variant entry conditions but does not turn proposed assignments into released pins.
+
+## 24. AR-02 / ADR-040 controlled allocation amendment
+
+The original 27-signal direct plan in Section 9 predates ADR-039 and is superseded where it assigns GPIO35, GPIO36, GPIO40, GPIO41, and GPIO42 to UI functions.
+
+ADR-040 moves `RGB_R`, `RGB_G`, `RGB_B`, `BUZZER_OUT`, and `OLED_RESET` behind the Sheet 07 functional I²C boundary. It assigns:
+
+| Signal | GPIO |
+| --- | ---: |
+| `OLED_POWER_REQ` | 35 |
+| `SENSOR_POWER_REQ` | 36 |
+| `UI_POWER_REQ` | 40 |
+| `EXPANSION_POWER_REQ` | 41 |
+
+GPIO37 and GPIO42 become a two-pin future communications/diagnostic pool. CAN and automatic-direction half-duplex RS-485 are alternate future uses, not simultaneous Rev A interfaces. GPIO0, native USB GPIO19/20, UART0 GPIO43/44, the application straps, safety inputs, and actuator commands retain their prior dispositions.
+
+The [authoritative allocation table](ESP32_GPIO_Allocation_Table.md) inventories every brought-out GPIO and replaces the original Section 9 table for capture and review. Raw GPIO numbers may appear only on Sheet 03; every other sheet uses functional names.
+
+AR-02 also confirms that Sheet 03 consumes `MAIN_POWER_GOOD`, creates local `CORE_POWER_GOOD`, and exports `RESET_VALID`. `MAIN_INPUT_VALID` remains Sheet 01-to-02 only, and `POWER_FAULT_SUMMARY` is not a Sheet 03 input. Sheet 09 retains the USB-C receptacle, CC, connector-entry protection, shield, external pinout, and fixture contacts; Sheet 03 owns the native USB processor endpoint and processor-side interface.
+
+With this amendment, the Package 04 entry-gate conflict is closed and Package 04R preliminary capture is authorized. The exact Sheet 07 expander, reset behavior, address, power, and fault containment remain open and are not authorized for schematic placement by AR-02.

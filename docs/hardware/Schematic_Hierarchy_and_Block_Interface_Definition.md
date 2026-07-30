@@ -513,6 +513,21 @@ Unresolved circuits remain named generic blocks with linked open-item IDs. They 
 
 **PCB layout:** Not authorized.
 
+## 20.1 AR-02 Sheet 03 allocation and ownership amendment
+
+ADR-040 establishes the following controlled rules for subsequent capture:
+
+- Sheet 03 is the only schematic sheet that may reference raw ESP32 GPIO numbers.
+- All other sheets use functional interface names exclusively.
+- Sheet 03 directly produces `OLED_POWER_REQ`, `SENSOR_POWER_REQ`, `UI_POWER_REQ`, and `EXPANSION_POWER_REQ`; Sheet 02 electrically owns their pull-downs, qualification, and branch switching.
+- Five low-risk UI functions (`RGB_R`, `RGB_G`, `RGB_B`, `BUZZER_OUT`, and `OLED_RESET`) move behind the Sheet 07 I²C functional boundary and are no longer direct Sheet 03 GPIO exports.
+- Sheet 03 consumes `MAIN_POWER_GOOD`, creates local `CORE_POWER_GOOD`, and exports `RESET_VALID`.
+- `MAIN_INPUT_VALID` remains Sheet 01-to-02 only. `POWER_FAULT_SUMMARY` remains an input-path diagnostic and is not routed to Sheet 03.
+- Sheet 03 owns the native USB processor pins and processor-side interface. Sheet 09 exclusively owns the USB-C connector, CC circuitry, connector-entry ESD/shield implementation, external pinout, and fixture contacts.
+- GPIO37/GPIO42 are a non-exported future two-pin pool. They do not create Rev A CAN, RS-485, or expansion ports.
+
+The Sheet 00 and child-sheet hierarchy must be synchronized with removal of the five obsolete direct UI exports when the affected capture package updates those sheet interfaces. No connector symbol moves out of Sheet 09.
+
 ## 21. Recommended next engineering package
 
 Proceed with **IPC-100 Rev A Critical Component Selection and Electrical Quantification**.
