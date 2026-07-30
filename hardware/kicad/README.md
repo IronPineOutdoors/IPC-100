@@ -50,6 +50,6 @@ See [Schematic Hierarchy and Block Interface Definition](../../docs/hardware/Sch
 
 ## Current status
 
-Package 02 implements Sheet 01 Power Entry and Protection. Package 03R implements Sheet 02 Power Conversion and Rail Control. Package 04R implements Sheet 03 ESP32-S3 Core, Boot, Programming & Recovery under ADR-039 through ADR-041. Sheets 04–09 remain circuitry-free placeholders. No footprints, PCB layout, safety inputs, actuator drivers, application peripherals, or connector implementation are present.
+Package 02 implements Sheet 01 Power Entry and Protection. Package 03R implements Sheet 02 Power Conversion and Rail Control. Package 04R implements Sheet 03 ESP32-S3 Core, Boot, Programming & Recovery under ADR-039 through ADR-041. Package 05 stopped at its entry gate because the authoritative Sheet 04 electrical contracts and diagnostic consumers are not synchronized; see `notes/Package_05_Sheet_04_Implementation.md` and ODI-SCH-011. Sheets 04–09 remain circuitry-free placeholders. No footprints, PCB layout, safety inputs, actuator drivers, application peripherals, or connector implementation are present.
 
-The next package is **IPC-100 Rev A Preliminary KiCad Capture — Package 05 — Sheet 04 Safety Inputs, Interlocks & External Sense Interfaces**.
+The next required work is **Architecture Resolution Package AR-04 — Safety-Input Implementation Contract Synchronization**. After acceptance, proceed with **Package 05R — Sheet 04 Safety Inputs, Interlocks & External Sense Interfaces**.

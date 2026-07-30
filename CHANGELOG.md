@@ -19,3 +19,4 @@ Initial project creation.
 - Paused Package 04R before Sheet 03 modification because retained input `MAIN_POWER_GOOD` has no assigned GPIO or other approved Sheet 03 consumer under the fully allocated ADR-040 map.
 - Completed Architecture Resolution Package AR-03 and accepted ADR-041, removing firmware visibility of `MAIN_POWER_GOOD` while preserving Sheet 02 branch gating, Sheet 06 actuator authorization, all GPIO assignments, and USB-only recovery.
 - Implemented Package 04R Sheet 03 ESP32-S3 core, supervision/reset, boot recovery, MCU-side USB, UART0 recovery, and ADR-040 GPIO fanout without connectors, footprints, or application circuitry.
+- Paused Package 05 before Sheet 04 modification because authoritative safety-input contracts remain unsynchronized and the diagnostic fault-net consumer/GPIO contract is unresolved; recorded the required AR-04 scope.
