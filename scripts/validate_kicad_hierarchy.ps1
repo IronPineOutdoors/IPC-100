@@ -61,6 +61,20 @@ foreach ($schematicFile in $schematicFiles) {
     if (-not (Test-BalancedSExpression -Path $schematicFile)) {
         $errors.Add("Unbalanced KiCad S-expression: $schematicFile")
     }
+    $schematicContent = Get-Content -LiteralPath $schematicFile -Raw
+    $uuids = @([regex]::Matches($schematicContent, '\(uuid ([0-9a-fA-F-]{36})\)') | ForEach-Object { $_.Groups[1].Value })
+    $duplicateUuids = @($uuids | Group-Object | Where-Object Count -gt 1)
+    if ($duplicateUuids.Count -gt 0) {
+        $errors.Add("Duplicate UUIDs in $schematicFile`: $($duplicateUuids.Name -join ', ')")
+    }
+    $instanceReferences = @(
+        [regex]::Matches($schematicContent, '(?s)\(symbol \(lib_id "[^"]+"\).*?\(property "Reference" "([^"]+)"') |
+            ForEach-Object { $_.Groups[1].Value }
+    )
+    $duplicateReferences = @($instanceReferences | Group-Object | Where-Object Count -gt 1)
+    if ($duplicateReferences.Count -gt 0) {
+        $errors.Add("Duplicate instantiated references in $schematicFile`: $($duplicateReferences.Name -join ', ')")
+    }
 }
 
 $rootContent = Get-Content -LiteralPath $rootFile -Raw
@@ -117,8 +131,9 @@ foreach ($sheetBlock in $sheetBlocks) {
     $isImplementedProcessor = $sheetFile -eq 'sheets/03_ESP32_Core.kicad_sch'
     $isImplementedSafetyInputs = $sheetFile -eq 'sheets/04_Safety_Inputs.kicad_sch'
     $isImplementedMotion = $sheetFile -eq 'sheets/05_Motor_Interfaces.kicad_sch'
+    $isImplementedRelay = $sheetFile -eq 'sheets/06_Relay_MasterInhibit.kicad_sch'
     $requiredNote = 'Detailed implementation intentionally deferred to subsequent engineering package.'
-    if (-not $isImplementedPowerEntry -and -not $isImplementedPowerConversion -and -not $isImplementedProcessor -and -not $isImplementedSafetyInputs -and -not $isImplementedMotion -and -not $childContent.Contains($requiredNote)) {
+    if (-not $isImplementedPowerEntry -and -not $isImplementedPowerConversion -and -not $isImplementedProcessor -and -not $isImplementedSafetyInputs -and -not $isImplementedMotion -and -not $isImplementedRelay -and -not $childContent.Contains($requiredNote)) {
         $errors.Add("$sheetName is missing the required implementation-deferral note.")
     }
     if ($isImplementedPowerEntry) {
@@ -187,6 +202,47 @@ foreach ($sheetBlock in $sheetBlocks) {
         )) {
             if (-not $childContent.Contains('"' + $requiredNet + '"')) {
                 $errors.Add("$sheetName is missing required net $requiredNet.")
+            }
+        }
+    }
+    if ($isImplementedRelay) {
+        $implementedSymbols = [regex]::Matches($childContent, '(?m)^  \(symbol \(lib_id').Count
+        if ($implementedSymbols -lt 10) {
+            $errors.Add("$sheetName does not contain the complete Package 07R watchdog, authorization, bias, and relay-driver implementation.")
+        }
+        foreach ($requiredNet in @(
+            '+3V3_CORE', 'RELAY_VCC', 'STOP_HW_INHIBIT', 'MAIN_POWER_GOOD',
+            'RESET_VALID', 'RELAY_CMD_MCU', 'WATCHDOG_SERVICE_MCU',
+            'WATCHDOG_VALID', 'ACTUATOR_PERMIT', 'MASTER_INHIBIT',
+            'RELAY_GATE_AUTH', 'RELAY_GATE', 'RELAY_COIL_LOW',
+            'RELAY_NC', 'RELAY_COM', 'RELAY_NO'
+        )) {
+            if (-not $childContent.Contains('"' + $requiredNet + '"')) {
+                $errors.Add("$sheetName is missing required Package 07R net $requiredNet.")
+            }
+        }
+        foreach ($requiredValue in @(
+            '100 kΩ WDI fail-low / open-route bias',
+            '100 kΩ MAIN_POWER_GOOD fail-low',
+            '100 kΩ RESET_VALID fail-low',
+            '100 kΩ STOP_HW_INHIBIT fail-high',
+            '100 kΩ RELAY_CMD_MCU fail-low',
+            '100 kΩ WATCHDOG_VALID fail-low',
+            '100 kΩ ACTUATOR_PERMIT fail-low',
+            '100 kΩ MASTER_INHIBIT fail-high',
+            '100 kΩ MOSFET gate default-OFF bias',
+            '100 Ω gate resistor'
+        )) {
+            if ([regex]::Matches($childContent, [regex]::Escape($requiredValue)).Count -ne 1) {
+                $errors.Add("$sheetName must contain exactly one '$requiredValue'.")
+            }
+        }
+        foreach ($requiredExpression in @(
+            'PERMIT = MAIN_POWER_GOOD AND NOT STOP_HW_INHIBIT AND RESET_VALID AND WATCHDOG_VALID',
+            'RELAY_CMD_MCU AND ACTUATOR_PERMIT'
+        )) {
+            if (-not $childContent.Contains($requiredExpression)) {
+                $errors.Add("$sheetName is missing authorization expression: $requiredExpression.")
             }
         }
     }
@@ -299,12 +355,12 @@ foreach ($rejectedSignal in @('THROWER_TRIGGER', 'DRIVER_ENABLE', 'MOTOR_LOGIC_E
 
 $placeholderFiles = @($rootFile) + @(
     Get-ChildItem -LiteralPath $sheetDirectory -Filter '*.kicad_sch' |
-        Where-Object Name -notin @('01_Power_Entry.kicad_sch', '02_Power_Conversion.kicad_sch', '03_ESP32_Core.kicad_sch', '04_Safety_Inputs.kicad_sch', '05_Motor_Interfaces.kicad_sch') |
+        Where-Object Name -notin @('01_Power_Entry.kicad_sch', '02_Power_Conversion.kicad_sch', '03_ESP32_Core.kicad_sch', '04_Safety_Inputs.kicad_sch', '05_Motor_Interfaces.kicad_sch', '06_Relay_MasterInhibit.kicad_sch') |
         Select-Object -ExpandProperty FullName
 )
 $placeholderSymbols = Select-String -Path $placeholderFiles -Pattern '^  \(symbol \(lib_id' -ErrorAction SilentlyContinue
 if ($placeholderSymbols) {
-    $errors.Add('Component symbols exist outside the authorized Sheets 01 through 05 scope.')
+    $errors.Add('Component symbols exist outside the authorized Sheets 01 through 06 scope.')
 }
 
 $motionFile = Join-Path $sheetDirectory '05_Motor_Interfaces.kicad_sch'
@@ -427,5 +483,7 @@ Write-Host 'ADR-044 watchdog service: GPIO42 / Sheet 03 to Sheet 06; GPIO37 rese
 Write-Host 'ECO-001 authorization connectivity: ACTUATOR_PERMIT and MASTER_INHIBIT attached to U3'
 Write-Host 'ECO-002 authorization defaults: PERMIT fail-low and INHIBIT fail-high with local 100 kΩ bias'
 Write-Host 'Package 06R motion conditioning: dual independent translators, opposing-PWM suppression, safe-side defaults'
-Write-Host 'Component symbols: confined to implemented Sheets 01 through 05'
+Write-Host 'Package 07R Sheet 06: independent watchdog, authorization logic, deterministic biases, and relay driver present'
+Write-Host 'References and UUIDs: unique within every schematic'
+Write-Host 'Component symbols: confined to implemented Sheets 01 through 06'
 Write-Host 'Footprint assignments: 0'

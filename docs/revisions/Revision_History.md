@@ -125,6 +125,7 @@ Documentation-only changes still require document revision control and review. A
 
 | 2026-07-30 | Package 07 Sheet 06 entry-gate review | Stopped before Sheet 06 modification because the frozen hierarchy and GPIO allocation contain no firmware watchdog-service route required to generate `WATCHDOG_VALID` | Iron Pine Outdoors Engineering | Blocked pending narrow architecture/interface resolution |
 | 2026-07-30 | AR-06 / ADR-044 | Assigned GPIO42 to `WATCHDOG_SERVICE_MCU`; froze transition timing, startup, timeout, recovery, ownership, and authorization behavior; synchronized Sheet 03/00/06 interfaces | Iron Pine Outdoors Engineering | Accepted; ODI-SCH-017 closed; Package 07R authorized |
+| 2026-07-30 | Package 07R Sheet 06 preliminary capture | Implemented the independent watchdog/qualifier, hardware authorization, deterministic defaults, relay gate, low-side MOSFET driver, flyback clamp, and provisional relay | Iron Pine Outdoors Engineering | Preliminary capture complete; native ERC and exact-part/tolerance release checks pending |
 
 ## 8. Prototype traceability
 
