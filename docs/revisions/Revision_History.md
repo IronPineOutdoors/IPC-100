@@ -113,6 +113,8 @@ Documentation-only changes still require document revision control and review. A
 
 | 2026-07-30 | Preliminary KiCad Capture Package 06R | Implemented Sheet 05 dual-axis command conditioning, hardware opposing-PWM suppression, fail-low authorization, independent logic translation, safe defaults, damping, and ESD provisions | Iron Pine Outdoors Engineering | Preliminary functional capture; ODI-SCH-014 and native ERC remain open |
 
+| 2026-07-30 | DFR-01 Functional Electrical Design Review | Reviewed implemented Sheets 00–05 as an integrated system; identified a Critical Sheet 05 authorization-input connectivity defect and unresolved safety-critical evidence gaps | Iron Pine Outdoors Engineering | NOT APPROVED; Sheet 06 entry blocked pending defect correction and review closure |
+
 ## 8. Prototype traceability
 
 Every physical prototype shall be marked and recorded with:
