@@ -2,6 +2,7 @@
 
 Initial project creation.
 
+- Completed Package 10R Sheet 09 preliminary connector/harness capture with twelve physical connector symbols, J11/J12 documentation-only disposition, factory pogo access, USB-C UFP CC terminations, and zero footprints.
 - Completed ECO-003 by routing the four ICD-002-approved J6/J7 I2C hierarchy interfaces from Sheet 07 through Sheet 00 to the Sheet 09 placeholder; Package 10R is authorized.
 - Accepted ICD-002, releasing the Rev A external connector, quantitative harness, J8A/J8B partition, J9 SELV dry-contact, J13 USB device/UFP, factory-fixture, and J6/J7 isolated-branch contracts; Package 10R is authorized after mandatory ECO-003 verification.
 - Refactored repository boundaries to separate the reusable IPC-100 platform from CrossWind product-specific development.

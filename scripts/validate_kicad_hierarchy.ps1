@@ -134,8 +134,9 @@ foreach ($sheetBlock in $sheetBlocks) {
     $isImplementedRelay = $sheetFile -eq 'sheets/06_Relay_MasterInhibit.kicad_sch'
     $isImplementedUi = $sheetFile -eq 'sheets/07_UI_Peripherals.kicad_sch'
     $isImplementedExpansion = $sheetFile -eq 'sheets/08_Expansion.kicad_sch'
+    $isImplementedConnectors = $sheetFile -eq 'sheets/09_Connectors_Test.kicad_sch'
     $requiredNote = 'Detailed implementation intentionally deferred to subsequent engineering package.'
-    if (-not $isImplementedPowerEntry -and -not $isImplementedPowerConversion -and -not $isImplementedProcessor -and -not $isImplementedSafetyInputs -and -not $isImplementedMotion -and -not $isImplementedRelay -and -not $isImplementedUi -and -not $isImplementedExpansion -and -not $childContent.Contains($requiredNote)) {
+    if (-not $isImplementedPowerEntry -and -not $isImplementedPowerConversion -and -not $isImplementedProcessor -and -not $isImplementedSafetyInputs -and -not $isImplementedMotion -and -not $isImplementedRelay -and -not $isImplementedUi -and -not $isImplementedExpansion -and -not $isImplementedConnectors -and -not $childContent.Contains($requiredNote)) {
         $errors.Add("$sheetName is missing the required implementation-deferral note.")
     }
     if ($isImplementedPowerEntry) {
@@ -460,7 +461,7 @@ foreach ($rejectedSignal in @('THROWER_TRIGGER', 'DRIVER_ENABLE', 'MOTOR_LOGIC_E
 
 $placeholderFiles = @($rootFile) + @(
     Get-ChildItem -LiteralPath $sheetDirectory -Filter '*.kicad_sch' |
-        Where-Object Name -notin @('01_Power_Entry.kicad_sch', '02_Power_Conversion.kicad_sch', '03_ESP32_Core.kicad_sch', '04_Safety_Inputs.kicad_sch', '05_Motor_Interfaces.kicad_sch', '06_Relay_MasterInhibit.kicad_sch', '07_UI_Peripherals.kicad_sch', '08_Expansion.kicad_sch') |
+        Where-Object Name -notin @('01_Power_Entry.kicad_sch', '02_Power_Conversion.kicad_sch', '03_ESP32_Core.kicad_sch', '04_Safety_Inputs.kicad_sch', '05_Motor_Interfaces.kicad_sch', '06_Relay_MasterInhibit.kicad_sch', '07_UI_Peripherals.kicad_sch', '08_Expansion.kicad_sch', '09_Connectors_Test.kicad_sch') |
         Select-Object -ExpandProperty FullName
 )
 $placeholderSymbols = Select-String -Path $placeholderFiles -Pattern '^  \(symbol \(lib_id' -ErrorAction SilentlyContinue
@@ -615,5 +616,5 @@ Write-Host 'Package 08 Sheet 07: deterministic encoder conditioning, core I2C ex
 Write-Host 'Package 09R Sheet 08: ICD-001 rail qualification, segmented I2C, external pull-ups, protection, filtering, and DFT nodes present'
 Write-Host 'ECO-003 hierarchy exposure: four approved J6/J7 I2C ports route once from Sheet 07 to Sheet 09'
 Write-Host 'References and UUIDs: unique within every schematic'
-Write-Host 'Component symbols: confined to implemented Sheets 01 through 08'
+Write-Host 'Component symbols: confined to implemented Sheets 01 through 09'
 Write-Host 'Footprint assignments: 0'

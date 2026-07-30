@@ -134,6 +134,7 @@ Documentation-only changes still require document revision control and review. A
 | 2026-07-30 | Package 10 Sheet 09 implementation gate | Stopped before Sheet 09 modification after identifying missing J6/J7 I2C routing plus unresolved J8, J9, J13, fixture, and quantitative harness contracts | Iron Pine Outdoors Engineering | PACKAGE 10 / SHEET 09 REMAINS BLOCKED pending narrow connector/interface resolution |
 | 2026-07-30 | ICD-002 External Connector, Harness and Service Interface Release | Released the Rev A connector inventory, harness classes, split STOP/UI boundary, SELV relay-contact envelope, USB-C device/UFP role, factory fixture, and staged J6/J7 isolation contract | Iron Pine Outdoors Engineering | ICD-002 accepted; Package 10R authorized after mandatory ECO-003 verification |
 | 2026-07-30 | ECO-003 Sheet 09 Hierarchy Exposure | Exposed the four approved J6/J7 I2C interface names from Sheet 07 through Sheet 00 to the Sheet 09 placeholder without adding electrical functionality | Iron Pine Outdoors Engineering | ECO-003 complete; Package 10R authorized; native ERC pending |
+| 2026-07-30 | Package 10R Sheet 09 preliminary capture | Implemented ICD-002 generic connector/harness boundaries, USB-C UFP CC terminations, factory pogo access, and documentation-only J11/J12 treatment | Iron Pine Outdoors Engineering | Complete; ready for SSR-01; native ERC and exact-part release gates pending |
 
 ## 8. Prototype traceability
 
