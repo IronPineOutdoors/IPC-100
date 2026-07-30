@@ -1,5 +1,7 @@
 # IPC-100 Rev A GPIO and Peripheral Allocation Review
 
+> **ADR-044 amendment (2026-07-30):** GPIO42 is allocated to `WATCHDOG_SERVICE_MCU`; GPIO37 is the sole future reserve. The accepted transition contract is defined by AR-06/ADR-044. Historical two-pin-pool statements below are superseded.
+
 | Document control | Value |
 | --- | --- |
 | Platform | Iron Pine IPC-100 |

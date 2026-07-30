@@ -1,6 +1,6 @@
 # IPC-100 Rev A Proposed GPIO Map
 
-> **ADR-040 amendment:** The authoritative Rev A preliminary-capture allocation is now [ESP32 GPIO Allocation Table](ESP32_GPIO_Allocation_Table.md). Earlier direct assignments of GPIO35, GPIO36, GPIO40, GPIO41, or GPIO42 to RGB, buzzer, or OLED reset are superseded. GPIO35/36/40/41 produce the four ADR-039 power requests; GPIO37/42 form the reserved future two-pin pool; five low-risk UI functions move behind the Sheet 07 I²C boundary.
+> **ADR-040/ADR-044 amendment:** The authoritative Rev A preliminary-capture allocation is [ESP32 GPIO Allocation Table](ESP32_GPIO_Allocation_Table.md). GPIO35/36/40/41 produce the four ADR-039 power requests; GPIO42 produces `WATCHDOG_SERVICE_MCU`; GPIO37 is the sole future reserve; five low-risk UI functions remain behind the Sheet 07 I²C boundary.
 
 | Document control | Value |
 | --- | --- |

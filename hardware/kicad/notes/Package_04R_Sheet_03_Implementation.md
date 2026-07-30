@@ -1,5 +1,7 @@
 # Package 04R — Sheet 03 Implementation Record
 
+> **ADR-044 amendment (2026-07-30):** GPIO42 now produces `WATCHDOG_SERVICE_MCU` to Sheet 06. GPIO37 remains the sole no-connect future reserve. No other Sheet 03 allocation changed.
+
 ## Status
 
 Sheet 03 ESP32-S3 Core, Boot, Programming & Recovery is implemented for preliminary capture under ADR-039, ADR-040, and ADR-041. This is a peer-review baseline, not a released schematic or PCB-layout authorization.
@@ -202,7 +204,7 @@ Do not waive an ERC item merely because it appears on this list. Install release
 - [ ] Verify native USB Serial/JTAG programming and recovery.
 - [ ] Verify UART0 GPIO43/44 direction, ROM output, and unpowered fixture behavior.
 - [ ] Verify all ADR-040 direct assignments once and only once.
-- [ ] Verify GPIO37/42 remain no-connect.
+- [ ] Verify GPIO37 remains no-connect and GPIO42 drives only `WATCHDOG_SERVICE_MCU` per ADR-044.
 - [ ] Verify no raw GPIO name crosses the sheet boundary.
 - [ ] Verify four request outputs remain low through reset and bootloader.
 - [ ] Verify `MAIN_POWER_GOOD` is absent from Sheet 03 and retained on Sheet 02-to-06.

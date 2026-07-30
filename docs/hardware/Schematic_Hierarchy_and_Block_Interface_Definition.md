@@ -1,5 +1,7 @@
 # IPC-100 Rev A Schematic Hierarchy and Block Interface Definition
 
+> **ADR-044 amendment (2026-07-30):** Sheet 03 GPIO42 produces `WATCHDOG_SERVICE_MCU`; Sheet 00 routes it only to Sheet 06. Sheet 06 locally biases and independently qualifies the transition stream to generate `WATCHDOG_VALID`. GPIO37 is the sole future reserve. Sheet 05 and connectors are unchanged.
+
 | Document control | Value |
 | --- | --- |
 | Platform | Iron Pine IPC-100 |
@@ -57,7 +59,7 @@ The recommended ten-sheet hierarchy is retained because it separates energy entr
 | 03 | ESP32-S3 Core, Boot, Reset, USB, and Recovery | Module placeholder, core support placeholders, EN/GPIO0, USB data, UART0, straps, GPIO fanout, ADC termination, I2C/MCPWM/status/control nets | Field protection, power conversion, motor/relay drivers | None | `RESET_VALID`, MCU command nets | `+3V3_CORE`, `BATTERY_SENSE` | Conditioned inputs, inhibit/rail status | MCU commands, I2C, USB/UART, diagnostics | Optional UART access population controlled on 09 | Exact module variant | Partially satisfied |
 | 04 | Safety and Command Inputs | STOP/limit/ARM/FIRE field protection, supervision, conditioning, fault states; conservative defaults | Connector symbols, product mechanics, master-inhibit decision logic | None | Seven conditioned inputs, local fault test nets, `STOP_HW_INHIBIT` | Field-sense power, `+3V3_CORE` | Raw contact/return nets from 09 | MCU inputs and STOP hardware state | None | ADR-042 / External Safety ICD | Satisfied for preliminary capture |
 | 05 | Motor-Driver Logic Interfaces | Two-axis conflict suppression, safe gating, conditioning/translation, interface-power fault boundaries | Motor current, motor drivers, master-inhibit generation, limits/position/feedback | None | Eight connector-side safe command nets | `+3V3_CORE`, `MOTOR_LOGIC_5V_A/B` | Eight MCU commands, `ACTUATOR_PERMIT`, `MASTER_INHIBIT` | Eight J2/J3 nets | Command test nodes only | ADR-043 / Motion Control ICD | Satisfied for preliminary capture |
-| 06 | Relay Output and Master Inhibit | Entire inhibit decision/qualification block, reset/watchdog/power/STOP interaction, relay authorization, coil drive placeholder, isolation boundary | Contact-side load protection, motor conditioning, power generation | None | `MASTER_INHIBIT`, optional inhibit/fault feedback, relay coil actuation | `+3V3_CORE`, `RELAY_VCC` | `STOP_HW_INHIBIT`, `MAIN_POWER_GOOD`, `RESET_VALID`, watchdog state, `RELAY_CMD_MCU` | Motor inhibit, relay contact nets to 09, diagnostics | Feedback/watchdog placeholders | Inhibit circuit and relay ratings | Partially satisfied |
+| 06 | Relay Output and Master Inhibit | Entire inhibit decision/qualification block, reset/watchdog/power/STOP interaction, relay authorization, coil drive placeholder, isolation boundary | Contact-side load protection, motor conditioning, power generation | None | `MASTER_INHIBIT`, `ACTUATOR_PERMIT`, `WATCHDOG_VALID`, relay coil actuation | `+3V3_CORE`, `RELAY_VCC` | `STOP_HW_INHIBIT`, `MAIN_POWER_GOOD`, `RESET_VALID`, `WATCHDOG_SERVICE_MCU`, `RELAY_CMD_MCU` | Motor inhibit, relay contact nets to 09, test-only watchdog observation | No firmware feedback | ADR-044 watchdog contract and inhibit circuit ratings | Interface satisfied; circuit deferred |
 | 07 | User Interface and Peripherals | RGB/buzzer drive placeholders, OLED/sensor interfaces, I2C boundary, OLED reset conditioning, encoder conditioning | Safety inputs, shared I2C expansion protection, connector symbols | None | Conditioned encoder nets, J6/J7/J8-side UI nets | `+3V3_CORE`, `UI_VCC`, `OLED_VCC`, `SENSOR_VCC` | MCU UI/status/I2C/reset nets | Physical-interface nets to 09 | OLED/sensor/RGB/buzzer populations | Modules, loads, I2C contract | Partially satisfied |
 | 08 | Expansion and Future Interfaces | J10 I2C isolation/protection placeholder; J11 disposition note; future CAN/RS485/daughterboard concepts | Released J11/J12 pinouts, unapproved transceivers | None | None | `+3V3_CORE`, optional `EXPANSION_VCC` | I2C and future controller-capacity concepts | J10-side nets only when defined | J10 optional; future blocks DNP/documentary | J10 contract; no J11/J12 pins | Partially satisfied |
 | 09 | Connectors, Test Points, and Production Access | Sole ownership of J1–J13 symbols, net breakout, shields, all test/debug access, production fixture boundary | Functional conditioning and decision logic | J1–J13 | None | All connector-carried rails | Interface nets from functional sheets | Raw connector nets to functional sheets | UART/test-only access; DNP connector options | Connector families/pin counts/test fixture | Partially satisfied |
@@ -314,7 +316,7 @@ Inputs to Sheet 06:
 - `STOP_HW_INHIBIT` from Sheet 04;
 - `MAIN_POWER_GOOD` from Sheet 02;
 - `RESET_VALID` from Sheet 03;
-- watchdog validity or watchdog-fault state from the implementation selected on Sheet 06;
+- `WATCHDOG_SERVICE_MCU` transition service from Sheet 03/GPIO42;
 - implicit/explicit USB-only qualification from power status;
 - `RELAY_CMD_MCU` from Sheet 03.
 
@@ -523,7 +525,7 @@ ADR-040 establishes the following controlled rules for subsequent capture:
 - Sheet 03 does not consume `MAIN_POWER_GOOD`; it creates local `CORE_POWER_GOOD` and exports `RESET_VALID`.
 - `MAIN_INPUT_VALID` remains Sheet 01-to-02 only. `POWER_FAULT_SUMMARY` remains an input-path diagnostic and is not routed to Sheet 03.
 - Sheet 03 owns the native USB processor pins and processor-side interface. Sheet 09 exclusively owns the USB-C connector, CC circuitry, connector-entry ESD/shield implementation, external pinout, and fixture contacts.
-- GPIO37/GPIO42 are a non-exported future two-pin pool. They do not create Rev A CAN, RS-485, or expansion ports.
+- GPIO37 is the sole non-exported future reserve. GPIO42 is allocated to `WATCHDOG_SERVICE_MCU`; neither creates a Rev A CAN, RS-485, or expansion port.
 
 The Sheet 00 and child-sheet hierarchy must be synchronized with removal of the five obsolete direct UI exports when the affected capture package updates those sheet interfaces. No connector symbol moves out of Sheet 09.
 

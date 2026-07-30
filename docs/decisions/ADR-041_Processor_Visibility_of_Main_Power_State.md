@@ -1,5 +1,7 @@
 # ADR-041 — Processor Visibility of Main Power State
 
+> **ADR-044 amendment:** GPIO42 is now `WATCHDOG_SERVICE_MCU`; GPIO37 remains reserved. The decision that `MAIN_POWER_GOOD` is not firmware-visible remains unchanged.
+
 | Field | Value |
 | --- | --- |
 | Platform | IPC-100 |

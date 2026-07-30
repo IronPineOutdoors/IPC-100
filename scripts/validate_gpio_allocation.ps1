@@ -50,6 +50,7 @@ $required = @{
     20 = 'USB_D+'
     43 = 'UART0_TX'
     44 = 'UART0_RX'
+    42 = 'WATCHDOG_SERVICE_MCU'
 }
 foreach ($entry in $required.GetEnumerator()) {
     $row = $rows | Where-Object GPIO -eq $entry.Key
@@ -65,10 +66,7 @@ foreach ($gpio in 3, 45, 46) {
     }
 }
 
-$reserved = @{
-    37 = 'FUTURE_COMM_GPIO_A'
-    42 = 'FUTURE_COMM_GPIO_B'
-}
+$reserved = @{ 37 = 'FUTURE_COMM_GPIO_A' }
 foreach ($entry in $reserved.GetEnumerator()) {
     $row = $rows | Where-Object GPIO -eq $entry.Key
     if ($row.Assignment -ne $entry.Value) {
@@ -91,5 +89,6 @@ Write-Host 'Missing GPIOs: 0'
 Write-Host 'ADR-039 requests: assigned'
 Write-Host 'Native USB and UART0 recovery: preserved'
 Write-Host 'Application straps GPIO3/45/46: unused'
-Write-Host 'Future reserve GPIO37/42: preserved'
+Write-Host 'ADR-044 watchdog service GPIO42: assigned'
+Write-Host 'Future reserve GPIO37: preserved'
 Write-Host 'MAIN_POWER_GOOD GPIO assignment: none (ADR-041)'

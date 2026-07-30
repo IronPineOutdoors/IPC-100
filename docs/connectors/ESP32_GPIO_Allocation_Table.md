@@ -5,11 +5,11 @@
 | Platform | IPC-100 |
 | Hardware revision | Rev A |
 | Processor | ESP32-S3-WROOM-1-N8 |
-| Authority | ADR-040 / AR-02 |
+| Authority | ADR-040 / AR-02, amended by ADR-044 / AR-06 |
 | Status | Accepted for preliminary Sheet 03 capture |
 | Date | 2026-07-29 |
 
-ADR-041 confirms that firmware does not consume `MAIN_POWER_GOOD`. ADR-042 confirms that individual input-fault nets, `INPUT_FAULT_SUMMARY`, and permit feedback do not consume GPIOs in Rev A. ADR-043 preserves all eight motion assignments, removes unallocated `OUTPUT_FAULT_SUMMARY`, and retains GPIO37/GPIO42 as the future pool. No GPIO assignment or reserve changes are required; this 36-row inventory remains authoritative.
+ADR-041 confirms that firmware does not consume `MAIN_POWER_GOOD`. ADR-042 and ADR-043 preserve the safety and motion allocations. ADR-044 assigns GPIO42 to the independent-watchdog service interface and leaves GPIO37 as the sole future reserve. This 36-row inventory is authoritative.
 
 ## Capability conventions
 
@@ -53,7 +53,7 @@ ADR-041 confirms that firmware does not consume `MAIN_POWER_GOOD`. ADR-042 confi
 | 39 | `RELAY_CMD_MCU` | 03 | Out | No | No | No | Yes | Yes | Yes | Yes | Yes | No | External de-energized plus inhibit | Actuator allocated |
 | 40 | `UI_POWER_REQ` | 03 | Out | No | No | No | Yes | Yes | Yes | Yes | Yes | No | Sheet 02 100 kΩ pull-down | ADR-039 request |
 | 41 | `EXPANSION_POWER_REQ` | 03 | Out | No | No | No | Yes | Yes | Yes | Yes | Yes | No | Sheet 02 100 kΩ pull-down | ADR-039 request |
-| 42 | `FUTURE_COMM_GPIO_B` | 03 | I/O | No | No | No | Yes | Yes | Yes | Yes | Yes | No | Unconnected in Rev A | Reserved pool |
+| 42 | `WATCHDOG_SERVICE_MCU` | 03 | Out | No | No | No | Yes | Yes | Yes | Yes | Yes | No | Sheet 06 local pull-down; static levels invalid | ADR-044 safety service |
 | 43 | `UART0_TX` | 03 | Out | No | No | No | Yes | Yes | Yes | Yes | UART0 TX | No | ROM traffic allowed; fixture tolerant | Manufacturing/recovery |
 | 44 | `UART0_RX` | 03 | In | No | No | No | Yes | No | Yes | Yes | UART0 RX | No | Fixture shall not drive unpowered MCU | Manufacturing/recovery |
 | 45 | Unused VDD_SPI strap | 03 | In | Yes | No | No | Yes | No | No | No | No | No | No external loading | Prohibited |
@@ -79,17 +79,17 @@ The expander is not selected or implemented by AR-02. It shall be core-powered, 
 
 | Resource class | GPIOs | Count |
 | --- | --- | ---: |
-| Application and power-request allocation | 1, 2, 4–18, 21, 35, 36, 38–41, 47, 48 | 26 |
+| Application and power-request allocation | 1, 2, 4–18, 21, 35, 36, 38–42, 47, 48 | 27 |
 | Safety inputs within application allocation | 2, 4, 5, 6, 7 | 5 |
 | Native USB | 19, 20 | 2 |
 | Boot/programming | 0 | 1 |
 | UART0 manufacturing/recovery | 43, 44 | 2 |
-| Future communications/diagnostic pool | 37, 42 | 2 |
+| Future communications/diagnostic pool | 37 | 1 |
 | Boot-restricted and unused | 3, 45, 46 | 3 |
 | Unused and unreserved | None | 0 |
 | Total module GPIO | GPIO0–21, GPIO35–48 | 36 |
 
-Every brought-out GPIO has exactly one allocation or reservation. The Rev A baseline is feasible. Direct expansion is limited to the reserved two-pin pool; future UI/sensor expansion uses I²C. CAN and automatic-direction half-duplex RS-485 are alternate, not simultaneous, future uses.
+Every brought-out GPIO has exactly one allocation or reservation. The Rev A baseline is feasible. Direct expansion is limited to GPIO37; future UI/sensor expansion uses I²C. Future CAN or RS-485 requires a later controlled allocation and is not a Rev A interface.
 
 ## Cross-sheet export rules
 

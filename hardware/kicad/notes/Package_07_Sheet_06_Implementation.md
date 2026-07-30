@@ -1,5 +1,7 @@
 # Package 07 — Sheet 06 Implementation Record
 
+> **Historical entry-gate record:** AR-06 / ADR-044 closed the missing-service-route blocker by assigning GPIO42 to `WATCHDOG_SERVICE_MCU` and authorizing Package 07R. This file records why Package 07 stopped; it does not implement Sheet 06.
+
 | Field | Value |
 | --- | --- |
 | Platform | IPC-100 |

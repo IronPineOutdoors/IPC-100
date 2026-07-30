@@ -1,5 +1,7 @@
 # ADR-040 — ESP32 GPIO Allocation and Interface Ownership
 
+> **Amended by ADR-044 (2026-07-30):** GPIO42 is reassigned from `FUTURE_COMM_GPIO_B` to `WATCHDOG_SERVICE_MCU`. GPIO37 remains the sole future reserve. All other ADR-040 allocations and ownership remain unchanged.
+
 | Field | Value |
 | --- | --- |
 | Platform | IPC-100 |

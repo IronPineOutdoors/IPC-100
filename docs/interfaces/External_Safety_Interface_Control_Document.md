@@ -1,5 +1,7 @@
 # IPC-100 Rev A External Safety Interface Control Document
 
+> **ADR-044 amendment (2026-07-30):** `WATCHDOG_SERVICE_MCU` is a 3.3 V Sheet 03/GPIO42 output consumed only by the Sheet 06 independent watchdog. Firmware alternates it nominally every 75 ms; the preliminary valid interval is 40–100 ms. Static levels and timing violations are invalid, loss of valid service deasserts `WATCHDOG_VALID` within 250 ms, and recovery after a watchdog fault requires reset or power cycle. Sheet 06 owns `WATCHDOG_VALID`; its export is test-only.
+
 | Document control | Value |
 | --- | --- |
 | Platform | IPC-100 |
@@ -169,4 +171,3 @@ This deliberate allocation limitation means firmware cannot distinguish intentio
 ## 10. Package 05R authorization
 
 The architecture entry gate for Sheet 04 is closed by ADR-042. Package 05R is authorized to implement only the seven listed field inputs, local diagnostic nodes, and `STOP_HW_INHIBIT` using this ICD. No additional architecture package is expected before Sheet 04 capture. Exact orderable parts, worst-case threshold/SPICE evidence, ERC disposition, and prototype validation remain implementation/release work, not ownership ambiguity.
-

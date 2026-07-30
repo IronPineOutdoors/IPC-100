@@ -31,3 +31,4 @@ Initial project creation.
 - Completed ECO-002 by adding deterministic 100 kΩ fail-low/fail-high local bias to the Sheet 05 U3 authorization inputs; native ERC, exact-device verification, and follow-up review remain pending.
 - Completed ECV-001 verification of ECO-002 and authorized Package 07 / Sheet 06 preliminary schematic capture while retaining native ERC and exact-device release checks.
 - Paused Package 07 before Sheet 06 modification because the frozen hierarchy and ADR-040 allocation provide no firmware watchdog-service signal for the required independent watchdog; recorded ODI-SCH-017.
+- Completed AR-06 and accepted ADR-044, assigning GPIO42 to `WATCHDOG_SERVICE_MCU`, defining a transition-qualified independent-watchdog contract, synchronizing Sheets 00/03/06, preserving GPIO37 as reserve, and authorizing Package 07R.

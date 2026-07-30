@@ -1,5 +1,7 @@
 # IPC-100 Design Decisions
 
+> **Latest amendment:** ADR-044 assigns GPIO42 to the Sheet 03-to-Sheet 06 `WATCHDOG_SERVICE_MCU` transition interface, preserves GPIO37 as the sole reserve, and authorizes Package 07R without changing Sheet 05 or any connector.
+
 | Document control | Value |
 | --- | --- |
 | Document title | IPC-100 Design Decisions |

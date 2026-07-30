@@ -1,5 +1,7 @@
 # ADR-043 — Rev A Motion Control Interface and Output-Fault Ownership
 
+> **ADR-044 amendment:** GPIO42 is now `WATCHDOG_SERVICE_MCU`; GPIO37 remains reserved. The eight-channel motion interface, fault ownership, and Sheet 05 topology remain unchanged.
+
 | Field | Value |
 | --- | --- |
 | Platform | IPC-100 |

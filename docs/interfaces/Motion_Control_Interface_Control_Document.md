@@ -35,7 +35,7 @@ All processor outputs are active high. During reset the ESP32 pins are high impe
 
 There is no shared `PWM_SPEED`, `MOTOR_ENABLE`, direction bit, or brake command.
 
-ADR-043 makes no GPIO changes. GPIO37/GPIO42 remain the unconnected future-communications pool and are not available to motion or fault feedback in Rev A.
+ADR-043 originally made no GPIO changes. ADR-044 subsequently allocates GPIO42 to `WATCHDOG_SERVICE_MCU`; GPIO37 remains the sole reserve. Neither is available to motion or fault feedback in Rev A.
 
 ## 3. Axis command topology
 

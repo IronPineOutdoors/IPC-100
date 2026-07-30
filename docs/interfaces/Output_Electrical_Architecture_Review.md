@@ -2,6 +2,8 @@
 
 > **ADR-042 amendment (2026-07-30):** The [External Safety Interface Control Document](External_Safety_Interface_Control_Document.md) controls the Rev A `ACTUATOR_PERMIT`, `MASTER_INHIBIT`, STOP, reset, watchdog, motor-gating, and relay-gating boundary for Sheets 04–06. Earlier optional or polarity-open statements on those signals are historical.
 
+> **ADR-044 amendment (2026-07-30):** GPIO42 `WATCHDOG_SERVICE_MCU` provides a transition-qualified firmware-liveness challenge from Sheet 03 to the independent Sheet 06 watchdog. It is distinct from `RELAY_CMD_MCU`; GPIO37 remains the sole reserve.
+
 > **ADR-043 amendment (2026-07-30):** The [Motion Control Interface Control Document](Motion_Control_Interface_Control_Document.md) controls the eight active-high Axis 1/2 commands, 3.3-to-5 V Sheet 05 interface, opposing-PWM suppression, J2/J3 assumptions, timing, and absence of Rev A motor feedback. It removes `OUTPUT_FAULT_SUMMARY`; earlier open quantitative and diagnostic statements are historical.
 
 | Document control | Value |
