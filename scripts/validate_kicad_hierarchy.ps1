@@ -132,8 +132,9 @@ foreach ($sheetBlock in $sheetBlocks) {
     $isImplementedSafetyInputs = $sheetFile -eq 'sheets/04_Safety_Inputs.kicad_sch'
     $isImplementedMotion = $sheetFile -eq 'sheets/05_Motor_Interfaces.kicad_sch'
     $isImplementedRelay = $sheetFile -eq 'sheets/06_Relay_MasterInhibit.kicad_sch'
+    $isImplementedUi = $sheetFile -eq 'sheets/07_UI_Peripherals.kicad_sch'
     $requiredNote = 'Detailed implementation intentionally deferred to subsequent engineering package.'
-    if (-not $isImplementedPowerEntry -and -not $isImplementedPowerConversion -and -not $isImplementedProcessor -and -not $isImplementedSafetyInputs -and -not $isImplementedMotion -and -not $isImplementedRelay -and -not $childContent.Contains($requiredNote)) {
+    if (-not $isImplementedPowerEntry -and -not $isImplementedPowerConversion -and -not $isImplementedProcessor -and -not $isImplementedSafetyInputs -and -not $isImplementedMotion -and -not $isImplementedRelay -and -not $isImplementedUi -and -not $childContent.Contains($requiredNote)) {
         $errors.Add("$sheetName is missing the required implementation-deferral note.")
     }
     if ($isImplementedPowerEntry) {
@@ -246,6 +247,55 @@ foreach ($sheetBlock in $sheetBlocks) {
             }
         }
     }
+    if ($isImplementedUi) {
+        $implementedSymbols = [regex]::Matches($childContent, '(?m)^  \(symbol \(lib_id').Count
+        if ($implementedSymbols -lt 12) {
+            $errors.Add("$sheetName does not contain the complete Package 08 encoder, expander, status-driver, peripheral, and DFT implementation.")
+        }
+        foreach ($requiredNet in @(
+            '+3V3_CORE', 'UI_VCC', 'OLED_VCC', 'SENSOR_VCC',
+            'ENCODER_A_RAW', 'ENCODER_B_RAW', 'ENCODER_SW_RAW',
+            'ENCODER_A_COND', 'ENCODER_B_COND', 'ENCODER_SW_COND',
+            'I2C_SDA', 'I2C_SCL', 'UI_EXPANDER_RESET_N',
+            'RGB_R_CTL', 'RGB_G_CTL', 'RGB_B_CTL', 'BUZZER_CTL',
+            'RGB_R', 'RGB_G', 'RGB_B', 'BUZZER_OUT',
+            'OLED_RESET_RELEASE', 'OLED_RESET'
+        )) {
+            if (-not $childContent.Contains('"' + $requiredNet + '"')) {
+                $errors.Add("$sheetName is missing required Package 08 net $requiredNet.")
+            }
+        }
+        foreach ($requiredValue in @(
+            '3ch active-low panel encoder conditioner; 10k/1k/10nF; UI-valid gated',
+            'TCA9535-class, +3V3_CORE, address 0x20, power-up inputs/high-Z',
+            '100 kΩ ±1% expander reset pull-up',
+            '100 nF X7R ±10% expander reset delay',
+            '4.70 kΩ ±1% I2C SDA pull-up; Sheet 07 base-bus owner',
+            '4.70 kΩ ±1% I2C SCL pull-up; Sheet 07 base-bus owner',
+            '4x 60 V logic NMOS; 100Ω gates; 100kΩ gate pull-downs; buzzer clamp provision',
+            '2N7002-class open-drain reset; 100k core pull-up asserts reset by default'
+        )) {
+            if ([regex]::Matches($childContent, [regex]::Escape($requiredValue)).Count -ne 1) {
+                $errors.Add("$sheetName must contain exactly one '$requiredValue'.")
+            }
+        }
+        foreach ($rejectedUiSignal in @(
+            'ARM_IN_RAW', 'FIRE_IN_RAW', 'STOP_IN_RAW',
+            'ACTUATOR_PERMIT', 'MASTER_INHIBIT', 'RELAY_CMD_MCU',
+            'WATCHDOG_SERVICE_MCU', 'THROWER_TRIGGER',
+            'DRIVER_ENABLE', 'MOTOR_LOGIC_ENABLE', 'SPEED_CONTROL'
+        )) {
+            if ($childContent -match '\(hierarchical_label "' + [regex]::Escape($rejectedUiSignal) + '"') {
+                $errors.Add("$sheetName contains unauthorized interface $rejectedUiSignal.")
+            }
+        }
+        if ($childContent -match '\(hierarchical_label "[^"]*GPIO\d+') {
+            $errors.Add("$sheetName exports a raw GPIO identifier.")
+        }
+        if ([regex]::Matches($childContent, '\(symbol \(lib_id "IPC100:TEST_NODE"\)').Count -lt 5) {
+            $errors.Add("$sheetName is missing required Package 08 schematic DFT nodes.")
+        }
+    }
 }
 
 if (($sheetNames | Sort-Object -Unique).Count -ne $sheetNames.Count) {
@@ -355,12 +405,12 @@ foreach ($rejectedSignal in @('THROWER_TRIGGER', 'DRIVER_ENABLE', 'MOTOR_LOGIC_E
 
 $placeholderFiles = @($rootFile) + @(
     Get-ChildItem -LiteralPath $sheetDirectory -Filter '*.kicad_sch' |
-        Where-Object Name -notin @('01_Power_Entry.kicad_sch', '02_Power_Conversion.kicad_sch', '03_ESP32_Core.kicad_sch', '04_Safety_Inputs.kicad_sch', '05_Motor_Interfaces.kicad_sch', '06_Relay_MasterInhibit.kicad_sch') |
+        Where-Object Name -notin @('01_Power_Entry.kicad_sch', '02_Power_Conversion.kicad_sch', '03_ESP32_Core.kicad_sch', '04_Safety_Inputs.kicad_sch', '05_Motor_Interfaces.kicad_sch', '06_Relay_MasterInhibit.kicad_sch', '07_UI_Peripherals.kicad_sch') |
         Select-Object -ExpandProperty FullName
 )
 $placeholderSymbols = Select-String -Path $placeholderFiles -Pattern '^  \(symbol \(lib_id' -ErrorAction SilentlyContinue
 if ($placeholderSymbols) {
-    $errors.Add('Component symbols exist outside the authorized Sheets 01 through 06 scope.')
+    $errors.Add('Component symbols exist outside the authorized Sheets 01 through 07 scope.')
 }
 
 $motionFile = Join-Path $sheetDirectory '05_Motor_Interfaces.kicad_sch'
@@ -484,6 +534,7 @@ Write-Host 'ECO-001 authorization connectivity: ACTUATOR_PERMIT and MASTER_INHIB
 Write-Host 'ECO-002 authorization defaults: PERMIT fail-low and INHIBIT fail-high with local 100 kΩ bias'
 Write-Host 'Package 06R motion conditioning: dual independent translators, opposing-PWM suppression, safe-side defaults'
 Write-Host 'Package 07R Sheet 06: independent watchdog, authorization logic, deterministic biases, and relay driver present'
+Write-Host 'Package 08 Sheet 07: deterministic encoder conditioning, core I2C expander, safe-default status drivers, peripheral boundaries, and DFT nodes present'
 Write-Host 'References and UUIDs: unique within every schematic'
-Write-Host 'Component symbols: confined to implemented Sheets 01 through 06'
+Write-Host 'Component symbols: confined to implemented Sheets 01 through 07'
 Write-Host 'Footprint assignments: 0'

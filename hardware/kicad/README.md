@@ -50,10 +50,10 @@ See [Schematic Hierarchy and Block Interface Definition](../../docs/hardware/Sch
 
 ## Current status
 
-Package 02 implements Sheet 01 Power Entry and Protection. Package 03R implements Sheet 02 Power Conversion and Rail Control. Package 04R implements Sheet 03 ESP32-S3 Core, Boot, Programming & Recovery. Package 05R implements Sheet 04 supervised safety and command inputs. AR-05/ADR-043 resolved the motion-interface entry gate, and Package 06R implements Sheet 05 axis command conditioning and external-driver logic translation. Sheets 06–09 remain circuitry-free placeholders. No footprints, PCB layout, actuator power drivers, application peripherals, or connector implementation are present.
+Packages 02, 03R, 04R, 05R, 06R, 07R, and 08 implement the preliminary functional capture through Sheet 07. Sheet 06 contains the independent watchdog, hardware authorization chain, and output-control stages approved by Package 07R. Sheet 07 contains the local encoder conditioning, shared-bus pull-ups, I²C UI expander, OLED and BME280 functional boundaries, low-side RGB and buzzer controls, and deterministic OLED reset behavior approved by Package 08.
 
-Package 06R retains exact-part, timing, partial-power, external-driver compatibility, ESD, and native ERC checks as release blockers. The next implementation package is **Package 07 — Sheet 06 Relay Output and Master Inhibit**, subject to its entry gate.
+Sheets 08 and 09 remain circuitry-free placeholders. No connector implementation, footprints, PCB layout, H-bridges, or integrated motor power stages are present. The Package 08 capture does not consume reserved GPIO37 or introduce any actuator, relay, motor, or watchdog interface.
 
-DFR-01R verifies ECO-001 and dispositions the original authorization attachment defect closed pending native ERC. ECO-002 provides deterministic local defaults for both U3 authorization inputs, and ECV-001 verifies the correction.
+Exact production parts, final RGB current-setting values, OLED and BME280 module electrical limits, bus-capacitance measurement, environmental qualification, physical test-pad placement, and native KiCad ERC remain controlled prototype or release items. Repository structural validation passes for the implemented Sheet 07 scope.
 
-Package 07 stopped before Sheet 06 modification because the frozen Sheet 00/03/06 interfaces and ADR-040 allocation contain no firmware watchdog-service route for the required independent watchdog. Package 07R requires an accepted narrow interface resolution; native ERC and exact-device checks remain later release requirements.
+The next candidate package is **Package 09 — Sheet 08 Expansion and Future Interfaces**, subject to its package-specific entry gate. Sheet 09 connectors and production access, footprint assignment, and PCB layout remain separately gated.

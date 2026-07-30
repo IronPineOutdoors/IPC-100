@@ -127,6 +127,7 @@ Documentation-only changes still require document revision control and review. A
 | 2026-07-30 | AR-06 / ADR-044 | Assigned GPIO42 to `WATCHDOG_SERVICE_MCU`; froze transition timing, startup, timeout, recovery, ownership, and authorization behavior; synchronized Sheet 03/00/06 interfaces | Iron Pine Outdoors Engineering | Accepted; ODI-SCH-017 closed; Package 07R authorized |
 | 2026-07-30 | Package 07R Sheet 06 preliminary capture | Implemented the independent watchdog/qualifier, hardware authorization, deterministic defaults, relay gate, low-side MOSFET driver, flyback clamp, and provisional relay | Iron Pine Outdoors Engineering | Preliminary capture complete; native ERC and exact-part/tolerance release checks pending |
 | 2026-07-30 | MFG-01 Manufacturing Readiness Review | Reviewed manufacturability, DFT, serviceability, connectors, layout implications, assembly, sourcing, and Rev A residual risks through Package 07R | Iron Pine Outdoors Engineering | Ready with major manufacturing observations; Package 08 / Sheet 07 authorized; PCB placement remains unauthorized |
+| 2026-07-30 | Package 08 Sheet 07 preliminary capture | Implemented encoder conditioning, core-powered I²C expander, RGB/buzzer output drivers, fail-asserted OLED reset, OLED/sensor functional boundaries, pull-up ownership, and schematic DFT nodes | Iron Pine Outdoors Engineering | Preliminary capture complete; exact modules/loads, connector ESD, native ERC, and prototype validation pending |
 
 ## 8. Prototype traceability
 
