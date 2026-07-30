@@ -104,6 +104,8 @@ Documentation-only changes still require document revision control and review. A
 
 | 2026-07-29 | Architecture Resolution Package AR-03 | Accepted ADR-041; removed `MAIN_POWER_GOOD` from the processor interface while preserving Sheet 02 hardware gating, Sheet 06 authorization, GPIO reserves, and USB-only recovery | Iron Pine Outdoors Engineering | ODI-SCH-010 closed; Package 04R authorized |
 
+| 2026-07-29 | Preliminary KiCad Capture Package 04R | Implemented Sheet 03 ESP32-S3-WROOM-1-N8 core, reset supervision, boot controls, MCU-side USB, UART0 recovery, and ADR-040 GPIO fanout | Iron Pine Outdoors Engineering | Preliminary functional capture; native ERC, peer review, and release blockers retained |
+
 ## 8. Prototype traceability
 
 Every physical prototype shall be marked and recorded with:

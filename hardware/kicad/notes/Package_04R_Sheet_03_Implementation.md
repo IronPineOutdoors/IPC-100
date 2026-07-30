@@ -1,119 +1,217 @@
-# Package 04R — Sheet 03 Implementation Review
+# Package 04R — Sheet 03 Implementation Record
 
 ## Status
 
-**Entry-gate conflict resolved by Architecture Resolution Package AR-03 and ADR-041. Package 04R is authorized.**
+Sheet 03 ESP32-S3 Core, Boot, Programming & Recovery is implemented for preliminary capture under ADR-039, ADR-040, and ADR-041. This is a peer-review baseline, not a released schematic or PCB-layout authorization.
 
-AR-02 and ADR-040 resolve the four peripheral-power request outputs, the five UI functions moved behind I²C, the future two-pin reserve, USB ownership, and the meanings of the power-status signals. Package 04R correctly stopped when the retained `MAIN_POWER_GOOD` input had no GPIO or approved local consumer. AR-03 subsequently determined that firmware visibility provides no safety enforcement and is not required.
+No Sheet 04 circuitry, application hardware, external connector, footprint, or PCB object is included.
 
-ADR-041 removes `MAIN_POWER_GOOD` from the Sheet 03 processor interface while preserving Sheet 02 branch gating and Sheet 06 actuator authorization. ADR-040's GPIO allocation and GPIO37/42 reserve remain unchanged. Sheet 03 remains circuitry-free pending the resumed Package 04R implementation.
+## ESP32 module
 
-## Confirmed implementation basis
-
-The following Package 04R elements are authorized and ready after the narrow status-input issue is resolved:
-
-- ESP32-S3-WROOM-1-N8;
-- 22 µF effective bulk, 1 µF, and 100 nF local `+3V3_CORE` decoupling;
-- no external crystal;
-- EN with 10 kΩ pull-up, 1 µF timing capacitor, supervisor/reset pull-down, local RESET button, and functional fixture input;
-- GPIO0 with 10 kΩ pull-up, local BOOT button, and functional fixture input;
-- TPS3890-Q1 local core supervision, local `CORE_POWER_GOOD` semantic, and exported `RESET_VALID`;
-- native USB on GPIO19 D- and GPIO20 D+ with preliminary 22 Ω processor-side series resistors and one coordinated TPD2EUSB30-class ESD boundary;
-- UART0 recovery on GPIO43 TX and GPIO44 RX, without a connector on Sheet 03;
-- GPIO35 `OLED_POWER_REQ`;
-- GPIO36 `SENSOR_POWER_REQ`;
-- GPIO40 `UI_POWER_REQ`;
-- GPIO41 `EXPANSION_POWER_REQ`;
-- GPIO37 and GPIO42 unconnected and reserved;
-- all remaining conditioned-input, actuator-command, I²C, battery-sense, USB, UART, boot, and recovery assignments from ADR-040;
-- no RGB, buzzer, OLED-reset, connector, peripheral, driver, footprint, or PCB implementation.
-
-## Blocking conflict
-
-### Frozen interface
-
-ADR-039 and ADR-040 define:
-
-| Signal | Sheet 03 relationship |
+| Item | Preliminary implementation |
 | --- | --- |
-| `MAIN_POWER_GOOD` | Hierarchical input from Sheet 02 |
-| `CORE_POWER_GOOD` | Local TPS3890-Q1 supervisor condition |
-| `RESET_VALID` | Hierarchical output from Sheet 03 |
-| `MAIN_INPUT_VALID` | Not routed to Sheet 03 |
-| `POWER_FAULT_SUMMARY` | Not routed to Sheet 03 |
+| Module | ESP32-S3-WROOM-1-N8 |
+| Flash | 8 MB Quad-SPI |
+| PSRAM | None |
+| Temperature basis | –40 °C to +85 °C module family |
+| Core supply | `+3V3_CORE`, 3.3 V ±5% target |
+| Peak allocation | 700 mA preliminary transient allocation |
+| Clock | Module-integrated oscillator; no external crystal |
+| RF | PCB antenna module; datasheet antenna keepout mandatory |
 
-The existing Sheet 00/03 hierarchy includes `MAIN_POWER_GOOD`, consistent with those decisions.
+All module ground pins and exposed pad are assigned to logic ground. GPIO3, GPIO45, and GPIO46 are intentionally unconnected strapping pins. GPIO37 and GPIO42 are intentionally unconnected future reserves. No raw GPIO name crosses the Sheet 03 boundary.
 
-### Frozen GPIO inventory
+The preliminary symbol uses the current ESP32-S3-WROOM-1 pin numbering and functional names. Exact library-symbol provenance, module order code, footprint, antenna geometry, courtyard, and keepout remain release items.
 
-The ADR-040 table assigns or reserves all 36 module GPIOs:
+## Power and decoupling
 
-- 26 application and power-request signals;
-- GPIO19/20 native USB;
-- GPIO0 boot recovery;
-- GPIO43/44 UART0 recovery;
-- GPIO37/42 future reserve;
-- GPIO3/45/46 unused straps.
+- C1: 22 µF effective low-ESR bulk.
+- C2: 1 µF X7R local bypass.
+- C3: 100 nF X7R high-frequency bypass.
+- C6: 100 nF TPS3890-Q1 local bypass.
+- Every capacitor returns directly to the local logic-ground structure.
+- The 22 µF value is an effective-capacitance requirement after bias, temperature, aging, and tolerance.
+- The module exposes one 3V3 supply pin; no external analog rail, oscillator supply, or invented regulator is added.
 
-No row assigns `MAIN_POWER_GOOD`.
+Place the high-frequency bypass nearest the module 3V3/GND pins, then the 1 µF capacitor, with bulk nearby. Keep the return loop short and prevent switching-current return from sharing the RF/module bypass path.
 
-### Rejected implicit implementations
+## Core supervision and reset
 
-- **Use GPIO37 or GPIO42:** rejected because ADR-040 reserves both and Package 04R says not to consume them.
-- **Duplicate an assigned GPIO:** rejected because Package 04R requires unique ADR-040 assignments.
-- **Gate ESP32 EN with `MAIN_POWER_GOOD`:** rejected because USB-only power must support programming and recovery while main power is absent.
-- **Alias it to `RESET_VALID` or local `CORE_POWER_GOOD`:** rejected because ADR-039 defines distinct source and core semantics.
-- **Leave the port dangling:** rejected because Package 04R requires a complete processor subsystem and no unresolved exports.
-- **Invent a latch, expander, ADC mux, or status gate:** rejected because none is approved for Sheet 03 and each changes resource, reset, or ownership behavior.
+U2 is represented as TPS389030-Q1:
 
-## Decision required
+- VDD and SENSE monitor `+3V3_CORE`.
+- MR is held inactive high.
+- The fixed threshold is approximately 2.89 V falling for the 3.0 V family suffix.
+- C5 starts at 10 nF for the approximately 100 ms target release delay; the exact suffix equation and tolerance require verification.
+- Open-drain reset is pulled up by R1, 10 kΩ.
+- C4, 1 µF, is the Espressif EN RC starting value.
+- SW1 is a normally-open RESET pushbutton to ground.
+- The external functional `ESP_EN` fixture input may also pull the node low.
 
-A controlled amendment must choose one disposition:
+The active-high released node drives module EN/CHIP_PU and exports `RESET_VALID`.
 
-1. assign `MAIN_POWER_GOOD` to GPIO37 or GPIO42 and reduce the future reserve;
-2. reallocate or offload another direct function and assign the released GPIO;
-3. approve a defined non-GPIO Sheet 03 consumer with a documented functional purpose that preserves USB-only service;
-4. remove `MAIN_POWER_GOOD` from Sheet 03 if the processor is not intended to observe it.
+`RESET_VALID` means the core rail is supervisor-qualified and hardware reset is released, so the processor may begin instruction execution. It does not prove application firmware initialization, watchdog service, peripheral initialization, or actuator authorization.
 
-The amendment must update ADR-040, the authoritative GPIO table, the GPIO review, the hierarchy if applicable, reset/USB-only analysis, and the allocation validator.
+`CORE_POWER_GOOD` remains the local supervisor condition represented by this release state. It is not a hierarchical port. `MAIN_POWER_GOOD`, `MAIN_INPUT_VALID`, and `POWER_FAULT_SUMMARY` are not consumed by Sheet 03.
 
-## Reset and boot implications
+The 1 µF EN capacitor and supervisor output share the reset node. Release timing, reset assertion time, manual-reset discharge, power cycling, brownout behavior, and source-transition waveforms require prototype validation.
 
-The resolution shall preserve:
+## Boot implementation
 
-- USB-only native-USB and UART recovery;
-- supervisor-controlled EN independent of main-source absence;
-- four request outputs low during reset and bootloader;
-- GPIO0, GPIO3, GPIO45, and GPIO46 strap behavior;
-- unique GPIO assignments;
-- GPIO37/42 reserve status unless explicitly revised; and
-- Sheet 02 hardware gating of every power request with `MAIN_POWER_GOOD`.
+- GPIO0 uses R2, 10 kΩ, to `+3V3_CORE`.
+- SW2 is a normally-open BOOT pushbutton to ground.
+- The external functional `ESP_BOOT` fixture input terminates on the same strap node.
+- No high-value GPIO0 capacitor is fitted.
+- GPIO3, GPIO45, and GPIO46 remain unloaded.
 
-## Validation performed
+Normal boot occurs with GPIO0 released high. Manual joint-download recovery:
 
-- Confirmed ADR-040 inventories all 36 brought-out GPIOs exactly once.
-- Confirmed the authoritative table has no `MAIN_POWER_GOOD` assignment.
-- Confirmed GPIO37 and GPIO42 are both reserved and Package 04R prohibits consuming them.
-- Confirmed Sheet 00 and Sheet 03 still contain synchronized `MAIN_POWER_GOOD` ports.
-- Confirmed `RESET_VALID` is an output and `CORE_POWER_GOOD` is local.
-- Confirmed `MAIN_INPUT_VALID` and `POWER_FAULT_SUMMARY` are not Sheet 03 inputs.
-- Confirmed Sheet 03 content was not modified.
-- Did not run or claim KiCad ERC because no implementation was performed.
+1. hold BOOT/GPIO0 low;
+2. pulse RESET/EN low;
+3. release RESET/EN;
+4. release BOOT after download mode is entered;
+5. program through native USB or UART0;
+6. reset with GPIO0 released to verify normal boot.
 
-## Manual resolution checklist
+The fixture shall meet the ESP32-S3 strap setup/hold requirements and shall not drive an unpowered module.
 
-- [ ] `MAIN_POWER_GOOD` MCU observability requirement explicitly confirmed or rejected.
-- [ ] Unique electrical consumer assigned if retained.
-- [ ] GPIO37/42 reserve impact approved.
-- [ ] USB-only programming and recovery preserved.
-- [ ] No aliasing of main-good, core-good, and reset-valid semantics.
-- [ ] Authoritative 36-row GPIO table updated.
-- [ ] Duplicate-allocation validator passes.
-- [ ] Sheet 00/03 ports synchronized.
-- [ ] Package 04R implementation authorization reissued.
+## USB implementation
+
+Sheet 03 implements only the MCU-side USB 2.0 Serial/JTAG boundary:
+
+- GPIO19 is native USB D-.
+- GPIO20 is native USB D+.
+- R3 and R4 start at 22 Ω series tuning values.
+- U3 is a TPD2EUSB30-class low-capacitance two-line ESD boundary.
+- Protection ground returns directly to the low-inductance logic ground.
+- D+/D- retain their functional hierarchical names toward Sheet 09.
+
+Sheet 09 retains the USB-C receptacle, duplicated Type-C USB2 pin joining, CC resistors, connector mechanical support, shield/chassis option, VBUS pinout, connector-entry placement, and fixture access. The final design shall use one coordinated ESD implementation rather than two redundant devices.
+
+USB D+/D- shall be routed as a controlled differential pair during PCB design. Series resistors belong close to the module; ESD placement belongs at the agreed protected boundary. Trace impedance, skew, stubs, protection capacitance, and return discontinuities remain PCB-review items.
+
+Native USB Serial/JTAG is the approved JTAG/debug path. Traditional external JTAG pins and an on-board debugger connector are not implemented.
+
+## UART0 recovery
+
+- GPIO43 is UART0 TX.
+- R5, 499 Ω, is the preliminary Espressif-recommended TX harmonic/EMC series resistor.
+- GPIO44 is UART0 RX and terminates directly at the functional interface.
+- No UART connector or USB-to-UART bridge is placed on Sheet 03.
+- Sheet 09 owns fixture contacts.
+
+The fixture must tolerate ROM boot messages on TX and must never drive RX while IPC-100 is unpowered. Both signals are 3.3 V logic only.
+
+## GPIO implementation
+
+Every direct assignment follows the ADR-040 authoritative table:
+
+| Group | Functional signals | GPIO |
+| --- | --- | --- |
+| Battery ADC | `BATTERY_SENSE` | 1 |
+| Safety/command inputs | `STOP_IN_COND`, four limits, `ARM_IN_COND`, `FIRE_IN_COND` | 2, 4–9 |
+| Encoder inputs | `ENCODER_A_COND`, `ENCODER_B_COND`, `ENCODER_SW_COND` | 10–12 |
+| Axis 1 PWM | `AXIS1_RPWM_MCU`, `AXIS1_LPWM_MCU` | 13, 14 |
+| Axis 2 PWM | `AXIS2_RPWM_MCU`, `AXIS2_LPWM_MCU` | 15, 16 |
+| Axis 1 enable | `AXIS1_REN_MCU`, `AXIS1_LEN_MCU` | 17, 18 |
+| Native USB | `USB_D-`, `USB_D+` | 19, 20 |
+| Axis 2 enable | `AXIS2_REN_MCU`, `AXIS2_LEN_MCU` | 21, 38 |
+| Relay command | `RELAY_CMD_MCU` | 39 |
+| Power requests | OLED, sensor, UI, expansion | 35, 36, 40, 41 |
+| UART0 | RX, TX | 44, 43 |
+| Shared I²C | `I2C_SDA`, `I2C_SCL` | 47, 48 |
+
+GPIO37 and GPIO42 remain no-connect future reserves. GPIO3, GPIO45, and GPIO46 remain no-connect straps.
+
+The four power requests are high-impedance during reset. Sheet 02 provides 100 kΩ hardware pull-downs and qualifies every request with `MAIN_POWER_GOOD`; therefore reset, bootloader, unpowered MCU, and USB-only states cannot energize the branches. Firmware must configure all four pins low during its earliest GPIO initialization and assert them only after safe initialization.
+
+Application output safe states are completed on their owning downstream sheets. Sheet 03 does not implement a driver, translator, load switch, relay, motor interface, RGB LED, buzzer, OLED reset, sensor, I²C peripheral, CAN, or RS-485 circuit.
+
+## Exported functional interfaces
+
+Inputs:
+
+- `+3V3_CORE`
+- `BATTERY_SENSE`
+- conditioned STOP, limit, ARM, FIRE, and encoder signals
+- `ESP_EN`
+- `ESP_BOOT`
+- `UART0_RX`
+
+Outputs:
+
+- `RESET_VALID`
+- `UART0_TX`
+- eight motor command/enable functional signals
+- `RELAY_CMD_MCU`
+- four peripheral-power requests
+
+Bidirectional:
+
+- `USB_D+`
+- `USB_D-`
+- `I2C_SDA`
+- `I2C_SCL`
+
+Obsolete direct RGB, buzzer, OLED-reset, and Sheet 03 `MAIN_POWER_GOOD` ports were removed from Sheet 00 and the affected child boundaries. The Sheet 02-to-Sheet 06 `MAIN_POWER_GOOD` route remains intact.
+
+## Remaining release blockers
+
+- Exact released ESP32-S3-WROOM-1-N8 order code, lifecycle, procurement, memory budget, and RF review.
+- Released KiCad library symbol and exact pin-type audit.
+- TPS3890-Q1 exact suffix, threshold, CT equation, tolerance, and reset timing.
+- EN RC behavior across source transitions, ramp rates, manual reset, and brownout.
+- USB SI, ESD boundary ownership, protection capacitance, and PCB return path.
+- UART fixture voltage, series resistance, access, and unpowered-drive protection validation.
+- Effective capacitance and 700 mA transient rail verification with active Wi-Fi/Bluetooth/ESP-NOW.
+- Antenna keepout, enclosure clearance, ground-plane boundary, and coexistence testing.
+- Framework-level simultaneous USB, UART, I²C, ADC, MCPWM, PCNT, LEDC, interrupt, and wireless feasibility.
+- Downstream safe defaults, electrical conditioning, master inhibit, and Sheet 07 I²C expander implementation.
+- Native KiCad ERC and formal peer-review disposition.
+- All footprints and PCB layout, intentionally deferred.
+
+## ERC expectations
+
+Native KiCad ERC was not run because KiCad is unavailable in this environment. Repository structural validation passes.
+
+Expected review points include:
+
+- open-drain supervisor reset with a single pull-up;
+- intentional no-connect strap and reserve pins;
+- power-pin drive recognition for `+3V3_CORE`;
+- bidirectional USB and I²C ports;
+- fixture-originated EN, BOOT, and UART RX;
+- high-impedance reset-state processor outputs;
+- custom preliminary symbol pin types and pin numbers.
+
+Do not waive an ERC item merely because it appears on this list. Install released symbols and disposition each result before schematic release.
+
+## Manual review checklist
+
+- [ ] Verify ESP32-S3-WROOM-1-N8 pin numbers against the controlled datasheet.
+- [ ] Verify all module power/ground pins and exposed pad.
+- [ ] Verify effective 22 µF, 1 µF, and 100 nF decoupling placement.
+- [ ] Verify TPS389030-Q1 threshold and exact orderable suffix.
+- [ ] Verify CT value and release delay.
+- [ ] Verify EN RC and supervisor interaction.
+- [ ] Verify RESET button and fixture reset behavior.
+- [ ] Verify GPIO0 pull-up, BOOT button, and download sequence.
+- [ ] Verify GPIO3/45/46 remain unloaded.
+- [ ] Verify USB D-/D+ polarity and GPIO19/20 assignment.
+- [ ] Verify 22 Ω tuning resistors and one coordinated ESD boundary.
+- [ ] Verify native USB Serial/JTAG programming and recovery.
+- [ ] Verify UART0 GPIO43/44 direction, ROM output, and unpowered fixture behavior.
+- [ ] Verify all ADR-040 direct assignments once and only once.
+- [ ] Verify GPIO37/42 remain no-connect.
+- [ ] Verify no raw GPIO name crosses the sheet boundary.
+- [ ] Verify four request outputs remain low through reset and bootloader.
+- [ ] Verify `MAIN_POWER_GOOD` is absent from Sheet 03 and retained on Sheet 02-to-06.
+- [ ] Verify USB-only programming, bootloader, debug, and UART recovery.
+- [ ] Verify antenna keepout and enclosure clearance before PCB entry.
+- [ ] Run native KiCad ERC and disposition every result.
 
 ## Package handoff
 
-AR-03 closes the entry-gate blocker. Resume **IPC-100 Rev A Preliminary KiCad Capture Package 04R — Sheet 03 ESP32-S3 Core, Boot, Programming & Control Logic**. During that package, remove the obsolete Sheet 03 `MAIN_POWER_GOOD` hierarchy port while preserving Sheet 02-to-Sheet 06 routing.
+Sheet 03 is ready for formal peer review. After review disposition, the recommended next capture package is:
 
-Do not begin Sheet 04 or Package 05 until Sheet 03 implementation and review are complete.
+**IPC-100 Rev A Preliminary KiCad Capture — Package 05 — Sheet 04 Safety Inputs, Interlocks & External Sense Interfaces**

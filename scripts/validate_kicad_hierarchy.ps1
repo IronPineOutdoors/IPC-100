@@ -114,8 +114,9 @@ foreach ($sheetBlock in $sheetBlocks) {
 
     $isImplementedPowerEntry = $sheetFile -eq 'sheets/01_Power_Entry.kicad_sch'
     $isImplementedPowerConversion = $sheetFile -eq 'sheets/02_Power_Conversion.kicad_sch'
+    $isImplementedProcessor = $sheetFile -eq 'sheets/03_ESP32_Core.kicad_sch'
     $requiredNote = 'Detailed implementation intentionally deferred to subsequent engineering package.'
-    if (-not $isImplementedPowerEntry -and -not $isImplementedPowerConversion -and -not $childContent.Contains($requiredNote)) {
+    if (-not $isImplementedPowerEntry -and -not $isImplementedPowerConversion -and -not $isImplementedProcessor -and -not $childContent.Contains($requiredNote)) {
         $errors.Add("$sheetName is missing the required implementation-deferral note.")
     }
     if ($isImplementedPowerEntry) {
@@ -136,6 +137,28 @@ foreach ($sheetBlock in $sheetBlocks) {
         }
         if ($childContent.Contains('"POWER_VALID"')) {
             $errors.Add("$sheetName contains rejected net POWER_VALID.")
+        }
+    }
+    if ($isImplementedProcessor) {
+        $implementedSymbols = [regex]::Matches($childContent, '(?m)^  \(symbol \(lib_id').Count
+        if ($implementedSymbols -eq 0) {
+            $errors.Add("$sheetName contains no implemented component symbols.")
+        }
+        foreach ($requiredNet in @('+3V3_CORE', 'RESET_VALID', 'OLED_POWER_REQ', 'SENSOR_POWER_REQ', 'UI_POWER_REQ', 'EXPANSION_POWER_REQ', 'USB_D+', 'USB_D-', 'UART0_TX', 'UART0_RX')) {
+            if (-not $childContent.Contains('"' + $requiredNet + '"')) {
+                $errors.Add("$sheetName is missing required net $requiredNet.")
+            }
+        }
+        if ($childContent -match '\(hierarchical_label "MAIN_POWER_GOOD"') {
+            $errors.Add("$sheetName contains the ADR-041-rejected MAIN_POWER_GOOD port.")
+        }
+        if ($childContent -match '\(hierarchical_label "[^"]*GPIO\d+') {
+            $errors.Add("$sheetName exports a raw GPIO identifier.")
+        }
+        foreach ($reservedPin in @('GPIO37_RESERVED', 'GPIO42_RESERVED')) {
+            if (-not $childContent.Contains('"' + $reservedPin + '"')) {
+                $errors.Add("$sheetName is missing reserved module pin $reservedPin.")
+            }
         }
     }
 }
@@ -178,14 +201,33 @@ foreach ($contract in $interfaceContracts) {
     }
 }
 
+$mainGoodProducer = $sheetBlocks | Where-Object {
+    $_.Value.Contains('(property "Sheetname" "02 Power Conversion"')
+}
+$mainGoodSafetyConsumer = $sheetBlocks | Where-Object {
+    $_.Value.Contains('(property "Sheetname" "06 Relay + Master Inhibit"')
+}
+$mainGoodProcessor = $sheetBlocks | Where-Object {
+    $_.Value.Contains('(property "Sheetname" "03 ESP32 Core"')
+}
+if (-not $mainGoodProducer -or $mainGoodProducer.Value -notmatch '\(pin "MAIN_POWER_GOOD" output') {
+    $errors.Add('MAIN_POWER_GOOD is missing its Sheet 02 producer.')
+}
+if (-not $mainGoodSafetyConsumer -or $mainGoodSafetyConsumer.Value -notmatch '\(pin "MAIN_POWER_GOOD" input') {
+    $errors.Add('MAIN_POWER_GOOD is missing its Sheet 06 safety consumer.')
+}
+if ($mainGoodProcessor -and $mainGoodProcessor.Value -match '\(pin "MAIN_POWER_GOOD"') {
+    $errors.Add('ADR-041 prohibits MAIN_POWER_GOOD on Sheet 03.')
+}
+
 $placeholderFiles = @($rootFile) + @(
     Get-ChildItem -LiteralPath $sheetDirectory -Filter '*.kicad_sch' |
-        Where-Object Name -notin @('01_Power_Entry.kicad_sch', '02_Power_Conversion.kicad_sch') |
+        Where-Object Name -notin @('01_Power_Entry.kicad_sch', '02_Power_Conversion.kicad_sch', '03_ESP32_Core.kicad_sch') |
         Select-Object -ExpandProperty FullName
 )
 $placeholderSymbols = Select-String -Path $placeholderFiles -Pattern '^  \(symbol \(lib_id' -ErrorAction SilentlyContinue
 if ($placeholderSymbols) {
-    $errors.Add('Component symbols exist outside the authorized Sheets 01 and 02 scope.')
+    $errors.Add('Component symbols exist outside the authorized Sheets 01, 02, and 03 scope.')
 }
 
 $footprints = Select-String -Path $schematicFiles -Pattern '\(footprint ' -ErrorAction SilentlyContinue
@@ -205,5 +247,6 @@ Write-Host 'Project JSON: valid'
 Write-Host 'S-expressions: balanced'
 Write-Host 'Root/child ports: matched and unique'
 Write-Host 'AR-01 interfaces: one producer and one consumer each'
-Write-Host 'Component symbols: confined to implemented Sheets 01 and 02'
+Write-Host 'ADR-041 MAIN_POWER_GOOD: Sheet 02 to Sheet 06; absent from Sheet 03'
+Write-Host 'Component symbols: confined to implemented Sheets 01, 02, and 03'
 Write-Host 'Footprint assignments: 0'
