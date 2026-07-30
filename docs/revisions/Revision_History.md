@@ -115,6 +115,8 @@ Documentation-only changes still require document revision control and review. A
 
 | 2026-07-30 | DFR-01 Functional Electrical Design Review | Reviewed implemented Sheets 00–05 as an integrated system; identified a Critical Sheet 05 authorization-input connectivity defect and unresolved safety-critical evidence gaps | Iron Pine Outdoors Engineering | NOT APPROVED; Sheet 06 entry blocked pending defect correction and review closure |
 
+| 2026-07-30 | ECO-001 Authorization Connectivity Correction | Attached Sheet 05 `ACTUATOR_PERMIT` and `MASTER_INHIBIT` labels to the intended U3 pins and added pin-level regression checks without changing architecture | Iron Pine Outdoors Engineering | Corrected; pending native ERC confirmation and DFR-01 reissue |
+
 ## 8. Prototype traceability
 
 Every physical prototype shall be marked and recorded with:

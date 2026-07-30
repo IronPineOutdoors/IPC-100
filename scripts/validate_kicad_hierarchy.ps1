@@ -202,6 +202,8 @@ $interfaceContracts = @(
     @{ Signal = 'SENSOR_POWER_REQ'; Producer = '03 ESP32 Core'; Consumer = '02 Power Conversion' },
     @{ Signal = 'UI_POWER_REQ'; Producer = '03 ESP32 Core'; Consumer = '02 Power Conversion' },
     @{ Signal = 'EXPANSION_POWER_REQ'; Producer = '03 ESP32 Core'; Consumer = '02 Power Conversion' },
+    @{ Signal = 'ACTUATOR_PERMIT'; Producer = '06 Relay + Master Inhibit'; Consumer = '05 Motor Interfaces' },
+    @{ Signal = 'MASTER_INHIBIT'; Producer = '06 Relay + Master Inhibit'; Consumer = '05 Motor Interfaces' },
     @{ Signal = 'AXIS1_RPWM_MCU'; Producer = '03 ESP32 Core'; Consumer = '05 Motor Interfaces' },
     @{ Signal = 'AXIS1_LPWM_MCU'; Producer = '03 ESP32 Core'; Consumer = '05 Motor Interfaces' },
     @{ Signal = 'AXIS1_REN_MCU'; Producer = '03 ESP32 Core'; Consumer = '05 Motor Interfaces' },
@@ -279,6 +281,29 @@ if ($placeholderSymbols) {
 
 $motionFile = Join-Path $sheetDirectory '05_Motor_Interfaces.kicad_sch'
 $motionContent = Get-Content -LiteralPath $motionFile -Raw
+$authorizationConnectivity = @(
+    @{
+        Signal = 'ACTUATOR_PERMIT'
+        PinDefinition = '\(pin input line \(at -15\.24 -7\.62 0\).*?\(name "PERMIT"'
+        LocalAttachment = '\(label "ACTUATOR_PERMIT" \(at 59\.76 38\.38 0\)'
+    },
+    @{
+        Signal = 'MASTER_INHIBIT'
+        PinDefinition = '\(pin input line \(at -15\.24 -2\.54 0\).*?\(name "INHIBIT"'
+        LocalAttachment = '\(label "MASTER_INHIBIT" \(at 59\.76 43\.46 0\)'
+    }
+)
+if ($motionContent -notmatch '\(symbol \(lib_id "IPC100:AUTH2"\) \(at 75 46 0\)') {
+    $errors.Add('Sheet 05 authorization qualifier U3 is not at its ECO-001 controlled placement.')
+}
+foreach ($authorizationNet in $authorizationConnectivity) {
+    if ($motionContent -notmatch $authorizationNet.PinDefinition) {
+        $errors.Add("Sheet 05 U3 is missing the controlled $($authorizationNet.Signal) input pin definition.")
+    }
+    if ([regex]::Matches($motionContent, $authorizationNet.LocalAttachment).Count -ne 1) {
+        $errors.Add("Sheet 05 $($authorizationNet.Signal) is not attached exactly once at the controlled U3 pin endpoint.")
+    }
+}
 if ([regex]::Matches($motionContent, '47 kΩ MCU-side inactive default').Count -ne 8) {
     $errors.Add('Sheet 05 must contain exactly eight 47 kΩ MCU-side inactive-default pulldowns.')
 }
@@ -347,6 +372,7 @@ Write-Host 'AR-01 interfaces: one producer and one consumer each'
 Write-Host 'ADR-041 MAIN_POWER_GOOD: Sheet 02 to Sheet 06; absent from Sheet 03'
 Write-Host 'ADR-042 safety inputs: five supervised NC loops; local-only fault diagnostics'
 Write-Host 'ADR-043 motion interfaces: eight MCU commands and eight safe outputs; no fault summary'
+Write-Host 'ECO-001 authorization connectivity: ACTUATOR_PERMIT and MASTER_INHIBIT attached to U3'
 Write-Host 'Package 06R motion conditioning: dual independent translators, opposing-PWM suppression, safe-side defaults'
 Write-Host 'Component symbols: confined to implemented Sheets 01 through 05'
 Write-Host 'Footprint assignments: 0'

@@ -6,7 +6,7 @@
 | Hardware revision | Rev A |
 | Source review | DFR-01 |
 | Date identified | 2026-07-30 |
-| Status | Open |
+| Status | **Corrected by ECO-001; pending native ERC confirmation** |
 | Severity | **Critical** |
 | Affected sheet | 05 — Motor-Driver Logic Interfaces |
 
@@ -74,8 +74,14 @@ Sheet 06 implementation remains blocked until the corrected Sheet 05 has passed 
 
 ## Closure Evidence Required
 
-- Before/after pin-coordinate or rendered-connectivity evidence.
+- Before/after pin-coordinate or rendered-connectivity evidence. **Coordinate evidence recorded by ECO-001.**
 - Native KiCad ERC report with every relevant result dispositioned.
-- Automated pin-connectivity validation result.
+- Automated pin-connectivity validation result. **Repository check added by ECO-001.**
 - Confirmed U3 truth table and fail-low/fail-high behavior.
 - Follow-up DFR disposition authorizing or continuing to block Sheet 06 entry.
+
+## ECO-001 Disposition
+
+ECO-001 moved `ACTUATOR_PERMIT` to U3 pin 1 at `(59.76, 38.38)` and `MASTER_INHIBIT` to U3 pin 2 at `(59.76, 43.46)`. It added regression checks for exact pin attachment and Sheet 06-to-Sheet 05 producer/consumer ownership without changing logic, polarity, hierarchy, GPIO allocation, or architecture.
+
+The implementation defect is **Corrected**. Closure remains **pending native ERC confirmation** and follow-up DFR disposition.
