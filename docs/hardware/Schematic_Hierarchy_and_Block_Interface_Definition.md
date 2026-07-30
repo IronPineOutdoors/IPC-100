@@ -114,7 +114,7 @@ Every functional block has one schematic owner. A source sheet owns generation o
 
 ### 6.1 MCU core boundary
 
-Sheet 03 contains the exact-module placeholder, decoupling and support placeholders, EN/reset, GPIO0 boot management, native USB D-/D+, UART0 recovery, production-programming interface, strap management, GPIO fanout, ADC endpoint, I2C0, MCPWM outputs, status outputs, and processor-side diagnostic inputs. It may show `MAIN_POWER_GOOD`, inhibit feedback, and other approved status pins only after their resource allocation is accepted.
+Sheet 03 contains the exact-module placeholder, decoupling and support placeholders, EN/reset, GPIO0 boot management, native USB D-/D+, UART0 recovery, production-programming interface, strap management, GPIO fanout, ADC endpoint, I2C0, MCPWM outputs, status outputs, and approved processor-side diagnostic inputs. ADR-041 removes `MAIN_POWER_GOOD` from the processor boundary; no main-good GPIO or substitute status is permitted.
 
 Sheet 03 explicitly excludes external input protection, supervised-loop conditioning, motor-driver conditioning, relay-coil actuation, high-energy transient protection, and power conversion. Its detailed capture is blocked by the exact ESP32-S3-WROOM-1 ordering variant and the unresolved diagnostic-resource set.
 
@@ -176,7 +176,7 @@ Ground nets are described in Section 15. “Enable owner” identifies the sheet
 | `UI_VCC` | 02 | 07/09 J8 | Main-valid/controlled UI request | 02/07 | Main-only, default off where active drive exists | 09 optional | 02/07 |
 | `EXPANSION_VCC` | 02 | 08/09 J10 if approved | Explicit optional request after safe init | 02/08 | Main-only, default off | 09 optional | 02/08 |
 | `FIELD_SENSE_VCC` | 02 | 04 | Main-valid hardware state | 02/04 | Off in USB-only; 04 produces conservative states | 09 optional | 02/04 |
-| `MAIN_POWER_GOOD` | 02 | 03, 06 | Hardware qualification | 02 | False/invalid in USB-only | 09 required prototype | N/A |
+| `MAIN_POWER_GOOD` | 02 | 02 branch gating, 06 | Hardware qualification | 02 | False/invalid in USB-only; not processor-visible | 09 required prototype | N/A |
 | `BATTERY_SENSE` | 01 | 03 ADC | None | 03 firmware | Invalid when main absent; no phantom core power | 09 | 01 ADC front end |
 
 `OLED_VCC` and `SENSOR_VCC` remain separate controlled domains. Sharing a final source rail is allowed only if each connector retains its separately reviewable enable/fault boundary and module compatibility.
@@ -218,7 +218,7 @@ The following matrix covers all 27 required application signals plus service, ma
 | `UART0_TX`, `UART0_RX` | 03 | 09 fixture | Recovery UART | 03 | ROM/base service | Service | Yes | Required production access | Pins reserved |
 | `ESP_EN` | 09 fixture/03 | 03 | Reset | 03 | ROM/hardware | Management | Yes | Required production | Circuit open |
 | `ESP_BOOT` / GPIO0 | 09 fixture/03 | 03 | Boot mode | 03 | ROM | Management | Yes | Required production | Pin reserved |
-| `MAIN_POWER_GOOD` | 02 | 03, 06 | Power qualification | 02 | Base diagnostics | Safety status | Yes | Required prototype | Threshold open |
+| `MAIN_POWER_GOOD` | 02 | 02 branch gating, 06 | Power qualification | 02 | Hardware only; no firmware consumer | Safety status | Yes | Required prototype | Threshold open |
 | `RESET_VALID` | 03 | 06 | Reset qualification | 03 | None/base diagnostic | Safety status | Yes | Required prototype | Implementation open |
 | `STOP_HW_INHIBIT` | 04 | 06 | STOP hardware path | 04 | None | Safety status | Yes | Required prototype | Implementation open |
 | `MASTER_INHIBIT` | 06 | 05 and relay actuation | Inhibit decision | 06 | Cannot override | Safety control | Yes | Required production/prototype | Behavior fixed; circuit open |
@@ -521,12 +521,18 @@ ADR-040 establishes the following controlled rules for subsequent capture:
 - All other sheets use functional interface names exclusively.
 - Sheet 03 directly produces `OLED_POWER_REQ`, `SENSOR_POWER_REQ`, `UI_POWER_REQ`, and `EXPANSION_POWER_REQ`; Sheet 02 electrically owns their pull-downs, qualification, and branch switching.
 - Five low-risk UI functions (`RGB_R`, `RGB_G`, `RGB_B`, `BUZZER_OUT`, and `OLED_RESET`) move behind the Sheet 07 I²C functional boundary and are no longer direct Sheet 03 GPIO exports.
-- Sheet 03 consumes `MAIN_POWER_GOOD`, creates local `CORE_POWER_GOOD`, and exports `RESET_VALID`.
+- Sheet 03 does not consume `MAIN_POWER_GOOD`; it creates local `CORE_POWER_GOOD` and exports `RESET_VALID`.
 - `MAIN_INPUT_VALID` remains Sheet 01-to-02 only. `POWER_FAULT_SUMMARY` remains an input-path diagnostic and is not routed to Sheet 03.
 - Sheet 03 owns the native USB processor pins and processor-side interface. Sheet 09 exclusively owns the USB-C connector, CC circuitry, connector-entry ESD/shield implementation, external pinout, and fixture contacts.
 - GPIO37/GPIO42 are a non-exported future two-pin pool. They do not create Rev A CAN, RS-485, or expansion ports.
 
 The Sheet 00 and child-sheet hierarchy must be synchronized with removal of the five obsolete direct UI exports when the affected capture package updates those sheet interfaces. No connector symbol moves out of Sheet 09.
+
+## 20.2 AR-03 processor-visibility amendment
+
+ADR-041 removes `MAIN_POWER_GOOD` from the Sheet 03 interface. Sheet 02 remains its sole producer and electrical owner, uses it internally for branch qualification, and exports it to Sheet 06 for fail-low actuator authorization. Firmware requests peripheral power but does not supervise whether main power is qualified.
+
+Package 04R shall remove the `MAIN_POWER_GOOD` port from the Sheet 03 child symbol and child sheet while preserving the Sheet 02-to-Sheet 06 connection. No GPIO, reserve, Sheet 02 circuit, or Sheet 06 logic changes result from this amendment.
 
 ## 21. Recommended next engineering package
 

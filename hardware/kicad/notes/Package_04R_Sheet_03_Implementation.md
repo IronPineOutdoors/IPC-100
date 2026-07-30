@@ -2,11 +2,11 @@
 
 ## Status
 
-**Blocked before schematic modification by an unresolved `MAIN_POWER_GOOD` termination.**
+**Entry-gate conflict resolved by Architecture Resolution Package AR-03 and ADR-041. Package 04R is authorized.**
 
-AR-02 and ADR-040 resolve the four peripheral-power request outputs, the five UI functions moved behind I²C, the future two-pin reserve, USB ownership, and the meanings of the power-status signals. They do not assign an ESP32 GPIO or another Sheet 03 electrical consumer to the existing `MAIN_POWER_GOOD` input.
+AR-02 and ADR-040 resolve the four peripheral-power request outputs, the five UI functions moved behind I²C, the future two-pin reserve, USB ownership, and the meanings of the power-status signals. Package 04R correctly stopped when the retained `MAIN_POWER_GOOD` input had no GPIO or approved local consumer. AR-03 subsequently determined that firmware visibility provides no safety enforcement and is not required.
 
-Package 04R requires a complete ESP32 subsystem, requires local status inputs, requires exact use of ADR-040, prohibits new GPIO assignments, and explicitly reserves GPIO37 and GPIO42. Those constraints cannot all be satisfied with the frozen allocation. Sheet 03 therefore remains unchanged and circuitry-free.
+ADR-041 removes `MAIN_POWER_GOOD` from the Sheet 03 processor interface while preserving Sheet 02 branch gating and Sheet 06 actuator authorization. ADR-040's GPIO allocation and GPIO37/42 reserve remain unchanged. Sheet 03 remains circuitry-free pending the resumed Package 04R implementation.
 
 ## Confirmed implementation basis
 
@@ -114,4 +114,6 @@ The resolution shall preserve:
 
 ## Package handoff
 
-Do not begin Sheet 04 or Package 05. Resume Sheet 03 only after the `MAIN_POWER_GOOD` termination is controlled and synchronized.
+AR-03 closes the entry-gate blocker. Resume **IPC-100 Rev A Preliminary KiCad Capture Package 04R — Sheet 03 ESP32-S3 Core, Boot, Programming & Control Logic**. During that package, remove the obsolete Sheet 03 `MAIN_POWER_GOOD` hierarchy port while preserving Sheet 02-to-Sheet 06 routing.
+
+Do not begin Sheet 04 or Package 05 until Sheet 03 implementation and review are complete.

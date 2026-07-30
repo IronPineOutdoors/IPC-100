@@ -454,3 +454,14 @@ Statuses are `Accepted`, `Proposed`, `Superseded`, or `Rejected`. Accepted decis
 - **Consequences:** Package 04R can capture the ESP32 subsystem without duplicate pins or strap conflicts. Sheet 07 must later implement a safe-default I²C expander. CAN and automatic-direction half-duplex RS-485 are mutually exclusive future uses, not Rev A implementations.
 - **Alternatives considered:** Duplicate assignments; strapping-pin use; removal of UART recovery; removal of baseline functions; larger processor or external general-purpose expansion architecture.
 - **Follow-up actions:** Implement Package 04R against [ADR-040](../decisions/ADR-040_ESP32_GPIO_Allocation_and_Interface_Ownership.md), validate reset-low request behavior, and resolve the Sheet 07 expander before its capture package.
+
+### ADR-041: Processor visibility of main power state
+
+- **Decision ID:** ADR-041
+- **Date:** 2026-07-29
+- **Status:** Accepted
+- **Context:** ADR-040 allocated every ESP32 GPIO but retained `MAIN_POWER_GOOD` as an unassigned Sheet 03 input.
+- **Decision:** Firmware does not consume `MAIN_POWER_GOOD`. Sheet 02 retains generation and branch gating; Sheet 06 retains hardware actuator-authorization consumption. Sheet 03 is removed as a consumer.
+- **Consequences:** No GPIO or reserve changes are required, USB-only recovery remains independent of main power, and firmware power requests remain operational intent rather than power qualification.
+- **Alternatives considered:** Consume a reserved GPIO; displace another signal; gate EN/reset; add a diagnostic-only path; make the status fully internal to Sheet 02.
+- **Follow-up actions:** Remove only the Sheet 03 hierarchy port during Package 04R, preserve Sheet 02-to-06 routing, and verify USB-only and main-loss behavior against [ADR-041](../decisions/ADR-041_Processor_Visibility_of_Main_Power_State.md).

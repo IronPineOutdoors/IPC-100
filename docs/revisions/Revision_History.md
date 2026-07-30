@@ -102,6 +102,8 @@ Documentation-only changes still require document revision control and review. A
 
 | 2026-07-29 | Preliminary KiCad Capture Package 04R implementation review | Stopped before Sheet 03 modification because retained `MAIN_POWER_GOOD` has no GPIO or approved local consumer in the fully allocated ADR-040 map | Iron Pine Outdoors Engineering | Blocked pending narrow status-input disposition |
 
+| 2026-07-29 | Architecture Resolution Package AR-03 | Accepted ADR-041; removed `MAIN_POWER_GOOD` from the processor interface while preserving Sheet 02 hardware gating, Sheet 06 authorization, GPIO reserves, and USB-only recovery | Iron Pine Outdoors Engineering | ODI-SCH-010 closed; Package 04R authorized |
+
 ## 8. Prototype traceability
 
 Every physical prototype shall be marked and recorded with:

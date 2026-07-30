@@ -65,6 +65,20 @@ foreach ($gpio in 3, 45, 46) {
     }
 }
 
+$reserved = @{
+    37 = 'FUTURE_COMM_GPIO_A'
+    42 = 'FUTURE_COMM_GPIO_B'
+}
+foreach ($entry in $reserved.GetEnumerator()) {
+    $row = $rows | Where-Object GPIO -eq $entry.Key
+    if ($row.Assignment -ne $entry.Value) {
+        $errors.Add("Reserved GPIO$($entry.Key) must remain $($entry.Value), found '$($row.Assignment)'.")
+    }
+}
+if ($rows.Assignment -contains 'MAIN_POWER_GOOD') {
+    $errors.Add('ADR-041 prohibits an ESP32 GPIO assignment for MAIN_POWER_GOOD.')
+}
+
 if ($errors.Count -gt 0) {
     $errors | ForEach-Object { Write-Error $_ }
     exit 1
@@ -77,3 +91,5 @@ Write-Host 'Missing GPIOs: 0'
 Write-Host 'ADR-039 requests: assigned'
 Write-Host 'Native USB and UART0 recovery: preserved'
 Write-Host 'Application straps GPIO3/45/46: unused'
+Write-Host 'Future reserve GPIO37/42: preserved'
+Write-Host 'MAIN_POWER_GOOD GPIO assignment: none (ADR-041)'

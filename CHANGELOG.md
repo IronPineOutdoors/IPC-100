@@ -17,3 +17,4 @@ Initial project creation.
 - Paused Package 04 before Sheet 03 modification because ADR-039's four power-request outputs lack approved GPIO assignments and the requested status/USB boundaries conflict with the frozen hierarchy.
 - Completed Architecture Resolution Package AR-02 and accepted ADR-040, assigning all ESP32-S3 GPIOs, resolving status and USB ownership, reserving a future two-pin communications pool, and authorizing Package 04R.
 - Paused Package 04R before Sheet 03 modification because retained input `MAIN_POWER_GOOD` has no assigned GPIO or other approved Sheet 03 consumer under the fully allocated ADR-040 map.
+- Completed Architecture Resolution Package AR-03 and accepted ADR-041, removing firmware visibility of `MAIN_POWER_GOOD` while preserving Sheet 02 branch gating, Sheet 06 actuator authorization, all GPIO assignments, and USB-only recovery.

@@ -57,7 +57,7 @@ The Package 04 request names `MAIN_INPUT_VALID`, `MAIN_POWER_GOOD`, `CORE_POWER_
 | Signal | Accepted owner and route | Sheet 03 disposition |
 | --- | --- | --- |
 | `MAIN_INPUT_VALID` | Sheet 01 to Sheet 02 only | Not a Sheet 03 port |
-| `MAIN_POWER_GOOD` | Sheet 02 to Sheets 03 and 06 | Existing Sheet 03 input |
+| `MAIN_POWER_GOOD` | Sheet 02 to Sheet 06 under ADR-041 | Removed from the Sheet 03 interface |
 | `CORE_POWER_GOOD` | Local Sheet 03 supervisor semantic | Not a hierarchical port; feeds reset validity |
 | `RESET_VALID` | Sheet 03 output | Existing exported timed core-readiness signal |
 | `POWER_FAULT_SUMMARY` | Sheet 01 diagnostic output | Not routed to Sheet 03 by the frozen hierarchy |
@@ -121,7 +121,7 @@ Because these choices affect platform GPIO resources, boot safety, cross-sheet i
 
 ADR-040 moves `RGB_R`, `RGB_G`, `RGB_B`, `BUZZER_OUT`, and `OLED_RESET` behind the Sheet 07 I²C functional boundary. It assigns GPIO35, GPIO36, GPIO40, and GPIO41 to `OLED_POWER_REQ`, `SENSOR_POWER_REQ`, `UI_POWER_REQ`, and `EXPANSION_POWER_REQ`, respectively. GPIO37/GPIO42 form a non-exported two-pin future pool.
 
-It also confirms the ADR-039 status boundary: Sheet 03 consumes `MAIN_POWER_GOOD`, creates local `CORE_POWER_GOOD`, and exports `RESET_VALID`; neither `MAIN_INPUT_VALID` nor `POWER_FAULT_SUMMARY` becomes a Sheet 03 input. Sheet 09 retains all connector symbols, including USB-C and fixture access.
+ADR-041 subsequently amends the status boundary: Sheet 03 does not consume `MAIN_POWER_GOOD`; it creates local `CORE_POWER_GOOD` and exports `RESET_VALID`. Neither `MAIN_INPUT_VALID` nor `POWER_FAULT_SUMMARY` becomes a Sheet 03 input. Sheet 09 retains all connector symbols, including USB-C and fixture access.
 
 ## Package handoff
 

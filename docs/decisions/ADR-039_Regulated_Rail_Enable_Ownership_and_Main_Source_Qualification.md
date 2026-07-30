@@ -10,6 +10,8 @@
 | Supersedes | Unresolved portions of ADR-022, ADR-023, and ODI-SCH-007 |
 
 > ADR-036 was already assigned to the ESP32-S3-WROOM-1-N8 preliminary-capture decision. This resolution therefore uses the next available identifier, ADR-039.
+>
+> **ADR-041 amendment:** `MAIN_POWER_GOOD` remains owned by Sheet 02 and consumed by Sheet 06, but is no longer routed to Sheet 03 or firmware.
 
 ## Context and blocking conflict
 
@@ -42,7 +44,7 @@ Sheet 02 owns regulated rails and main-only branch switching. Its frozen interfa
 | `SENSOR_POWER_REQ` | Sheet 03 | Sheet 02 | 03 output / 02 input | Active high | 100 kΩ pull-down on 02 | 3.3 V logic | Requests sensor branch |
 | `UI_POWER_REQ` | Sheet 03 | Sheet 02 | 03 output / 02 input | Active high | 100 kΩ pull-down on 02 | 3.3 V logic | Requests UI branch |
 | `EXPANSION_POWER_REQ` | Sheet 03 | Sheet 02 | 03 output / 02 input | Active high | 100 kΩ pull-down on 02 | 3.3 V logic | Requests optional expansion power |
-| `MAIN_POWER_GOOD` | Sheet 02 | Sheets 03 and 06 | 02 output / consumers input | Active high, fail low | Low | 3.3 V qualified logic | Safety-relevant main-rail qualifier |
+| `MAIN_POWER_GOOD` | Sheet 02 | Sheet 06 | 02 output / 06 input | Active high, fail low | Low | 3.3 V qualified logic | Safety-relevant main-rail qualifier |
 
 Request nets do not enter Sheet 06. Actuator commands remain subject to `ACTUATOR_PERMIT` on Sheet 06 irrespective of branch power.
 
@@ -88,7 +90,7 @@ During reset, hardware-on actuator-related supplies may remain electrically pres
 | Signal | Assertion | Deassertion | Owner | Consumers |
 | --- | --- | --- | --- | --- |
 | `MAIN_INPUT_VALID` | U1 PGOOD releases after `VIN_PROTECTED` exceeds the approved PGTH threshold while U1 is enabled | PGOOD pulls low when the protected output falls below PGTH; UVLO, OVLO, reverse input, thermal shutdown, latch-off, and severe current limit are reflected when they disable or collapse the output | Sheet 01 | Sheet 02 only |
-| `MAIN_POWER_GOOD` | Qualified `MAIN_INPUT_VALID` AND LMR38020-Q1 PGOOD with `+5V_MAIN` within the approved tolerance/time window | Either qualifier invalid; must fail low before actuator logic becomes unreliable | Sheet 02 | Sheets 03, 06, and prototype test |
+| `MAIN_POWER_GOOD` | Qualified `MAIN_INPUT_VALID` AND LMR38020-Q1 PGOOD with `+5V_MAIN` within the approved tolerance/time window | Either qualifier invalid; must fail low before actuator logic becomes unreliable | Sheet 02 | Sheet 02 branch gating, Sheet 06, and prototype test |
 | `CORE_POWER_GOOD` | TPS3890-Q1 supervisor confirms `+3V3_CORE` above its released threshold for its release delay | Core falls below threshold | Sheet 03, local semantic feeding reset validity | ESP32 reset/recovery and Sheet 06 through `RESET_VALID`; no new top-level net |
 | `POWER_VALID` | Not used in Rev A | N/A | None | None |
 | `POWER_FAULT_SUMMARY` | Active-low diagnostic assertion for Sheet 01 input-path faults | Releases when the input eFuse fault clears per its mode | Sheet 01 | Diagnostic/test consumers; not a substitute for main validity |

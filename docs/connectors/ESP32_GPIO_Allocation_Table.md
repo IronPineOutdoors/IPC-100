@@ -9,6 +9,8 @@
 | Status | Accepted for preliminary Sheet 03 capture |
 | Date | 2026-07-29 |
 
+ADR-041 confirms that firmware does not consume `MAIN_POWER_GOOD`. No GPIO assignment or reserve changes are required; this 36-row inventory remains authoritative.
+
 ## Capability conventions
 
 - GPIO0–21 are RTC-capable digital GPIO. GPIO1–10 provide ADC1; GPIO11–20 provide ADC2.

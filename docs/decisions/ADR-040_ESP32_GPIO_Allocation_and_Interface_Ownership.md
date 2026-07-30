@@ -10,6 +10,8 @@
 | Resolution package | AR-02 |
 | Supersedes | Direct-GPIO portions of the original GPIO allocation that assigned GPIO35/36/40/41/42 to UI functions |
 
+> **ADR-041 amendment:** Sheet 03 and firmware do not consume `MAIN_POWER_GOOD`. ADR-040's GPIO assignments and reserves remain unchanged.
+
 ## Context
 
 ADR-039 added four firmware-controlled peripheral-power requests after the original 27-signal ESP32-S3 allocation was prepared. That direct allocation had only one conditional unused GPIO and could not implement the four requests without a duplicate assignment, strapping-pin use, removal of recovery access, or resource-reduction decision. Package 04 therefore stopped before Sheet 03 modification.
@@ -75,12 +77,12 @@ Raw `GPIO<n>` names and processor pin numbers may appear only on Sheet 03 and it
 | Signal or condition | Electrical owner | Functional owner | Route |
 | --- | --- | --- | --- |
 | `MAIN_INPUT_VALID` | Sheet 01 eFuse PGOOD; pull-up/qualification on Sheet 02 | Power-entry validity | Sheet 01 to Sheet 02 only |
-| `MAIN_POWER_GOOD` | Sheet 02 | Qualified main-power state | Sheet 02 to Sheets 03 and 06 |
+| `MAIN_POWER_GOOD` | Sheet 02 | Qualified main-power state | Sheet 02 internal branch gating and Sheet 06 |
 | `CORE_POWER_GOOD` | Sheet 03 TPS3890-Q1 supervisor | Local core-supervisor condition | Local to Sheet 03; not a hierarchical net |
 | `RESET_VALID` | Sheet 03 supervisor/reset implementation | Timed core readiness | Sheet 03 to Sheet 06 |
 | `POWER_FAULT_SUMMARY` | Sheet 01 eFuse diagnostic | Input-path fault diagnostic | Existing diagnostic/test route; not a Sheet 03 input |
 
-Sheet 03 shall not recreate `MAIN_INPUT_VALID`, infer a substitute `POWER_FAULT_SUMMARY`, or export `CORE_POWER_GOOD`. Package 04R consumes `MAIN_POWER_GOOD`, creates the local core-good condition, and exports `RESET_VALID`.
+Sheet 03 shall not recreate `MAIN_INPUT_VALID`, infer a substitute `POWER_FAULT_SUMMARY`, export `CORE_POWER_GOOD`, or consume `MAIN_POWER_GOOD`. Package 04R creates the local core-good condition and exports `RESET_VALID`.
 
 ## USB and recovery ownership
 
