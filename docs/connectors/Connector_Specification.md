@@ -150,14 +150,14 @@ J9 exposes an isolated, externally powered dry-contact set and is not a power so
 
 ## 12. J10 — I2C Expansion
 
-J10 is an optional controlled local shared-bus expansion provision, not a general-purpose field bus, and does not promise compatibility with arbitrary peripherals or wiring. Pull-up ownership, available power, supply domains, address compatibility, cable assumptions, supported loading, hot-plug policy, physical segmentation, fault behavior, and recovery remain `TBD`.
+J10 is the optional controlled local expansion interface released by [ICD-001](../icd/ICD-001_J10_Expansion_Interface.md). It is a segmented 3.3 V, 100 kHz I2C port for one approved accessory on no more than 0.30 m of in-enclosure cable. It is not a general-purpose field bus, and intentional live mating is prohibited. The contact numbers below remain logical placeholders until Sheet 09 selects and releases the connector.
 
 | Pin | Signal name | Direction | Voltage domain | Active state | Description | Protection | Notes | Status |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `+3V3` | Power out | 3.3 V | N/A | Proposed limited expansion supply | Current protection TBD | Availability and reserve defined by approved power budget | Proposed |
-| 2 | `GND` | Power return | 0 V | N/A | Expansion return | TBD |  | Locked |
-| 3 | `I2C_SDA` | Bidirectional | TBD logic | N/A | Shared I2C data | ESD/series resistor TBD | Bus loading, cable, address, and pull-ups TBD | Locked |
-| 4 | `I2C_SCL` | Output | TBD logic | N/A | Shared I2C clock | ESD/series resistor TBD | Bus loading, cable, and pull-ups TBD | Locked |
+| 1 | `EXPANSION_VCC` | Power out | 3.3 V nominal | N/A | Main-qualified optional supply, 100 mA maximum | Sheet 02 current limit; coordinated reverse-injection/ESD containment | DNP until an accessory and connector are released | Electrical contract locked |
+| 2 | `GND` | Power return | 0 V | N/A | Non-isolated logic return | Keyed connector; optional shield is not a return | Must mate before or with signals where sequencing is available | Electrical contract locked |
+| 3 | `J10_I2C_SDA` | Bidirectional | 3.3 V open drain | Low asserted | Segmented standard-mode I2C data | Sheet 08 buffer, 4.70 kΩ external pull-up, series resistor, low-capacitance TVS | One accessory, 100 pF segment maximum, address `0x30`–`0x37` | Electrical contract locked |
+| 4 | `J10_I2C_SCL` | Output | 3.3 V open drain | Low asserted | Segmented standard-mode I2C clock; accessory clock stretching prohibited | Same as SDA | 100 kHz maximum | Electrical contract locked |
 
 ## 13. J11 — Spare GPIO Expansion
 
