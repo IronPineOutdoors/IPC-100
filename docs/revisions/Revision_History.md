@@ -100,6 +100,8 @@ Documentation-only changes still require document revision control and review. A
 
 | 2026-07-29 | Architecture Resolution Package AR-02 | Accepted ADR-040; moved five low-risk UI functions behind Sheet 07 I²C, assigned four power-request GPIOs, fixed status/USB ownership, and reserved GPIO37/42 for mutually exclusive future communications | Iron Pine Outdoors Engineering | ODI-SCH-008 closed; Package 04R authorized |
 
+| 2026-07-29 | Preliminary KiCad Capture Package 04R implementation review | Stopped before Sheet 03 modification because retained `MAIN_POWER_GOOD` has no GPIO or approved local consumer in the fully allocated ADR-040 map | Iron Pine Outdoors Engineering | Blocked pending narrow status-input disposition |
+
 ## 8. Prototype traceability
 
 Every physical prototype shall be marked and recorded with:
