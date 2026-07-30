@@ -87,3 +87,11 @@ ECO-001 moved `ACTUATOR_PERMIT` to U3 pin 1 at `(59.76, 38.38)` and `MASTER_INHI
 DFR-01R independently reviewed the corrected coordinates, label counts, pin functions, root ownership, and regression checks. The original DFR-01-F01 defect is dispositioned **CLOSED PENDING NATIVE ERC**.
 
 DFR-01R identified a separate deterministic-input-default defect, DFR-01R-F11. That finding does not regress ECO-001 and is controlled independently.
+
+## ECO-002 Disposition
+
+DFR-01R-F11 was classified Major because U3’s attached authorization inputs still lacked deterministic defaults when Sheet 06 was absent, unpowered, or disconnected.
+
+ECO-002 adds a 100 kΩ pulldown from `ACTUATOR_PERMIT` to GND and a 100 kΩ pullup from `MASTER_INHIBIT` to `+3V3_CORE`. The default input combination is therefore permit low and inhibit high, forcing both translator-enable outputs inactive.
+
+The **Major Finding is Corrected — Pending Verification**. Native ERC, exact-device leakage/threshold review, and follow-up DFR disposition remain open.

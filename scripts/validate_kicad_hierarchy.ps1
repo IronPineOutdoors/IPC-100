@@ -304,6 +304,29 @@ foreach ($authorizationNet in $authorizationConnectivity) {
         $errors.Add("Sheet 05 $($authorizationNet.Signal) is not attached exactly once at the controlled U3 pin endpoint.")
     }
 }
+$authorizationBiases = @(
+    @{
+        Signal = 'ACTUATOR_PERMIT'
+        Value = '100 kΩ U3 PERMIT fail-low input bias'
+        NetAttachment = '\(label "ACTUATOR_PERMIT" \(at 145 38\.38 90\)'
+        SafeAttachment = '\(label "GND" \(at 145 48\.54 90\)'
+    },
+    @{
+        Signal = 'MASTER_INHIBIT'
+        Value = '100 kΩ U3 INHIBIT fail-high input bias'
+        NetAttachment = '\(label "MASTER_INHIBIT" \(at 160 53\.62 90\)'
+        SafeAttachment = '\(label "\+3V3_CORE" \(at 160 43\.46 90\)'
+    }
+)
+foreach ($authorizationBias in $authorizationBiases) {
+    if ([regex]::Matches($motionContent, [regex]::Escape($authorizationBias.Value)).Count -ne 1) {
+        $errors.Add("Sheet 05 $($authorizationBias.Signal) must have exactly one ECO-002 100 kΩ input bias.")
+    }
+    if ([regex]::Matches($motionContent, $authorizationBias.NetAttachment).Count -ne 1 -or
+        [regex]::Matches($motionContent, $authorizationBias.SafeAttachment).Count -ne 1) {
+        $errors.Add("Sheet 05 $($authorizationBias.Signal) ECO-002 bias is not attached to its controlled safe-state nets.")
+    }
+}
 if ([regex]::Matches($motionContent, '47 kΩ MCU-side inactive default').Count -ne 8) {
     $errors.Add('Sheet 05 must contain exactly eight 47 kΩ MCU-side inactive-default pulldowns.')
 }
@@ -373,6 +396,7 @@ Write-Host 'ADR-041 MAIN_POWER_GOOD: Sheet 02 to Sheet 06; absent from Sheet 03'
 Write-Host 'ADR-042 safety inputs: five supervised NC loops; local-only fault diagnostics'
 Write-Host 'ADR-043 motion interfaces: eight MCU commands and eight safe outputs; no fault summary'
 Write-Host 'ECO-001 authorization connectivity: ACTUATOR_PERMIT and MASTER_INHIBIT attached to U3'
+Write-Host 'ECO-002 authorization defaults: PERMIT fail-low and INHIBIT fail-high with local 100 kΩ bias'
 Write-Host 'Package 06R motion conditioning: dual independent translators, opposing-PWM suppression, safe-side defaults'
 Write-Host 'Component symbols: confined to implemented Sheets 01 through 05'
 Write-Host 'Footprint assignments: 0'
