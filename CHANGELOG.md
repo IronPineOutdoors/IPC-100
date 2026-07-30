@@ -14,3 +14,4 @@ Initial project creation.
 - Paused Package 03 before schematic modification after identifying the missing Sheet 02 enable-request and upstream main-valid interfaces; documented the architecture entry-gate blocker.
 - Completed Power-Control Interface Resolution AR-01, accepted ADR-039, synchronized Sheets 00–03, closed ODI-SCH-007, and authorized Package 03R.
 - Implemented Package 03R Sheet 02 preliminary power conversion, source selection, power-good qualification, and protected branch control without footprints.
+- Paused Package 04 before Sheet 03 modification because ADR-039's four power-request outputs lack approved GPIO assignments and the requested status/USB boundaries conflict with the frozen hierarchy.

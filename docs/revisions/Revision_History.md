@@ -96,6 +96,8 @@ Documentation-only changes still require document revision control and review. A
 
 | 2026-07-29 | Preliminary KiCad Capture Package 03R | Implemented Sheet 02 main/core regulators, source mux, power-good logic, request qualification, and main-only/protected branches | Iron Pine Outdoors Engineering | Preliminary functional capture; peer review and release blockers retained |
 
+| 2026-07-29 | Preliminary KiCad Capture Package 04 entry-gate review | Stopped before Sheet 03 modification because four ADR-039 request outputs lack approved GPIOs and requested power-status/USB ownership conflicts with the frozen hierarchy | Iron Pine Outdoors Engineering | Blocked pending GPIO and cross-sheet interface amendment |
+
 ## 8. Prototype traceability
 
 Every physical prototype shall be marked and recorded with:
