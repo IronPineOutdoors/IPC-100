@@ -123,6 +123,8 @@ Documentation-only changes still require document revision control and review. A
 
 | 2026-07-30 | ECV-001 ECO-002 Verification | Verified deterministic authorization input states, failure defaults, architecture preservation, and repository regressions | Iron Pine Outdoors Engineering | VERIFIED; Package 07 / Sheet 06 authorized for preliminary capture |
 
+| 2026-07-30 | Package 07 Sheet 06 entry-gate review | Stopped before Sheet 06 modification because the frozen hierarchy and GPIO allocation contain no firmware watchdog-service route required to generate `WATCHDOG_VALID` | Iron Pine Outdoors Engineering | Blocked pending narrow architecture/interface resolution |
+
 ## 8. Prototype traceability
 
 Every physical prototype shall be marked and recorded with:

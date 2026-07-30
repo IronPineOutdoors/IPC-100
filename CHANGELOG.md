@@ -30,3 +30,4 @@ Initial project creation.
 - Completed DFR-01R: verified ECO-001 and closed DFR-01-F01 pending native ERC, synchronized the translator compatibility open item, and kept Package 07 blocked by the newly identified missing U3 authorization-input defaults.
 - Completed ECO-002 by adding deterministic 100 kΩ fail-low/fail-high local bias to the Sheet 05 U3 authorization inputs; native ERC, exact-device verification, and follow-up review remain pending.
 - Completed ECV-001 verification of ECO-002 and authorized Package 07 / Sheet 06 preliminary schematic capture while retaining native ERC and exact-device release checks.
+- Paused Package 07 before Sheet 06 modification because the frozen hierarchy and ADR-040 allocation provide no firmware watchdog-service signal for the required independent watchdog; recorded ODI-SCH-017.
