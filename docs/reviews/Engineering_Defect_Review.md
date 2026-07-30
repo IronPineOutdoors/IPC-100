@@ -84,4 +84,6 @@ Sheet 06 implementation remains blocked until the corrected Sheet 05 has passed 
 
 ECO-001 moved `ACTUATOR_PERMIT` to U3 pin 1 at `(59.76, 38.38)` and `MASTER_INHIBIT` to U3 pin 2 at `(59.76, 43.46)`. It added regression checks for exact pin attachment and Sheet 06-to-Sheet 05 producer/consumer ownership without changing logic, polarity, hierarchy, GPIO allocation, or architecture.
 
-The implementation defect is **Corrected**. Closure remains **pending native ERC confirmation** and follow-up DFR disposition.
+DFR-01R independently reviewed the corrected coordinates, label counts, pin functions, root ownership, and regression checks. The original DFR-01-F01 defect is dispositioned **CLOSED PENDING NATIVE ERC**.
+
+DFR-01R identified a separate deterministic-input-default defect, DFR-01R-F11. That finding does not regress ECO-001 and is controlled independently.

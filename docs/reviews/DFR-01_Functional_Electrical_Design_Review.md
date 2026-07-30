@@ -1,5 +1,7 @@
 # DFR-01 — Functional Electrical Design Review
 
+> **Superseded for the Package 07 entry decision by [DFR-01R](DFR-01R_Functional_Electrical_Design_Review_Reissue.md).** DFR-01R verifies ECO-001, dispositions every original finding, and records the current Sheet 06 entry-gate decision. This original review remains controlled history.
+
 | Document control | Value |
 | --- | --- |
 | Platform | IPC-100 |

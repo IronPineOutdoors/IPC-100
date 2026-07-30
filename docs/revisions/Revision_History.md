@@ -117,6 +117,8 @@ Documentation-only changes still require document revision control and review. A
 
 | 2026-07-30 | ECO-001 Authorization Connectivity Correction | Attached Sheet 05 `ACTUATOR_PERMIT` and `MASTER_INHIBIT` labels to the intended U3 pins and added pin-level regression checks without changing architecture | Iron Pine Outdoors Engineering | Corrected; pending native ERC confirmation and DFR-01 reissue |
 
+| 2026-07-30 | DFR-01R Functional Electrical Design Review Reissue | Verified ECO-001 and dispositioned DFR-01-F01 closed pending native ERC; identified missing deterministic local defaults on U3 authorization inputs | Iron Pine Outdoors Engineering | NOT APPROVED; Package 07 remains blocked by DFR-01R-F11 |
+
 ## 8. Prototype traceability
 
 Every physical prototype shall be marked and recorded with:

@@ -27,3 +27,4 @@ Initial project creation.
 - Implemented Package 06R Sheet 05 with dual-axis opposing-PWM suppression, fail-low hardware authorization, independent 3.3 V-to-5 V translator branches, defined inactive defaults, output damping, and ESD provisions without connectors, external drivers, or footprints.
 - Completed DFR-01 integrated functional electrical review; issued a NOT APPROVED decision and documented the Critical Sheet 05 authorization-input connectivity defect before Sheet 06 entry.
 - Completed ECO-001 by repairing Sheet 05 `ACTUATOR_PERMIT` and `MASTER_INHIBIT` attachment to U3 and adding authorization-connectivity regression checks; native ERC and DFR-01 reissue remain pending.
+- Completed DFR-01R: verified ECO-001 and closed DFR-01-F01 pending native ERC, synchronized the translator compatibility open item, and kept Package 07 blocked by the newly identified missing U3 authorization-input defaults.
