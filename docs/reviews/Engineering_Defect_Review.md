@@ -94,4 +94,6 @@ DFR-01R-F11 was classified Major because U3’s attached authorization inputs st
 
 ECO-002 adds a 100 kΩ pulldown from `ACTUATOR_PERMIT` to GND and a 100 kΩ pullup from `MASTER_INHIBIT` to `+3V3_CORE`. The default input combination is therefore permit low and inhibit high, forcing both translator-enable outputs inactive.
 
-The **Major Finding is Corrected — Pending Verification**. Native ERC, exact-device leakage/threshold review, and follow-up DFR disposition remain open.
+ECV-001 verified R27/R28 attachment, polarity, loading, failure defaults, hierarchy preservation, and regression results. The **Major Finding is Corrected and Verified** for preliminary-capture entry.
+
+Native ERC and exact-device leakage/threshold verification remain later schematic-release requirements; they do not reopen DFR-01R-F11.

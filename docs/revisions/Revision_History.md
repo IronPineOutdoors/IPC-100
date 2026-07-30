@@ -121,6 +121,8 @@ Documentation-only changes still require document revision control and review. A
 
 | 2026-07-30 | ECO-002 Deterministic Authorization Input Bias | Added 100 kΩ fail-low `ACTUATOR_PERMIT` and fail-high `MASTER_INHIBIT` local biases on Sheet 05 without changing architecture or ownership | Iron Pine Outdoors Engineering | Major finding corrected; pending verification and DFR reissue |
 
+| 2026-07-30 | ECV-001 ECO-002 Verification | Verified deterministic authorization input states, failure defaults, architecture preservation, and repository regressions | Iron Pine Outdoors Engineering | VERIFIED; Package 07 / Sheet 06 authorized for preliminary capture |
+
 ## 8. Prototype traceability
 
 Every physical prototype shall be marked and recorded with:

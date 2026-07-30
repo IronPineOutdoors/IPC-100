@@ -54,4 +54,4 @@ Package 02 implements Sheet 01 Power Entry and Protection. Package 03R implement
 
 Package 06R retains exact-part, timing, partial-power, external-driver compatibility, ESD, and native ERC checks as release blockers. The next implementation package is **Package 07 — Sheet 06 Relay Output and Master Inhibit**, subject to its entry gate.
 
-DFR-01R verifies ECO-001 and dispositions the original authorization attachment defect closed pending native ERC. ECO-002 now provides deterministic local defaults for both U3 authorization inputs. Package 07 remains blocked only until ECO-002 passes follow-up review; native ERC and exact-device checks remain later release requirements.
+DFR-01R verifies ECO-001 and dispositions the original authorization attachment defect closed pending native ERC. ECO-002 provides deterministic local defaults for both U3 authorization inputs, and ECV-001 verifies the correction. **Package 07 — Sheet 06 Relay Output and Master Inhibit is authorized for preliminary schematic capture.** Native ERC and exact-device checks remain later release requirements.

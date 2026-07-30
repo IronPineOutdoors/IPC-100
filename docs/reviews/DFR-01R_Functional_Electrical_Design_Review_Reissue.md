@@ -1,5 +1,7 @@
 # DFR-01R — Functional Electrical Design Review Reissue
 
+> **Entry-gate disposition updated by [ECV-001](ECV-001_ECO-002_Verification.md).** ECV-001 verifies ECO-002, closes DFR-01R-F11 for preliminary-capture entry, and authorizes Package 07 / Sheet 06. This review remains the controlled record of the pre-correction decision.
+
 | Document control | Value |
 | --- | --- |
 | Platform | IPC-100 |
