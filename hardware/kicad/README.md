@@ -50,6 +50,6 @@ See [Schematic Hierarchy and Block Interface Definition](../../docs/hardware/Sch
 
 ## Current status
 
-Package 02 implements Sheet 01 Power Entry and Protection. Package 03R implements Sheet 02 Power Conversion and Rail Control. Package 04R implements Sheet 03 ESP32-S3 Core, Boot, Programming & Recovery. AR-04/ADR-042 resolved the Package 05 entry gate, and Package 05R implements Sheet 04 supervised safety and command inputs. Sheets 05–09 remain circuitry-free placeholders. No footprints, PCB layout, actuator drivers, application peripherals, or connector implementation are present.
+Package 02 implements Sheet 01 Power Entry and Protection. Package 03R implements Sheet 02 Power Conversion and Rail Control. Package 04R implements Sheet 03 ESP32-S3 Core, Boot, Programming & Recovery. Package 05R implements Sheet 04 supervised safety and command inputs. AR-05/ADR-043 resolved the motion-interface entry gate, and Package 06R implements Sheet 05 axis command conditioning and external-driver logic translation. Sheets 06–09 remain circuitry-free placeholders. No footprints, PCB layout, actuator power drivers, application peripherals, or connector implementation are present.
 
-Package 06 stopped before Sheet 05 modification; AR-05 and ADR-043 have now aligned the motion contract and removed the orphan output-fault export. The next authorized work is **Package 06R — Sheet 05 Rev A Axis Command Conditioning and External Driver Logic Interface**.
+Package 06R retains exact-part, timing, partial-power, external-driver compatibility, ESD, and native ERC checks as release blockers. The next implementation package is **Package 07 — Sheet 06 Relay Output and Master Inhibit**, subject to its entry gate.

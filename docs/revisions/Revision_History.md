@@ -111,6 +111,8 @@ Documentation-only changes still require document revision control and review. A
 
 | 2026-07-29 | Preliminary KiCad Capture Package 04R | Implemented Sheet 03 ESP32-S3-WROOM-1-N8 core, reset supervision, boot controls, MCU-side USB, UART0 recovery, and ADR-040 GPIO fanout | Iron Pine Outdoors Engineering | Preliminary functional capture; native ERC, peer review, and release blockers retained |
 
+| 2026-07-30 | Preliminary KiCad Capture Package 06R | Implemented Sheet 05 dual-axis command conditioning, hardware opposing-PWM suppression, fail-low authorization, independent logic translation, safe defaults, damping, and ESD provisions | Iron Pine Outdoors Engineering | Preliminary functional capture; ODI-SCH-014 and native ERC remain open |
+
 ## 8. Prototype traceability
 
 Every physical prototype shall be marked and recorded with:

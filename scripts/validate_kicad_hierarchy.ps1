@@ -116,8 +116,9 @@ foreach ($sheetBlock in $sheetBlocks) {
     $isImplementedPowerConversion = $sheetFile -eq 'sheets/02_Power_Conversion.kicad_sch'
     $isImplementedProcessor = $sheetFile -eq 'sheets/03_ESP32_Core.kicad_sch'
     $isImplementedSafetyInputs = $sheetFile -eq 'sheets/04_Safety_Inputs.kicad_sch'
+    $isImplementedMotion = $sheetFile -eq 'sheets/05_Motor_Interfaces.kicad_sch'
     $requiredNote = 'Detailed implementation intentionally deferred to subsequent engineering package.'
-    if (-not $isImplementedPowerEntry -and -not $isImplementedPowerConversion -and -not $isImplementedProcessor -and -not $isImplementedSafetyInputs -and -not $childContent.Contains($requiredNote)) {
+    if (-not $isImplementedPowerEntry -and -not $isImplementedPowerConversion -and -not $isImplementedProcessor -and -not $isImplementedSafetyInputs -and -not $isImplementedMotion -and -not $childContent.Contains($requiredNote)) {
         $errors.Add("$sheetName is missing the required implementation-deferral note.")
     }
     if ($isImplementedPowerEntry) {
@@ -166,6 +167,24 @@ foreach ($sheetBlock in $sheetBlocks) {
         $implementedSymbols = [regex]::Matches($childContent, '(?m)^  \(symbol \(lib_id').Count
         if ($implementedSymbols -eq 0) {
             $errors.Add("$sheetName contains no implemented component symbols.")
+        }
+    }
+    if ($isImplementedMotion) {
+        $implementedSymbols = [regex]::Matches($childContent, '(?m)^  \(symbol \(lib_id').Count
+        if ($implementedSymbols -eq 0) {
+            $errors.Add("$sheetName contains no implemented component symbols.")
+        }
+        foreach ($requiredNet in @(
+            '+3V3_CORE', 'MOTOR_LOGIC_5V_A', 'MOTOR_LOGIC_5V_B',
+            'ACTUATOR_PERMIT', 'MASTER_INHIBIT',
+            'AXIS1_RPWM_MCU', 'AXIS1_LPWM_MCU', 'AXIS1_REN_MCU', 'AXIS1_LEN_MCU',
+            'AXIS2_RPWM_MCU', 'AXIS2_LPWM_MCU', 'AXIS2_REN_MCU', 'AXIS2_LEN_MCU',
+            'AXIS1_RPWM_SAFE', 'AXIS1_LPWM_SAFE', 'AXIS1_REN_SAFE', 'AXIS1_LEN_SAFE',
+            'AXIS2_RPWM_SAFE', 'AXIS2_LPWM_SAFE', 'AXIS2_REN_SAFE', 'AXIS2_LEN_SAFE'
+        )) {
+            if (-not $childContent.Contains('"' + $requiredNet + '"')) {
+                $errors.Add("$sheetName is missing required net $requiredNet.")
+            }
         }
     }
 }
@@ -250,12 +269,37 @@ if ($rootContent -match '"OUTPUT_FAULT_SUMMARY"' -or
 
 $placeholderFiles = @($rootFile) + @(
     Get-ChildItem -LiteralPath $sheetDirectory -Filter '*.kicad_sch' |
-        Where-Object Name -notin @('01_Power_Entry.kicad_sch', '02_Power_Conversion.kicad_sch', '03_ESP32_Core.kicad_sch', '04_Safety_Inputs.kicad_sch') |
+        Where-Object Name -notin @('01_Power_Entry.kicad_sch', '02_Power_Conversion.kicad_sch', '03_ESP32_Core.kicad_sch', '04_Safety_Inputs.kicad_sch', '05_Motor_Interfaces.kicad_sch') |
         Select-Object -ExpandProperty FullName
 )
 $placeholderSymbols = Select-String -Path $placeholderFiles -Pattern '^  \(symbol \(lib_id' -ErrorAction SilentlyContinue
 if ($placeholderSymbols) {
-    $errors.Add('Component symbols exist outside the authorized Sheets 01 through 04 scope.')
+    $errors.Add('Component symbols exist outside the authorized Sheets 01 through 05 scope.')
+}
+
+$motionFile = Join-Path $sheetDirectory '05_Motor_Interfaces.kicad_sch'
+$motionContent = Get-Content -LiteralPath $motionFile -Raw
+if ([regex]::Matches($motionContent, '47 kΩ MCU-side inactive default').Count -ne 8) {
+    $errors.Add('Sheet 05 must contain exactly eight 47 kΩ MCU-side inactive-default pulldowns.')
+}
+if ([regex]::Matches($motionContent, '33 Ω series damping').Count -ne 8) {
+    $errors.Add('Sheet 05 must contain exactly eight 33 Ω output damping resistors.')
+}
+if ([regex]::Matches($motionContent, '10 kΩ safe-side inactive default').Count -ne 8) {
+    $errors.Add('Sheet 05 must contain exactly eight 10 kΩ safe-side inactive-default pulldowns.')
+}
+if ([regex]::Matches($motionContent, 'SN74LXC4T245-class').Count -ne 2) {
+    $errors.Add('Sheet 05 must contain exactly two independent four-channel translator branches.')
+}
+foreach ($requiredExpression in @('R_OK = RPWM AND NOT LPWM', 'L_OK = LPWM AND NOT RPWM', 'EN = PERMIT AND NOT INHIBIT')) {
+    if (-not $motionContent.Contains($requiredExpression)) {
+        $errors.Add("Sheet 05 is missing required safety expression: $requiredExpression.")
+    }
+}
+if ($motionContent -match '\(hierarchical_label "[^"]*GPIO\d+' -or
+    $motionContent -match '"(LIMIT_LEFT|LIMIT_RIGHT|LIMIT_UP|LIMIT_DOWN|POSITION_[^"]*)"' -or
+    $motionContent -match '"OUTPUT_FAULT_SUMMARY"') {
+    $errors.Add('Sheet 05 contains an ADR-043-rejected raw GPIO, limit/position, or fault-summary interface.')
 }
 
 $safetyFile = Join-Path $sheetDirectory '04_Safety_Inputs.kicad_sch'
@@ -303,5 +347,6 @@ Write-Host 'AR-01 interfaces: one producer and one consumer each'
 Write-Host 'ADR-041 MAIN_POWER_GOOD: Sheet 02 to Sheet 06; absent from Sheet 03'
 Write-Host 'ADR-042 safety inputs: five supervised NC loops; local-only fault diagnostics'
 Write-Host 'ADR-043 motion interfaces: eight MCU commands and eight safe outputs; no fault summary'
-Write-Host 'Component symbols: confined to implemented Sheets 01 through 04'
+Write-Host 'Package 06R motion conditioning: dual independent translators, opposing-PWM suppression, safe-side defaults'
+Write-Host 'Component symbols: confined to implemented Sheets 01 through 05'
 Write-Host 'Footprint assignments: 0'
