@@ -56,4 +56,6 @@ Sheets 08 and 09 remain circuitry-free placeholders. No connector implementation
 
 Exact production parts, final RGB current-setting values, OLED and BME280 module electrical limits, bus-capacitance measurement, environmental qualification, physical test-pad placement, and native KiCad ERC remain controlled prototype or release items. Repository structural validation passes for the implemented Sheet 07 scope.
 
-The next candidate package is **Package 09 — Sheet 08 Expansion and Future Interfaces**, subject to its package-specific entry gate. Sheet 09 connectors and production access, footprint assignment, and PCB layout remain separately gated.
+The Package 09 entry-gate review determined that Sheet 08 has only an unresolved optional J10 I²C boundary. Sheet 08 remains a circuitry-free placeholder until a narrow interface-control decision releases cable, electrical, power, hot-plug, backfeed, address, protection, recovery, and Sheet 09 connector requirements. GPIO37, CAN, RS-485, wired RangeHub integration, and other speculative expansion remain documentation-only reservations.
+
+Sheet 09 connectors and production access, footprint assignment, and PCB layout remain separately gated.
