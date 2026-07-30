@@ -1,5 +1,7 @@
 # IPC-100 Rev A Power Architecture Engineering Review
 
+> **ADR-042 amendment (2026-07-30):** `FIELD_SENSE_VCC` is the accepted 5.0 V nominal, main-only field source for STOP, limits, ARM, and FIRE. Sheet 02 owns generation and main qualification; Sheet 04 owns excitation, protection, supervision, and translation. USB-only operation leaves field wiring unpowered.
+
 | Document control | Value |
 | --- | --- |
 | Platform | Iron Pine IPC-100 |

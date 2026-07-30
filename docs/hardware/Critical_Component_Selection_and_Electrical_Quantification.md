@@ -253,7 +253,7 @@ The released Rev A harness assumption is **10 m maximum per loop**, routed away 
 
 ### 8.2 ARM, FIRE, and encoder
 
-ARM and FIRE are normally-open dry contacts. Encoder A/B/push are non-safety dry contacts. Use 3.3 V, 10 kΩ pull-ups, 1 kΩ connector series resistors, 100 nF filters, and an SN74LVC14A Schmitt-trigger stage. A closed contact reads active low at the field node; name the conditioned MCU nets so firmware polarity is unambiguous.
+ARM and FIRE are normally-open dry contacts biased from main-only `FIELD_SENSE_VCC` through 10.0 kΩ ±1% per ADR-042. Use 1 kΩ connector series resistance, 100 nF filtering, and a protected comparator/receiver that translates to `+3V3_CORE`; the conditioned nets are active high when the contact is closed. Encoder A/B/push remain non-safety 3.3 V dry contacts on Sheet 07 and may use 10 kΩ pull-ups and an SN74LVC14A stage. No ARM/FIRE field excitation may remain powered in USB-only service.
 
 No field input may drive an ESP32 pin directly. External voltage injection is not supported. A ±8 kV IEC 61000-4-2 contact-discharge design objective applies at accessible enclosure connectors, but compliance depends on the final connector, enclosure, grounding, and PCB layout.
 

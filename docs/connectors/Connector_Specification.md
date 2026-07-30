@@ -1,5 +1,7 @@
 # IPC-100 Connector Specification
 
+> **ADR-042 amendment (2026-07-30):** The [External Safety Interface Control Document](../interfaces/External_Safety_Interface_Control_Document.md) controls field voltage, contact/EOL standard, 10 m/2 nF cable limits, grounding, shielding, and the preliminary connector-family contract for STOP, J4, J5, ARM, and FIRE. Earlier `TBD` electrical entries remain only as architecture history; exact orderable connectors and footprints remain open.
+
 | Document control | Value |
 | --- | --- |
 | Document title | IPC-100 Connector Specification |

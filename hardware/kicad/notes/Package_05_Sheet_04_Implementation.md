@@ -1,8 +1,8 @@
 # Package 05 — Sheet 04 Entry-Gate Review
 
-**Status: blocked before schematic modification.**
+**Status: historical entry-gate stop; resolved by AR-04 / ADR-042. Package 05R is authorized.**
 
-Package 05 reviewed the frozen IPC-100 Rev A input architecture before placing any Sheet 04 circuitry. The authoritative documents do not yet present one synchronized implementation contract. In accordance with the package entry-gate rule, `sheets/04_Safety_Inputs.kicad_sch` remains the Package 01 circuitry-free placeholder.
+Package 05 reviewed the frozen IPC-100 Rev A input architecture before placing any Sheet 04 circuitry. The authoritative documents did not yet present one synchronized implementation contract. In accordance with the package entry-gate rule, `sheets/04_Safety_Inputs.kicad_sch` remained the Package 01 circuitry-free placeholder. AR-04 subsequently accepted ADR-042 and the External Safety Interface Control Document, resolving the conflicts below without modifying CAD.
 
 ## Intended input inventory
 
@@ -81,5 +81,5 @@ After AR-04 acceptance, proceed with **Package 05R — Sheet 04 Safety Inputs, I
 - [x] Approved inventory, classifications, contact types, GPIOs, and Sheet 06 consumer compared.
 - [x] Cable, voltage, thresholds, filtering, and timing compared.
 - [x] Sheet 04 confirmed unchanged.
-- [ ] AR-04 accepted and authoritative documents synchronized.
-- [ ] Package 05R authorized.
+- [x] AR-04 accepted and authoritative documents synchronized.
+- [x] Package 05R authorized.

@@ -20,3 +20,4 @@ Initial project creation.
 - Completed Architecture Resolution Package AR-03 and accepted ADR-041, removing firmware visibility of `MAIN_POWER_GOOD` while preserving Sheet 02 branch gating, Sheet 06 actuator authorization, all GPIO assignments, and USB-only recovery.
 - Implemented Package 04R Sheet 03 ESP32-S3 core, supervision/reset, boot recovery, MCU-side USB, UART0 recovery, and ADR-040 GPIO fanout without connectors, footprints, or application circuitry.
 - Paused Package 05 before Sheet 04 modification because authoritative safety-input contracts remain unsynchronized and the diagnostic fault-net consumer/GPIO contract is unresolved; recorded the required AR-04 scope.
+- Completed AR-04 and accepted ADR-042, freezing the Rev A external field-input, contact, polarity, fault, timing, power-domain, and actuator-permission contract and authorizing Package 05R without schematic or GPIO changes.

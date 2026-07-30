@@ -1,5 +1,7 @@
 # IPC-100 Rev A Output Electrical Architecture Review
 
+> **ADR-042 amendment (2026-07-30):** The [External Safety Interface Control Document](External_Safety_Interface_Control_Document.md) controls the Rev A `ACTUATOR_PERMIT`, `MASTER_INHIBIT`, STOP, reset, watchdog, motor-gating, and relay-gating boundary for Sheets 04–06. Earlier optional or polarity-open statements on those signals are historical.
+
 | Document control | Value |
 | --- | --- |
 | Platform | Iron Pine IPC-100 |

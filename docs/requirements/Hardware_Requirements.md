@@ -132,9 +132,9 @@ Normal operating input range and transient-survival range are separate requireme
 - The `LIMIT_LEFT`, `LIMIT_RIGHT`, `LIMIT_UP`, and `LIMIT_DOWN` logical names define the reusable interface only. Product repositories determine which physical axis, direction, mechanism, or travel endpoint each input represents.
 - STOP and all four directional limits use individually returned, normally-closed, de-energize-to-safe supervised dry-contact loops. Open, invalid, faulted, and unknown states receive the conservative safe interpretation.
 - ARM and FIRE use momentary normally-open dry contacts. ARM grants no output directly; FIRE requires a new qualified transition after a valid ARM sequence. Product repositories define labels, ergonomics, timeouts, and permitted application behavior.
-- INP-012 and INP-013 refine the dedicated physical STOP requirement in SAF-001. The behavioral contract is approved at architecture level; supervision windows, termination, field voltage, hardware inhibit implementation, and quantitative response remain `TBD`.
+- INP-012 and INP-013 refine the dedicated physical STOP requirement in SAF-001. ADR-042 and the External Safety Interface Control Document accept the 5 V supervised-loop, window, cable, timing, polarity, and hardware-inhibit contract for Rev A preliminary capture.
 - The exact ESD standard, surge profile, clamping topology, series impedance, filtering, and connector-level protection for INP-005 remain `TBD` until the field-wiring environment is approved.
-- Final field voltage, cable limits, pull/bias implementation, supervision windows/termination, series impedance, capacitance, hysteresis, debounce interval, and response-time limits remain `TBD`.
+- Field voltage, cable limits, pull/bias behavior, supervision windows/termination, series impedance, capacitance, debounce, and response-time limits are controlled by ADR-042. Exact protection parts and hysteresis population require implementation analysis before schematic release.
 
 ## 7. Output requirements
 

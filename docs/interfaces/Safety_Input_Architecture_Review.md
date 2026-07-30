@@ -1,5 +1,7 @@
 # IPC-100 Rev A Safety Input Electrical Architecture Review
 
+> **ADR-042 amendment (2026-07-30):** The [External Safety Interface Control Document](External_Safety_Interface_Control_Document.md) accepts and controls the Rev A 5 V field standard, 10 m/2 nF cable envelope, contact types, state windows, timing, polarity, fault visibility, and Sheets 04–06 ownership. Its accepted values supersede the architecture-stage `TBD` and “partially satisfied” statements retained below as review history.
+
 | Document control | Value |
 | --- | --- |
 | Platform | Iron Pine IPC-100 |

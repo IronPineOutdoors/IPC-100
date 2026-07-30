@@ -55,7 +55,7 @@ The recommended ten-sheet hierarchy is retained because it separates energy entr
 | 01 | Power Entry and Protection | J1-side input protection block, USB VBUS protection, battery-sense front end, raw source status | Regulators, USB data, connector symbol | None | `VIN_PROTECTED`, `USB_5V_PROTECTED`, `BATTERY_SENSE` | `VIN_RAW`, `USB_VBUS_RAW` | Raw sources from 09 | Protected sources/status to 02/03/06 | Input indicator concept | Abnormal-input and USB contracts | Partially satisfied |
 | 02 | Power Conversion and Rail Control | Main 5 V, core source selection, 3.3 V core, main-only branch control, power-good generation | Input transient protection, load-interface conditioning | None | `+5V_MAIN`, `CORE_SOURCE`, `+3V3_CORE`, `RELAY_VCC`, `MOTOR_LOGIC_5V_A/B`, `OLED_VCC`, `SENSOR_VCC`, `UI_VCC`, `EXPANSION_VCC`, `MAIN_POWER_GOOD` | `VIN_PROTECTED`, `USB_5V_PROTECTED` | Protected sources, enable requests | Rails and qualified status | Separately controlled peripheral branches | Load envelopes/topologies | Partially satisfied |
 | 03 | ESP32-S3 Core, Boot, Reset, USB, and Recovery | Module placeholder, core support placeholders, EN/GPIO0, USB data, UART0, straps, GPIO fanout, ADC termination, I2C/MCPWM/status/control nets | Field protection, power conversion, motor/relay drivers | None | `RESET_VALID`, MCU command nets | `+3V3_CORE`, `BATTERY_SENSE` | Conditioned inputs, inhibit/rail status | MCU commands, I2C, USB/UART, diagnostics | Optional UART access population controlled on 09 | Exact module variant | Partially satisfied |
-| 04 | Safety and Command Inputs | STOP/limit/ARM/FIRE field protection, supervision, conditioning, fault states; conservative defaults | Connector symbols, product mechanics, master-inhibit decision logic | None | Conditioned input/fault nets, `STOP_HW_INHIBIT` | Field-sense power, `+3V3_CORE` | Raw contact/return nets from 09 | MCU inputs and STOP hardware state | None | Field voltage/windows/protection | Partially satisfied |
+| 04 | Safety and Command Inputs | STOP/limit/ARM/FIRE field protection, supervision, conditioning, fault states; conservative defaults | Connector symbols, product mechanics, master-inhibit decision logic | None | Seven conditioned inputs, local fault test nets, `STOP_HW_INHIBIT` | Field-sense power, `+3V3_CORE` | Raw contact/return nets from 09 | MCU inputs and STOP hardware state | None | ADR-042 / External Safety ICD | Satisfied for preliminary capture |
 | 05 | Motor-Driver Logic Interfaces | Two-axis safe gating, conditioning/translation, interface-power fault boundaries | Motor current, motor drivers, master-inhibit generation | None | Eight connector-side safe command nets | `+3V3_CORE`, `MOTOR_LOGIC_5V_A/B` | Eight MCU commands, `MASTER_INHIBIT` | Eight J2/J3 nets, optional diagnostics | Feedback placeholders only if approved | Logic levels/timing/conditioning | Partially satisfied |
 | 06 | Relay Output and Master Inhibit | Entire inhibit decision/qualification block, reset/watchdog/power/STOP interaction, relay authorization, coil drive placeholder, isolation boundary | Contact-side load protection, motor conditioning, power generation | None | `MASTER_INHIBIT`, optional inhibit/fault feedback, relay coil actuation | `+3V3_CORE`, `RELAY_VCC` | `STOP_HW_INHIBIT`, `MAIN_POWER_GOOD`, `RESET_VALID`, watchdog state, `RELAY_CMD_MCU` | Motor inhibit, relay contact nets to 09, diagnostics | Feedback/watchdog placeholders | Inhibit circuit and relay ratings | Partially satisfied |
 | 07 | User Interface and Peripherals | RGB/buzzer drive placeholders, OLED/sensor interfaces, I2C boundary, OLED reset conditioning, encoder conditioning | Safety inputs, shared I2C expansion protection, connector symbols | None | Conditioned encoder nets, J6/J7/J8-side UI nets | `+3V3_CORE`, `UI_VCC`, `OLED_VCC`, `SENSOR_VCC` | MCU UI/status/I2C/reset nets | Physical-interface nets to 09 | OLED/sensor/RGB/buzzer populations | Modules, loads, I2C contract | Partially satisfied |
@@ -222,9 +222,9 @@ The following matrix covers all 27 required application signals plus service, ma
 | `RESET_VALID` | 03 | 06 | Reset qualification | 03 | None/base diagnostic | Safety status | Yes | Required prototype | Implementation open |
 | `STOP_HW_INHIBIT` | 04 | 06 | STOP hardware path | 04 | None | Safety status | Yes | Required prototype | Implementation open |
 | `MASTER_INHIBIT` | 06 | 05 and relay actuation | Inhibit decision | 06 | Cannot override | Safety control | Yes | Required production/prototype | Behavior fixed; circuit open |
-| `MASTER_INHIBIT_STATUS` | 06 | 03 | Optional feedback | 06 | Base diagnostic | Diagnostic candidate | Yes if adopted | Prototype required if adopted | Resource decision open |
-| `WATCHDOG_VALID` | 06 or approved supervisor | 06 | Watchdog qualification | 06 | Base/external policy TBD | Safety candidate | Yes if adopted | Prototype required | Boundary open |
-| `INPUT_FAULT_SUMMARY` | 04 | 03 | Input diagnostics | 04 | Base diagnostics | Diagnostic candidate | Yes if adopted | Optional | Detection architecture open |
+| `MASTER_INHIBIT_STATUS` | Not adopted | None | No Rev A GPIO | 06 if added later | None | Diagnostic reservation only | No | No | ADR required |
+| `WATCHDOG_VALID` | 06 watchdog | 06 permit logic and test access | Watchdog qualification | 06 | No processor feedback | Safety status | No | Required prototype | Boundary fixed by ADR-042 |
+| `INPUT_FAULT_SUMMARY` | Not adopted | None | No Rev A GPIO | 04 if added later | None | Diagnostic reservation only | No | No | ADR required |
 | `OUTPUT_FAULT_SUMMARY` | 05/06/07 | 03 | Output diagnostics | Source sheets | Base diagnostics | Diagnostic candidate | Yes if adopted | Optional | Hardware support open |
 | `POWER_FAULT_SUMMARY` | 01/02 | 03 | Power diagnostics | 01/02 | Base diagnostics | Diagnostic candidate | Yes if adopted | Optional | Hardware support open |
 
@@ -253,7 +253,7 @@ Stable external names stay unchanged at connector and firmware boundaries. Inter
 | `_FAULT` | Detectable invalid/fault state; polarity not implied | `STOP_FAULT` | Diagnostic path only |
 | `_MCU` or `_CMD_MCU` | Processor-originated pre-safety command | `AXIS1_RPWM_MCU`, `RELAY_CMD_MCU` | 03 to drive/inhibit owner |
 | `_SAFE` | Post-inhibit/post-safe-state command | `AXIS1_RPWM_SAFE`, `AXIS1_REN_SAFE` | 05/06 toward 09 |
-| `_STATUS` | Observed state, not authorization | `MASTER_INHIBIT_STATUS` | Source owner to 03 |
+| `_STATUS` | Observed state, not authorization | `MASTER_INHIBIT_STATUS` | Reserved naming only; ADR-042 does not adopt permit feedback in Rev A |
 | `_GOOD` / `_VALID` | Affirmative qualified condition only when thresholds are defined | `MAIN_POWER_GOOD`, `RESET_VALID` | Never used for an unqualified raw level |
 | `_RETURN` | Dedicated paired field return | `LIMIT_LEFT_RETURN` | 09 to 04; never generic ground alias |
 | `_N` | Electrically active-low | Use only after polarity is approved | Prohibited while polarity remains TBD |
@@ -266,7 +266,7 @@ Recommended internal chains include:
 - `AXIS1_RPWM_MCU` → inhibit/conditioning → `AXIS1_RPWM_SAFE`;
 - `RELAY_CMD_MCU` → inhibit authorization → `RELAY_AUTH_SAFE` → `RELAY_COIL_DRIVE`.
 
-`MASTER_INHIBIT` means the hardware is currently forcing or requiring the inactive output state. Its electrical polarity is intentionally not encoded. Reserved names include the stable connector signals, all GPIO-map logical names, and rail names already controlled by the power architecture.
+ADR-042 freezes `MASTER_INHIBIT` active high and `ACTUATOR_PERMIT` active high, with `MASTER_INHIBIT = NOT ACTUATOR_PERMIT`. `STOP_HW_INHIBIT` and all processor-conditioned STOP/limit/ARM/FIRE observations are active high when asserted. Reserved names include the stable connector signals, all GPIO-map logical names, and rail names already controlled by the power architecture.
 
 ## 11. Connector ownership
 
@@ -323,7 +323,7 @@ Outputs from Sheet 06:
 
 - `MASTER_INHIBIT` to Sheet 05 and the relay authorization chain;
 - `RELAY_AUTH_SAFE` and `RELAY_COIL_DRIVE` internally;
-- optional `MASTER_INHIBIT_STATUS`, watchdog, or fault feedback to Sheet 03.
+- no permit, watchdog, individual electrical-fault, or fault-summary feedback to Sheet 03 in Rev A per ADR-042.
 
 Power sheets own rail generation and `MAIN_POWER_GOOD`; they do not own the final actuator-authorization decision. Sheet 04 owns STOP electrical interpretation; it does not own motor or relay actuation. The selected inhibit circuit must force the safe state during invalid main power, reset, brownout, watchdog recovery, USB-only service, unknown STOP, and uninitialized operation without requiring firmware.
 

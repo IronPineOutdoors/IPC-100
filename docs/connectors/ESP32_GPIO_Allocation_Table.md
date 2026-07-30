@@ -9,7 +9,7 @@
 | Status | Accepted for preliminary Sheet 03 capture |
 | Date | 2026-07-29 |
 
-ADR-041 confirms that firmware does not consume `MAIN_POWER_GOOD`. No GPIO assignment or reserve changes are required; this 36-row inventory remains authoritative.
+ADR-041 confirms that firmware does not consume `MAIN_POWER_GOOD`. ADR-042 confirms that individual input-fault nets, `INPUT_FAULT_SUMMARY`, and permit feedback do not consume GPIOs in Rev A. No GPIO assignment or reserve changes are required; this 36-row inventory remains authoritative.
 
 ## Capability conventions
 
