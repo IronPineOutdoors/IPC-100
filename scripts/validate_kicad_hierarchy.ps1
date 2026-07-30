@@ -113,8 +113,9 @@ foreach ($sheetBlock in $sheetBlocks) {
     }
 
     $isImplementedPowerEntry = $sheetFile -eq 'sheets/01_Power_Entry.kicad_sch'
+    $isImplementedPowerConversion = $sheetFile -eq 'sheets/02_Power_Conversion.kicad_sch'
     $requiredNote = 'Detailed implementation intentionally deferred to subsequent engineering package.'
-    if (-not $isImplementedPowerEntry -and -not $childContent.Contains($requiredNote)) {
+    if (-not $isImplementedPowerEntry -and -not $isImplementedPowerConversion -and -not $childContent.Contains($requiredNote)) {
         $errors.Add("$sheetName is missing the required implementation-deferral note.")
     }
     if ($isImplementedPowerEntry) {
@@ -126,6 +127,15 @@ foreach ($sheetBlock in $sheetBlocks) {
             if (-not $childContent.Contains('"' + $requiredNet + '"')) {
                 $errors.Add("$sheetName is missing required net $requiredNet.")
             }
+        }
+    }
+    if ($isImplementedPowerConversion) {
+        $implementedSymbols = [regex]::Matches($childContent, '(?m)^  \(symbol \(lib_id').Count
+        if ($implementedSymbols -eq 0) {
+            $errors.Add("$sheetName contains no implemented component symbols.")
+        }
+        if ($childContent.Contains('"POWER_VALID"')) {
+            $errors.Add("$sheetName contains rejected net POWER_VALID.")
         }
     }
 }
@@ -170,12 +180,12 @@ foreach ($contract in $interfaceContracts) {
 
 $placeholderFiles = @($rootFile) + @(
     Get-ChildItem -LiteralPath $sheetDirectory -Filter '*.kicad_sch' |
-        Where-Object Name -ne '01_Power_Entry.kicad_sch' |
+        Where-Object Name -notin @('01_Power_Entry.kicad_sch', '02_Power_Conversion.kicad_sch') |
         Select-Object -ExpandProperty FullName
 )
 $placeholderSymbols = Select-String -Path $placeholderFiles -Pattern '^  \(symbol \(lib_id' -ErrorAction SilentlyContinue
 if ($placeholderSymbols) {
-    $errors.Add('Component symbols exist outside the authorized Sheet 01 scope.')
+    $errors.Add('Component symbols exist outside the authorized Sheets 01 and 02 scope.')
 }
 
 $footprints = Select-String -Path $schematicFiles -Pattern '\(footprint ' -ErrorAction SilentlyContinue
@@ -195,5 +205,5 @@ Write-Host 'Project JSON: valid'
 Write-Host 'S-expressions: balanced'
 Write-Host 'Root/child ports: matched and unique'
 Write-Host 'AR-01 interfaces: one producer and one consumer each'
-Write-Host 'Component symbols: confined to implemented Sheet 01'
+Write-Host 'Component symbols: confined to implemented Sheets 01 and 02'
 Write-Host 'Footprint assignments: 0'

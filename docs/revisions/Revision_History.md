@@ -94,6 +94,8 @@ Documentation-only changes still require document revision control and review. A
 
 | 2026-07-29 | Power-Control Interface Resolution AR-01 | Accepted ADR-039; defined rail states, main-source qualification, branch requests, voltage domains, and synchronized Sheets 00–03 | Iron Pine Outdoors Engineering | ODI-SCH-007 closed; Package 03R authorized |
 
+| 2026-07-29 | Preliminary KiCad Capture Package 03R | Implemented Sheet 02 main/core regulators, source mux, power-good logic, request qualification, and main-only/protected branches | Iron Pine Outdoors Engineering | Preliminary functional capture; peer review and release blockers retained |
+
 ## 8. Prototype traceability
 
 Every physical prototype shall be marked and recorded with:

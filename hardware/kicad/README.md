@@ -50,6 +50,6 @@ See [Schematic Hierarchy and Block Interface Definition](../../docs/hardware/Sch
 
 ## Current status
 
-Package 02 implements Sheet 01 Power Entry and Protection. AR-01/ADR-039 synchronizes the main-input-valid and peripheral-request interfaces across Sheets 00–03. Sheets 02–09 remain circuitry-free placeholders. No footprints, PCB layout, downstream regulators, or connector implementation are present.
+Package 02 implements Sheet 01 Power Entry and Protection. Package 03R implements Sheet 02 Power Conversion and Rail Control against AR-01/ADR-039. Sheets 03–09 remain circuitry-free placeholders. No footprints, PCB layout, ESP32, USB data, actuator drivers, or connector implementation are present.
 
-The next package is **IPC-100 Rev A Preliminary KiCad Capture — Package 03R — Sheet 02 Power Conversion and Rail Control Implementation Resumption**.
+The next package is **IPC-100 Rev A Preliminary KiCad Capture — Package 04 — Sheet 03 ESP32-S3 Core, Programming, Recovery, and Power Requests**.
