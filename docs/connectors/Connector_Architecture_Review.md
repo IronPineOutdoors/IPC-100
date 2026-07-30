@@ -1,5 +1,7 @@
 # IPC-100 Connector Architecture Review
 
+> **ICD-002 disposition (2026-07-30):** [ICD-002](../icd/ICD-002_External_Connector_Harness_Service_Interface.md) closes the open Package 10 interface choices and takes precedence over preliminary alternatives in this review. J8 is split into J8A STOP and J8B UI; J11/J12 remain documentation-only; J6/J7 require ECO-003 before Package 10R.
+
 | Document control | Value |
 | --- | --- |
 | Platform | Iron Pine IPC-100 |

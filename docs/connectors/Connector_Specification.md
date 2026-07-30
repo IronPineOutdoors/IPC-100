@@ -1,5 +1,7 @@
 # IPC-100 Connector Specification
 
+> **ICD-002 release note (2026-07-30):** [ICD-002](../icd/ICD-002_External_Connector_Harness_Service_Interface.md) controls the Rev A connector, harness, and service-interface contract where this earlier specification is incomplete or conflicts. It requires split J8A STOP/J8B UI connectors, bounds J9 to the released SELV dry-contact envelope, defines J13 as USB 2.0 device/UFP service power and data, keeps J11/J12 documentation-only, and gates J6/J7 on ECO-003.
+
 > **ADR-042 amendment (2026-07-30):** The [External Safety Interface Control Document](../interfaces/External_Safety_Interface_Control_Document.md) controls field voltage, contact/EOL standard, 10 m/2 nF cable limits, grounding, shielding, and the preliminary connector-family contract for STOP, J4, J5, ARM, and FIRE. Earlier `TBD` electrical entries remain only as architecture history; exact orderable connectors and footprints remain open.
 
 | Document control | Value |

@@ -2,6 +2,7 @@
 
 Initial project creation.
 
+- Accepted ICD-002, releasing the Rev A external connector, quantitative harness, J8A/J8B partition, J9 SELV dry-contact, J13 USB device/UFP, factory-fixture, and J6/J7 isolated-branch contracts; Package 10R is authorized after mandatory ECO-003 verification.
 - Refactored repository boundaries to separate the reusable IPC-100 platform from CrossWind product-specific development.
 - Completed the initial IPC-100 Rev A Engineering Blueprint for architecture and requirements review.
 - Expanded the Engineering Blueprint with platform vision, scope boundaries, design principles, and functional and non-functional requirements.
