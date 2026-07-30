@@ -115,8 +115,9 @@ foreach ($sheetBlock in $sheetBlocks) {
     $isImplementedPowerEntry = $sheetFile -eq 'sheets/01_Power_Entry.kicad_sch'
     $isImplementedPowerConversion = $sheetFile -eq 'sheets/02_Power_Conversion.kicad_sch'
     $isImplementedProcessor = $sheetFile -eq 'sheets/03_ESP32_Core.kicad_sch'
+    $isImplementedSafetyInputs = $sheetFile -eq 'sheets/04_Safety_Inputs.kicad_sch'
     $requiredNote = 'Detailed implementation intentionally deferred to subsequent engineering package.'
-    if (-not $isImplementedPowerEntry -and -not $isImplementedPowerConversion -and -not $isImplementedProcessor -and -not $childContent.Contains($requiredNote)) {
+    if (-not $isImplementedPowerEntry -and -not $isImplementedPowerConversion -and -not $isImplementedProcessor -and -not $isImplementedSafetyInputs -and -not $childContent.Contains($requiredNote)) {
         $errors.Add("$sheetName is missing the required implementation-deferral note.")
     }
     if ($isImplementedPowerEntry) {
@@ -159,6 +160,12 @@ foreach ($sheetBlock in $sheetBlocks) {
             if (-not $childContent.Contains('"' + $reservedPin + '"')) {
                 $errors.Add("$sheetName is missing reserved module pin $reservedPin.")
             }
+        }
+    }
+    if ($isImplementedSafetyInputs) {
+        $implementedSymbols = [regex]::Matches($childContent, '(?m)^  \(symbol \(lib_id').Count
+        if ($implementedSymbols -eq 0) {
+            $errors.Add("$sheetName contains no implemented component symbols.")
         }
     }
 }
@@ -222,12 +229,37 @@ if ($mainGoodProcessor -and $mainGoodProcessor.Value -match '\(pin "MAIN_POWER_G
 
 $placeholderFiles = @($rootFile) + @(
     Get-ChildItem -LiteralPath $sheetDirectory -Filter '*.kicad_sch' |
-        Where-Object Name -notin @('01_Power_Entry.kicad_sch', '02_Power_Conversion.kicad_sch', '03_ESP32_Core.kicad_sch') |
+        Where-Object Name -notin @('01_Power_Entry.kicad_sch', '02_Power_Conversion.kicad_sch', '03_ESP32_Core.kicad_sch', '04_Safety_Inputs.kicad_sch') |
         Select-Object -ExpandProperty FullName
 )
 $placeholderSymbols = Select-String -Path $placeholderFiles -Pattern '^  \(symbol \(lib_id' -ErrorAction SilentlyContinue
 if ($placeholderSymbols) {
-    $errors.Add('Component symbols exist outside the authorized Sheets 01, 02, and 03 scope.')
+    $errors.Add('Component symbols exist outside the authorized Sheets 01 through 04 scope.')
+}
+
+$safetyFile = Join-Path $sheetDirectory '04_Safety_Inputs.kicad_sch'
+$safetyContent = Get-Content -LiteralPath $safetyFile -Raw
+$supervisedInputs = @('STOP_IN', 'LIMIT_LEFT', 'LIMIT_RIGHT', 'LIMIT_UP', 'LIMIT_DOWN')
+foreach ($inputName in $supervisedInputs) {
+    if ($safetyContent -notmatch [regex]::Escape($inputName + '_RAW') -or
+        $safetyContent -notmatch [regex]::Escape($inputName + '_COND') -or
+        $safetyContent -notmatch [regex]::Escape($inputName + '_SENSE') -or
+        $safetyContent -notmatch [regex]::Escape($inputName + '_FAULT')) {
+        $errors.Add("Sheet 04 supervised channel $inputName is incomplete.")
+    }
+}
+
+if ([regex]::Matches($safetyContent, '2\.20 kΩ ±1% loop excitation').Count -ne 5) {
+    $errors.Add('Sheet 04 must contain exactly five 2.20 kΩ supervised-loop excitation resistors.')
+}
+if ([regex]::Matches($safetyContent, '100 nF X7R/C0G, τ=100 µs').Count -ne 5) {
+    $errors.Add('Sheet 04 must contain exactly five 100 µs supervised-loop filters.')
+}
+foreach ($rejectedExport in @('INPUT_FAULT_SUMMARY')) {
+    if ($rootContent -match '\(pin "' + [regex]::Escape($rejectedExport) + '"' -or
+        $safetyContent -match '\(hierarchical_label "' + [regex]::Escape($rejectedExport) + '"') {
+        $errors.Add("ADR-042 rejects hierarchical export $rejectedExport.")
+    }
 }
 
 $footprints = Select-String -Path $schematicFiles -Pattern '\(footprint ' -ErrorAction SilentlyContinue
@@ -248,5 +280,6 @@ Write-Host 'S-expressions: balanced'
 Write-Host 'Root/child ports: matched and unique'
 Write-Host 'AR-01 interfaces: one producer and one consumer each'
 Write-Host 'ADR-041 MAIN_POWER_GOOD: Sheet 02 to Sheet 06; absent from Sheet 03'
-Write-Host 'Component symbols: confined to implemented Sheets 01, 02, and 03'
+Write-Host 'ADR-042 safety inputs: five supervised NC loops; local-only fault diagnostics'
+Write-Host 'Component symbols: confined to implemented Sheets 01 through 04'
 Write-Host 'Footprint assignments: 0'

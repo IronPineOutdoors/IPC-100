@@ -21,3 +21,4 @@ Initial project creation.
 - Implemented Package 04R Sheet 03 ESP32-S3 core, supervision/reset, boot recovery, MCU-side USB, UART0 recovery, and ADR-040 GPIO fanout without connectors, footprints, or application circuitry.
 - Paused Package 05 before Sheet 04 modification because authoritative safety-input contracts remain unsynchronized and the diagnostic fault-net consumer/GPIO contract is unresolved; recorded the required AR-04 scope.
 - Completed AR-04 and accepted ADR-042, freezing the Rev A external field-input, contact, polarity, fault, timing, power-domain, and actuator-permission contract and authorizing Package 05R without schematic or GPIO changes.
+- Implemented Package 05R Sheet 04 with five 5 V supervised NC safety loops, protected and field-gated ARM/FIRE conditioning, active-high conservative processor outputs, local-only electrical diagnostics, and an independent STOP hardware-inhibit export.
