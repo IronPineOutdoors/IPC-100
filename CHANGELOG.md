@@ -33,3 +33,4 @@ Initial project creation.
 - Paused Package 07 before Sheet 06 modification because the frozen hierarchy and ADR-040 allocation provide no firmware watchdog-service signal for the required independent watchdog; recorded ODI-SCH-017.
 - Completed AR-06 and accepted ADR-044, assigning GPIO42 to `WATCHDOG_SERVICE_MCU`, defining a transition-qualified independent-watchdog contract, synchronizing Sheets 00/03/06, preserving GPIO37 as reserve, and authorizing Package 07R.
 - Implemented Package 07R Sheet 06 preliminary capture with the independent watchdog/qualifier, fail-safe authorization logic, deterministic biases, relay request gate, MOSFET driver, flyback clamp, and relay without footprints or downstream connector/layout work.
+- Completed MFG-01 manufacturing-readiness, DFM, DFT, serviceability, connector, and PCB-entry review; issued READY WITH MAJOR MANUFACTURING OBSERVATIONS and authorized Package 08 / Sheet 07 while retaining placement and release gates.
