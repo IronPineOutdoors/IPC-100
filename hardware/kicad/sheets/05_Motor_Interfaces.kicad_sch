@@ -104,10 +104,6 @@
     (effects (font (size 1.27 1.27)) (justify right))
     (uuid 10000000-0000-4000-8000-000000000733)
   )
-  (hierarchical_label "OUTPUT_FAULT_SUMMARY" (shape output) (at 180 85.64 180)
-    (effects (font (size 1.27 1.27)) (justify right))
-    (uuid 10000000-0000-4000-8000-000000000734)
-  )
   (sheet_instances
     (path "/" (page "6"))
   )

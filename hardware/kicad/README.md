@@ -52,4 +52,4 @@ See [Schematic Hierarchy and Block Interface Definition](../../docs/hardware/Sch
 
 Package 02 implements Sheet 01 Power Entry and Protection. Package 03R implements Sheet 02 Power Conversion and Rail Control. Package 04R implements Sheet 03 ESP32-S3 Core, Boot, Programming & Recovery. AR-04/ADR-042 resolved the Package 05 entry gate, and Package 05R implements Sheet 04 supervised safety and command inputs. Sheets 05–09 remain circuitry-free placeholders. No footprints, PCB layout, actuator drivers, application peripherals, or connector implementation are present.
 
-Package 06 stopped before Sheet 05 modification because its requested signal inventory and consumers conflict with the frozen Rev A motor-interface contract. The next required work is **AR-05 — Rev A Motion Interface Contract Alignment**, followed by corrected **Package 06R**.
+Package 06 stopped before Sheet 05 modification; AR-05 and ADR-043 have now aligned the motion contract and removed the orphan output-fault export. The next authorized work is **Package 06R — Sheet 05 Rev A Axis Command Conditioning and External Driver Logic Interface**.

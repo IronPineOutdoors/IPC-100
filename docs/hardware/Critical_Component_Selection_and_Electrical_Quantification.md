@@ -285,7 +285,7 @@ No Rev A GPIO is allocated for permit feedback. Provide a labeled production tes
 
 ## 10. Motor-driver logic interfaces — Sheet 05
 
-Use one **SN74LXC8T245** dual-supply translator for the eight J2/J3 command signals. Set A-side to 3.3 V, B-side to main-only 5 V, fix direction A-to-B, and use its output-enable pin as the common hardware gate. The part provides partial-power-down behavior and prevents a powered external interface from backfeeding the core through logic.
+ADR-043 supersedes the single shared SN74LXC8T245 selection. Use two independent four-channel SN74LXC4T245-class dual-supply translators, one for each J2/J3 command group. Set both A-sides to 3.3 V; set the Axis 1 B-side to `MOTOR_LOGIC_5V_A` and Axis 2 B-side to `MOTOR_LOGIC_5V_B`; fix direction A-to-B; and gate each output-enable from the common authorization contract. The selected orderable devices require partial-power-down/Ioff behavior so either external interface cannot backfeed the core or the other axis.
 
 Per channel:
 
@@ -295,6 +295,8 @@ Per channel:
 - TPD4E05U06 or equivalent low-capacitance ESD array per four signals;
 - no RC capacitor on PWM lines until edge/noise measurement justifies one;
 - translator OE defaults disabled with 100 kΩ and is enabled only by `ACTUATOR_PERMIT`.
+
+ADR-043 adds combinational suppression ahead of the translator: for each axis, simultaneous active RPWM and LPWM requests force both qualified PWM channels low. Use Q1 logic with defined partial-power behavior and ≤500 ns total authorized-path propagation. Firmware still owns legal command generation and the 20 ms all-off reversal sequence. Translator OE requires `ACTUATOR_PERMIT` high and `MASTER_INHIBIT` low; disagreement disables all outputs.
 
 J2/J3 logic-high is 5 V nominal; logic-low ≤0.4 V at the connector under the released load. Design source/sink load is ≤2 mA per signal. Preliminary PWM is 20 kHz, 0–100% command range, at least 10-bit firmware resolution, and 100 ns-class electrical edges after series damping. External-driver modules must accept these levels, share IPC-100 logic ground, draw ≤100 mA from each protected 5 V branch, and present no voltage when IPC-100 is off.
 
@@ -484,7 +486,7 @@ The schematic review shall repeat every calculation with selected orderable-part
 | Window comparators | 3 × LM339B-Q1 | LM2901B-Q1 | TI | Wide supply, open collector, available channels | Threshold/reference tolerance | TI current documentation |
 | Logic gates | SN74LVC1G11/1G08-Q1 | NC7SZ family after qualification | TI / onsemi | Defined fail-low permit logic | Partial-power sequencing | Active-family verification required |
 | Input Schmitt | SN74LVC14A-Q1 | 74HC14-Q1 after threshold review | TI / Nexperia | 3.3 V conditioning/hysteresis | Input thresholds under slow edges | Active-family verification required |
-| Motor translator | SN74LXC8T245 | SN74LVCC3245A after review | TI | 8 channels, dual supply, Ioff, OE | Single common direction/OE | TI lists active |
+| Motor translator | 2 × SN74LXC4T245-class | Two independently powered four-channel Ioff translators after review | TI / qualified alternate | Preserves separate Axis A/B 5 V domains, Ioff, OE | Exact Q1/orderable suffix and propagation validation | Lifecycle check at release |
 | Relay | Omron G5Q-1 DC5 family | Panasonic ALQ/HE family after load review | Omron / Panasonic | Established SPDT power family | Contact load is not closed | Omron lists G5Q in production |
 | Relay/status MOSFET | 2N7002P, 60 V | BSS138P with rating check | Nexperia / Infineon | Default-off low-side drive | Coil clamp and ESD | Multi-vendor generic family |
 | I2C isolation | TCA4307 | TCA9511A | TI | Hot-swap and stuck-bus recovery | External-bus behavior/test | TI lifecycle check at release |

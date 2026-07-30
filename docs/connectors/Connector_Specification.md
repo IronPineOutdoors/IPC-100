@@ -44,7 +44,7 @@ Directions are relative to IPC-100. `Power out` entries are limited logic/interf
 
 ## 4. J2 — Axis 1 Motor Driver Logic
 
-J2 preserves the six-pin BTS7960-style reference contract without promising universal compatibility. The hardware-safe state is both PWM commands inactive and both enables disabled. A hardware master inhibit overrides all four signals during STOP, invalid main power, reset, brownout, watchdog recovery, USB-only service, and uninitialized operation. Direction commands are mutually exclusive and reversal passes through disabled/coast. Logic levels, active polarity, PWM timing, drive capability, grounding, cable, protection, and backfeed implementation remain `TBD`. `+5V` is limited main-only logic power; neither it nor `GND` carries motor current.
+J2 preserves the six-pin BTS7960-style reference contract without promising universal compatibility. ADR-043 freezes active-high 5 V logic, ≤2 mA signal loading, 33 Ω source damping, 10 kΩ safe-side pulldowns, 10–25 kHz PWM, hardware opposing-PWM suppression, and a ≤1 m / ≤500 pF-per-signal internal harness. The hardware-safe state is both PWM commands inactive and both enables disabled. Sheet 06 authorization controls Sheet 05 output enable during STOP, invalid main power, reset, brownout, watchdog recovery, USB-only service, and uninitialized operation. `+5V` is limited main-only logic power; neither it nor `GND` carries motor current.
 
 | Pin | Signal name | Direction | Voltage domain | Active state | Description | Protection | Notes | Status |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -57,7 +57,7 @@ J2 preserves the six-pin BTS7960-style reference contract without promising univ
 
 ## 5. J3 — Axis 2 Motor Driver Logic
 
-J3 uses the same output contract, master inhibit, mutually exclusive direction policy, disabled reversal transition, power boundary, and unresolved quantitative electrical items as J2.
+J3 uses the same ADR-043 output contract, authorization gate, mutually exclusive direction policy, disabled reversal transition, power boundary, cable limit, and protection requirements as J2.
 
 | Pin | Signal name | Direction | Voltage domain | Active state | Description | Protection | Notes | Status |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- |

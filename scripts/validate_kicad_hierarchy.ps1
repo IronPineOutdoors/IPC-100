@@ -182,7 +182,23 @@ $interfaceContracts = @(
     @{ Signal = 'OLED_POWER_REQ'; Producer = '03 ESP32 Core'; Consumer = '02 Power Conversion' },
     @{ Signal = 'SENSOR_POWER_REQ'; Producer = '03 ESP32 Core'; Consumer = '02 Power Conversion' },
     @{ Signal = 'UI_POWER_REQ'; Producer = '03 ESP32 Core'; Consumer = '02 Power Conversion' },
-    @{ Signal = 'EXPANSION_POWER_REQ'; Producer = '03 ESP32 Core'; Consumer = '02 Power Conversion' }
+    @{ Signal = 'EXPANSION_POWER_REQ'; Producer = '03 ESP32 Core'; Consumer = '02 Power Conversion' },
+    @{ Signal = 'AXIS1_RPWM_MCU'; Producer = '03 ESP32 Core'; Consumer = '05 Motor Interfaces' },
+    @{ Signal = 'AXIS1_LPWM_MCU'; Producer = '03 ESP32 Core'; Consumer = '05 Motor Interfaces' },
+    @{ Signal = 'AXIS1_REN_MCU'; Producer = '03 ESP32 Core'; Consumer = '05 Motor Interfaces' },
+    @{ Signal = 'AXIS1_LEN_MCU'; Producer = '03 ESP32 Core'; Consumer = '05 Motor Interfaces' },
+    @{ Signal = 'AXIS2_RPWM_MCU'; Producer = '03 ESP32 Core'; Consumer = '05 Motor Interfaces' },
+    @{ Signal = 'AXIS2_LPWM_MCU'; Producer = '03 ESP32 Core'; Consumer = '05 Motor Interfaces' },
+    @{ Signal = 'AXIS2_REN_MCU'; Producer = '03 ESP32 Core'; Consumer = '05 Motor Interfaces' },
+    @{ Signal = 'AXIS2_LEN_MCU'; Producer = '03 ESP32 Core'; Consumer = '05 Motor Interfaces' },
+    @{ Signal = 'AXIS1_RPWM_SAFE'; Producer = '05 Motor Interfaces'; Consumer = '09 Connectors + Test Access' },
+    @{ Signal = 'AXIS1_LPWM_SAFE'; Producer = '05 Motor Interfaces'; Consumer = '09 Connectors + Test Access' },
+    @{ Signal = 'AXIS1_REN_SAFE'; Producer = '05 Motor Interfaces'; Consumer = '09 Connectors + Test Access' },
+    @{ Signal = 'AXIS1_LEN_SAFE'; Producer = '05 Motor Interfaces'; Consumer = '09 Connectors + Test Access' },
+    @{ Signal = 'AXIS2_RPWM_SAFE'; Producer = '05 Motor Interfaces'; Consumer = '09 Connectors + Test Access' },
+    @{ Signal = 'AXIS2_LPWM_SAFE'; Producer = '05 Motor Interfaces'; Consumer = '09 Connectors + Test Access' },
+    @{ Signal = 'AXIS2_REN_SAFE'; Producer = '05 Motor Interfaces'; Consumer = '09 Connectors + Test Access' },
+    @{ Signal = 'AXIS2_LEN_SAFE'; Producer = '05 Motor Interfaces'; Consumer = '09 Connectors + Test Access' }
 )
 
 foreach ($contract in $interfaceContracts) {
@@ -225,6 +241,11 @@ if (-not $mainGoodSafetyConsumer -or $mainGoodSafetyConsumer.Value -notmatch '\(
 }
 if ($mainGoodProcessor -and $mainGoodProcessor.Value -match '\(pin "MAIN_POWER_GOOD"') {
     $errors.Add('ADR-041 prohibits MAIN_POWER_GOOD on Sheet 03.')
+}
+
+if ($rootContent -match '"OUTPUT_FAULT_SUMMARY"' -or
+    (Get-Content -LiteralPath (Join-Path $sheetDirectory '05_Motor_Interfaces.kicad_sch') -Raw) -match '"OUTPUT_FAULT_SUMMARY"') {
+    $errors.Add('ADR-043 removes OUTPUT_FAULT_SUMMARY from the Rev A hierarchy.')
 }
 
 $placeholderFiles = @($rootFile) + @(
@@ -281,5 +302,6 @@ Write-Host 'Root/child ports: matched and unique'
 Write-Host 'AR-01 interfaces: one producer and one consumer each'
 Write-Host 'ADR-041 MAIN_POWER_GOOD: Sheet 02 to Sheet 06; absent from Sheet 03'
 Write-Host 'ADR-042 safety inputs: five supervised NC loops; local-only fault diagnostics'
+Write-Host 'ADR-043 motion interfaces: eight MCU commands and eight safe outputs; no fault summary'
 Write-Host 'Component symbols: confined to implemented Sheets 01 through 04'
 Write-Host 'Footprint assignments: 0'

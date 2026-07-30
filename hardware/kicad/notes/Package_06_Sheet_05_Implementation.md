@@ -7,11 +7,11 @@
 | Package | 06 |
 | Sheet | 05 — Motor Driver Interfaces |
 | Date | 2026-07-30 |
-| Status | Blocked before schematic modification |
+| Status | Historical entry-gate stop; resolved by AR-05 / ADR-043 |
 
 ## Decision
 
-Package 06 cannot be implemented as requested without violating the frozen ADR-040/ADR-042 allocation and the accepted Sheets 03–06/09 ownership boundary. In accordance with the instruction to treat the authoritative interfaces as frozen, `sheets/05_Motor_Interfaces.kicad_sch` remains the Package 01 circuitry-free placeholder.
+Package 06 could not be implemented as requested without violating the frozen ADR-040/ADR-042 allocation and the accepted Sheets 03–06/09 ownership boundary. In accordance with the instruction to treat the authoritative interfaces as frozen, `sheets/05_Motor_Interfaces.kicad_sch` remained the Package 01 circuitry-free placeholder. AR-05 subsequently accepted ADR-043 and the Motion Control Interface Control Document, resolving the conflicts without populating Sheet 05.
 
 No Sheet 05 symbol, net, port, UUID, reference, or footprint was changed.
 
@@ -32,7 +32,7 @@ The authoritative documents currently define this implementation:
 | `ACTUATOR_PERMIT` | Sheet 06 | Enable translator only while active high | Sheet 05 hardware |
 | `MASTER_INHIBIT` | Sheet 06 | Complementary active-high forced-safe qualification | Sheet 05 hardware |
 
-The selected preliminary implementation is one SN74LXC8T245 with A-side at `+3V3_CORE`, B-side at the applicable main-only motor-logic 5 V domain, A-to-B direction, common output enable controlled by authorization, 47 kΩ MCU-side pulldowns, 10 kΩ safe-side pulldowns, 33 Ω output series resistors, and two four-channel low-capacitance ESD arrays. PWM is preliminarily 20 kHz with no RC capacitor.
+AR-05 resolves the preliminary implementation to two independent four-channel SN74LXC4T245-class translators: both A-sides use `+3V3_CORE`, while the B-sides separately use `MOTOR_LOGIC_5V_A` and `MOTOR_LOGIC_5V_B`. Direction is A-to-B and output enable is controlled by authorization. Each channel uses a 47 kΩ MCU-side pulldown, 10 kΩ safe-side pulldown, 33 Ω output series resistor, and low-capacitance ESD provision. PWM is nominally 20 kHz with no RC capacitor.
 
 ## Conflicts in the Package 06 request
 
@@ -110,10 +110,9 @@ No GPIO change is recommended. The smallest disposition is to reject the unalloc
 - [x] Limit and position-feedback ownership checked.
 - [x] Diagnostic resources checked.
 - [x] Sheet 05 confirmed unchanged.
-- [ ] AR-05 accepted.
-- [ ] Corrected Package 06R authorized.
+- [x] AR-05 accepted.
+- [x] Corrected Package 06R authorized.
 
 ## Handoff
 
 Package 07 is not ready because Sheet 05 has not been implemented. After AR-05 acceptance, the next package should be **IPC-100 Rev A Preliminary KiCad Capture Package 06R — Sheet 05 Motor-Driver Logic Gating, Translation & External Interface Protection**.
-
