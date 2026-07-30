@@ -258,6 +258,8 @@
   (label "OLED_VCC" (at 104.76 147.38 180) (effects (font (size 0.85 0.85)) (justify right bottom)) (uuid 80000000-0000-4000-8000-000000000105))
   (label "I2C_SDA" (at 104.76 152.46 180) (effects (font (size 0.85 0.85)) (justify right bottom)) (uuid 80000000-0000-4000-8000-000000000106))
   (label "I2C_SCL" (at 104.76 157.54 180) (effects (font (size 0.85 0.85)) (justify right bottom)) (uuid 80000000-0000-4000-8000-000000000107))
+  (hierarchical_label "J6_I2C_SDA" (shape bidirectional) (at 104.76 152.46 180) (effects (font (size 0.85 0.85)) (justify right)) (uuid e0300000-0000-4000-8000-000000000001))
+  (hierarchical_label "J6_I2C_SCL" (shape output) (at 104.76 157.54 180) (effects (font (size 0.85 0.85)) (justify right)) (uuid e0300000-0000-4000-8000-000000000002))
   (label "OLED_RESET" (at 104.76 162.62 180) (effects (font (size 0.85 0.85)) (justify right bottom)) (uuid 80000000-0000-4000-8000-000000000108))
   (label "GND" (at 135.24 162.62 0) (effects (font (size 0.85 0.85)) (justify left bottom)) (uuid 80000000-0000-4000-8000-000000000109))
 
@@ -272,6 +274,8 @@
   (label "SENSOR_VCC" (at 274.76 147.38 180) (effects (font (size 0.85 0.85)) (justify right bottom)) (uuid 80000000-0000-4000-8000-000000000116))
   (label "I2C_SDA" (at 274.76 152.46 180) (effects (font (size 0.85 0.85)) (justify right bottom)) (uuid 80000000-0000-4000-8000-000000000117))
   (label "I2C_SCL" (at 274.76 157.54 180) (effects (font (size 0.85 0.85)) (justify right bottom)) (uuid 80000000-0000-4000-8000-000000000118))
+  (hierarchical_label "J7_I2C_SDA" (shape bidirectional) (at 274.76 152.46 180) (effects (font (size 0.85 0.85)) (justify right)) (uuid e0300000-0000-4000-8000-000000000003))
+  (hierarchical_label "J7_I2C_SCL" (shape output) (at 274.76 157.54 180) (effects (font (size 0.85 0.85)) (justify right)) (uuid e0300000-0000-4000-8000-000000000004))
   (no_connect (at 274.76 162.62) (uuid 80000000-0000-4000-8000-000000000119))
   (label "GND" (at 305.24 162.62 0) (effects (font (size 0.85 0.85)) (justify left bottom)) (uuid 80000000-0000-4000-8000-000000000120))
   (text "OLED/SENSOR rails are switched only by Sheet 02 from Sheet 03 requests. Sheet 07 adds no power switch. I2C pull-ups remain core-powered; exact modules must be unpowered-bus safe or receive series isolation in their released interface." (at 20 180 0) (effects (font (size 0.82 0.82)) (justify left bottom)) (uuid 80000000-0000-4000-8000-000000000121))

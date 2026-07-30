@@ -564,6 +564,28 @@ foreach ($rejectedExport in @('INPUT_FAULT_SUMMARY')) {
     }
 }
 
+$sheet07Content = Get-Content -LiteralPath (Join-Path $sheetDirectory '07_UI_Peripherals.kicad_sch') -Raw
+$sheet09Content = Get-Content -LiteralPath (Join-Path $sheetDirectory '09_Connectors_Test.kicad_sch') -Raw
+$eco003Signals = @(
+    @{ Name = 'J6_I2C_SDA'; ProducerShape = 'bidirectional'; ConsumerShape = 'bidirectional' },
+    @{ Name = 'J6_I2C_SCL'; ProducerShape = 'output'; ConsumerShape = 'input' },
+    @{ Name = 'J7_I2C_SDA'; ProducerShape = 'bidirectional'; ConsumerShape = 'bidirectional' },
+    @{ Name = 'J7_I2C_SCL'; ProducerShape = 'output'; ConsumerShape = 'input' }
+)
+foreach ($signal in $eco003Signals) {
+    $escapedName = [regex]::Escape($signal.Name)
+    if ([regex]::Matches($sheet07Content, '\(hierarchical_label "' + $escapedName + '" \(shape ' + $signal.ProducerShape + '\)').Count -ne 1) {
+        $errors.Add("ECO-003 $($signal.Name) must appear exactly once on Sheet 07 with $($signal.ProducerShape) direction.")
+    }
+    if ([regex]::Matches($sheet09Content, '\(hierarchical_label "' + $escapedName + '" \(shape ' + $signal.ConsumerShape + '\)').Count -ne 1) {
+        $errors.Add("ECO-003 $($signal.Name) must appear exactly once on Sheet 09 with $($signal.ConsumerShape) direction.")
+    }
+    if ([regex]::Matches($rootContent, '\(pin "' + $escapedName + '"').Count -ne 2 -or
+        [regex]::Matches($rootContent, '\(label "' + $escapedName + '"').Count -ne 2) {
+        $errors.Add("ECO-003 $($signal.Name) must have exactly one Sheet 07 endpoint and one Sheet 09 endpoint.")
+    }
+}
+
 $footprints = Select-String -Path $schematicFiles -Pattern '\(footprint ' -ErrorAction SilentlyContinue
 if ($footprints) {
     $errors.Add('Package 01 contains footprint assignments.')
@@ -591,6 +613,7 @@ Write-Host 'Package 06R motion conditioning: dual independent translators, oppos
 Write-Host 'Package 07R Sheet 06: independent watchdog, authorization logic, deterministic biases, and relay driver present'
 Write-Host 'Package 08 Sheet 07: deterministic encoder conditioning, core I2C expander, safe-default status drivers, peripheral boundaries, and DFT nodes present'
 Write-Host 'Package 09R Sheet 08: ICD-001 rail qualification, segmented I2C, external pull-ups, protection, filtering, and DFT nodes present'
+Write-Host 'ECO-003 hierarchy exposure: four approved J6/J7 I2C ports route once from Sheet 07 to Sheet 09'
 Write-Host 'References and UUIDs: unique within every schematic'
 Write-Host 'Component symbols: confined to implemented Sheets 01 through 08'
 Write-Host 'Footprint assignments: 0'

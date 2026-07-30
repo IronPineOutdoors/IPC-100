@@ -15,8 +15,8 @@ $ports = [regex]::Matches($sheet, '\(hierarchical_label\s+"([^"]+)"') |
     ForEach-Object { $_.Groups[1].Value } |
     Sort-Object -Unique
 
-if ($ports.Count -ne 54) {
-    throw "Expected 54 unique Sheet 09 hierarchical labels; found $($ports.Count)."
+if ($ports.Count -ne 58) {
+    throw "Expected 58 unique Sheet 09 hierarchical labels (54 frozen plus four ECO-003 exposures); found $($ports.Count)."
 }
 $missingPorts = @($ports | Where-Object { $icd -notmatch [regex]::Escape($_) })
 if ($missingPorts.Count -gt 0) {
@@ -68,4 +68,4 @@ if ($icd -match 'ICD-002 (?:PARTIALLY ACCEPTED|NOT ACCEPTED)') {
     throw "ICD-002 contains a conflicting final decision."
 }
 
-Write-Host "ICD-002 validation passed: 54 Sheet 09 ports, 11 connector designations, frozen GPIO constraints, and one final decision."
+Write-Host "ICD-002 validation passed: 54 frozen Sheet 09 ports plus four ECO-003 exposures, 11 connector designations, frozen GPIO constraints, and one final decision."

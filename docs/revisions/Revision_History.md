@@ -133,6 +133,7 @@ Documentation-only changes still require document revision control and review. A
 | 2026-07-30 | Package 09R Sheet 08 preliminary capture | Implemented the ICD-001 DNP expansion-power qualification, fail-disabled dual-supply I²C segment, external pull-ups, filtering, protection provisions, series damping, fault containment, and six DFT nodes | Iron Pine Outdoors Engineering | Preliminary capture complete; exact parts, connector release, native ERC, and prototype validation pending |
 | 2026-07-30 | Package 10 Sheet 09 implementation gate | Stopped before Sheet 09 modification after identifying missing J6/J7 I2C routing plus unresolved J8, J9, J13, fixture, and quantitative harness contracts | Iron Pine Outdoors Engineering | PACKAGE 10 / SHEET 09 REMAINS BLOCKED pending narrow connector/interface resolution |
 | 2026-07-30 | ICD-002 External Connector, Harness and Service Interface Release | Released the Rev A connector inventory, harness classes, split STOP/UI boundary, SELV relay-contact envelope, USB-C device/UFP role, factory fixture, and staged J6/J7 isolation contract | Iron Pine Outdoors Engineering | ICD-002 accepted; Package 10R authorized after mandatory ECO-003 verification |
+| 2026-07-30 | ECO-003 Sheet 09 Hierarchy Exposure | Exposed the four approved J6/J7 I2C interface names from Sheet 07 through Sheet 00 to the Sheet 09 placeholder without adding electrical functionality | Iron Pine Outdoors Engineering | ECO-003 complete; Package 10R authorized; native ERC pending |
 
 ## 8. Prototype traceability
 

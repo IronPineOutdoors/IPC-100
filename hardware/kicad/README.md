@@ -58,6 +58,6 @@ Exact production parts, final RGB current-setting values, OLED and BME280 module
 
 The Package 09 entry-gate review identified an unresolved optional J10 I²C boundary. ICD-001 subsequently released a restricted 3.3 V/100 kHz, 0.30 m, single-accessory, segmented I²C contract. Package 09R now implements Sheet 08 with DNP rail qualification/filtering, a fail-disabled dual-supply segment buffer, external pull-ups, local protection provisions, stuck-bus containment, and schematic DFT nodes. GPIO37, CAN, RS-485, wired RangeHub integration, and other speculative expansion remain unimplemented documentation-only reservations.
 
-ICD-002 resolves the Package 10 connector, harness, service, and quantitative interface blockers and authorizes Package 10R conditionally. Sheet 09 remains a component-free placeholder until mandatory ECO-003 adds and verifies the independently isolated J6/J7 I2C branches through Sheets 07, 00, and 09. No Package 10R schematic work may begin before that verification.
+ICD-002 resolves the Package 10 connector, harness, service, and quantitative interface blockers. ECO-003 now exposes and validates the four approved J6/J7 I2C hierarchy routes from Sheet 07 through Sheet 00 to Sheet 09. Package 10R is authorized; Sheet 09 remains a component-free placeholder, and its connector implementation, local protection, and the ICD-002 independent branch constraints remain Package 10R work.
 
 Footprint assignment and PCB layout remain separately gated.
