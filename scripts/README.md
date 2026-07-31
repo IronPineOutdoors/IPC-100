@@ -9,7 +9,7 @@ Package 09R implements Sheet 08 within ICD-001. ECO-004 corrects the J6/J7 branc
 
 SSR-01R uses all three validators as structural regression evidence for the post-ECO-004 Sheet 00–09 baseline. The checks cover the 54 frozen Sheet 09 ports, four ECO-003 ports, GPIO37/GPIO42 constraints, hierarchy, references, UUIDs, S-expression balance, ECO-004 interfaces, and zero footprints. They do not prove exact-device pin mapping, analog limits, timing, partial-power behavior, USB signal integrity, EMC, or native ERC.
 
-- `generate_csr01_inventory.ps1` extracts every non-power-symbol schematic instance into the canonical CSR-01 EBOM and blocked AVL sources. It deliberately does not infer MPNs, packages, ratings, vendors, or prices.
+- `generate_csr01_inventory.ps1` extracts every non-power-symbol schematic instance into the canonical EBOM and AVL sources. For CSR-01A it deterministically labels the 124 power-scope rows `BLOCKED - CSR-01A` and all 177 unrelated rows `NOT YET FROZEN`; it deliberately does not infer MPNs, packages, ratings, vendors, or prices.
 - `csv_to_xlsx.py` converts a UTF-8 CSV source into a reviewable, filtered, header-frozen XLSX using Python's standard library. The CSV remains canonical.
 - `normalize_references_eco005.ps1` applies and verifies the deterministic Sheet 01–09 reference ranges, preserves connector/DFT identifiers, rejects global duplicates, and generates the permanent old/new register. It is idempotent on an already-normalized ECO-005 baseline.
 

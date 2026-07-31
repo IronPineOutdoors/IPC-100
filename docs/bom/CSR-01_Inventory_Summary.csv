@@ -3,3 +3,6 @@
 "Rows with frozen MPN","0","BLOCKED"
 "Rows without frozen MPN","301","BLOCKED"
 "Repeated local reference names","0","NORMALIZED BY ECO-005"
+"CSR-01A power-scope rows","124","INVENTORIED"
+"CSR-01A frozen power rows","0","BLOCKED"
+"Rows outside CSR-01A","177","NOT YET FROZEN"

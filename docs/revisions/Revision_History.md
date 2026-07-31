@@ -23,6 +23,8 @@ CSR-01 / Package 11A inventoried 301 physical/logical schematic items but did no
 
 ECO-005 normalized all non-connector component references into deterministic Sheet 01–09 ranges, preserved the frozen connector/DFT designations, and reduced the global duplicate count from 63 repeated names to zero without changing UUIDs, nets, hierarchy, GPIOs, symbols, values, footprints, or PCB data. CSR-01A Power Component Selection is authorized; footprint assignment remains unauthorized.
 
+CSR-01A reviewed 124 power-related rows across Sheets 01, 02, 03, 07, 08, and 09 and marked the remaining 177 rows `NOT YET FROZEN`. No power MPN was frozen because source transient/fault limits, exact rail loads, simultaneous loading, thermal constraints, regulator passives/stability, source-transition timing, J1 requirements, and exact-order-code sourcing evidence remain incomplete. CSR-01A was not accepted and CSR-01B is not authorized.
+
 ## 2. Version types
 
 | Version type | Meaning | Example | Controlled independently |
