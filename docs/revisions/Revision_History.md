@@ -1,5 +1,9 @@
 # IPC-100 Revision History
 
+## 2026-07-31 — PAS-01R / Package 11A-P-R
+
+Dispositioned all 18 residual passives: 17 require named PACS-01 active selections and C305 requires a timing ECO because TI's TPS3890-Q1 equation yields approximately 10.7 ms from the captured 10 nF rather than the released 100 ms target. Synchronized EBOM/AVL blockers without changing schematics or footprints. PAS-01R remains incomplete.
+
 ## 2026-07-31 — PAS-01 / Package 11A-P
 
 Audited the corrected 85-reference blocked passive scope. Recorded 67 exact preferred MPNs as freeze eligible and retained 18 evidence-bound rows as blocked. Corrected PPQ-02 routing to 18 PPC-01, 85 PAS-01, 20 PACS-01 and one JCS-01 row. PAS-01 remains incomplete; no footprint or CAD artifact changed.

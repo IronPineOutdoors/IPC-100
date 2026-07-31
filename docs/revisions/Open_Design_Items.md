@@ -1,5 +1,9 @@
 # IPC-100 Open Design Items
 
+## PAS-01R disposition
+
+PAS-01R is **INCOMPLETE**. All 18 residual passives now have specific dispositions: 17 are blocked solely by named PACS-01 active selections; C305 requires a schematic ECO because 10 nF produces about 10.7 ms nominal with TPS3890-Q1, not the stated 100 ms target. No passive remains behind a generic curve/tool request. CSR-01A-R5 remains unauthorized.
+
 ## PAS-01 disposition
 
 PAS-01 is **INCOMPLETE**. The corrected passive population is 85 references, of which 67 now have exact preferred MPNs and electrical/package recommendations but remain pending canonical freeze approval. Eighteen references require PAS-01R manufacturer-curve, active-suffix/tool, hot-magnetic or precision-high-value closure. PPC-01, PACS-01, JCS-01, footprints and PCB work remain separate and unauthorized.

@@ -64,6 +64,12 @@ function Test-Csr01ArFrozen100kResistor {
 
 function Get-Csr01ArBlocker {
     param([string]$Sheet, [string]$Reference, [string]$Category, [string]$Value)
+    if ($Reference -eq 'C305') { return 'PAS-01R: BLOCKED - SCHEMATIC ECO REQUIRED. TPS3890-Q1 specifies tPD(r) = CCT(uF) x 1.07 + 25 us nominal; captured 10 nF yields approximately 10.725 ms, not the released 100 ms target.' }
+    if ($Reference -in @('C102','C103','C104','C109','L101')) { return 'PAS-01R: BLOCKED - ACTIVE DEVICE SELECTION REQUIRED. Exact U101/PPC input-protection operating waveform and active order code must precede capacitor or input-filter magnetic curve qualification.' }
+    if ($Reference -in @('C201','C202','C203','C204','C205','L201')) { return 'PAS-01R: BLOCKED - ACTIVE DEVICE SELECTION REQUIRED. Exact U201 LMR38020-Q1 suffix and WEBENCH/stability solution must precede output, bootstrap, timing, and magnetic selection.' }
+    if ($Reference -in @('C206')) { return 'PAS-01R: BLOCKED - ACTIVE DEVICE SELECTION REQUIRED. Exact U202 power-mux and U203 core-regulator selections must precede transition-capacitance and source-change qualification.' }
+    if ($Reference -in @('C208','C209','C210','L202')) { return 'PAS-01R: BLOCKED - ACTIVE DEVICE SELECTION REQUIRED. U203 remains a regulator class rather than a frozen MPN; its LC stability, soft-start equation, and inductor-current limits control these passives.' }
+    if ($Reference -eq 'R808') { return 'PAS-01R: BLOCKED - ACTIVE DEVICE SELECTION REQUIRED. Exact U801 supervisor suffix, threshold, hysteresis, SENSE leakage, and delay tolerance control the 4.47 MOhm feedback resistor.' }
     if ($Reference -in @('R201', 'U201')) { return 'ANALYSIS INCOMPLETE - ECO-007 corrected the 400 kHz LMR38020F-Q1 RT/SYNC network to 64.9 kOhm; exact suffix, oscillator, loop, loss, thermal, lifecycle, sourcing, and cost evidence remain CSR-01A-R3 work.' }
     if ($Reference -in @('R222', 'R223', 'R224', 'U209', 'U212', 'U213')) { return 'ANALYSIS INCOMPLETE - ECO-008R implements a generic 141 kOhm +/-1%, <=100 ppm/degC RILIM with calculated 162.8..222.4 mA bounds under QER-02; exact MPN/suffix/package, thermal, reverse-current, lifecycle, sourcing, cost, and prototype evidence remain CSR-01A-R4 work.' }
     if ($Reference -in @('U801','C804','R806','R808')) { return 'ANALYSIS INCOMPLETE - ECO-007 physically implemented the fixed 2.7 V, 10 ms supervisor and external 2.930/2.680 V threshold network; exact suffix tolerance, leakage, package, lifecycle, sourcing, and cost evidence remain CSR-01A-R3 work.' }

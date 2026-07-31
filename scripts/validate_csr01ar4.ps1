@@ -13,7 +13,7 @@ Assert-True ($frozen.Count -eq 9 -and $blocked.Count -eq 124) 'R4 disposition co
 Assert-True (@($power|Where-Object {$_.'Freeze Status' -notin @('FROZEN','CONDITIONAL','BLOCKED','NOT APPLICABLE')}).Count -eq 0) 'Unsupported power disposition.'
 $required=@('Manufacturer Part Number','Requirement Trace Reference','Selection Rationale','Lifecycle Status','Preferred Vendor','Second Source','Unit Cost 1','Unit Cost 10','Unit Cost 100','Unit Cost 1000')
 foreach($row in $frozen){foreach($field in $required){Assert-True (-not [string]::IsNullOrWhiteSpace($row.$field)) "$($row.Reference) frozen evidence missing $field."};Assert-True ($row.'Manufacturer Part Number' -notmatch 'BLOCKED|UNRESOLVED') "$($row.Reference) lacks exact MPN."}
-foreach($row in $blocked){Assert-True ($row.Risk -match 'INCOMPLETE|UNRESOLVED|MISSING|INCONSISTENT|UNAVAILABLE') "$($row.Reference) lacks blocker."}
+foreach($row in $blocked){Assert-True ($row.Risk -match 'INCOMPLETE|UNRESOLVED|MISSING|INCONSISTENT|UNAVAILABLE|PAS-01R: BLOCKED') "$($row.Reference) lacks blocker."}
 $avlMap=@{};foreach($row in $avl){$avlMap[$row.Item]=$row};foreach($row in $ebom){Assert-True $avlMap.ContainsKey($row.Item) "AVL missing $($row.Item).";Assert-True ($avlMap[$row.Item].'Freeze Status' -eq $row.'Freeze Status') "AVL status mismatch $($row.Item)."}
 $s02=Get-Content (Join-Path $RepositoryRoot 'hardware/kicad/sheets/02_Power_Conversion.kicad_sch') -Raw
 foreach($ref in @('R222','R223','R224')){Assert-True ($s02 -match "(?s)Reference`" `"$ref`".*?Value`" `"141 k") "$ref is not 141 kOhm."}

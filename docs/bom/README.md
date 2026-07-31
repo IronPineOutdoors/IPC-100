@@ -13,3 +13,5 @@ ECO-005 subsequently normalized all schematic references. CSR-01A-R now classifi
 - `CSR-01_Inventory_Summary.csv` — inventory/freeze summary.
 
 Regenerate the CSV sources with `scripts/generate_csr01_inventory.ps1` and the workbooks with `scripts/csv_to_xlsx.py`. CSR-01B remains unauthorized. Acceptance requires ECO-006, J1 mechanical-interface release, and a reissued power review after every remaining power MPN, calculation, derating, sourcing, alternate, and cost field is verified.
+
+PAS-01R applies a narrow controlled overlay to its 18 residual passive rows with `scripts/apply_pas01r_bom_overlay.ps1`. Seventeen rows carry named PACS-01 dependencies and C305 carries a schematic-ECO timing blocker. The CSV files remain canonical; the XLSX files are regenerated from them after the overlay.

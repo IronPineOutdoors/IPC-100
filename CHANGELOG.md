@@ -2,6 +2,13 @@
 
 Initial project creation.
 
+## 2026-07-31 — PAS-01R dependent passive closure
+
+- Dispositioned all 18 PAS-01 residual passive references exactly once.
+- Routed 17 passive closure dependencies to named PACS-01 active selections.
+- Identified the C305 10 nF / 100 ms TPS3890-Q1 timing conflict as requiring a schematic ECO.
+- Updated EBOM/AVL blocker evidence without assigning footprints or changing CAD.
+
 ## 2026-07-31 — PAS-01 passive selection
 
 - Corrected PPQ-02 class routing to 85 true passives, 20 active stages, 18 protection parts and J1.
