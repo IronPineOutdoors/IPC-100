@@ -1,9 +1,12 @@
 [CmdletBinding()]
 param(
-    [string]$ProjectDirectory = (Join-Path $PSScriptRoot '..\hardware\kicad')
+    [string]$ProjectDirectory
 )
 
 $ErrorActionPreference = 'Stop'
+if ([string]::IsNullOrWhiteSpace($ProjectDirectory)) {
+    $ProjectDirectory = Join-Path $PSScriptRoot '..\hardware\kicad'
+}
 $projectDirectoryPath = (Resolve-Path -LiteralPath $ProjectDirectory).Path
 $projectFile = Join-Path $projectDirectoryPath 'IPC-100.kicad_pro'
 $rootFile = Join-Path $projectDirectoryPath 'IPC-100.kicad_sch'
@@ -587,6 +590,46 @@ foreach ($signal in $eco003Signals) {
     }
 }
 
+# ECO-004: each external UI I2C branch is independently rail-qualified and
+# fail-isolated, and J13 exposes the complete protected USB-C UFP boundary.
+if ([regex]::Matches($sheet07Content, '\(lib_id "IPC100:I2C_POWER_QUALIFIED_BRANCH"\)').Count -ne 2) {
+    $errors.Add('ECO-004 requires exactly two independently qualified I2C branch elements on Sheet 07.')
+}
+foreach ($branchRequirement in @(
+    'OLED_VCC-qualified; fail-disabled; Ioff <=10uA; no backfeed/stuck-low propagation while isolated',
+    'SENSOR_VCC-qualified; fail-disabled; Ioff <=10uA; no backfeed/stuck-low propagation while isolated'
+)) {
+    if (-not $sheet07Content.Contains($branchRequirement)) {
+        $errors.Add("ECO-004 branch contract is missing: $branchRequirement.")
+    }
+}
+if ([regex]::Matches($sheet07Content, '4\.70 k').Count -ne 2) {
+    $errors.Add('ECO-004 must preserve exactly one two-resistor base-bus pull-up pair on Sheet 07.')
+}
+if ($sheet07Content -match 'J6 branch pull-up' -or $sheet07Content -match 'J7 branch pull-up') {
+    $errors.Add('ECO-004 must not add duplicate branch pull-ups.')
+}
+
+foreach ($usbToken in @(
+    'IPC100:USB_C_UFP_FULL', 'GND_A1', 'VBUS_A4', 'CC1_A5', 'D+_A6', 'D-_A7',
+    'GND_A12', 'GND_B1', 'VBUS_B4', 'CC2_B5', 'D+_B6', 'D-_B7', 'GND_B12',
+    'SHIELD', 'USB_ESD2', 'VBUS_ESD', 'DNP 1 nF >=1 kV shield coupling option',
+    'DNP 1 MOhm shield bleed option'
+)) {
+    if (-not $sheet09Content.Contains($usbToken)) {
+        $errors.Add("ECO-004 USB-C boundary is missing: $usbToken.")
+    }
+}
+if ([regex]::Matches($sheet09Content, '5\.1 k').Count -ne 2) {
+    $errors.Add('ECO-004 requires exactly two independent 5.1 kOhm USB-C Rd terminations.')
+}
+if ([regex]::Matches($sheet09Content, '\(no_connect \(at 145 ').Count -ne 10) {
+    $errors.Add('ECO-004 requires explicit no-connect markers on all ten unused USB-C SuperSpeed/SBU contacts.')
+}
+if ($sheet09Content -match '\(property "Footprint" "[^"]+"' ) {
+    $errors.Add('ECO-004 provisional USB and I2C elements must not have footprints.')
+}
+
 $footprints = Select-String -Path $schematicFiles -Pattern '\(footprint ' -ErrorAction SilentlyContinue
 if ($footprints) {
     $errors.Add('Package 01 contains footprint assignments.')
@@ -615,6 +658,7 @@ Write-Host 'Package 07R Sheet 06: independent watchdog, authorization logic, det
 Write-Host 'Package 08 Sheet 07: deterministic encoder conditioning, core I2C expander, safe-default status drivers, peripheral boundaries, and DFT nodes present'
 Write-Host 'Package 09R Sheet 08: ICD-001 rail qualification, segmented I2C, external pull-ups, protection, filtering, and DFT nodes present'
 Write-Host 'ECO-003 hierarchy exposure: four approved J6/J7 I2C ports route once from Sheet 07 to Sheet 09'
+Write-Host 'ECO-004 interfaces: two independently rail-qualified fail-isolated I2C branches and complete protected USB-C UFP boundary'
 Write-Host 'References and UUIDs: unique within every schematic'
 Write-Host 'Component symbols: confined to implemented Sheets 01 through 09'
 Write-Host 'Footprint assignments: 0'

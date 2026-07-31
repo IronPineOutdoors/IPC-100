@@ -6,7 +6,7 @@
 | Platform | Iron Pine IPC-100 |
 | Hardware revision | Rev A |
 | Document status | Architecture and requirements definition |
-| Last updated | 2026-07-28 |
+| Last updated | 2026-07-30 |
 | Owner | Iron Pine Outdoors Engineering |
 
 ## 1. Revision identity
@@ -14,6 +14,8 @@
 IPC-100 begins at hardware Rev A. Prior CrossWind controller concepts are predecessor work only; they do not make IPC-100 Rev D or transfer any earlier product revision number to this platform.
 
 Rev A is currently in architecture and requirements definition. No prototype build, production candidate, or released hardware is claimed.
+
+ECO-004 corrected the two SSR-01 interface findings by adding independently rail-qualified, fail-isolated J6/J7 I²C branches and completing the protected J13 USB-C UFP boundary. Exact components, native ERC, footprints, SI/EMC, quantitative release analysis, and prototype verification remain open; Package 11 is not authorized.
 
 ## 2. Version types
 
