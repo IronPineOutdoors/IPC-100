@@ -1,5 +1,9 @@
 # IPC-100 Revision History
 
+## 2026-07-31 — ECO-008R
+
+Implemented QER-02 on the three independent TPS2553-Q1 channels using generic 141 kΩ ±1%, ≤100 ppm/°C RILIM values. Worst-case 162.82–222.35 mA satisfies the 160–225 mA threshold band. Updated controlled BOM/AVL data without freezing MPNs or assigning footprints and authorized CSR-01A-R4.
+
 ## 2026-07-31 — QER-02
 
 Accepted a controlled amendment for the three TPS2553-Q1 branches. Preserved 100 mA continuous and 150 mA/10 ms loads, defined repetition, established a 160–225 mA worst-case fault-threshold band, proved a positive tolerance-aware feasibility window, and authorized ECO-008R only. No hardware or component-selection artifact changed.

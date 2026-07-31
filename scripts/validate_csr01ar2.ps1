@@ -32,7 +32,7 @@ $r201 = $power | Where-Object Reference -eq 'R201'
 $ilim = @($power | Where-Object Reference -in @('U209','U212','U213','R222','R223','R224'))
 $u801 = $power | Where-Object Reference -eq 'U801'
 Assert-True ($u201.Risk -match 'ECO-007' -and $r201.Risk -match '64\.9') 'Post-ECO U201/R201 disposition is not captured.'
-Assert-True (@($ilim | Where-Object { $_.Risk -match '150 kOhm' }).Count -eq 6) 'Post-ECO TPS2553 RILIM disposition is not captured on all six rows.'
+Assert-True (@($ilim | Where-Object { $_.Risk -match '(150|141) kOhm' }).Count -eq 6) 'TPS2553 RILIM disposition is not captured on all six rows.'
 Assert-True ($u801.Risk -match '2\.930/2\.680 V') 'Post-ECO U801 threshold disposition is not captured.'
 
 $review = Get-Content (Join-Path $RepositoryRoot 'docs/reviews/CSR-01A-R2_Final_Power_Component_Freeze.md') -Raw

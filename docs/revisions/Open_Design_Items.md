@@ -1,8 +1,12 @@
 # IPC-100 Open Design Items
 
+## ECO-008R disposition
+
+ECO-008R is **COMPLETE**. R222/R223/R224 are implemented as generic 141 kΩ ±1%, ≤100 ppm/°C networks; U209/U212/U213 calculate 162.82–222.35 mA including resistor drift and TPS2553 device limits. CSR-01A-R4 is authorized. Exact MPN/suffix, package, thermal/retry, sourcing, cost, and prototype evidence remain open; footprints and PCB work remain unauthorized.
+
 ## QER-02 disposition
 
-QER-02 is **ACCEPTED**. It separates the affected 100 mA continuous and 150 mA/10 ms load contracts from a 160–225 mA worst-case fault-threshold band, preserves ICD-001/ICD-002, and proves a positive TPS2553 feasibility interval without selecting a component. ECO-008R is authorized. The six references remain blocked until ECO-008R implementation and verification; CSR-01A-R4 remains unauthorized.
+QER-02 is **ACCEPTED**. ECO-008R has implemented its 160–225 mA band. The six references remain blocked only for exact selection and prototype evidence; CSR-01A-R4 is authorized.
 
 ## ECO-008 disposition
 

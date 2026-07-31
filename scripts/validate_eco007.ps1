@@ -8,7 +8,7 @@ $s08 = Get-Content (Join-Path $RepositoryRoot 'hardware/kicad/sheets/08_Expansio
 $note = Get-Content (Join-Path $RepositoryRoot 'hardware/kicad/notes/ECO-007_Power_Programming_and_Supervisor_Correction.md') -Raw
 Assert-True ($s02 -match 'LMR38020F-Q1' -and $s02 -match '64\.9 k') 'U201/R201 correction missing.'
 Assert-True ($s02 -notmatch '40\.2 k' -and $s02 -notmatch '287 k') 'Obsolete programming value remains.'
-foreach ($ref in @('R222','R223','R224')) { Assert-True ($s02 -match "(?s)Reference`" `"$ref`".*?Value`" `"150 k") "$ref is not an independent 150 kOhm RILIM resistor." }
+foreach ($ref in @('R222','R223','R224')) { Assert-True ($s02 -match "(?s)Reference`" `"$ref`".*?Value`" `"(?:150|141) k") "$ref independent historical/implemented RILIM is missing." }
 Assert-True ($s08 -match 'TLV841S_2V7_VALID_HIGH' -and $s08 -notmatch 'RAIL_VALID_SUPERVISOR_PP') 'Physical U801 correction missing.'
 foreach ($token in @('R806','150 k','R808','4.47 M','C804','EXP_SUP_SENSE')) { Assert-True ($s08.Contains($token)) "U801 network token missing: $token" }
 Assert-True ($s08 -match 'R801' -and $s08 -match 'segment-enable fail-low bias') 'Output fail-low bias missing.'

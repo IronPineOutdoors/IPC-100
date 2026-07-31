@@ -14,6 +14,8 @@ Post-ECO-007 inventory contains 310 rows: 133 power-scope rows (9 frozen and 124
 
 `validate_qer02.ps1` verifies the QER-02 inventory, peak waveforms, protected-element evidence, 160–225 mA positive windows, TPS2553 equations, controlled QER-01 amendment, preserved design artifacts, and single ACCEPTED decision. It runs all existing repository validators.
 
+`validate_eco008r.ps1` verifies all three 141 kΩ RILIM networks, recomputes 162.824–222.345 mA with tolerance and temperature drift, checks EBOM/AVL synchronization and blocked MPN status, and enforces hierarchy, GPIO, zero-footprint, and scope invariants.
+
 Future repeatable utilities for documentation checks, BOM validation, manufacturing packages, test automation, and release generation belong here. Scripts should be documented and safe by default.
 
 - `validate_kicad_hierarchy.ps1` validates project JSON, schematic S-expression balance, child references, root/child port parity, unique sheet/label/reference/UUID identities, frozen safety and GPIO interfaces, implemented package contracts, and zero footprint assignments. Its ECO-004 checks require exactly two independently rail-qualified fail-isolated J6/J7 branches, the sole Sheet 07 base-bus pull-up pair, the complete J13 USB-C UFP contact boundary, ten explicit unused-contact markers, independent CC Rd, connector-entry data/VBUS ESD, and the DNP shield network.

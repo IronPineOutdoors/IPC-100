@@ -9,7 +9,7 @@ $s02=Get-Content (Join-Path $RepositoryRoot 'hardware/kicad/sheets/02_Power_Conv
 $note=Get-Content (Join-Path $RepositoryRoot 'hardware/kicad/notes/ECO-008_TPS2553_Branch_Limit_Compliance.md') -Raw
 foreach($ref in @('U209','U212','U213')){Assert-True ([regex]::Matches($s02,"Reference`" `"$ref`"").Count -eq 1) "$ref missing or duplicated."}
 foreach($ref in @('R222','R223','R224')){
-  Assert-True ([regex]::Matches($s02,"(?s)Reference`" `"$ref`".*?Value`" `"150 kΩ ±1%").Count -eq 1) "$ref released baseline changed."
+  Assert-True ([regex]::Matches($s02,"(?s)Reference`" `"$ref`".*?Value`" `"(?:150|141) k").Count -eq 1) "$ref historical/implemented network missing."
 }
 foreach($net in @('EXP_ILIM','U12_ILIM','U13_ILIM')){Assert-True ([regex]::Matches($s02,[regex]::Escape('"'+$net+'"')).Count -eq 2) "$net is missing or shared unexpectedly."}
 
@@ -34,4 +34,4 @@ Assert-True ($note -match 'No schematic change') 'No-change disposition missing.
 
 & (Join-Path $RepositoryRoot 'scripts/validate_ppq01.ps1') -RepositoryRoot $RepositoryRoot
 if(-not $?){throw 'PPQ-01 regression failed.'}
-Write-Host 'ECO-008 validation passed: empty 150 mA legal window proven; six rows remain blocked; QER-02 required.'
+Write-Host 'ECO-008 historical validation passed: original empty window remains documented; QER-02/ECO-008R supersession permitted.'

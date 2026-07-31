@@ -2,6 +2,8 @@
 
 Initial project creation.
 
+- Completed ECO-008R TPS2553 Current-Limit Implementation: changed R222/R223/R224 to generic 141 kΩ ±1%, ≤100 ppm/°C, demonstrated 162.82–222.35 mA worst-case compliance on U209/U212/U213, retained zero footprints and unfrozen MPNs, and authorized CSR-01A-R4.
+
 - Accepted QER-02 Branch Peak and Protection Ceiling Reconciliation: preserved all affected load and ICD contracts, established a 160–225 mA fault-threshold band supported by downstream ratings, proved a positive TPS2553 feasibility window, and authorized ECO-008R while keeping CSR-01A-R4 blocked.
 
 - Completed ECO-008 feasibility analysis without schematic changes: proved no TPS2553-Q1 RILIM can simultaneously pass a 150 mA peak and guarantee a 150 mA maximum ceiling, stopped the ECO as incomplete, and requires QER-02 Branch Peak and Protection Ceiling Reconciliation before CSR-01A-R4.

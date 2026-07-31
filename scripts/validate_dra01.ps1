@@ -9,7 +9,7 @@ $assignments = [System.Collections.Generic.List[object]]::new()
 foreach ($row in $rows) {
   $causes = [System.Collections.Generic.List[string]]::new()
   if ($row.Risk -match '^TRANSIENT COORDINATION') { $causes.Add('RC-A') }
-  if ($row.Risk -match 'THERMAL/STABILITY|ECO-006|exact suffix|ECO-007|saturation|TCA9517A') { $causes.Add('RC-B') }
+  if ($row.Risk -match 'THERMAL/STABILITY|ECO-006|exact suffix|ECO-007|ECO-008R|saturation|TCA9517A') { $causes.Add('RC-B') }
   if ($row.Risk -match 'exact dielectric|device equation') { $causes.Add('RC-C') }
   if ($row.Reference -eq 'J1') { $causes.Add('RC-D') }
   Assert-True ($causes.Count -eq 1) "$($row.Item) maps to $($causes.Count) root causes."
