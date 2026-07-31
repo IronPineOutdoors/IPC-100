@@ -1,5 +1,9 @@
 # IPC-100 Open Design Items
 
+## PEB-01 disposition
+
+PEB-01 is complete. The common analytical baseline should make 56 of 124 blocked rows (45.2%) eligible for exact freeze evaluation, but this is below the 80% direct-CSR threshold. PPQ-01 Power Passive Qualification is required next for 67 rows; JCS-01 J1 Connector System Definition may proceed in parallel. QER-V01 through V08 remain measured, exact-part, layout, environmental, ERC, or reliability gates and are not represented as completed evidence.
+
 ## DRA-01 disposition
 
 DRA-01 is complete. The remaining 124 blocked power rows derive from four root causes: protection/transient coordination (19), active-stage analytical/physical closure (37), dependent passive qualification (67), and J1 product-system definition (1). The next package is PEB-01 Power Evidence Baseline and Analytical Closure; PPQ-01 follows it, while JCS-01 may run in parallel. Do not authorize another CSR pass until those package exit criteria are met.

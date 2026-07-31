@@ -1,5 +1,9 @@
 # IPC-100 Revision History
 
+## 2026-07-31 — PEB-01
+
+Created the package-independent power evidence baseline and five controlled appendices. Quantified load, loss, thermal, magnetic, capacitor, MOSFET, protection and derating envelopes; mapped all 124 blocked references to generated and remaining evidence; and deferred CSR-01A-R4 until PPQ-01 and JCS-01 close the remaining selection prerequisites.
+
 ## 2026-07-31 — DRA-01
 
 Diagnosed the CSR-01A-R3 failure without changing the design. Collapsed 124 blocked power rows into four mutually exclusive root causes, documented the dependency graph and maturity matrix, and recommended PEB-01 as the next corrective evidence package.

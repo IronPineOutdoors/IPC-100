@@ -2,6 +2,8 @@
 
 Initial project creation.
 
+- Completed PEB-01 Power Evidence Baseline: released traceable load, regulator, magnetic, capacitor, MOSFET, protection, thermal, derating, reliability, and 124-row evidence-register analyses without selecting parts; forecast 56 rows eligible for future freeze evaluation and requires PPQ-01 plus parallel JCS-01 before CSR-01A-R4.
+
 - Completed DRA-01 root-cause assessment: mapped all 124 blocked power rows exactly once into four process-level causes, identified the analytical/evidence dependency chain, and recommended PEB-01 Power Evidence Baseline and Analytical Closure before any further CSR pass.
 
 - Completed CSR-01A-R3 Final Power Component Selection review: reconciled 133 power rows, preserved nine frozen resistors, retained 124 evidence-backed blockers, rejected the final freeze, kept CSR-01B unauthorized, and defined CSR-01A-R3A as the smallest corrective evidence package.

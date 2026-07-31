@@ -4,6 +4,8 @@
 
 > **Readiness diagnosis:** [DRA-01](docs/reviews/DRA-01_Design_Readiness_Assessment.md) maps those 124 rows to four root causes and recommends PEB-01 Power Evidence Baseline and Analytical Closure before another component-freeze review.
 
+> **Evidence baseline:** [PEB-01](docs/analysis/PEB-01_Power_Evidence_Baseline.md) is complete. It supplies analytical evidence for 56 blocked rows; PPQ-01 and parallel JCS-01 remain required before CSR-01A-R4. No component, footprint, or PCB work is authorized.
+
 Reusable ESP32-based outdoor controller platform for Iron Pine Outdoors.
 
 | Project identity | Value |
