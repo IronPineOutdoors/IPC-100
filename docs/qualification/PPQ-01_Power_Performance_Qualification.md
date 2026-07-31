@@ -13,6 +13,8 @@
 
 > **CSR-01A-R4 disposition (2026-07-31):** ECO-008R closed the six-row electrical incompatibility, but the exact freeze is not accepted. PPQ-02 remains required for 67 dependent passives; PPC-01/PAS-01 are required for protection and active-stage exact selection; JCS-01 remains required for J1. CSR-01B is not authorized.
 
+> **PPQ-02 disposition (2026-07-31):** Shared analytical closure is complete. Passive rows now have exact selection envelopes and join the active-stage route to PAS-01; protection routes to PPC-01 and J1 to JCS-01. No row is directly ready for CSR-01A-R5.
+
 ## 1. Executive summary
 
 PPQ-01 independently evaluates the PEB-01 envelopes across the released electrical corners and converts them into reproducible qualification calculations, pass/fail limits, and physical-test records. It does not claim that unbuilt hardware has been measured. Analytical results are **VERIFIED** where two independently evaluated equations reproduce the released limit; exact-part curves and hardware behavior are explicitly **OPEN — selection** or **OPEN — prototype**.

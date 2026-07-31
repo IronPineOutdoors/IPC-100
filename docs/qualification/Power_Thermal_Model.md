@@ -1,4 +1,6 @@
-# PPQ-01 Appendix — Power Thermal Model
+# PPQ-01/PPQ-02 Appendix — Power Thermal Model
+
+PPQ-02 makes this model the controlling package-independent thermal envelope for PPC-01/PAS-01. U201 requires effective θJA ≤26.4 °C/W at 1.324 W; the core regulator ≤60.1 °C/W at 0.582 W. TPS2553 short onset is screened at 0.734 W on 3.3 V and 1.112 W on 5 V. Exact candidates must provide transient thermal impedance, manufacturer land/copper/via rules, neighboring-source superposition and ≥15 °C junction margin to rated maximum. Prototype correlation uses ≥3 closed-enclosure articles at 9/21 V and maximum load after stabilization.
 
 Boundary conditions are +60°C external ambient, ≤+75°C internal air, natural convection, no credited airflow, local board rise ≤35°C, calculated critical junction ≤110°C, and measured target ≤100°C.
 

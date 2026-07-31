@@ -201,3 +201,5 @@ JCS-01 shall turn MIR-01 into a complete header/mate/contact/seal/strain-relief/
 # CSR-01A-R4 NOT ACCEPTED
 
 CSR-01B — MCU & Support Component Selection is **not authorized**. Required next evidence packages are PPQ-02, JCS-01, PPC-01, and PAS-01; no further broad CSR pass is authorized until their row-level exit criteria close.
+
+> **PPQ-02 handoff:** PPQ-02 subsequently completed shared analytical evidence and routed the 124 rows as 19 PPC-01, 104 PAS-01, and one JCS-01. R4 remains not accepted; CSR-01A-R5 remains unauthorized until all three selection packages complete.

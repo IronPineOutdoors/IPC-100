@@ -1,5 +1,9 @@
 # IPC-100 Open Design Items
 
+## PPQ-02 disposition
+
+PPQ-02 is **COMPLETE**. All 124 blocked power rows have bounded shared analytical evidence and a selection route: 19 to PPC-01, 104 to PAS-01, and J1 to JCS-01. Fifty-six rows retain cross-cutting prototype tests. Zero rows are directly ready for CSR-01A-R5; PAS-01 has the highest unblock value. No component or CAD artifact changed.
+
 ## CSR-01A-R4 disposition
 
 CSR-01A-R4 is **NOT ACCEPTED**. The inventory remains 9 frozen and 124 blocked. ECO-008R closes the six-row TPS2553 electrical incompatibility, but PPQ-02 is still required for 67 passives, JCS-01 for J1, PPC-01 for 19 protection rows, and PAS-01 for 37 active-stage rows. CSR-01B, footprints, and PCB work remain unauthorized.

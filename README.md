@@ -8,7 +8,7 @@
 
 > **Performance qualification:** [PPQ-01](docs/qualification/PPQ-01_Power_Performance_Qualification.md) is complete. Fifty references are forecast freeze-eligible; ECO-008 must resolve the six-row TPS2553/QER current-limit conflict before CSR-01A-R4. PPQ-02 and JCS-01 remain open.
 
-> **CSR-01A-R4 status:** [Power Component Selection and Freeze Reattempt](docs/reviews/CSR-01A-R4_Power_Component_Selection.md) is not accepted. ECO-008R is verified, but the inventory remains 9 frozen/124 blocked pending PPQ-02, JCS-01, PPC-01, and PAS-01. CSR-01B and footprints remain unauthorized.
+> **PPQ-02 status:** [Remaining Power Performance Qualification](docs/qualification/PPQ-02_Remaining_Power_Performance_Qualification.md) is complete. All 124 blocked rows route to PPC-01 (19), PAS-01 (104), or JCS-01 (1). Exact selections remain open; CSR-01A-R5, CSR-01B, and footprints remain unauthorized.
 
 Reusable ESP32-based outdoor controller platform for Iron Pine Outdoors.
 

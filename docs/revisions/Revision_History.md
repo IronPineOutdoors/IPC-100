@@ -1,5 +1,9 @@
 # IPC-100 Revision History
 
+## 2026-07-31 — PPQ-02
+
+Completed operating-state, regulator, thermal, magnetics, capacitor, switch, protection-energy, threshold/timing, shared-rail, PCB-constraint and single-fault models. Mapped all 124 blocked rows to 19 PPC-01, 104 PAS-01 and one JCS-01 route without component or CAD changes.
+
 ## 2026-07-31 — CSR-01A-R4
 
 Reconciled all 133 power rows after ECO-008R. Preserved nine frozen resistors, retained 124 evidence-specific blockers, verified the three 141 kΩ TPS2553 networks, and did not accept the power freeze. Defined PPQ-02, JCS-01, PPC-01, and PAS-01 as the remaining targeted evidence packages; CSR-01B remains unauthorized.

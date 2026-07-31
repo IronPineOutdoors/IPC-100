@@ -8,6 +8,8 @@
 | Purpose | Package-independent evidence for later component selection |
 | Design changes | None |
 
+> **PPQ-02 disposition (2026-07-31):** Remaining shared analytical envelopes are complete. All 124 blocked rows route against bounded requirements: 19 to PPC-01, 104 to PAS-01, and J1 to JCS-01. Exact/commercial/prototype evidence remains downstream.
+
 ## 1. Scope and method
 
 PEB-01 converts QER-01 limits and released schematic values into a controlled calculation baseline. It does not select MPNs or packages. Each result is tagged:
