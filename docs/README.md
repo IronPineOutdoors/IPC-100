@@ -4,6 +4,7 @@ The IPC-100 Rev A Engineering Blueprint is organized into:
 
 - [Architecture](architecture/README.md)
 - [Requirements](requirements/README.md)
+- [Engineering specifications](specifications/README.md)
 - [Connectors and GPIO](connectors/README.md)
 - [Power](power/README.md)
 - [Testing](testing/README.md)

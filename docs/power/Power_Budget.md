@@ -1,5 +1,7 @@
 # IPC-100 Power Budget
 
+> **QER-01 control notice (2026-07-31):** [QER-01 Quantitative Electrical Requirements](../specifications/QER-01_Quantitative_Electrical_Requirements.md) now controls Rev A rail allocations, load limits, simultaneous-load constraints, transients, environment, and derating for component selection. This earlier architecture-stage budget remains useful history and a measurement worksheet; its `TBD` and preliminary values do not override QER-01.
+
 | Document control | Value |
 | --- | --- |
 | Document title | IPC-100 Power Budget |

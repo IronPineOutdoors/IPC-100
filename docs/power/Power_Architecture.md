@@ -1,5 +1,7 @@
 # IPC-100 Power Architecture
 
+> **QER-01 control notice (2026-07-31):** [QER-01 Quantitative Electrical Requirements](../specifications/QER-01_Quantitative_Electrical_Requirements.md) supplies the controlling numeric environment, rail, load, transient, protection, connector, and derating envelope. This document continues to control the architectural power boundaries and ownership.
+
 | Document control | Value |
 | --- | --- |
 | Document title | IPC-100 Power Architecture |

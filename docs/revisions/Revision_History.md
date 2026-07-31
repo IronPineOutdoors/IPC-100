@@ -25,6 +25,8 @@ ECO-005 normalized all non-connector component references into deterministic She
 
 CSR-01A reviewed 124 power-related rows across Sheets 01, 02, 03, 07, 08, and 09 and marked the remaining 177 rows `NOT YET FROZEN`. No power MPN was frozen because source transient/fault limits, exact rail loads, simultaneous loading, thermal constraints, regulator passives/stability, source-transition timing, J1 requirements, and exact-order-code sourcing evidence remain incomplete. CSR-01A was not accepted and CSR-01B is not authorized.
 
+QER-01 released a controlling quantitative envelope for the Rev A operating environment, input and rail limits, complete load allocations, transient/protection performance, passive and connector capability, signal integrity, thermal/voltage/current derating, and measurable design targets. Remaining entries are implementation-verification tasks rather than undefined electrical requirements. QER-01 was accepted and CSR-01A-R Power Component Selection (Reattempt) is authorized; no MPN, footprint, schematic, or PCB change was made.
+
 ## 2. Version types
 
 | Version type | Meaning | Example | Controlled independently |
