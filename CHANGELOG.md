@@ -2,6 +2,8 @@
 
 Initial project creation.
 
+- Completed CSR-01A-R3 Final Power Component Selection review: reconciled 133 power rows, preserved nine frozen resistors, retained 124 evidence-backed blockers, rejected the final freeze, kept CSR-01B unauthorized, and defined CSR-01A-R3A as the smallest corrective evidence package.
+
 - Completed ECO-007 power programming and supervisor correction: restored valid 400 kHz LMR38020F-Q1 RT programming, corrected all TPS2553-Q1 ILIM networks, and implemented a physical fail-disabled fixed-threshold expansion-rail supervisor with external hysteresis. CSR-01A-R3 is authorized; CSR-01B remains unauthorized.
 
 - Completed CSR-01A-R2 Final Power Component Freeze review: dispositioned all 130 power rows, retained nine frozen resistors, documented 121 blockers, identified released U201/R201 frequency, TPS2553 RILIM, and U801 threshold/hysteresis incompatibilities, rejected the freeze, and kept CSR-01B unauthorized pending a narrow corrective ECO and re-review.

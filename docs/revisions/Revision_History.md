@@ -1,5 +1,9 @@
 # IPC-100 Revision History
 
+## 2026-07-31 — CSR-01A-R3
+
+Reviewed the post-ECO-007 final power freeze. All 133 power rows were dispositioned (9 frozen, 124 blocked); the package was not accepted because exact electrical, thermal, transient, connector, lifecycle, sourcing, alternate, and cost evidence remains incomplete. CSR-01B remains unauthorized.
+
 ## 2026-07-31 — ECO-007
 
 Corrected U201/R201 frequency programming, all TPS2553-Q1 current-limit programming networks, and U801's physical threshold/hysteresis implementation. Added C804, R806, and R808, retained zero footprints, and authorized CSR-01A-R3 only.

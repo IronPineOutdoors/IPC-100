@@ -1,5 +1,7 @@
 # Iron Pine IPC-100
 
+> **Engineering status (2026-07-31):** CSR-01A-R3 Final Power Component Selection is not accepted. ECO-007's circuit corrections are complete, but 124 power-component selections remain blocked on exact electrical, thermal, transient, connector, lifecycle, sourcing, alternate, or cost evidence. CSR-01B, footprints, and PCB work remain unauthorized. See [CSR-01A-R3](docs/reviews/CSR-01A-R3_Final_Power_Component_Selection.md).
+
 Reusable ESP32-based outdoor controller platform for Iron Pine Outdoors.
 
 | Project identity | Value |
