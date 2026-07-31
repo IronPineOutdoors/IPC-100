@@ -19,6 +19,8 @@ ECO-004 corrected the two SSR-01 interface findings by adding independently rail
 
 SSR-01R revalidated the complete post-ECO-004 Sheet 00–09 baseline and approved schematic release with Major observations. Package 11 Component Selection & Footprint Assignment is authorized under per-part pin/rating/land-pattern controls. Native ERC, exact-component, quantitative, connector, SI/EMC, DFM/DFT, and prototype gates remain open; PCB placement and routing are not authorized.
 
+CSR-01 / Package 11A inventoried 301 physical/logical schematic items but did not accept the component freeze. Composite functional blocks, 63 repeated local reference names, open quantitative/load/environment contracts, and unresolved modules/connectors prevent a complete MPN, AVL, derating, and cost release. Package 11B is not authorized.
+
 ## 2. Version types
 
 | Version type | Meaning | Example | Controlled independently |

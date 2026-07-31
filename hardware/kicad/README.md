@@ -63,3 +63,5 @@ Package 10R implements Sheet 09 with the ICD-002 generic connector/harness bound
 All ECO-004 components remain provisional and footprint-free. SSR-01R subsequently approved the stable functional schematic baseline with Major observations and authorized Package 11 Component Selection & Footprint Assignment. Exact parts, manufacturer pin maps, ratings, reviewed land patterns, USB SI, EMC/enclosure bonding, native ERC, quantitative release analysis, DFM/DFT, and prototype validation remain controlled Package 11 or downstream gates.
 
 Package 11 work must review each exact device before accepting its footprint. PCB placement, routing, fabrication, and procurement remain separately gated and unauthorized.
+
+CSR-01 / Package 11A subsequently completed the as-captured inventory but did not accept the component freeze. The baseline contains composite functional blocks, repeated local reference names across sheets, and unresolved quantitative/module/connector prerequisites that prevent complete one-to-one MPN selection. No schematic or footprint was changed; Package 11B remains unauthorized pending controlled component-resolution and CSR reissue.
