@@ -8,6 +8,8 @@
 
 > **Performance qualification:** [PPQ-01](docs/qualification/PPQ-01_Power_Performance_Qualification.md) is complete. Fifty references are forecast freeze-eligible; ECO-008 must resolve the six-row TPS2553/QER current-limit conflict before CSR-01A-R4. PPQ-02 and JCS-01 remain open.
 
+> **ECO-008 status:** The TPS2553 legal current-limit window is mathematically empty, so ECO-008 stopped without a design change. [QER-02 Branch Peak and Protection Ceiling Reconciliation](hardware/kicad/notes/ECO-008_TPS2553_Branch_Limit_Compliance.md) is required before CSR-01A-R4.
+
 Reusable ESP32-based outdoor controller platform for Iron Pine Outdoors.
 
 | Project identity | Value |

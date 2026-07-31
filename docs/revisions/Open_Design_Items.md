@@ -1,5 +1,9 @@
 # IPC-100 Open Design Items
 
+## ECO-008 disposition
+
+ECO-008 is **INCOMPLETE**. The 150 mA required peak and 150 mA worst-case protection ceiling create a zero-width legal window that TPS2553-Q1 cannot meet with device/resistor tolerance. U209/U212/U213 and R222/R223/R224 remain blocked and unchanged. QER-02 Branch Peak and Protection Ceiling Reconciliation is required before a new implementation ECO or CSR-01A-R4. CSR-01B remains unauthorized.
+
 ## PPQ-01 disposition
 
 PPQ-01 is complete. Fifty blocked references are analytically eligible for exact freeze evaluation. U209/U212/U213 and R222/R223/R224 remain ineligible because their released 154–209 mA tolerance window exceeds QER-01's 150 mA maximum for a 100 mA branch. ECO-008 Branch Current-Limit Compliance Remediation is required before CSR-01A-R4. PPQ-02 remains required for 67 passives, and JCS-01 remains required for J1.

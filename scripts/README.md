@@ -10,6 +10,8 @@ Post-ECO-007 inventory contains 310 rows: 133 power-scope rows (9 frozen and 124
 
 `generate_ppq01_register.ps1` regenerates the 124-row qualification register. `validate_ppq01.ps1` independently verifies corner/load/thermal/stress calculations, 50 eligible and 74 ineligible rows, the TPS2553/QER conflict, evidence coverage, prohibited-scope preservation, and the single COMPLETE decision.
 
+`validate_eco008.ps1` verifies the three-device/three-resistor inventory, independently proves the empty RILIM legal window, confirms the six rows remain blocked and unchanged, enforces the single INCOMPLETE decision and QER-02 gate, and reruns PPQ/ECO/hierarchy regressions.
+
 Future repeatable utilities for documentation checks, BOM validation, manufacturing packages, test automation, and release generation belong here. Scripts should be documented and safe by default.
 
 - `validate_kicad_hierarchy.ps1` validates project JSON, schematic S-expression balance, child references, root/child port parity, unique sheet/label/reference/UUID identities, frozen safety and GPIO interfaces, implemented package contracts, and zero footprint assignments. Its ECO-004 checks require exactly two independently rail-qualified fail-isolated J6/J7 branches, the sole Sheet 07 base-bus pull-up pair, the complete J13 USB-C UFP contact boundary, ten explicit unused-contact markers, independent CC Rd, connector-entry data/VBUS ESD, and the DNP shield network.

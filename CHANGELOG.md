@@ -2,6 +2,8 @@
 
 Initial project creation.
 
+- Completed ECO-008 feasibility analysis without schematic changes: proved no TPS2553-Q1 RILIM can simultaneously pass a 150 mA peak and guarantee a 150 mA maximum ceiling, stopped the ECO as incomplete, and requires QER-02 Branch Peak and Protection Ceiling Reconciliation before CSR-01A-R4.
+
 - Completed PPQ-01 Power Performance Qualification: verified package-independent load, corner, startup/inrush, efficiency, thermal, stress, protection, sequencing, USB-only and dual-source models; qualified 50 blocked references for future freeze evaluation and identified a six-row TPS2553/QER current-limit conflict requiring ECO-008 before CSR-01A-R4.
 
 - Completed PEB-01 Power Evidence Baseline: released traceable load, regulator, magnetic, capacitor, MOSFET, protection, thermal, derating, reliability, and 124-row evidence-register analyses without selecting parts; forecast 56 rows eligible for future freeze evaluation and requires PPQ-01 plus parallel JCS-01 before CSR-01A-R4.

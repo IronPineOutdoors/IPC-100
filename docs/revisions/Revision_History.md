@@ -1,5 +1,9 @@
 # IPC-100 Revision History
 
+## 2026-07-31 — ECO-008
+
+Evaluated the three TPS2553-Q1 branch-limit networks. The legal RILIM window is empty: ±1% nominal resistance must be ≥213.358 kΩ to guarantee the ceiling yet ≤153.622 kΩ to guarantee the required peak. No schematic change was made; ECO-008 is incomplete pending QER-02.
+
 ## 2026-07-31 — PPQ-01
 
 Released analytical power-performance qualification and four supporting models plus a 124-row evidence register. Fifty references are forecast freeze-eligible; six TPS2553/RILIM rows failed the QER branch-limit screen and require ECO-008. No design or component-selection change was made.

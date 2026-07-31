@@ -64,6 +64,8 @@ For a 50 ms 5 V rise into 30 µF effective output capacitance, capacitor chargin
 
 ## 6. Continuous and peak current
 
+> **ECO-008 disposition:** The TPS2553/QER observation below is confirmed as an infeasible zero-width legal window. No compliant RILIM exists. ECO-008 made no schematic change and requires QER-02 before CSR-01A-R4.
+
 The simultaneous continuous model yields 1.00 A at 3.3 V, 470 mA direct at 5 V and 1.246 A total at +5V_MAIN. Margins are 0% to the deliberately enforced 3.3 V allocation and 254 mA/16.9% to the 1.50 A 5 V allocation. Peak limits remain 1.5 A/100 ms on 3.3 V, 2 A/100 ms on 5 V, and 2 A/100 ms at the board input.
 
 Branch TPS2553-Q1 networks calculate 154–209 mA. This passes a 150 mA/10 ms peak screen but the 209 mA upper bound is 209% of a 100 mA continuous branch and exceeds QER §6's generic 150% maximum. This is a **qualification observation**: exact-device tolerance or branch-specific interpretation must be resolved during CSR-01A-R4; PPQ-01 does not alter the schematic.
