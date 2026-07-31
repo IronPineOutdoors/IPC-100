@@ -6,3 +6,5 @@ Future repeatable utilities for documentation checks, BOM validation, manufactur
 - `validate_icd002.ps1` verifies the ICD-002 release decision, all 54 frozen Sheet 09 ports, all eleven Rev A connector designation groups, J11/J12 nonpopulation, staged J6/J7 nets, and preserved GPIO constraints.
 
 Package 09R implements Sheet 08 within ICD-001. ECO-004 corrects the J6/J7 branches on Sheet 07 and the protected USB-C UFP boundary on Sheet 09. Structural validation is not native KiCad ERC; ERC remains a separate release gate.
+
+SSR-01R uses all three validators as structural regression evidence for the post-ECO-004 Sheet 00–09 baseline. The checks cover the 54 frozen Sheet 09 ports, four ECO-003 ports, GPIO37/GPIO42 constraints, hierarchy, references, UUIDs, S-expression balance, ECO-004 interfaces, and zero footprints. They do not prove exact-device pin mapping, analog limits, timing, partial-power behavior, USB signal integrity, EMC, or native ERC.

@@ -2,6 +2,7 @@
 
 Initial project creation.
 
+- Completed SSR-01R post-ECO-004 revalidation; approved the stable Rev A functional schematic baseline with Major observations and authorized Package 11 Component Selection & Footprint Assignment under controlled per-part review, while retaining native ERC, quantitative, physical-design, and prototype gates.
 - Completed ECO-004 interface remediation: added independent `OLED_VCC`/`SENSOR_VCC`-qualified fail-isolated J6/J7 I²C branches and a complete protected J13 USB-C UFP boundary; exact-part, native ERC, SI/EMC, footprint, and prototype gates remain open, and Package 11 is not authorized.
 - Completed SSR-01 integrated schematic release review; release was not approved and Package 11 remains unauthorized pending J6/J7 isolation, USB boundary/protection, exact-part, quantitative, and native ERC closure.
 - Completed Package 10R Sheet 09 preliminary connector/harness capture with twelve physical connector symbols, J11/J12 documentation-only disposition, factory pogo access, USB-C UFP CC terminations, and zero footprints.

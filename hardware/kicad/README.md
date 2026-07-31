@@ -60,6 +60,6 @@ The Package 09 entry-gate review identified an unresolved optional J10 I²C boun
 
 Package 10R implements Sheet 09 with the ICD-002 generic connector/harness boundaries, split STOP/UI connectors, restricted J10, factory pogo boundary, and J11/J12 documentation-only notes. ECO-004 subsequently added two independently peripheral-rail-qualified, fail-isolated J6/J7 I²C branches on Sheet 07 and replaced J13's grouped USB abstraction with all 24 Type-C contacts plus shell, independent CC Rd, provisional data/VBUS ESD, and a DNP shell coupling/bleed network. Sheet 07 still owns the sole base-bus pull-up pair; upstream USB fuse and reverse-current protection remain owned by Sheets 01/02.
 
-All ECO-004 components remain provisional and footprint-free. Exact parts, USB SI, EMC/enclosure bonding, native ERC, quantitative release analysis, and prototype validation remain open. Package 11 and PCB layout are not authorized.
+All ECO-004 components remain provisional and footprint-free. SSR-01R subsequently approved the stable functional schematic baseline with Major observations and authorized Package 11 Component Selection & Footprint Assignment. Exact parts, manufacturer pin maps, ratings, reviewed land patterns, USB SI, EMC/enclosure bonding, native ERC, quantitative release analysis, DFM/DFT, and prototype validation remain controlled Package 11 or downstream gates.
 
-Footprint assignment and PCB layout remain separately gated.
+Package 11 work must review each exact device before accepting its footprint. PCB placement, routing, fabrication, and procurement remain separately gated and unauthorized.

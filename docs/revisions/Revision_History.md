@@ -17,6 +17,8 @@ Rev A is currently in architecture and requirements definition. No prototype bui
 
 ECO-004 corrected the two SSR-01 interface findings by adding independently rail-qualified, fail-isolated J6/J7 I²C branches and completing the protected J13 USB-C UFP boundary. Exact components, native ERC, footprints, SI/EMC, quantitative release analysis, and prototype verification remain open; Package 11 is not authorized.
 
+SSR-01R revalidated the complete post-ECO-004 Sheet 00–09 baseline and approved schematic release with Major observations. Package 11 Component Selection & Footprint Assignment is authorized under per-part pin/rating/land-pattern controls. Native ERC, exact-component, quantitative, connector, SI/EMC, DFM/DFT, and prototype gates remain open; PCB placement and routing are not authorized.
+
 ## 2. Version types
 
 | Version type | Meaning | Example | Controlled independently |
