@@ -1,5 +1,9 @@
 # IPC-100 Open Design Items
 
+## DRA-01 disposition
+
+DRA-01 is complete. The remaining 124 blocked power rows derive from four root causes: protection/transient coordination (19), active-stage analytical/physical closure (37), dependent passive qualification (67), and J1 product-system definition (1). The next package is PEB-01 Power Evidence Baseline and Analytical Closure; PPQ-01 follows it, while JCS-01 may run in parallel. Do not authorize another CSR pass until those package exit criteria are met.
+
 ## CSR-01A-R3 disposition
 
 CSR-01A-R3 is **NOT ACCEPTED**. ECO-007's three schematic corrections are verified, but 124 of 133 power rows remain blocked on exact-part evidence. The smallest next package is CSR-01A-R3A Exact Power Selection Evidence Completion, covering input transient coordination, converter/vendor-tool and thermal work, critical passive curves, J1 order codes, and commercial/alternate evidence. Any newly discovered circuit incompatibility requires its own narrow ECO. CSR-01B remains unauthorized.

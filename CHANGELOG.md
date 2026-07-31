@@ -2,6 +2,8 @@
 
 Initial project creation.
 
+- Completed DRA-01 root-cause assessment: mapped all 124 blocked power rows exactly once into four process-level causes, identified the analytical/evidence dependency chain, and recommended PEB-01 Power Evidence Baseline and Analytical Closure before any further CSR pass.
+
 - Completed CSR-01A-R3 Final Power Component Selection review: reconciled 133 power rows, preserved nine frozen resistors, retained 124 evidence-backed blockers, rejected the final freeze, kept CSR-01B unauthorized, and defined CSR-01A-R3A as the smallest corrective evidence package.
 
 - Completed ECO-007 power programming and supervisor correction: restored valid 400 kHz LMR38020F-Q1 RT programming, corrected all TPS2553-Q1 ILIM networks, and implemented a physical fail-disabled fixed-threshold expansion-rail supervisor with external hysteresis. CSR-01A-R3 is authorized; CSR-01B remains unauthorized.
