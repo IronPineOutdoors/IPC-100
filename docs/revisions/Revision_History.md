@@ -33,6 +33,8 @@ ECO-006 corrected the four input-capacitor voltage classes and Q101 transient ma
 
 MIR-01 released J1 as an enclosure-protected, board-mounted, right-angle, positively latched two-contact P1 interface with a replaceable 18 AWG H01 crimp harness. It froze electrical/mechanical ratings, physical envelope, keying, retention, mating life, environmental qualification, strain relief, labeling, manufacturing inspection, failure controls, and future-footprint constraints without selecting a family or footprint. CSR-01A-R2 Power Component Selection Final Pass is authorized; CSR-01B and PCB work remain unauthorized.
 
+CSR-01A-R2 dispositioned all 130 power-scope rows: nine previously frozen 100 kΩ bias resistors remain frozen and 121 rows remain blocked. Exact manufacturer review found that R201 does not implement U201's released 400 kHz target, R222/R223/R224 exceed TPS2553-Q1's supported RILIM range, and no reviewed U801 implementation satisfies the complete frozen threshold/hysteresis/delay contract without added circuitry. CSR-01A-R2 was not accepted; CSR-01B remains unauthorized pending a narrow corrective ECO and final re-review.
+
 ## 2. Version types
 
 | Version type | Meaning | Example | Controlled independently |

@@ -64,9 +64,12 @@ function Test-Csr01ArFrozen100kResistor {
 
 function Get-Csr01ArBlocker {
     param([string]$Sheet, [string]$Reference, [string]$Category, [string]$Value)
-    if ($Reference -in @('C102', 'C103', 'C104', 'C109', 'Q101')) { return 'SCHEMATIC VALUE INCONSISTENT — QER-01 voltage derating cannot be met by the captured 50 V capacitors or 60 V MOSFET.' }
-    if ($Reference -in @('U706', 'U707', 'U801')) { return 'ANALYSIS INCOMPLETE — ECO-006 physical class is defined; exact order code, pin mapping, threshold and partial-power-off evidence remain for CSR-01A-R2.' }
-    if ($Reference -eq 'J1') { return 'MECHANICAL INTERFACE MISSING — enclosure entry, mounting, mating pair, terminal, and released wire constraints require a connector-selection package.' }
+    if ($Reference -in @('R201', 'U201')) { return 'SCHEMATIC VALUE INCONSISTENT — LMR38020-Q1 requires 64.9 kOhm nominal for 400 kHz; captured R201 is 40.2 kOhm, so the released frequency and exact regulator network cannot both be true.' }
+    if ($Reference -in @('R222', 'R223', 'R224', 'U209', 'U212', 'U213')) { return 'SCHEMATIC VALUE INCONSISTENT — TPS2553-Q1 specifies a 15..232 kOhm RILIM range; captured 287 kOhm is outside the stable programming range and cannot freeze a 100 mA limit.' }
+    if ($Reference -eq 'U801') { return 'PHYSICAL REQUIREMENT UNRESOLVED — no reviewed four-pin supervisor simultaneously satisfies separate core VDD/sense, valid assert >=2.9 V, invalid deassert <=2.7 V, 5..10 ms delay, and push-pull fail-low behavior without added threshold/timing circuitry.' }
+    if ($Reference -in @('C102', 'C103', 'C104', 'C109', 'Q101')) { return 'ANALYSIS INCOMPLETE — ECO-006 corrected the electrical class; exact manufacturer curve, tolerance, thermal/SOA, lifecycle, sourcing, and cost evidence remain pending after CSR-01A-R2 stopped on released-network conflicts.' }
+    if ($Reference -in @('U706', 'U707')) { return 'ANALYSIS INCOMPLETE — ECO-006 physical class is defined and TCA9517A is a candidate; exact pin equivalence, offset-low compatibility, partial-power behavior, lifecycle, sourcing, and cost evidence remain pending.' }
+    if ($Reference -eq 'J1') { return 'ANALYSIS INCOMPLETE — MIR-01 released the physical interface, but housing/header/contact/tool order codes and qualification evidence were not frozen because CSR-01A-R2 stopped on electrical-network conflicts.' }
     if ($Reference -in @('U201', 'U203', 'L201', 'L202') -or $Value -match 'bootstrap|soft start|mux hold-up') { return 'THERMAL/STABILITY EVIDENCE MISSING — vendor-tool, effective-capacitance, loop/stability, loss, and minimum-copper analysis are incomplete.' }
     if ($Category -eq 'Power' -or $Reference -in @('U101','U102','U202','U204','U205','U206','U207','U208','U209','U210','U211','U212','U213','U302')) { return 'ANALYSIS INCOMPLETE — exact suffix equations, pin mapping, thresholds, timing, partial-power, thermal, and fault behavior are not all closed.' }
     if ($Category -in @('Protection','MOSFETs') -or $Reference -like 'D*' -or $Reference -like 'F*') { return 'TRANSIENT COORDINATION UNRESOLVED — clamp/current/energy/leakage/fault coordination and exact manufacturer evidence are incomplete.' }
@@ -138,7 +141,7 @@ foreach ($file in $schematicFiles) {
             'Currency' = ''
             'Price Date' = ''
             'Freeze Status' = $freezeStatus
-            'Requirement Trace Reference' = if ($isPowerScope) { 'QER-01; CSR-01A-R review pending' } else { 'NOT YET FROZEN' }
+            'Requirement Trace Reference' = if ($isPowerScope) { 'QER-01; ECO-006; MIR-01 where applicable; CSR-01A-R2 disposition' } else { 'NOT YET FROZEN' }
             'Sourcing Risk' = if ($isPowerScope) { 'BLOCKED' } else { 'NOT YET FROZEN' }
             'Risk' = if ($isPowerScope) { $blocker } else { 'Outside current package; do not source or assign a footprint.' }
             'Approved Alternate' = ''
@@ -147,7 +150,7 @@ foreach ($file in $schematicFiles) {
             'Datasheet URL' = ''
             'Datasheet Revision or Date' = if ($isPowerScope) { 'BLOCKED' } else { 'NOT YET FROZEN' }
             'Hardware Revision' = 'Rev A'
-            'Notes' = if ($isPowerScope) { "CSR-01A-R disposition: BLOCKED. $blocker" } else { 'NOT YET FROZEN; excluded from CSR-01A-R.' }
+            'Notes' = if ($isPowerScope) { "CSR-01A-R2 disposition: BLOCKED. $blocker" } else { 'NOT YET FROZEN; excluded from CSR-01A-R2.' }
         }
         if (Test-Csr01ArFrozen100kResistor -Sheet $sheet -Reference $reference) {
             $row.Manufacturer = 'Panasonic Industry'
@@ -161,19 +164,19 @@ foreach ($file in $schematicFiles) {
             $row.'Temperature Range' = '-55 °C to +155 °C'
             $row.'Lifecycle Status' = 'ACTIVE — checked 2026-07-31'
             $row.'RoHS Status' = 'COMPLIANT — manufacturer certificate available'
-            $row.Availability = 'Mouser 505,209 in stock; DigiKey over 1,000,000 in stock; checked 2026-07-31, not guaranteed'
-            $row.'Preferred Vendor' = 'Mouser'
-            $row.'Preferred Vendor Ordering Code' = '667-ERJ-3EKF1003V'
-            $row.'Alternate Vendor' = 'DigiKey'
-            $row.'Alternate Vendor Ordering Code' = 'P100KHTR-ND / P100KHCT-ND'
+            $row.Availability = 'DigiKey 943,271 in stock; Mouser regional listing over 357,000 in stock; checked 2026-07-31, not guaranteed'
+            $row.'Preferred Vendor' = 'DigiKey'
+            $row.'Preferred Vendor Ordering Code' = 'P100KHTR-ND / P100KHCT-ND'
+            $row.'Alternate Vendor' = 'Mouser'
+            $row.'Alternate Vendor Ordering Code' = '667-ERJ-3EKF1003V'
             $row.'Second Source' = 'Vishay Dale RCG0603100KFKEA — ELECTRICALLY APPROVED; footprint confirmation deferred'
             $row.'Selection Rationale' = 'QER-R-01/02/03/04: 5.25 V / 75 V = 7.0% voltage utilization; 0.276 mW / 100 mW = 0.28% power utilization; ±1% and ±100 ppm/°C meet general power-bias requirements; -55 to +155 °C exceeds environment.'
             $row.'Unit Cost 1' = '0.100'
-            $row.'Unit Cost 10' = '0.024'
-            $row.'Unit Cost 100' = '0.020'
-            $row.'Unit Cost 1000' = '0.012'
+            $row.'Unit Cost 10' = '0.039'
+            $row.'Unit Cost 100' = '0.0195'
+            $row.'Unit Cost 1000' = '0.01131'
             $row.Currency = 'USD'
-            $row.'Price Date' = '2026-07-31; Mouser cut tape'
+            $row.'Price Date' = '2026-07-31; DigiKey cut tape'
             $row.'Freeze Status' = 'FROZEN'
             $row.'Requirement Trace Reference' = 'CSR-01A-R:QER-R-01,QER-R-02,QER-R-03,QER-R-04,QER-ENV-01'
             $row.'Sourcing Risk' = 'LOW'

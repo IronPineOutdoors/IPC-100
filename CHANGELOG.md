@@ -2,6 +2,8 @@
 
 Initial project creation.
 
+- Completed CSR-01A-R2 Final Power Component Freeze review: dispositioned all 130 power rows, retained nine frozen resistors, documented 121 blockers, identified released U201/R201 frequency, TPS2553 RILIM, and U801 threshold/hysteresis incompatibilities, rejected the freeze, and kept CSR-01B unauthorized pending a narrow corrective ECO and re-review.
+
 - Accepted MIR-01 J1 Mechanical Interface Release: froze the board-header/harness architecture, environmental envelope, 18 AWG H01 cable, locking/keying, retention, durability, service, manufacturing, failure-analysis, and future-footprint constraints; authorized CSR-01A-R2 Power Component Selection Final Pass without assigning a footprint or modifying schematics, PCB, GPIO, ADRs, or ICDs.
 
 - Completed ECO-006 power-subsystem electrical compatibility remediation: corrected four capacitor voltage classes and Q101 margin, decomposed U706/U707/U801 into physical selectable functions, added deterministic buffer-enable bias, closed schematic-level regulator/passive/transient calculations, and authorized CSR-01A-R2 while keeping CSR-01A-R not accepted, CSR-01B unauthorized, J1 mechanics open, footprints blank, and PCB work prohibited.
