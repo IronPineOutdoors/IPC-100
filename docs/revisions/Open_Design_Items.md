@@ -1,5 +1,9 @@
 # IPC-100 Open Design Items
 
+## PPQ-01 disposition
+
+PPQ-01 is complete. Fifty blocked references are analytically eligible for exact freeze evaluation. U209/U212/U213 and R222/R223/R224 remain ineligible because their released 154–209 mA tolerance window exceeds QER-01's 150 mA maximum for a 100 mA branch. ECO-008 Branch Current-Limit Compliance Remediation is required before CSR-01A-R4. PPQ-02 remains required for 67 passives, and JCS-01 remains required for J1.
+
 ## PEB-01 disposition
 
 PEB-01 is complete. The common analytical baseline should make 56 of 124 blocked rows (45.2%) eligible for exact freeze evaluation, but this is below the 80% direct-CSR threshold. PPQ-01 Power Passive Qualification is required next for 67 rows; JCS-01 J1 Connector System Definition may proceed in parallel. QER-V01 through V08 remain measured, exact-part, layout, environmental, ERC, or reliability gates and are not represented as completed evidence.

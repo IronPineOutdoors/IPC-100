@@ -2,6 +2,8 @@
 
 Initial project creation.
 
+- Completed PPQ-01 Power Performance Qualification: verified package-independent load, corner, startup/inrush, efficiency, thermal, stress, protection, sequencing, USB-only and dual-source models; qualified 50 blocked references for future freeze evaluation and identified a six-row TPS2553/QER current-limit conflict requiring ECO-008 before CSR-01A-R4.
+
 - Completed PEB-01 Power Evidence Baseline: released traceable load, regulator, magnetic, capacitor, MOSFET, protection, thermal, derating, reliability, and 124-row evidence-register analyses without selecting parts; forecast 56 rows eligible for future freeze evaluation and requires PPQ-01 plus parallel JCS-01 before CSR-01A-R4.
 
 - Completed DRA-01 root-cause assessment: mapped all 124 blocked power rows exactly once into four process-level causes, identified the analytical/evidence dependency chain, and recommended PEB-01 Power Evidence Baseline and Analytical Closure before any further CSR pass.

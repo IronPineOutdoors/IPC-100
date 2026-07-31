@@ -6,6 +6,8 @@
 
 > **Evidence baseline:** [PEB-01](docs/analysis/PEB-01_Power_Evidence_Baseline.md) is complete. It supplies analytical evidence for 56 blocked rows; PPQ-01 and parallel JCS-01 remain required before CSR-01A-R4. No component, footprint, or PCB work is authorized.
 
+> **Performance qualification:** [PPQ-01](docs/qualification/PPQ-01_Power_Performance_Qualification.md) is complete. Fifty references are forecast freeze-eligible; ECO-008 must resolve the six-row TPS2553/QER current-limit conflict before CSR-01A-R4. PPQ-02 and JCS-01 remain open.
+
 Reusable ESP32-based outdoor controller platform for Iron Pine Outdoors.
 
 | Project identity | Value |

@@ -1,5 +1,9 @@
 # IPC-100 Revision History
 
+## 2026-07-31 — PPQ-01
+
+Released analytical power-performance qualification and four supporting models plus a 124-row evidence register. Fifty references are forecast freeze-eligible; six TPS2553/RILIM rows failed the QER branch-limit screen and require ECO-008. No design or component-selection change was made.
+
 ## 2026-07-31 — PEB-01
 
 Created the package-independent power evidence baseline and five controlled appendices. Quantified load, loss, thermal, magnetic, capacitor, MOSFET, protection and derating envelopes; mapped all 124 blocked references to generated and remaining evidence; and deferred CSR-01A-R4 until PPQ-01 and JCS-01 close the remaining selection prerequisites.
