@@ -257,4 +257,4 @@ The smallest corrective engineering package is **ECO-006 — Power Quantitative 
 
 # CSR-01A-R NOT ACCEPTED
 
-CSR-01B is not authorized. Complete ECO-006 and the J1 Mechanical Interface Release, then reissue the power selection review.
+CSR-01B is not authorized. ECO-006 subsequently corrected findings F01–F04 at schematic level and authorizes CSR-01A-R2 candidate selection; this historical review remains not accepted. J1 Mechanical Interface Release, exact-candidate evidence, native ERC, and later verification remain open.

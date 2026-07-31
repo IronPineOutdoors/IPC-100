@@ -4,9 +4,9 @@
 | --- | --- |
 | Platform | IPC-100 |
 | Hardware revision | Rev A |
-| Change authority | ECO-005 |
+| Change authority | ECO-006 |
 | Normalization date | 2026-07-31 |
-| Physical/logical component rows | 301 |
+| Physical/logical component rows | 307 |
 | Final duplicate references | 0 |
 
 Connector functional designations J1â€“J10 and J13, plus factory boundary DFT1, are intentionally preserved. `#PWR` symbols are included for traceability but are not physical BOM items. All other references use sheet-based numeric ranges.
@@ -14,14 +14,14 @@ Connector functional designations J1â€“J10 and J13, plus factory boundary D
 | Old Reference | New Reference | Sheet | Component Type | Function |
 | --- | --- | --- | --- | --- |
 | `C1` | `C101` | 01 | `IPC100:C` | 100 nF |
-| `C2` | `C102` | 01 | `IPC100:C` | 100 nF 50 V |
-| `C3` | `C103` | 01 | `IPC100:C` | 22 µF 50 V |
-| `C4` | `C104` | 01 | `IPC100:C` | 22 µF 50 V |
+| `C2` | `C102` | 01 | `IPC100:C` | 100 nF nominal; ≥70 nF effective at 55 V; ≥100 V X7R |
+| `C3` | `C103` | 01 | `IPC100:C` | 22 µF nominal; ≥20 µF effective; ≥63 V low-ESR bulk; ≥0.6 A RMS |
+| `C4` | `C104` | 01 | `IPC100:C` | 22 µF nominal; ≥20 µF effective; ≥63 V low-ESR bulk; ≥0.6 A RMS |
 | `C5` | `C105` | 01 | `IPC100:C` | 100 nF |
 | `C6` | `C106` | 01 | `IPC100:C` | 1 µF 10 V |
 | `C7` | `C107` | 01 | `IPC100:C` | 10 µF 10 V |
 | `C8` | `C108` | 01 | `IPC100:C` | 10 nF |
-| `C9` | `C109` | 01 | `IPC100:C` | 100 nF 50 V |
+| `C9` | `C109` | 01 | `IPC100:C` | 100 nF nominal; ≥70 nF effective at 55 V; ≥100 V X7R |
 | `D1` | `D101` | 01 | `IPC100:D` | SMBJ33A-class TVS (provisional) |
 | `D2` | `D102` | 01 | `IPC100:D` | 4.7 V Zener |
 | `D3` | `D103` | 01 | `IPC100:D` | Low-leakage ADC clamp (TBD exact) |
@@ -30,7 +30,7 @@ Connector functional designations J1â€“J10 and J13, plus factory boundary D
 | `#PWR0101` | `#PWR0101` | 01 | `IPC100:GND` | GND |
 | `#PWR0102` | `#PWR0102` | 01 | `IPC100:GND` | GND |
 | `L1` | `L101` | 01 | `IPC100:L` | 10 µH, ≥3 A, ≤100 mΩ (TBD exact) |
-| `Q1` | `Q101` | 01 | `IPC100:NMOS` | 60 V N-FET, ≤20 mΩ (TBD exact) |
+| `Q1` | `Q101` | 01 | `IPC100:NMOS` | ≥80 V N-FET; ≤25 mΩ at actual gate drive; hot-current/SOA constrained |
 | `Q2` | `Q102` | 01 | `IPC100:NMOS` | 2N7002, 60 V |
 | `R1` | `R101` | 01 | `IPC100:R` | 634 kΩ 1% |
 | `R10` | `R110` | 01 | `IPC100:R` | 1.00 kΩ 1% |
@@ -269,12 +269,18 @@ Connector functional designations J1â€“J10 and J13, plus factory boundary D
 | `U2` | `U702` | 07 | `IPC100:I2C_EXPANDER` | TCA9535-class, +3V3_CORE, address 0x20, power-up inputs/high-Z |
 | `U4` | `U704` | 07 | `IPC100:I2C_PERIPHERAL_BOUNDARY` | 2.42-inch SSD1309 OLED reference; exact module/J6 deferred |
 | `U5` | `U705` | 07 | `IPC100:I2C_PERIPHERAL_BOUNDARY` | BME280 environmental sensor reference; exact module/J7 deferred |
-| `U6` | `U706` | 07 | `IPC100:I2C_POWER_QUALIFIED_BRANCH` | J6: 100 kHz; OLED_VCC-qualified; fail-disabled; Ioff <=10uA; no backfeed/stuck-low propagation while isolated |
-| `U7` | `U707` | 07 | `IPC100:I2C_POWER_QUALIFIED_BRANCH` | J7: 100 kHz; SENSOR_VCC-qualified; fail-disabled; Ioff <=10uA; no backfeed/stuck-low propagation while isolated |
+| `U6` | `U706` | 07 | `IPC100:I2C_DUAL_SUPPLY_BUFFER_EN` | One physical dual-supply J6 I2C buffer; branch-powered EN; fail-isolated |
+| `U7` | `U707` | 07 | `IPC100:I2C_DUAL_SUPPLY_BUFFER_EN` | One physical dual-supply J7 I2C buffer; branch-powered EN; fail-isolated |
 | `Q1` | `Q701` | 07 | `IPC100:OLED_RESET_OD` | 2N7002-class open-drain reset; 100k core pull-up asserts reset by default |
 | `R1` | `R701` | 07 | `IPC100:R` | 100 kΩ ±1% expander reset pull-up |
 | `R2` | `R702` | 07 | `IPC100:R` | 4.70 kΩ ±1% I2C SDA pull-up; Sheet 07 base-bus owner |
 | `R3` | `R703` | 07 | `IPC100:R` | 4.70 kΩ ±1% I2C SCL pull-up; Sheet 07 base-bus owner |
+| `ECO-006 added` | `C702` | 07 | `IPC100:C` | 100 nF U706 core-side bypass |
+| `ECO-006 added` | `C703` | 07 | `IPC100:C` | 100 nF U706 branch-side bypass |
+| `ECO-006 added` | `C704` | 07 | `IPC100:C` | 100 nF U707 core-side bypass |
+| `ECO-006 added` | `C705` | 07 | `IPC100:C` | 100 nF U707 branch-side bypass |
+| `ECO-006 added` | `R704` | 07 | `IPC100:R` | 100 kΩ OLED buffer enable fail-low bias |
+| `ECO-006 added` | `R705` | 07 | `IPC100:R` | 100 kΩ sensor buffer enable fail-low bias |
 | `U3` | `U703` | 07 | `IPC100:STATUS_DRIVER4` | 4x 60 V logic NMOS; 100Ω gates; 100kΩ gate pull-downs; buzzer clamp provision |
 | `TP1` | `TP701` | 07 | `IPC100:TEST_NODE` | UI_VCC DFT node |
 | `TP2` | `TP702` | 07 | `IPC100:TEST_NODE` | OLED_VCC DFT node |
@@ -287,7 +293,7 @@ Connector functional designations J1â€“J10 and J13, plus factory boundary D
 | `D1` | `D801` | 08 | `IPC100:ESD_PROVISION` | J10 SDA low-capacitance TVS provision; IEC 61000-4-2 target |
 | `D2` | `D802` | 08 | `IPC100:ESD_PROVISION` | J10 SCL low-capacitance TVS provision; IEC 61000-4-2 target |
 | `D3` | `D803` | 08 | `IPC100:ESD_PROVISION` | EXPANSION_VCC local ESD/reverse-injection provision; final part coordinated with Sheet 09 |
-| `U1` | `U801` | 08 | `IPC100:EXPANSION_RAIL_QUALIFIER` | 2.9 V assert / 2.7 V deassert rail qualifier; ≥5 ms valid; fail-low output |
+| `U1` | `U801` | 08 | `IPC100:RAIL_VALID_SUPERVISOR_PP` | One physical push-pull rail supervisor; fixed threshold/delay; fail-low output |
 | `FB1` | `FB801` | 08 | `IPC100:FERRITE` | Accessory-bias filter bead — impedance/current rating pending protection part selection |
 | `U2` | `U802` | 08 | `IPC100:I2C_SEGMENT_BUFFER` | Dual-supply I2C hot-swap buffer; 100 kHz; fail-disabled; no clock stretching |
 | `R1` | `R801` | 08 | `IPC100:R` | 100 kΩ ±1% segment-enable fail-low bias |

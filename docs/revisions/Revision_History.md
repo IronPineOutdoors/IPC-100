@@ -29,6 +29,8 @@ QER-01 released a controlling quantitative envelope for the Rev A operating envi
 
 CSR-01A-R reconciled all 124 power-scope rows against QER-01. Nine Sheet 02/08 low-voltage 100 kΩ bias/enable resistors were frozen to Panasonic `ERJ-3EKF1003V` with an electrically approved Vishay alternate, derating, lifecycle, sourcing, and price evidence. The other 115 rows remain blocked; four 50 V capacitors and one 60 V MOSFET conflict with QER derating, three entries remain composite physical functions, and J1 requires a mechanical-interface release. CSR-01A-R was not accepted; CSR-01B remains unauthorized pending ECO-006 and J1 release.
 
+ECO-006 corrected the four input-capacitor voltage classes and Q101 transient margin, narrowed U706/U707 to one physical enabled dual-supply I2C buffer each, narrowed U801 to the physical supervisor function separate from U802, added R704/R705 deterministic enable bias, and documented regulator/passive/transient calculations sufficient for CSR-01A-R2 candidate selection. CSR-01A-R remains not accepted, J1 mechanics and native ERC remain open, and CSR-01B/footprints/PCB work remain unauthorized.
+
 ## 2. Version types
 
 | Version type | Meaning | Example | Controlled independently |

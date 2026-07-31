@@ -40,7 +40,7 @@ function Test-PowerScope {
         '01_Power_Entry' { return $true }
         '02_Power_Conversion' { return $true }
         '03_ESP32_Core' { return $Reference -in @('C305', 'C306', 'U302') }
-        '07_UI_Peripherals' { return $Reference -in @('U706', 'U707') }
+        '07_UI_Peripherals' { return $Reference -in @('C702', 'C703', 'C704', 'C705', 'R704', 'R705', 'U706', 'U707') }
         '08_Expansion' { return $Reference -in @('C802', 'D803', 'FB801', 'R801', 'U801') }
         '09_Connectors_Test' { return $Reference -in @('D902', 'J1') }
         default { return $false }
@@ -65,7 +65,7 @@ function Test-Csr01ArFrozen100kResistor {
 function Get-Csr01ArBlocker {
     param([string]$Sheet, [string]$Reference, [string]$Category, [string]$Value)
     if ($Reference -in @('C102', 'C103', 'C104', 'C109', 'Q101')) { return 'SCHEMATIC VALUE INCONSISTENT — QER-01 voltage derating cannot be met by the captured 50 V capacitors or 60 V MOSFET.' }
-    if ($Reference -in @('U706', 'U707', 'U801')) { return 'ANALYSIS INCOMPLETE — composite functional symbol has no one-to-one physical topology or exact pin implementation.' }
+    if ($Reference -in @('U706', 'U707', 'U801')) { return 'ANALYSIS INCOMPLETE — ECO-006 physical class is defined; exact order code, pin mapping, threshold and partial-power-off evidence remain for CSR-01A-R2.' }
     if ($Reference -eq 'J1') { return 'MECHANICAL INTERFACE MISSING — enclosure entry, mounting, mating pair, terminal, and released wire constraints require a connector-selection package.' }
     if ($Reference -in @('U201', 'U203', 'L201', 'L202') -or $Value -match 'bootstrap|soft start|mux hold-up') { return 'THERMAL/STABILITY EVIDENCE MISSING — vendor-tool, effective-capacitance, loop/stability, loss, and minimum-copper analysis are incomplete.' }
     if ($Category -eq 'Power' -or $Reference -in @('U101','U102','U202','U204','U205','U206','U207','U208','U209','U210','U211','U212','U213','U302')) { return 'ANALYSIS INCOMPLETE — exact suffix equations, pin mapping, thresholds, timing, partial-power, thermal, and fault behavior are not all closed.' }

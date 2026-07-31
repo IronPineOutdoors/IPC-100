@@ -2,6 +2,8 @@
 
 Initial project creation.
 
+- Completed ECO-006 power-subsystem electrical compatibility remediation: corrected four capacitor voltage classes and Q101 margin, decomposed U706/U707/U801 into physical selectable functions, added deterministic buffer-enable bias, closed schematic-level regulator/passive/transient calculations, and authorized CSR-01A-R2 while keeping CSR-01A-R not accepted, CSR-01B unauthorized, J1 mechanics open, footprints blank, and PCB work prohibited.
+
 - Completed CSR-01A-R Power Component Selection Reattempt: reconciled all 124 power rows to QER-01, froze nine fully evidenced low-voltage bias resistors, retained 115 specific blockers, identified five QER/schematic rating conflicts and three composite physical functions, rejected the package, and kept CSR-01B unauthorized pending ECO-006 and J1 mechanical-interface release.
 - Accepted QER-01 Quantitative Electrical Requirements: released the Rev A operating environment, rail/load budgets, transient and protection envelopes, passive/connector/signal limits, derating policy, measurable design targets, and verification obligations; authorized CSR-01A-R without selecting parts or changing hardware.
 - Completed CSR-01A Power Component Selection review; classified 124 power-scope EBOM rows and 177 unrelated `NOT YET FROZEN` rows, documented unresolved transient, load, thermal, timing, connector, sourcing, and derating prerequisites, froze no MPNs, and kept CSR-01B unauthorized.

@@ -356,7 +356,7 @@ foreach ($sheetBlock in $sheetBlocks) {
             }
         }
         foreach ($requiredValue in @(
-            '2.9 V assert / 2.7 V deassert rail qualifier; ≥5 ms valid; fail-low output',
+            'One physical supervisor: core VDD; expansion sense; assert >=2.9 V after 5..10 ms; deassert <=2.7 V; push-pull low if invalid (TBD exact)',
             '100 kΩ ±1% segment-enable fail-low bias',
             'Dual-supply I2C hot-swap buffer; 100 kHz; fail-disabled; no clock stretching',
             '4.70 kΩ ±1% J10 SDA pull-up; Sheet 08 external-segment owner',
@@ -631,12 +631,12 @@ foreach ($signal in $eco003Signals) {
 
 # ECO-004: each external UI I2C branch is independently rail-qualified and
 # fail-isolated, and J13 exposes the complete protected USB-C UFP boundary.
-if ([regex]::Matches($sheet07Content, '\(lib_id "IPC100:I2C_POWER_QUALIFIED_BRANCH"\)').Count -ne 2) {
+if ([regex]::Matches($sheet07Content, '\(lib_id "IPC100:I2C_DUAL_SUPPLY_BUFFER_EN"\)').Count -ne 2) {
     $errors.Add('ECO-004 requires exactly two independently qualified I2C branch elements on Sheet 07.')
 }
 foreach ($branchRequirement in @(
-    'OLED_VCC-qualified; fail-disabled; Ioff <=10uA; no backfeed/stuck-low propagation while isolated',
-    'SENSOR_VCC-qualified; fail-disabled; Ioff <=10uA; no backfeed/stuck-low propagation while isolated'
+    'One physical 3.3 V dual-supply I2C buffer; 100 kHz; EN low isolates; Ioff <=10 uA; tpd <=1 us (TBD exact)',
+    '100 kOhm +/-1%; EN fail-low; >=0.063 W'
 )) {
     if (-not $sheet07Content.Contains($branchRequirement)) {
         $errors.Add("ECO-004 branch contract is missing: $branchRequirement.")
