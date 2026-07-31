@@ -2,6 +2,12 @@
 
 Initial project creation.
 
+## 2026-07-31 — PAS-01 passive selection
+
+- Corrected PPQ-02 class routing to 85 true passives, 20 active stages, 18 protection parts and J1.
+- Added an 85-row passive selection register with 67 exact preferred MPNs and 18 explicit blockers.
+- Added deterministic PAS-01 generation and validation without changing schematics or assigning footprints.
+
 - Completed PPQ-02 Remaining Power Performance Qualification: produced eleven analytical appendices and a 124-row evidence register, routed 19 protection rows to PPC-01, 104 active/passive rows to PAS-01, and J1 to JCS-01, while retaining CSR-01A-R5 as unauthorized.
 
 - Completed CSR-01A-R4 Power Component Selection and Freeze Reattempt: verified ECO-008R, reconciled 133 power rows as 9 frozen and 124 blocked, rejected the freeze, kept CSR-01B unauthorized, and assigned remaining closure to PPQ-02, JCS-01, PPC-01, and PAS-01.

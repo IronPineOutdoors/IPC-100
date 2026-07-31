@@ -1,8 +1,12 @@
 # IPC-100 Revision History
 
+## 2026-07-31 — PAS-01 / Package 11A-P
+
+Audited the corrected 85-reference blocked passive scope. Recorded 67 exact preferred MPNs as freeze eligible and retained 18 evidence-bound rows as blocked. Corrected PPQ-02 routing to 18 PPC-01, 85 PAS-01, 20 PACS-01 and one JCS-01 row. PAS-01 remains incomplete; no footprint or CAD artifact changed.
+
 ## 2026-07-31 — PPQ-02
 
-Completed operating-state, regulator, thermal, magnetics, capacitor, switch, protection-energy, threshold/timing, shared-rail, PCB-constraint and single-fault models. Mapped all 124 blocked rows to 19 PPC-01, 104 PAS-01 and one JCS-01 route without component or CAD changes.
+Completed operating-state, regulator, thermal, magnetics, capacitor, switch, protection-energy, threshold/timing, shared-rail, PCB-constraint and single-fault models. The PAS-01 class audit corrected routing to 18 PPC-01, 85 passive PAS-01, 20 active PACS-01 and one JCS-01 row; the earlier 19/104/1 aggregation is superseded.
 
 ## 2026-07-31 — CSR-01A-R4
 

@@ -18,7 +18,7 @@ Post-ECO-007 inventory contains 310 rows: 133 power-scope rows (9 frozen and 124
 
 `validate_csr01ar4.ps1` reconciles all 133 power rows, enforces the 9/0/124/0 disposition, exact evidence on frozen rows, named closure packages on blocked rows, TPS2553/QER-02 regression, CSV/XLSX synchronization, no obsolete RILIM annotation, and review-only scope.
 
-`generate_ppq02_register.ps1` maps all 124 blocked rows into the PPQ-02 evidence register. `validate_ppq02.ps1` checks unique coverage, 19/104/1 routing, appendices, calculation invariants, TPS2553 regression, and evidence-only scope.
+`generate_ppq02_register.ps1` maps all 124 blocked rows into the PPQ-02 evidence register. `validate_ppq02.ps1` checks unique 18 PPC / 85 PAS / 20 PACS / 1 JCS coverage, appendices, calculation invariants, TPS2553 regression, and evidence-only scope. `generate_pas01_register.ps1` creates the controlled 85-row passive selection register without assigning footprints.
 
 Future repeatable utilities for documentation checks, BOM validation, manufacturing packages, test automation, and release generation belong here. Scripts should be documented and safe by default.
 

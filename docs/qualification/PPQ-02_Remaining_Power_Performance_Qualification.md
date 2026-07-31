@@ -12,7 +12,7 @@
 
 PPQ-02 closes the shared calculations needed to select the remaining 124 blocked power references. It does not claim exact-part, manufacturer-curve, commercial, PCB, or prototype evidence. The package produces bounded operating, regulator, thermal, magnetics, capacitor, switch, protection, timing, shared-rail, PCB-constraint and single-fault envelopes.
 
-All 124 rows are mapped once: 19 protection/transient rows route to PPC-01, 104 active/dependent rows route to PAS-01, and J1 routes to JCS-01. Zero rows are directly ready for CSR-01A-R5 because exact order-code, lifecycle, sourcing, alternate and price evidence remain downstream work. CSR-01A-R5 is not authorized.
+All 124 rows are mapped once: 18 protection/transient rows route to PPC-01, 85 true passive rows route to PAS-01, 20 active-stage rows route to PACS-01, and J1 routes to JCS-01. The earlier 19/104/1 summary mixed active devices into PAS-01 and is superseded. Zero rows are directly ready for CSR-01A-R5 because exact order-code, lifecycle, sourcing, alternate and price evidence remain downstream work. CSR-01A-R5 is not authorized.
 
 ## 2. Controlled Inputs and Non-Duplication
 
@@ -24,9 +24,9 @@ QER-01/QER-02 control requirements. PEB-01 supplies load and package-independent
 
 | Group | Count | PPQ-02 evidence | Next package |
 |---|---:|---|---|
-| RC-A protection/transient | 19 | Energy, clamp, SOA, fault-time and coordination envelopes | PPC-01 |
-| RC-B active stages | 37 | Operating corners, loss/thermal, threshold, switch and PCB constraints | PAS-01 |
-| RC-C dependent passives | 67 | Effective-capacitance, ripple, magnetics, tolerance/pulse and timing envelopes | PAS-01 |
+| Protection/transient | 18 | Energy, clamp, current, SOA, timing and thermal constraints | PPC-01 |
+| Active stages | 20 | Operating corners, loss/thermal, threshold, switch and PCB constraints | PACS-01 |
+| True passives | 85 | Effective-capacitance, ripple, magnetics, tolerance/pulse and timing envelopes | PAS-01 |
 | RC-D J1 | 1 | Current/transient/environment envelope retained | JCS-01 |
 
 ## 4. Operating-State Closure
@@ -76,26 +76,27 @@ Every appendix cites QER-01 or QER-02 limits and the evidence register assigns a
 
 | Route | References | Status after PPQ-02 |
 |---|---:|---|
-| READY FOR PPC-01 | 19 | Protection selection envelope complete |
-| READY FOR PAS-01 | 104 | Active/passive selection envelope complete |
+| READY FOR PPC-01 | 18 | Protection selection envelope complete |
+| READY FOR PAS-01 | 85 | Passive selection envelope complete |
+| READY FOR PACS-01 | 20 | Active-stage selection envelope complete |
 | READY FOR JCS-01 | 1 | MIR/QER envelope complete; exact system required |
 | READY FOR CSR-01A-R5 directly | 0 | Exact/commercial evidence absent |
 | REQUIRES PROTOTYPE EVIDENCE | 56 | Cross-cutting subset; does not prevent candidate selection but prevents final release |
 | REMAINS BLOCKED analytically | 0 | All shared analytical dependencies have a disposition |
 
-Routing counts are mutually exclusive for 19/104/1. Prototype count is cross-cutting and must not be added to 124.
+Routing counts are mutually exclusive for 18/85/20/1. Prototype count is cross-cutting and must not be added to 124.
 
 ## 14. Remaining Dependencies and Handoff
 
-- **PAS-01** has the highest unblock value: 104 rows. It shall select exact active stages and their dependent passives against these envelopes, including manufacturer curves, packages, lifecycle, sourcing, alternates and prices.
-- **PPC-01** shall select and coordinate 19 protection rows.
+- **PAS-01** has the highest passive unblock value: 85 rows. It shall select only exact passive components against these envelopes. **PACS-01** owns the 20 active stages.
+- **PPC-01** shall select and coordinate 18 protection rows.
 - **JCS-01** shall select the complete J1 system.
 - Prototype DV shall close the 56 cross-cutting waveform/thermal/fault observations before release.
 
 ## 15. Validation
 
 - All 124 blocked references appear exactly once in the generated register.
-- Route totals are 19 + 104 + 1 = 124.
+- Route totals are 18 + 85 + 20 + 1 = 124.
 - QER-02 branches remain 141 kΩ and 162.82–222.35 mA.
 - No MPN, AVL approval, schematic, footprint, PCB, GPIO, hierarchy, ADR, ICD or connector contract changed.
 - Repository regressions and `git diff --check` pass.
@@ -105,6 +106,6 @@ Routing counts are mutually exclusive for 19/104/1. Prototype count is cross-cut
 
 # PPQ-02 COMPLETE
 
-Newly ready for PPC-01: **19**. Newly ready for PAS-01: **104**. Newly ready for JCS-01: **1**. Directly ready for CSR-01A-R5: **0**. Cross-cutting references still requiring prototype evidence: **56**. Remaining analytically blocked: **0**.
+Newly ready for PPC-01: **18**. Newly ready for PAS-01: **85**. Newly ready for PACS-01: **20**. Newly ready for JCS-01: **1**. Directly ready for CSR-01A-R5: **0**. Cross-cutting references still requiring prototype evidence: **56**. Remaining analytically blocked: **0**.
 
-Recommended next package: **PAS-01 — Power Active and Dependent-Passive Exact Selection**. CSR-01A-R5 remains unauthorized until PAS-01, PPC-01 and JCS-01 are complete and verified.
+Recommended next package: **PAS-01 — Passive Component Selection and Electrical Class Freeze**. CSR-01A-R5 remains unauthorized until PAS-01, PACS-01, PPC-01 and JCS-01 are complete and verified.

@@ -1,8 +1,12 @@
 # IPC-100 Open Design Items
 
+## PAS-01 disposition
+
+PAS-01 is **INCOMPLETE**. The corrected passive population is 85 references, of which 67 now have exact preferred MPNs and electrical/package recommendations but remain pending canonical freeze approval. Eighteen references require PAS-01R manufacturer-curve, active-suffix/tool, hot-magnetic or precision-high-value closure. PPC-01, PACS-01, JCS-01, footprints and PCB work remain separate and unauthorized.
+
 ## PPQ-02 disposition
 
-PPQ-02 is **COMPLETE**. All 124 blocked power rows have bounded shared analytical evidence and a selection route: 19 to PPC-01, 104 to PAS-01, and J1 to JCS-01. Fifty-six rows retain cross-cutting prototype tests. Zero rows are directly ready for CSR-01A-R5; PAS-01 has the highest unblock value. No component or CAD artifact changed.
+PPQ-02 is **COMPLETE**. The corrected class audit routes all 124 blocked power rows exactly once: 18 to PPC-01, 85 true passives to PAS-01, 20 active stages to PACS-01, and J1 to JCS-01. The superseded 19/104/1 summary had mixed active devices into PAS-01. Fifty-six rows retain cross-cutting prototype tests. No CAD artifact changed.
 
 ## CSR-01A-R4 disposition
 
