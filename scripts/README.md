@@ -16,6 +16,8 @@ Post-ECO-007 inventory contains 310 rows: 133 power-scope rows (9 frozen and 124
 
 `validate_eco008r.ps1` verifies all three 141 kΩ RILIM networks, recomputes 162.824–222.345 mA with tolerance and temperature drift, checks EBOM/AVL synchronization and blocked MPN status, and enforces hierarchy, GPIO, zero-footprint, and scope invariants.
 
+`validate_csr01ar4.ps1` reconciles all 133 power rows, enforces the 9/0/124/0 disposition, exact evidence on frozen rows, named closure packages on blocked rows, TPS2553/QER-02 regression, CSV/XLSX synchronization, no obsolete RILIM annotation, and review-only scope.
+
 Future repeatable utilities for documentation checks, BOM validation, manufacturing packages, test automation, and release generation belong here. Scripts should be documented and safe by default.
 
 - `validate_kicad_hierarchy.ps1` validates project JSON, schematic S-expression balance, child references, root/child port parity, unique sheet/label/reference/UUID identities, frozen safety and GPIO interfaces, implemented package contracts, and zero footprint assignments. Its ECO-004 checks require exactly two independently rail-qualified fail-isolated J6/J7 branches, the sole Sheet 07 base-bus pull-up pair, the complete J13 USB-C UFP contact boundary, ten explicit unused-contact markers, independent CC Rd, connector-entry data/VBUS ESD, and the DNP shield network.

@@ -8,7 +8,7 @@
 
 > **Performance qualification:** [PPQ-01](docs/qualification/PPQ-01_Power_Performance_Qualification.md) is complete. Fifty references are forecast freeze-eligible; ECO-008 must resolve the six-row TPS2553/QER current-limit conflict before CSR-01A-R4. PPQ-02 and JCS-01 remain open.
 
-> **ECO-008R status:** [TPS2553 Current-Limit Implementation](hardware/kicad/notes/ECO-008R_TPS2553_Current_Limit_Implementation.md) is complete. Three generic 141 kΩ RILIM networks calculate 162.82–222.35 mA and satisfy QER-02. CSR-01A-R4 is authorized; MPNs and footprints remain unfrozen.
+> **CSR-01A-R4 status:** [Power Component Selection and Freeze Reattempt](docs/reviews/CSR-01A-R4_Power_Component_Selection.md) is not accepted. ECO-008R is verified, but the inventory remains 9 frozen/124 blocked pending PPQ-02, JCS-01, PPC-01, and PAS-01. CSR-01B and footprints remain unauthorized.
 
 Reusable ESP32-based outdoor controller platform for Iron Pine Outdoors.
 

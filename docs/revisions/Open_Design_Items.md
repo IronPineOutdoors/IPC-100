@@ -1,5 +1,9 @@
 # IPC-100 Open Design Items
 
+## CSR-01A-R4 disposition
+
+CSR-01A-R4 is **NOT ACCEPTED**. The inventory remains 9 frozen and 124 blocked. ECO-008R closes the six-row TPS2553 electrical incompatibility, but PPQ-02 is still required for 67 passives, JCS-01 for J1, PPC-01 for 19 protection rows, and PAS-01 for 37 active-stage rows. CSR-01B, footprints, and PCB work remain unauthorized.
+
 ## ECO-008R disposition
 
 ECO-008R is **COMPLETE**. R222/R223/R224 are implemented as generic 141 kΩ ±1%, ≤100 ppm/°C networks; U209/U212/U213 calculate 162.82–222.35 mA including resistor drift and TPS2553 device limits. CSR-01A-R4 is authorized. Exact MPN/suffix, package, thermal/retry, sourcing, cost, and prototype evidence remain open; footprints and PCB work remain unauthorized.

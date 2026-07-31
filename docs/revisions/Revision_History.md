@@ -1,5 +1,9 @@
 # IPC-100 Revision History
 
+## 2026-07-31 — CSR-01A-R4
+
+Reconciled all 133 power rows after ECO-008R. Preserved nine frozen resistors, retained 124 evidence-specific blockers, verified the three 141 kΩ TPS2553 networks, and did not accept the power freeze. Defined PPQ-02, JCS-01, PPC-01, and PAS-01 as the remaining targeted evidence packages; CSR-01B remains unauthorized.
+
 ## 2026-07-31 — ECO-008R
 
 Implemented QER-02 on the three independent TPS2553-Q1 channels using generic 141 kΩ ±1%, ≤100 ppm/°C RILIM values. Worst-case 162.82–222.35 mA satisfies the 160–225 mA threshold band. Updated controlled BOM/AVL data without freezing MPNs or assigning footprints and authorized CSR-01A-R4.

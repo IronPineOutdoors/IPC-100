@@ -70,3 +70,5 @@ Worst-case maximum is 222.35 mA, 2.65 mA below the 225 mA safety ceiling. Initia
 # ECO-008R COMPLETE — CSR-01A-R4 AUTHORIZED
 
 CSR-01A-R4 may begin as a separate package. Footprints and PCB work remain unauthorized.
+
+> **Subsequent review:** CSR-01A-R4 verified the 141 kΩ implementation and 162.82–222.35 mA range but did not accept the power freeze because exact TPS2553 MPN/package, thermal/retry, lifecycle, sourcing, alternate, price, and prototype evidence remain open with the broader power evidence packages. CSR-01B remains unauthorized.
