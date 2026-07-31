@@ -2,4 +2,4 @@
 "Schematic BOM rows","301","INVENTORIED"
 "Rows with frozen MPN","0","BLOCKED"
 "Rows without frozen MPN","301","BLOCKED"
-"Repeated local reference names","63","REQUIRES PROJECT-WIDE ANNOTATION AUDIT"
+"Repeated local reference names","0","NORMALIZED BY ECO-005"

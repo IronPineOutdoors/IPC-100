@@ -21,6 +21,8 @@ SSR-01R revalidated the complete post-ECO-004 Sheet 00–09 baseline and approve
 
 CSR-01 / Package 11A inventoried 301 physical/logical schematic items but did not accept the component freeze. Composite functional blocks, 63 repeated local reference names, open quantitative/load/environment contracts, and unresolved modules/connectors prevent a complete MPN, AVL, derating, and cost release. Package 11B is not authorized.
 
+ECO-005 normalized all non-connector component references into deterministic Sheet 01–09 ranges, preserved the frozen connector/DFT designations, and reduced the global duplicate count from 63 repeated names to zero without changing UUIDs, nets, hierarchy, GPIOs, symbols, values, footprints, or PCB data. CSR-01A Power Component Selection is authorized; footprint assignment remains unauthorized.
+
 ## 2. Version types
 
 | Version type | Meaning | Example | Controlled independently |

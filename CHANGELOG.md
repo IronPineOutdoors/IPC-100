@@ -2,6 +2,7 @@
 
 Initial project creation.
 
+- Completed ECO-005 global reference normalization: assigned deterministic Sheet 01–09 references to 288 non-connector items, preserved connector/DFT identifiers, regenerated the 301-row EBOM with zero repeated references, added a permanent cross-reference register and global-range validation, and authorized CSR-01A Power Component Selection.
 - Completed CSR-01 Package 11A inventory and freeze-readiness review; generated a 301-row blocked EBOM and AVL, identified composite-topology, project-annotation, quantitative, connector/module, sourcing, and cost blockers, rejected the component freeze, and kept Package 11B unauthorized.
 - Completed SSR-01R post-ECO-004 revalidation; approved the stable Rev A functional schematic baseline with Major observations and authorized Package 11 Component Selection & Footprint Assignment under controlled per-part review, while retaining native ERC, quantitative, physical-design, and prototype gates.
 - Completed ECO-004 interface remediation: added independent `OLED_VCC`/`SENSOR_VCC`-qualified fail-isolated J6/J7 I²C branches and a complete protected J13 USB-C UFP boundary; exact-part, native ERC, SI/EMC, footprint, and prototype gates remain open, and Package 11 is not authorized.

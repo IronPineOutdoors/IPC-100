@@ -60,6 +60,7 @@ catch {
 }
 
 $schematicFiles = @($rootFile) + @(Get-ChildItem -LiteralPath $sheetDirectory -Filter '*.kicad_sch' | Select-Object -ExpandProperty FullName)
+$globalReferences = [System.Collections.Generic.List[string]]::new()
 foreach ($schematicFile in $schematicFiles) {
     if (-not (Test-BalancedSExpression -Path $schematicFile)) {
         $errors.Add("Unbalanced KiCad S-expression: $schematicFile")
@@ -74,10 +75,48 @@ foreach ($schematicFile in $schematicFiles) {
         [regex]::Matches($schematicContent, '(?s)\(symbol \(lib_id "[^"]+"\).*?\(property "Reference" "([^"]+)"') |
             ForEach-Object { $_.Groups[1].Value }
     )
+    $referencePairs = [regex]::Matches(
+        $schematicContent,
+        '(?s)\(symbol \(lib_id "[^"]+"\).*?\(property "Reference" "([^"]+)".*?\(instances .*?\(reference "([^"]+)"\)'
+    )
+    foreach ($pair in $referencePairs) {
+        if ($pair.Groups[1].Value -ne $pair.Groups[2].Value) {
+            $errors.Add("ECO-005 orphan/mismatched reference in $schematicFile`: property $($pair.Groups[1].Value), instance $($pair.Groups[2].Value).")
+        }
+    }
+    if ($referencePairs.Count -ne $instanceReferences.Count) {
+        $errors.Add("ECO-005 could not pair every reference property and instance in $schematicFile.")
+    }
     $duplicateReferences = @($instanceReferences | Group-Object | Where-Object Count -gt 1)
     if ($duplicateReferences.Count -gt 0) {
         $errors.Add("Duplicate instantiated references in $schematicFile`: $($duplicateReferences.Name -join ', ')")
     }
+    foreach ($reference in $instanceReferences | Where-Object { $_ -notlike '#PWR*' }) {
+        $globalReferences.Add($reference)
+    }
+
+    $fileName = [IO.Path]::GetFileNameWithoutExtension($schematicFile)
+    if ($fileName -match '^(0[1-9])_') {
+        $sheetNumber = [int]$Matches[1]
+        $minimum = ($sheetNumber * 100) + 1
+        $maximum = ($sheetNumber * 100) + 99
+        foreach ($reference in $instanceReferences) {
+            if ($reference -like '#PWR*' -or $reference -like 'J*' -or $reference -like 'DFT*') { continue }
+            if ($reference -notmatch '^[A-Za-z]+(\d+)[A-Za-z]*$') {
+                $errors.Add("ECO-005 unsupported normalized reference $reference in $fileName.")
+                continue
+            }
+            $number = [int]$Matches[1]
+            if ($number -lt $minimum -or $number -gt $maximum) {
+                $errors.Add("ECO-005 reference $reference is outside Sheet $sheetNumber range $minimum-$maximum.")
+            }
+        }
+    }
+}
+
+$globalDuplicateReferences = @($globalReferences | Group-Object | Where-Object Count -gt 1)
+if ($globalDuplicateReferences.Count -gt 0) {
+    $errors.Add("ECO-005 global reference duplicates: $($globalDuplicateReferences.Name -join ', ')")
 }
 
 $rootContent = Get-Content -LiteralPath $rootFile -Raw
@@ -487,26 +526,26 @@ $authorizationConnectivity = @(
     }
 )
 if ($motionContent -notmatch '\(symbol \(lib_id "IPC100:AUTH2"\) \(at 75 46 0\)') {
-    $errors.Add('Sheet 05 authorization qualifier U3 is not at its ECO-001 controlled placement.')
+    $errors.Add('Sheet 05 authorization qualifier U503 is not at its ECO-001 controlled placement.')
 }
 foreach ($authorizationNet in $authorizationConnectivity) {
     if ($motionContent -notmatch $authorizationNet.PinDefinition) {
-        $errors.Add("Sheet 05 U3 is missing the controlled $($authorizationNet.Signal) input pin definition.")
+        $errors.Add("Sheet 05 U503 is missing the controlled $($authorizationNet.Signal) input pin definition.")
     }
     if ([regex]::Matches($motionContent, $authorizationNet.LocalAttachment).Count -ne 1) {
-        $errors.Add("Sheet 05 $($authorizationNet.Signal) is not attached exactly once at the controlled U3 pin endpoint.")
+        $errors.Add("Sheet 05 $($authorizationNet.Signal) is not attached exactly once at the controlled U503 pin endpoint.")
     }
 }
 $authorizationBiases = @(
     @{
         Signal = 'ACTUATOR_PERMIT'
-        Value = '100 kΩ U3 PERMIT fail-low input bias'
+        Value = '100 kΩ U503 PERMIT fail-low input bias'
         NetAttachment = '\(label "ACTUATOR_PERMIT" \(at 145 38\.38 90\)'
         SafeAttachment = '\(label "GND" \(at 145 48\.54 90\)'
     },
     @{
         Signal = 'MASTER_INHIBIT'
-        Value = '100 kΩ U3 INHIBIT fail-high input bias'
+        Value = '100 kΩ U503 INHIBIT fail-high input bias'
         NetAttachment = '\(label "MASTER_INHIBIT" \(at 160 53\.62 90\)'
         SafeAttachment = '\(label "\+3V3_CORE" \(at 160 43\.46 90\)'
     }
@@ -651,7 +690,7 @@ Write-Host 'ADR-041 MAIN_POWER_GOOD: Sheet 02 to Sheet 06; absent from Sheet 03'
 Write-Host 'ADR-042 safety inputs: five supervised NC loops; local-only fault diagnostics'
 Write-Host 'ADR-043 motion interfaces: eight MCU commands and eight safe outputs; no fault summary'
 Write-Host 'ADR-044 watchdog service: GPIO42 / Sheet 03 to Sheet 06; GPIO37 reserve preserved'
-Write-Host 'ECO-001 authorization connectivity: ACTUATOR_PERMIT and MASTER_INHIBIT attached to U3'
+Write-Host 'ECO-001 authorization connectivity: ACTUATOR_PERMIT and MASTER_INHIBIT attached to U503'
 Write-Host 'ECO-002 authorization defaults: PERMIT fail-low and INHIBIT fail-high with local 100 kΩ bias'
 Write-Host 'Package 06R motion conditioning: dual independent translators, opposing-PWM suppression, safe-side defaults'
 Write-Host 'Package 07R Sheet 06: independent watchdog, authorization logic, deterministic biases, and relay driver present'
@@ -659,6 +698,7 @@ Write-Host 'Package 08 Sheet 07: deterministic encoder conditioning, core I2C ex
 Write-Host 'Package 09R Sheet 08: ICD-001 rail qualification, segmented I2C, external pull-ups, protection, filtering, and DFT nodes present'
 Write-Host 'ECO-003 hierarchy exposure: four approved J6/J7 I2C ports route once from Sheet 07 to Sheet 09'
 Write-Host 'ECO-004 interfaces: two independently rail-qualified fail-isolated I2C branches and complete protected USB-C UFP boundary'
-Write-Host 'References and UUIDs: unique within every schematic'
+Write-Host 'ECO-005 references: globally unique and within deterministic sheet ranges; connector designations preserved'
+Write-Host 'UUIDs: unique within every schematic'
 Write-Host 'Component symbols: confined to implemented Sheets 01 through 09'
 Write-Host 'Footprint assignments: 0'

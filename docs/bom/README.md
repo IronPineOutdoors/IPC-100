@@ -4,6 +4,8 @@ This directory contains controlled IPC-100 Rev A component-selection artifacts.
 
 CSR-01 produced a complete 301-row as-captured schematic inventory, but did not freeze components. Every EBOM/AVL row is marked blocked because exact topology, order codes, quantitative limits, lifecycle, sourcing, or physical-interface information remains unresolved. These files must not be used for procurement or footprint assignment.
 
+ECO-005 subsequently normalized all schematic references and regenerated these artifacts. The EBOM now contains zero repeated reference names, but every part-selection field remains blocked pending CSR-01A and later controlled reviews.
+
 - `IPC100_RevA_EBOM.csv` — canonical machine-readable inventory.
 - `IPC100_RevA_EBOM.xlsx` — review workbook generated from the canonical CSV.
 - `Approved_Vendor_List.xlsx` — blocked AVL workbook; no vendor is approved yet.

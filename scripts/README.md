@@ -11,3 +11,6 @@ SSR-01R uses all three validators as structural regression evidence for the post
 
 - `generate_csr01_inventory.ps1` extracts every non-power-symbol schematic instance into the canonical CSR-01 EBOM and blocked AVL sources. It deliberately does not infer MPNs, packages, ratings, vendors, or prices.
 - `csv_to_xlsx.py` converts a UTF-8 CSV source into a reviewable, filtered, header-frozen XLSX using Python's standard library. The CSV remains canonical.
+- `normalize_references_eco005.ps1` applies and verifies the deterministic Sheet 01–09 reference ranges, preserves connector/DFT identifiers, rejects global duplicates, and generates the permanent old/new register. It is idempotent on an already-normalized ECO-005 baseline.
+
+After ECO-005, `validate_kicad_hierarchy.ps1` also enforces project-wide reference uniqueness and owning-sheet numeric ranges. This is a structural identity check; it does not replace native KiCad annotation/ERC review.

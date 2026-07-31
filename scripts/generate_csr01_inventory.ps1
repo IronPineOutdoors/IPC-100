@@ -112,7 +112,7 @@ $summaryPath = Join-Path $OutputDirectory 'CSR-01_Inventory_Summary.csv'
     [pscustomobject]@{ Metric = 'Schematic BOM rows'; Value = $rows.Count; Status = 'INVENTORIED' }
     [pscustomobject]@{ Metric = 'Rows with frozen MPN'; Value = 0; Status = 'BLOCKED' }
     [pscustomobject]@{ Metric = 'Rows without frozen MPN'; Value = $rows.Count; Status = 'BLOCKED' }
-    [pscustomobject]@{ Metric = 'Repeated local reference names'; Value = $duplicateReferences.Count; Status = 'REQUIRES PROJECT-WIDE ANNOTATION AUDIT' }
+    [pscustomobject]@{ Metric = 'Repeated local reference names'; Value = $duplicateReferences.Count; Status = if ($duplicateReferences.Count -eq 0) { 'NORMALIZED BY ECO-005' } else { 'REQUIRES PROJECT-WIDE ANNOTATION AUDIT' } }
 ) | Export-Csv -LiteralPath $summaryPath -NoTypeInformation -Encoding UTF8
 
 $avlRows = foreach ($row in $rows | Sort-Object Category, Sheet, Reference) {
