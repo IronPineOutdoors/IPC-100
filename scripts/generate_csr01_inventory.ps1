@@ -41,7 +41,7 @@ function Test-PowerScope {
         '02_Power_Conversion' { return $true }
         '03_ESP32_Core' { return $Reference -in @('C305', 'C306', 'U302') }
         '07_UI_Peripherals' { return $Reference -in @('C702', 'C703', 'C704', 'C705', 'R704', 'R705', 'U706', 'U707') }
-        '08_Expansion' { return $Reference -in @('C802', 'D803', 'FB801', 'R801', 'U801') }
+        '08_Expansion' { return $Reference -in @('C802', 'C804', 'D803', 'FB801', 'R801', 'R806', 'R808', 'U801') }
         '09_Connectors_Test' { return $Reference -in @('D902', 'J1') }
         default { return $false }
     }
@@ -64,6 +64,9 @@ function Test-Csr01ArFrozen100kResistor {
 
 function Get-Csr01ArBlocker {
     param([string]$Sheet, [string]$Reference, [string]$Category, [string]$Value)
+    if ($Reference -in @('R201', 'U201')) { return 'ANALYSIS INCOMPLETE - ECO-007 corrected the 400 kHz LMR38020F-Q1 RT/SYNC network to 64.9 kOhm; exact suffix, oscillator, loop, loss, thermal, lifecycle, sourcing, and cost evidence remain CSR-01A-R3 work.' }
+    if ($Reference -in @('R222', 'R223', 'R224', 'U209', 'U212', 'U213')) { return 'ANALYSIS INCOMPLETE - ECO-007 corrected each TPS2553-Q1 channel to an independent legal 150 kOhm RILIM with calculated 154..209 mA bounds; exact suffix/package, thermal, reverse-current, lifecycle, sourcing, and cost evidence remain CSR-01A-R3 work.' }
+    if ($Reference -in @('U801','C804','R806','R808')) { return 'ANALYSIS INCOMPLETE - ECO-007 physically implemented the fixed 2.7 V, 10 ms supervisor and external 2.930/2.680 V threshold network; exact suffix tolerance, leakage, package, lifecycle, sourcing, and cost evidence remain CSR-01A-R3 work.' }
     if ($Reference -in @('R201', 'U201')) { return 'SCHEMATIC VALUE INCONSISTENT — LMR38020-Q1 requires 64.9 kOhm nominal for 400 kHz; captured R201 is 40.2 kOhm, so the released frequency and exact regulator network cannot both be true.' }
     if ($Reference -in @('R222', 'R223', 'R224', 'U209', 'U212', 'U213')) { return 'SCHEMATIC VALUE INCONSISTENT — TPS2553-Q1 specifies a 15..232 kOhm RILIM range; captured 287 kOhm is outside the stable programming range and cannot freeze a 100 mA limit.' }
     if ($Reference -eq 'U801') { return 'PHYSICAL REQUIREMENT UNRESOLVED — no reviewed four-pin supervisor simultaneously satisfies separate core VDD/sense, valid assert >=2.9 V, invalid deassert <=2.7 V, 5..10 ms delay, and push-pull fail-low behavior without added threshold/timing circuitry.' }

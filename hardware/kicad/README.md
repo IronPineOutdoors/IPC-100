@@ -50,6 +50,8 @@ See [Schematic Hierarchy and Block Interface Definition](../../docs/hardware/Sch
 
 ## Current status
 
+ECO-007 corrected the three CSR-01A-R2 implementation conflicts with a valid LMR38020F-Q1 400 kHz RT network, independent in-range TPS2553-Q1 ILIM networks, and a physical fixed 2.7 V TLV841S supervisor with external hysteresis. CSR-01A-R3 is authorized. CSR-01A-R2 remains not accepted; CSR-01B, footprints, and PCB work remain unauthorized.
+
 Packages 02, 03R, 04R, 05R, 06R, 07R, and 08 implement the preliminary functional capture through Sheet 07. Sheet 06 contains the independent watchdog, hardware authorization chain, and output-control stages approved by Package 07R. Sheet 07 contains the local encoder conditioning, shared-bus pull-ups, I²C UI expander, OLED and BME280 functional boundaries, low-side RGB and buzzer controls, and deterministic OLED reset behavior approved by Package 08.
 
 Sheets 08 and 09 remain circuitry-free placeholders. No connector implementation, footprints, PCB layout, H-bridges, or integrated motor power stages are present. The Package 08 capture does not consume reserved GPIO37 or introduce any actuator, relay, motor, or watchdog interface.

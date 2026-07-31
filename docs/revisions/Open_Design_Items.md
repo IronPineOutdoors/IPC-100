@@ -1,5 +1,9 @@
 # IPC-100 Open Design Items
 
+## ECO-007 disposition
+
+The three CSR-01A-R2 implementation defects are corrected. U201 uses valid 64.9 kΩ RT programming; U209/U212/U213 each use an independent legal 150 kΩ RILIM; and U801 is a physical fixed 2.7 V supervisor with external hysteresis and deterministic fail-low output. CSR-01A-R3 is authorized for exact component freeze. Exact suffix/package/tolerance, thermal/stability, sourcing, cost, and native ERC remain open. CSR-01B, footprints, and PCB work remain unauthorized.
+
 | Document control | Value |
 | --- | --- |
 | Platform | Iron Pine IPC-100 |

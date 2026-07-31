@@ -13,6 +13,8 @@
 | PCB work | None |
 | Decision | Not accepted |
 
+> **Post-review disposition (ECO-007, 2026-07-31):** The three implementation defects below are corrected in the released schematic. This historical decision remains **CSR-01A-R2 NOT ACCEPTED**. ECO-007 authorizes a new CSR-01A-R3 review; it does not accept R2 or authorize CSR-01B.
+
 ## Executive Summary
 
 CSR-01A-R2 cannot complete the IPC-100 Rev A power freeze. The review reconciled every one of the 130 power-scope EBOM rows and retained the nine previously frozen 100 kΩ bias resistors. The other 121 rows remain explicitly `BLOCKED`; no power row is `NOT YET FROZEN`.

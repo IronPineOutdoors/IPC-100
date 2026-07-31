@@ -1,5 +1,9 @@
 # IPC-100 Revision History
 
+## 2026-07-31 — ECO-007
+
+Corrected U201/R201 frequency programming, all TPS2553-Q1 current-limit programming networks, and U801's physical threshold/hysteresis implementation. Added C804, R806, and R808, retained zero footprints, and authorized CSR-01A-R3 only.
+
 | Document control | Value |
 | --- | --- |
 | Document title | IPC-100 Revision History |

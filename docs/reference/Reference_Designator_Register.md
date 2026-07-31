@@ -290,6 +290,9 @@ Connector functional designations J1â€“J10 and J13, plus factory boundary D
 | `C1` | `C801` | 08 | `IPC100:C` | 100 nF X7R ±10% local buffer decoupling |
 | `C2` | `C802` | 08 | `IPC100:C` | 10 µF X7R accessory-bias reservoir; within ICD-001 22 µF load cap limit |
 | `C3` | `C803` | 08 | `IPC100:C` | 100 nF X7R ±10% core-side buffer decoupling |
+| `ECO-007 added` | `C804` | 08 | `IPC100:C` | 100 nF X7R ±10% U801 VDD bypass |
+| `ECO-007 added` | `R806` | 08 | `IPC100:R` | 150 kΩ ±0.1% expansion-to-SENSE series resistor |
+| `ECO-007 added` | `R808` | 08 | `IPC100:R` | 4.47 MΩ ±0.1% supervisor valid-output hysteresis feedback |
 | `D1` | `D801` | 08 | `IPC100:ESD_PROVISION` | J10 SDA low-capacitance TVS provision; IEC 61000-4-2 target |
 | `D2` | `D802` | 08 | `IPC100:ESD_PROVISION` | J10 SCL low-capacitance TVS provision; IEC 61000-4-2 target |
 | `D3` | `D803` | 08 | `IPC100:ESD_PROVISION` | EXPANSION_VCC local ESD/reverse-injection provision; final part coordinated with Sheet 09 |
