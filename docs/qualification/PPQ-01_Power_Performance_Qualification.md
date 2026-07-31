@@ -9,6 +9,8 @@
 | Component selection | None |
 | Design changes | None |
 
+> **QER-02 disposition (2026-07-31):** The six-row TPS2553 finding is requirements-reconciled. Loads retain 100 mA continuous and 150 mA/10 ms transient contracts; their limiter now has a 160–225 mA worst-case fault-threshold band. ECO-008R is required before these rows become freeze-eligible or CSR-01A-R4 is authorized.
+
 ## 1. Executive summary
 
 PPQ-01 independently evaluates the PEB-01 envelopes across the released electrical corners and converts them into reproducible qualification calculations, pass/fail limits, and physical-test records. It does not claim that unbuilt hardware has been measured. Analytical results are **VERIFIED** where two independently evaluated equations reproduce the released limit; exact-part curves and hardware behavior are explicitly **OPEN — selection** or **OPEN — prototype**.

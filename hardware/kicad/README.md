@@ -50,7 +50,7 @@ See [Schematic Hierarchy and Block Interface Definition](../../docs/hardware/Sch
 
 ## Current status
 
-ECO-008 evaluated the three TPS2553-Q1/RILIM branches and stopped without modifying the schematic because the required 150 mA peak and 150 mA worst-case ceiling form an infeasible zero-width tolerance window. QER-02 is required before any implementation change or CSR-01A-R4. The released 150 kΩ values remain blocked, not endorsed as compliant.
+ECO-008 stopped without a schematic change after proving its original zero-width current-limit window. QER-02 now preserves the 100 mA/150 mA load contracts and establishes a 160–225 mA fault-threshold band. ECO-008R is authorized; released values remain blocked until implementation and verification, and CSR-01A-R4 remains unauthorized.
 
 ECO-007 corrected the three CSR-01A-R2 implementation conflicts with a valid LMR38020F-Q1 400 kHz RT network, independent in-range TPS2553-Q1 ILIM networks, and a physical fixed 2.7 V TLV841S supervisor with external hysteresis. CSR-01A-R3 is authorized. CSR-01A-R2 remains not accepted; CSR-01B, footprints, and PCB work remain unauthorized.
 

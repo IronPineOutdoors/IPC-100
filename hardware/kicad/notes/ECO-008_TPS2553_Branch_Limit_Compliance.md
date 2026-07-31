@@ -6,6 +6,8 @@ ECO-008 evaluated only U209/R222, U212/R223, and U213/R224 against the TPS2553-Q
 
 Primary source: Texas Instruments TPS2553-Q1 datasheet SLVSBD0B, especially the 15–232 kΩ recommended RILIM range and current-limit programming equations. QER-01 and PPQ-01 control system requirements.
 
+> **Post-ECO disposition — QER-02 (2026-07-31):** QER-02 accepted a 160–225 mA worst-case fault-threshold band while preserving the 100 mA continuous and 150 mA/10 ms load contracts. This closes the requirements conflict only. ECO-008 remains historically INCOMPLETE and unchanged; ECO-008R is authorized to implement and verify the correction. CSR-01A-R4 remains unauthorized.
+
 ## 2. PPQ-01 Finding
 
 PPQ-01 found that the released 150 kΩ ±1% networks program approximately 154–209 mA. Each affected branch has a 100 mA continuous allocation, a 150 mA/10 ms peak allocation, and a QER-01 maximum current-limit ceiling of 150% continuous = 150 mA. The released networks support the peak but exceed the ceiling.

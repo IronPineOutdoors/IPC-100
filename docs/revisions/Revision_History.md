@@ -1,5 +1,9 @@
 # IPC-100 Revision History
 
+## 2026-07-31 — QER-02
+
+Accepted a controlled amendment for the three TPS2553-Q1 branches. Preserved 100 mA continuous and 150 mA/10 ms loads, defined repetition, established a 160–225 mA worst-case fault-threshold band, proved a positive tolerance-aware feasibility window, and authorized ECO-008R only. No hardware or component-selection artifact changed.
+
 ## 2026-07-31 — ECO-008
 
 Evaluated the three TPS2553-Q1 branch-limit networks. The legal RILIM window is empty: ±1% nominal resistance must be ≥213.358 kΩ to guarantee the ceiling yet ≤153.622 kΩ to guarantee the required peak. No schematic change was made; ECO-008 is incomplete pending QER-02.

@@ -10,7 +10,9 @@ Post-ECO-007 inventory contains 310 rows: 133 power-scope rows (9 frozen and 124
 
 `generate_ppq01_register.ps1` regenerates the 124-row qualification register. `validate_ppq01.ps1` independently verifies corner/load/thermal/stress calculations, 50 eligible and 74 ineligible rows, the TPS2553/QER conflict, evidence coverage, prohibited-scope preservation, and the single COMPLETE decision.
 
-`validate_eco008.ps1` verifies the three-device/three-resistor inventory, independently proves the empty RILIM legal window, confirms the six rows remain blocked and unchanged, enforces the single INCOMPLETE decision and QER-02 gate, and reruns PPQ/ECO/hierarchy regressions.
+`validate_eco008.ps1` verifies the three-device/three-resistor inventory, independently proves the original empty RILIM legal window, confirms the six rows remain blocked and unchanged, enforces the historical INCOMPLETE decision, and reruns PPQ/ECO/hierarchy regressions.
+
+`validate_qer02.ps1` verifies the QER-02 inventory, peak waveforms, protected-element evidence, 160–225 mA positive windows, TPS2553 equations, controlled QER-01 amendment, preserved design artifacts, and single ACCEPTED decision. It runs all existing repository validators.
 
 Future repeatable utilities for documentation checks, BOM validation, manufacturing packages, test automation, and release generation belong here. Scripts should be documented and safe by default.
 

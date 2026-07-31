@@ -1,8 +1,12 @@
 # IPC-100 Open Design Items
 
+## QER-02 disposition
+
+QER-02 is **ACCEPTED**. It separates the affected 100 mA continuous and 150 mA/10 ms load contracts from a 160–225 mA worst-case fault-threshold band, preserves ICD-001/ICD-002, and proves a positive TPS2553 feasibility interval without selecting a component. ECO-008R is authorized. The six references remain blocked until ECO-008R implementation and verification; CSR-01A-R4 remains unauthorized.
+
 ## ECO-008 disposition
 
-ECO-008 is **INCOMPLETE**. The 150 mA required peak and 150 mA worst-case protection ceiling create a zero-width legal window that TPS2553-Q1 cannot meet with device/resistor tolerance. U209/U212/U213 and R222/R223/R224 remain blocked and unchanged. QER-02 Branch Peak and Protection Ceiling Reconciliation is required before a new implementation ECO or CSR-01A-R4. CSR-01B remains unauthorized.
+ECO-008 is historically **INCOMPLETE**. QER-02 has reconciled its requirements conflict and authorized ECO-008R, but the six affected references remain blocked and unchanged until implementation and verification. CSR-01A-R4 and CSR-01B remain unauthorized.
 
 ## PPQ-01 disposition
 

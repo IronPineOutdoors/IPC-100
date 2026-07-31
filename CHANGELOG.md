@@ -2,6 +2,8 @@
 
 Initial project creation.
 
+- Accepted QER-02 Branch Peak and Protection Ceiling Reconciliation: preserved all affected load and ICD contracts, established a 160–225 mA fault-threshold band supported by downstream ratings, proved a positive TPS2553 feasibility window, and authorized ECO-008R while keeping CSR-01A-R4 blocked.
+
 - Completed ECO-008 feasibility analysis without schematic changes: proved no TPS2553-Q1 RILIM can simultaneously pass a 150 mA peak and guarantee a 150 mA maximum ceiling, stopped the ECO as incomplete, and requires QER-02 Branch Peak and Protection Ceiling Reconciliation before CSR-01A-R4.
 
 - Completed PPQ-01 Power Performance Qualification: verified package-independent load, corner, startup/inrush, efficiency, thermal, stress, protection, sequencing, USB-only and dual-source models; qualified 50 blocked references for future freeze evaluation and identified a six-row TPS2553/QER current-limit conflict requiring ECO-008 before CSR-01A-R4.

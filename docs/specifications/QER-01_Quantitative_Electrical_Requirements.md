@@ -8,6 +8,8 @@
 | Date | 2026-07-31 |
 | Owner | Iron Pine Outdoors Engineering |
 
+> **Controlled amendment — QER-02 (2026-07-31):** For `EXPANSION_VCC` and `MOTOR_LOGIC_5V_A/B`, the original 100 mA continuous and 150 mA/10 ms peak allocations remain in force. QER-02 completes the peak waveform as no more than 1 Hz and 1% duty and supersedes the generic Section 6 limit only for these branches with a 160–225 mA worst-case fault-threshold band. Original values are preserved below and in change history.
+
 ## 1. Executive Summary
 
 QER-01 converts the frozen Rev A architecture and interface contracts into measurable limits for component selection. It does not select manufacturer parts, assign footprints, or change schematic behavior.
@@ -128,7 +130,7 @@ Direct automotive alternator load dump, jump-start above 30 V, and ISO 7637 comp
 | USB VBUS | 500 mA hardware maximum, reverse leakage ≤10 µA, VBUS TVS clamp below downstream absolute maximum, IEC ESD at connector |
 | USB data ESD | Low-capacitance protection; total added capacitance ≤2 pF per line and channel mismatch ≤0.5 pF |
 | I²C connector protection | IEC ESD as specified; powered-off injection ≤10 µA per signal; protection plus wiring must stay within bus capacitance budget |
-| 3.3 V/5 V branch limit | Current-limit maximum no greater than 150% of continuous allocation; short shall not collapse core or assert authorization |
+| 3.3 V/5 V branch limit | Current-limit maximum no greater than 150% of continuous allocation; short shall not collapse core or assert authorization. **QER-02 supersession:** `EXPANSION_VCC` and `MOTOR_LOGIC_5V_A/B` instead require a 160–225 mA worst-case fault-threshold band while retaining their 100 mA continuous and 150 mA/10 ms load contracts. |
 | Power qualification | Assertion only above the lower valid rail limit for ≥5 ms; deassertion before the rail falls below the consumer’s guaranteed operating minimum |
 | Recovery | No uncontrolled rapid retry; retry period ≥100 ms or latch-off until commanded recovery for an external persistent short |
 
@@ -228,6 +230,12 @@ No open electrical-requirement decision prevents power-component selection again
 | QER-V08 reliability calculation | Complete BOM | MTBF cannot be calculated without exact parts | Perform BOM-based prediction against the 50,000 h target after component freeze; safety remains fault-behavior based | Medium, before production release |
 
 Changes to any numeric limit in Sections 2–10 require controlled requirements review and impact analysis. Prototype measurements may close evidence tasks but shall not broaden the envelope without an approved revision.
+
+### Change history
+
+| Date | Amendment | Preserved original requirement | Controlled disposition |
+|---|---|---|---|
+| 2026-07-31 | QER-02 | Affected branches: 100 mA continuous, 150 mA/10 ms peak; generic limit maximum 150% of continuous | Peak unchanged and completed with no more than 1 Hz/1% duty; affected fault threshold superseded by 160–225 mA. Unrelated requirements unchanged. |
 
 ## 13. Component-Selection Entry Criteria
 
