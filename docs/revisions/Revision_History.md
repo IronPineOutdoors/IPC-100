@@ -31,6 +31,8 @@ CSR-01A-R reconciled all 124 power-scope rows against QER-01. Nine Sheet 02/08 l
 
 ECO-006 corrected the four input-capacitor voltage classes and Q101 transient margin, narrowed U706/U707 to one physical enabled dual-supply I2C buffer each, narrowed U801 to the physical supervisor function separate from U802, added R704/R705 deterministic enable bias, and documented regulator/passive/transient calculations sufficient for CSR-01A-R2 candidate selection. CSR-01A-R remains not accepted, J1 mechanics and native ERC remain open, and CSR-01B/footprints/PCB work remain unauthorized.
 
+MIR-01 released J1 as an enclosure-protected, board-mounted, right-angle, positively latched two-contact P1 interface with a replaceable 18 AWG H01 crimp harness. It froze electrical/mechanical ratings, physical envelope, keying, retention, mating life, environmental qualification, strain relief, labeling, manufacturing inspection, failure controls, and future-footprint constraints without selecting a family or footprint. CSR-01A-R2 Power Component Selection Final Pass is authorized; CSR-01B and PCB work remain unauthorized.
+
 ## 2. Version types
 
 | Version type | Meaning | Example | Controlled independently |

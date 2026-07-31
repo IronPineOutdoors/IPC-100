@@ -2,6 +2,8 @@
 
 Initial project creation.
 
+- Accepted MIR-01 J1 Mechanical Interface Release: froze the board-header/harness architecture, environmental envelope, 18 AWG H01 cable, locking/keying, retention, durability, service, manufacturing, failure-analysis, and future-footprint constraints; authorized CSR-01A-R2 Power Component Selection Final Pass without assigning a footprint or modifying schematics, PCB, GPIO, ADRs, or ICDs.
+
 - Completed ECO-006 power-subsystem electrical compatibility remediation: corrected four capacitor voltage classes and Q101 margin, decomposed U706/U707/U801 into physical selectable functions, added deterministic buffer-enable bias, closed schematic-level regulator/passive/transient calculations, and authorized CSR-01A-R2 while keeping CSR-01A-R not accepted, CSR-01B unauthorized, J1 mechanics open, footprints blank, and PCB work prohibited.
 
 - Completed CSR-01A-R Power Component Selection Reattempt: reconciled all 124 power rows to QER-01, froze nine fully evidenced low-voltage bias resistors, retained 115 specific blockers, identified five QER/schematic rating conflicts and three composite physical functions, rejected the package, and kept CSR-01B unauthorized pending ECO-006 and J1 mechanical-interface release.
