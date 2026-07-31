@@ -2,6 +2,7 @@
 
 Initial project creation.
 
+- Completed CSR-01A-R Power Component Selection Reattempt: reconciled all 124 power rows to QER-01, froze nine fully evidenced low-voltage bias resistors, retained 115 specific blockers, identified five QER/schematic rating conflicts and three composite physical functions, rejected the package, and kept CSR-01B unauthorized pending ECO-006 and J1 mechanical-interface release.
 - Accepted QER-01 Quantitative Electrical Requirements: released the Rev A operating environment, rail/load budgets, transient and protection envelopes, passive/connector/signal limits, derating policy, measurable design targets, and verification obligations; authorized CSR-01A-R without selecting parts or changing hardware.
 - Completed CSR-01A Power Component Selection review; classified 124 power-scope EBOM rows and 177 unrelated `NOT YET FROZEN` rows, documented unresolved transient, load, thermal, timing, connector, sourcing, and derating prerequisites, froze no MPNs, and kept CSR-01B unauthorized.
 - Completed ECO-005 global reference normalization: assigned deterministic Sheet 01–09 references to 288 non-connector items, preserved connector/DFT identifiers, regenerated the 301-row EBOM with zero repeated references, added a permanent cross-reference register and global-range validation, and authorized CSR-01A Power Component Selection.

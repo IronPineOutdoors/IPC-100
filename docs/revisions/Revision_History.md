@@ -27,6 +27,8 @@ CSR-01A reviewed 124 power-related rows across Sheets 01, 02, 03, 07, 08, and 09
 
 QER-01 released a controlling quantitative envelope for the Rev A operating environment, input and rail limits, complete load allocations, transient/protection performance, passive and connector capability, signal integrity, thermal/voltage/current derating, and measurable design targets. Remaining entries are implementation-verification tasks rather than undefined electrical requirements. QER-01 was accepted and CSR-01A-R Power Component Selection (Reattempt) is authorized; no MPN, footprint, schematic, or PCB change was made.
 
+CSR-01A-R reconciled all 124 power-scope rows against QER-01. Nine Sheet 02/08 low-voltage 100 kΩ bias/enable resistors were frozen to Panasonic `ERJ-3EKF1003V` with an electrically approved Vishay alternate, derating, lifecycle, sourcing, and price evidence. The other 115 rows remain blocked; four 50 V capacitors and one 60 V MOSFET conflict with QER derating, three entries remain composite physical functions, and J1 requires a mechanical-interface release. CSR-01A-R was not accepted; CSR-01B remains unauthorized pending ECO-006 and J1 release.
+
 ## 2. Version types
 
 | Version type | Meaning | Example | Controlled independently |

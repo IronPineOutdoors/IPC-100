@@ -47,6 +47,35 @@ function Test-PowerScope {
     }
 }
 
+function Test-Csr01ArFrozen100kResistor {
+    param([string]$Sheet, [string]$Reference)
+    return "$Sheet/$Reference" -in @(
+        '02_Power_Conversion/R204',
+        '02_Power_Conversion/R212',
+        '02_Power_Conversion/R214',
+        '02_Power_Conversion/R216',
+        '02_Power_Conversion/R218',
+        '02_Power_Conversion/R219',
+        '02_Power_Conversion/R220',
+        '02_Power_Conversion/R221',
+        '08_Expansion/R801'
+    )
+}
+
+function Get-Csr01ArBlocker {
+    param([string]$Sheet, [string]$Reference, [string]$Category, [string]$Value)
+    if ($Reference -in @('C102', 'C103', 'C104', 'C109', 'Q101')) { return 'SCHEMATIC VALUE INCONSISTENT — QER-01 voltage derating cannot be met by the captured 50 V capacitors or 60 V MOSFET.' }
+    if ($Reference -in @('U706', 'U707', 'U801')) { return 'ANALYSIS INCOMPLETE — composite functional symbol has no one-to-one physical topology or exact pin implementation.' }
+    if ($Reference -eq 'J1') { return 'MECHANICAL INTERFACE MISSING — enclosure entry, mounting, mating pair, terminal, and released wire constraints require a connector-selection package.' }
+    if ($Reference -in @('U201', 'U203', 'L201', 'L202') -or $Value -match 'bootstrap|soft start|mux hold-up') { return 'THERMAL/STABILITY EVIDENCE MISSING — vendor-tool, effective-capacitance, loop/stability, loss, and minimum-copper analysis are incomplete.' }
+    if ($Category -eq 'Power' -or $Reference -in @('U101','U102','U202','U204','U205','U206','U207','U208','U209','U210','U211','U212','U213','U302')) { return 'ANALYSIS INCOMPLETE — exact suffix equations, pin mapping, thresholds, timing, partial-power, thermal, and fault behavior are not all closed.' }
+    if ($Category -in @('Protection','MOSFETs') -or $Reference -like 'D*' -or $Reference -like 'F*') { return 'TRANSIENT COORDINATION UNRESOLVED — clamp/current/energy/leakage/fault coordination and exact manufacturer evidence are incomplete.' }
+    if ($Reference -like 'L*' -or $Reference -like 'FB*') { return 'ANALYSIS INCOMPLETE — saturation, RMS current, DCR, hot loss, impedance/core loss, and surge evidence are incomplete.' }
+    if ($Reference -like 'C*') { return 'ANALYSIS INCOMPLETE — exact dielectric, DC-bias effective capacitance, ripple/ESR, aging, and stability evidence are incomplete.' }
+    if ($Reference -like 'R*') { return 'ANALYSIS INCOMPLETE — device equation or divider tolerance, temperature drift, pulse/working voltage, and failure-effect evidence are incomplete.' }
+    return 'VENDOR DATA UNAVAILABLE OR ANALYSIS INCOMPLETE — no exact part passed every mandatory CSR-01A-R criterion.'
+}
+
 $schematicFiles = @(
     (Join-Path $RepositoryRoot 'hardware\kicad\IPC-100.kicad_sch')
 ) + @(
@@ -71,8 +100,9 @@ foreach ($file in $schematicFiles) {
         $category = Get-Category -Lib $lib -Reference $reference -Value $value
         $isPowerScope = Test-PowerScope -Sheet $sheet -Reference $reference
         $pendingLabel = if ($isPowerScope) { 'UNRESOLVED - CSR-01A BLOCKED' } else { 'NOT YET FROZEN' }
-        $freezeStatus = if ($isPowerScope) { 'BLOCKED - CSR-01A' } else { 'NOT YET FROZEN' }
-        $rows.Add([pscustomobject][ordered]@{
+        $freezeStatus = if ($isPowerScope) { 'BLOCKED' } else { 'NOT YET FROZEN' }
+        $blocker = if ($isPowerScope) { Get-Csr01ArBlocker -Sheet $sheet -Reference $reference -Category $category -Value $value } else { 'Outside CSR-01A-R.' }
+        $row = [pscustomobject][ordered]@{
             'Item' = "$sheet/$reference"
             'Sheet' = $sheet
             'Reference' = $reference
@@ -95,22 +125,66 @@ foreach ($file in $schematicFiles) {
             'RoHS Status' = if ($isPowerScope) { 'NOT REVIEWED - BLOCKED' } else { 'NOT YET FROZEN' }
             'Availability' = if ($isPowerScope) { 'NOT REVIEWED - BLOCKED' } else { 'NOT YET FROZEN' }
             'Preferred Vendor' = $pendingLabel
+            'Preferred Vendor Ordering Code' = $pendingLabel
             'Alternate Vendor' = $pendingLabel
+            'Alternate Vendor Ordering Code' = $pendingLabel
             'Second Source' = $pendingLabel
-            'Selection Rationale' = if ($isPowerScope) { 'CSR-01A power selection blocked by unresolved quantitative electrical, thermal, transient, connector, or composite-device prerequisites.' } else { 'Outside CSR-01A; explicitly not yet frozen.' }
+            'Selection Rationale' = if ($isPowerScope) { $blocker } else { 'Outside CSR-01A-R; explicitly not yet frozen.' }
             'Criticality' = if ($category -in @('Power','Protection','ESP32','Relays','Logic','Watchdog','Safety','Connectors')) { 'Major' } else { 'Normal' }
             'Unit Cost 1' = ''
+            'Unit Cost 10' = ''
             'Unit Cost 100' = ''
             'Unit Cost 1000' = ''
             'Currency' = ''
+            'Price Date' = ''
             'Freeze Status' = $freezeStatus
-            'Risk' = if ($isPowerScope) { 'Do not source or assign a footprint; CSR-01A did not freeze this power item.' } else { 'Outside current package; do not source or assign a footprint.' }
+            'Requirement Trace Reference' = if ($isPowerScope) { 'QER-01; CSR-01A-R review pending' } else { 'NOT YET FROZEN' }
+            'Sourcing Risk' = if ($isPowerScope) { 'BLOCKED' } else { 'NOT YET FROZEN' }
+            'Risk' = if ($isPowerScope) { $blocker } else { 'Outside current package; do not source or assign a footprint.' }
             'Approved Alternate' = ''
+            'Approved Alternate Vendor Code' = ''
             'Do Not Substitute' = 'YES'
             'Datasheet URL' = ''
+            'Datasheet Revision or Date' = if ($isPowerScope) { 'BLOCKED' } else { 'NOT YET FROZEN' }
             'Hardware Revision' = 'Rev A'
-            'Notes' = if ($isPowerScope) { 'Power-scope inventory only. CSR-01A did not freeze this item.' } else { 'NOT YET FROZEN; excluded from CSR-01A.' }
-        })
+            'Notes' = if ($isPowerScope) { "CSR-01A-R disposition: BLOCKED. $blocker" } else { 'NOT YET FROZEN; excluded from CSR-01A-R.' }
+        }
+        if (Test-Csr01ArFrozen100kResistor -Sheet $sheet -Reference $reference) {
+            $row.Manufacturer = 'Panasonic Industry'
+            $row.'Manufacturer Part Number' = 'ERJ-3EKF1003V'
+            $row.Description = '100 kΩ ±1% 0.1 W AEC-Q200 thick-film chip resistor'
+            $row.Package = '0603 (1608 metric)'
+            $row.'Mounting Style' = 'Surface mount'
+            $row.'Operating Voltage' = '75 V maximum working; 5.25 V maximum applied in reviewed circuits'
+            $row.'Maximum Current' = '52.5 µA at 5.25 V'
+            $row.'Rating or Tolerance' = '100 kΩ ±1%; ±100 ppm/°C; 0.1 W'
+            $row.'Temperature Range' = '-55 °C to +155 °C'
+            $row.'Lifecycle Status' = 'ACTIVE — checked 2026-07-31'
+            $row.'RoHS Status' = 'COMPLIANT — manufacturer certificate available'
+            $row.Availability = 'Mouser 505,209 in stock; DigiKey over 1,000,000 in stock; checked 2026-07-31, not guaranteed'
+            $row.'Preferred Vendor' = 'Mouser'
+            $row.'Preferred Vendor Ordering Code' = '667-ERJ-3EKF1003V'
+            $row.'Alternate Vendor' = 'DigiKey'
+            $row.'Alternate Vendor Ordering Code' = 'P100KHTR-ND / P100KHCT-ND'
+            $row.'Second Source' = 'Vishay Dale RCG0603100KFKEA — ELECTRICALLY APPROVED; footprint confirmation deferred'
+            $row.'Selection Rationale' = 'QER-R-01/02/03/04: 5.25 V / 75 V = 7.0% voltage utilization; 0.276 mW / 100 mW = 0.28% power utilization; ±1% and ±100 ppm/°C meet general power-bias requirements; -55 to +155 °C exceeds environment.'
+            $row.'Unit Cost 1' = '0.100'
+            $row.'Unit Cost 10' = '0.024'
+            $row.'Unit Cost 100' = '0.020'
+            $row.'Unit Cost 1000' = '0.012'
+            $row.Currency = 'USD'
+            $row.'Price Date' = '2026-07-31; Mouser cut tape'
+            $row.'Freeze Status' = 'FROZEN'
+            $row.'Requirement Trace Reference' = 'CSR-01A-R:QER-R-01,QER-R-02,QER-R-03,QER-R-04,QER-ENV-01'
+            $row.'Sourcing Risk' = 'LOW'
+            $row.Risk = 'Low electrical and sourcing risk; do not assign footprint until the footprint package.'
+            $row.'Approved Alternate' = 'RCG0603100KFKEA — ELECTRICALLY APPROVED; FOOTPRINT MAY DIFFER'
+            $row.'Approved Alternate Vendor Code' = 'DigiKey 541-1788-1-ND (cut tape)'
+            $row.'Datasheet URL' = 'https://industrial.panasonic.com/ww/products/pt/general-purpose-chip-resistors/models/ERJ3EKF1003V'
+            $row.'Datasheet Revision or Date' = 'AOA0000C304; 29-May-2025'
+            $row.Notes = 'CSR-01A-R frozen exact electrical selection. Preferred and alternate sourcing checked 2026-07-31; stock and pricing are planning snapshots.'
+        }
+        $rows.Add($row)
     }
 }
 
@@ -129,8 +203,8 @@ $frozenPowerRows = @($powerRows | Where-Object { $_.'Freeze Status' -eq 'FROZEN'
 $summaryPath = Join-Path $OutputDirectory 'CSR-01_Inventory_Summary.csv'
 @(
     [pscustomobject]@{ Metric = 'Schematic BOM rows'; Value = $rows.Count; Status = 'INVENTORIED' }
-    [pscustomobject]@{ Metric = 'Rows with frozen MPN'; Value = 0; Status = 'BLOCKED' }
-    [pscustomobject]@{ Metric = 'Rows without frozen MPN'; Value = $rows.Count; Status = 'BLOCKED' }
+    [pscustomobject]@{ Metric = 'Rows with frozen MPN'; Value = $frozenPowerRows.Count; Status = if ($frozenPowerRows.Count -gt 0) { 'PARTIAL' } else { 'BLOCKED' } }
+    [pscustomobject]@{ Metric = 'Rows without frozen MPN'; Value = $rows.Count - $frozenPowerRows.Count; Status = 'BLOCKED OR NOT YET FROZEN' }
     [pscustomobject]@{ Metric = 'Repeated local reference names'; Value = $duplicateReferences.Count; Status = if ($duplicateReferences.Count -eq 0) { 'NORMALIZED BY ECO-005' } else { 'REQUIRES PROJECT-WIDE ANNOTATION AUDIT' } }
     [pscustomobject]@{ Metric = 'CSR-01A power-scope rows'; Value = $powerRows.Count; Status = 'INVENTORIED' }
     [pscustomobject]@{ Metric = 'CSR-01A frozen power rows'; Value = $frozenPowerRows.Count; Status = if ($frozenPowerRows.Count -eq $powerRows.Count) { 'COMPLETE' } else { 'BLOCKED' } }
@@ -145,11 +219,18 @@ $avlRows = foreach ($row in $rows | Sort-Object Category, Sheet, Reference) {
         'Manufacturer' = $row.Manufacturer
         'Manufacturer Part Number' = $row.'Manufacturer Part Number'
         'Preferred Distributor' = $row.'Preferred Vendor'
+        'Preferred Distributor Ordering Code' = $row.'Preferred Vendor Ordering Code'
         'Alternate Distributor' = $row.'Alternate Vendor'
+        'Alternate Distributor Ordering Code' = $row.'Alternate Vendor Ordering Code'
         'Lifecycle' = $row.'Lifecycle Status'
         'Stock Status' = $row.Availability
         'RoHS' = $row.'RoHS Status'
         'Second Source' = $row.'Second Source'
+        'Approved Alternate' = $row.'Approved Alternate'
+        'Approved Alternate Vendor Code' = $row.'Approved Alternate Vendor Code'
+        'Freeze Status' = $row.'Freeze Status'
+        'Sourcing Risk' = $row.'Sourcing Risk'
+        'Requirement Trace Reference' = $row.'Requirement Trace Reference'
         'Risk' = $row.Risk
         'Review Date' = '2026-07-31'
     }
