@@ -1,5 +1,9 @@
 # IPC-100 Revision History
 
+## 2026-08-01 — PACS-01R-B1
+
+Reviewed exact manufacturer thermal records, U201/U203 guidance, Q101/U101/TPS2553 transient behavior and dated commercial evidence. No selected MPN is invalidated, but evidence closure requires controlled regulator-tool exports, preliminary thermal-board geometry, hot transient correlation and complete distributor quotes. PACS-01R-B1 is not accepted; no CAD change.
+
 ## 2026-08-01 — PACS-01R-B
 
 Completed the active-device manufacturer, thermal, derating, lifecycle, sourcing and prototype-evidence review. No selected MPN is disproven, but exact package-board thermal records, regulator design-tool archives, transient SOA and complete current distributor evidence are absent. PACS-01R-B is not accepted; PACS-01R-B1 is the smallest corrective package. No CAD or footprint change.

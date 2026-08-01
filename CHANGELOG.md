@@ -2,6 +2,12 @@
 
 Initial project creation.
 
+## 2026-08-01 — PACS-01R-B1 manufacturer evidence review
+
+- Correlated available manufacturer thermal, regulator, transient-SOA and commercial records against the released active-device envelope.
+- Withheld acceptance because exact IPC-board thermal correlation, regulator tool exports, hot transient proof and the complete distributor matrix remain unavailable.
+- Defined PACS-01R-B1R as the smallest external-input evidence package; did not authorize PACS-01R-C or PPC-01.
+
 ## 2026-08-01 — PACS-01R-B active evidence review
 
 - Reviewed manufacturer, thermal, derating, lifecycle, sourcing and prototype evidence for all 20 power-active references.

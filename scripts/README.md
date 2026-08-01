@@ -8,6 +8,8 @@
 
 `validate_pacs01rb.ps1` verifies PACS-01R-B coverage of all 20 active references, thermal/derating/lifecycle/sourcing evidence, the exact remaining evidence gaps, downstream prohibitions and zero-CAD scope.
 
+`validate_pacs01rb1.ps1` verifies PACS-01R-B1 manufacturer thermal correlation, regulator-tool findings, transient-SOA coverage, commercial evidence gaps, the corrective B1R route and zero-CAD scope.
+
 Post-ECO-007 inventory contains 310 rows: 133 power-scope rows (9 frozen and 124 blocked for CSR-01A-R3) plus 177 out-of-scope rows. `validate_eco007.ps1` verifies the three corrected programming/supervisor networks, calculation evidence, fail-low behavior, reference/UUID uniqueness, balanced schematics, and zero footprints.
 
 `validate_csr01ar3.ps1` verifies the CSR-01A-R3 final decision, complete power-row disposition, frozen-row evidence, blocker specificity, EBOM/AVL identity, ECO-007 regression, zero footprints, and unchanged schematic/PCB scope.

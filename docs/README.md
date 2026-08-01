@@ -18,3 +18,5 @@ Current power-component review: [PACS-01R Power Active Component Selection Reval
 Current active evidence route: [PACS-01R-A Power Active Evidence Closure](reviews/PACS-01R-A_Power_Active_Evidence_Closure.md).
 
 Latest active evidence review: [PACS-01R-B Active Evidence Closure](reviews/PACS-01R-B_Active_Evidence_Closure.md).
+
+Manufacturer evidence follow-up: [PACS-01R-B1 Manufacturer, Thermal and Commercial Evidence](reviews/PACS-01R-B1_Manufacturer_Thermal_Commercial_Evidence.md).
