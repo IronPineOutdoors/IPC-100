@@ -2,6 +2,8 @@
 
 `apply_eco010_bom_overlay.ps1` synchronizes the ECO-010 U101/U801 implementation and new support references into EBOM/AVL CSV/XLSX artifacts while retaining PACS-01R blockers. `validate_eco010.ps1` checks the corrected physical architectures, threshold network, change-control scope, reference integrity and BOM/AVL reconciliation.
 
+`apply_pacs01r_bom_overlay.ps1` records the 20-reference PACS-01R blocked disposition and regenerates BOM/AVL workbooks. `validate_pacs01r.ps1` verifies the reconciled inventory, corrected U101/U801 implementations, passive-dependency evidence, BOM/AVL agreement, single NOT ACCEPTED decision and zero-CAD scope.
+
 Post-ECO-007 inventory contains 310 rows: 133 power-scope rows (9 frozen and 124 blocked for CSR-01A-R3) plus 177 out-of-scope rows. `validate_eco007.ps1` verifies the three corrected programming/supervisor networks, calculation evidence, fail-low behavior, reference/UUID uniqueness, balanced schematics, and zero footprints.
 
 `validate_csr01ar3.ps1` verifies the CSR-01A-R3 final decision, complete power-row disposition, frozen-row evidence, blocker specificity, EBOM/AVL identity, ECO-007 regression, zero footprints, and unchanged schematic/PCB scope.

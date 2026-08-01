@@ -1,12 +1,16 @@
 # IPC-100 Open Design Items
 
+## PACS-01R disposition
+
+PACS-01R is **NOT ACCEPTED**. ECO-010's U101 and U801 active-device incompatibilities are corrected, and all 20 current active references reconcile without stale or duplicate rows. Freeze remains blocked by active thermal/SOA and manufacturer-tool evidence, 17 original PACS-dependent passive closures, the narrow U801 assertion-corner margin, I²C fault/temperature validation, approved-alternate evidence, and current complete distributor pricing/lead times. The smallest next package is PACS-01R-A Active Thermal, Tool, Passive-Dependency and Commercial Evidence Closure. PPC-01 and CSR-01A-R5 remain unauthorized.
+
 ## ECO-010 disposition
 
-ECO-010 is **COMPLETE**. U101 is corrected to the active 20-pin `TPS26631PWPR` architecture with verified PWP pin mapping. U801 is corrected to the active `TPS3899DL01DSER` adjustable supervisor with a complete divider, hysteresis, pull-up and 6.2 ms release-delay network. All active candidates remain blocked for PACS-01R system revalidation; PACS-01R alone is authorized. PPC-01, CSR-01A-R5, footprints and PCB work remain unauthorized.
+ECO-010 is **COMPLETE**. U101 is corrected to the active 20-pin `TPS26631PWPR` architecture with verified PWP pin mapping. U801 is corrected to the active `TPS3899DL01DSER` adjustable supervisor with a complete divider, hysteresis, pull-up and 6.2 ms release-delay network. PACS-01R subsequently verified those corrections but was not accepted because system evidence remains incomplete. PPC-01, CSR-01A-R5, footprints and PCB work remain unauthorized.
 
 ## PACS-01 disposition
 
-PACS-01 remains historically **NOT ACCEPTED**. Its two implementation incompatibilities are corrected by ECO-010, but the complete active set remains blocked until PACS-01R system revalidation. PPC-01 and CSR-01A-R5 remain unauthorized.
+PACS-01 remains historically **NOT ACCEPTED**. Its two implementation incompatibilities are corrected by ECO-010. PACS-01R completed revalidation but did not freeze the active set; PACS-01R-A evidence closure is required. PPC-01 and CSR-01A-R5 remain unauthorized.
 
 ## ECO-009R disposition
 
@@ -22,7 +26,7 @@ ECO-009 is historically **INCOMPLETE**, but its timing blocker is closed by QER-
 
 ## PAS-01R disposition
 
-PAS-01R is **INCOMPLETE**. All 18 residual passives now have specific dispositions: 17 are blocked solely by named PACS-01 active selections; C305 requires a schematic ECO because 10 nF produces about 10.7 ms nominal with TPS3890-Q1, not the stated 100 ms target. No passive remains behind a generic curve/tool request. CSR-01A-R5 remains unauthorized.
+PAS-01R is **INCOMPLETE**. C305's schematic value was corrected by ECO-009R, but the original 17 active-dependent passives remain blocked after PACS-01R because exact tool/curve, ripple, hot-magnetic, stability and threshold evidence is incomplete. ECO-010 additionally introduced C805/R807/R809 as blocked U801 support selections. CSR-01A-R5 remains unauthorized.
 
 ## PAS-01 disposition
 

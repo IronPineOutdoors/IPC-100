@@ -2,6 +2,13 @@
 
 Initial project creation.
 
+## 2026-08-01 — PACS-01R active-device revalidation
+
+- Reconciled all 20 power-active references after ECO-010 and verified the corrected U101/U801 physical identities.
+- Retained every active device as BLOCKED because thermal/tool, dependent-passive, prototype, alternate and current commercial evidence is not complete enough for freeze.
+- Identified PACS-01R-A as the narrow remaining evidence package; PPC-01 and CSR-01A-R5 remain unauthorized.
+- Changed no schematic, footprint, PCB, GPIO, hierarchy, connector, ADR or ICD artifact.
+
 ## 2026-07-31 — ECO-010 active-device compatibility remediation
 
 - Corrected U101 to the active TPS26631PWPR 20-pin PWP implementation and verified every physical pin function.

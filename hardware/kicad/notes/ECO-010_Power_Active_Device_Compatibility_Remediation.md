@@ -133,3 +133,5 @@ PACS-01R must revalidate all 20 active functions, confirm U101/U801 orderability
 # ECO-010 COMPLETE — PACS-01R AUTHORIZED
 
 PPC-01 and CSR-01A-R5 are not authorized.
+
+> **PACS-01R status (2026-08-01):** the U101 and U801 compatibility corrections are verified. PACS-01R is not accepted because broader thermal/tool, dependent-passive, alternate and commercial evidence remains incomplete. ECO-010 itself remains complete.

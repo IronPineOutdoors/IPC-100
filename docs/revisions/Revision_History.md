@@ -1,5 +1,9 @@
 # IPC-100 Revision History
 
+## 2026-08-01 — PACS-01R
+
+Revalidated the complete 20-reference power-active inventory following ECO-010. The U101 TPS26631PWPR and U801 TPS3899DL01DSER implementation incompatibilities are closed, but no active device is frozen because package-specific thermal/tool evidence, 17 dependent passive closures, U801 corner testing, complete alternate strategy, and current commercial evidence remain incomplete. PACS-01R is not accepted; PACS-01R-A is the smallest corrective evidence package. PPC-01 and CSR-01A-R5 remain unauthorized.
+
 ## 2026-07-31 — ECO-010
 
 Remediated the two PACS-01 schematic-to-market incompatibilities. U101 now uses the orderable TPS26631PWPR with its verified 20-pin PWP map; U801 now uses TPS3899DL01DSER with explicit threshold, feedback, pull-up and delay support. No architecture, interface, footprint or PCB change. PACS-01R authorized.

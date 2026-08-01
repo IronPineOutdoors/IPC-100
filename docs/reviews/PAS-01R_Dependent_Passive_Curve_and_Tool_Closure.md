@@ -125,3 +125,5 @@ The PAS-01R validator checks 18 unique dispositions, 85 PAS references, preserva
 # PAS-01R INCOMPLETE
 
 Next highest-unblock package: **PACS-01 — Power Active Component Selection**, after a narrow C305 timing ECO. PPC-01, PACS-01, JCS-01 and CSR-01A-R5 are not begun or authorized by this package.
+
+> **PACS-01R update:** ECO-009R corrected C305 and ECO-010 selected compatible U101/U801 architectures. PACS-01R nevertheless leaves the 17 original active-dependent rows blocked because exact manufacturer tool/curve and thermal evidence remains incomplete. C805/R807/R809 are additional ECO-010 support selections. PACS-01R-A owns closure; no passive value is changed here.

@@ -12,3 +12,5 @@ The IPC-100 Rev A Engineering Blueprint is organized into:
 - [Documentation images](images/README.md)
 
 Keep all documents synchronized with the active hardware revision and stable signal names.
+
+Current power-component review: [PACS-01R Power Active Component Selection Revalidation](reviews/PACS-01R_Power_Active_Component_Selection_Revalidation.md).
