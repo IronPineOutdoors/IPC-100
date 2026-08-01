@@ -2,6 +2,14 @@
 
 Initial project creation.
 
+## 2026-07-31 — ECO-009R C305 timing closure
+
+- Verified the captured 93.1 nF C305 implementation at 99.642 ms nominal and 79.1–136.6 ms endpoints.
+- Demonstrated compliance with QER-03's 75–150 ms design and 76–149 ms guarded analytical windows.
+- Audited startup, brownout, failure modes, CT topology and independent actuator authorization.
+- Synchronized the generic C305 requirement across EBOM/AVL CSV and XLSX artifacts without selecting an MPN or footprint.
+- Completed ECO-009R and authorized PACS-01 only; CSR-01A-R5 remains unauthorized.
+
 ## 2026-07-31 — QER-03 reset-release timing contract
 
 - Defined U302 positive SENSE crossing as the reset-release timing reference.

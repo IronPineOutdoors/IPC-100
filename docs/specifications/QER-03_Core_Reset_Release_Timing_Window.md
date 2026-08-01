@@ -4,6 +4,8 @@ Date: 2026-07-31
 Platform: IPC-100 Rev A
 Status: Released
 
+> **Implementation status:** ECO-009R verifies the captured 93.1 nF C305 class at 99.642 ms nominal and 79.1–136.6 ms analytical endpoints. QER-RST-01 through QER-RST-08 are implemented analytically; the released prototype matrix and exact PACS-01 selections remain pending.
+
 ## 1. Executive Summary
 
 QER-03 releases one common **75–150 ms** reset-release delay window, with **100 ms as the exact nominal design target**. Timing begins when `+3V3_CORE` rises through U302's guaranteed positive SENSE threshold while MR is inactive. It ends when U302 releases its reset output, thereby permitting ESP32-S3 `CHIP_PU` and the hardware `RESET_VALID` node to rise.
@@ -179,11 +181,11 @@ This test is required before final C305 freeze, U302 freeze, PCB release and ene
 
 ## 15. ECO-009 Disposition
 
-QER-03 resolves ECO-009's sole requirements blocker. Its 99.642 ms nominal and 79.1–136.6 ms endpoint estimate are compliant with QER-RST-02 through QER-RST-04. ECO-009 remains historically incomplete until ECO-009R verifies the calculation, updates its decision, and completes targeted validation; this document does not modify the schematic.
+QER-03 resolves ECO-009's sole requirements blocker. Its 99.642 ms nominal and 79.1–136.6 ms endpoint estimate are compliant with QER-RST-02 through QER-RST-04. ECO-009 remains historically incomplete as the original change record. ECO-009R verifies the calculation and closes its implementation blocker without modifying the schematic.
 
 ## 16. PACS-01 Handoff
 
-ECO-009R shall close C305 against QER-RST-01 through QER-RST-08. PACS-01 later selects the exact U302 order code and exact C305 candidate against the same limits. QER-03 does not select either component and does not authorize PACS-01.
+ECO-009R closes the generic C305 implementation against QER-RST-01 through QER-RST-08 and authorizes PACS-01. PACS-01 shall select the exact U302 order code and exact C305 candidate against the same limits; QER-03 itself selects neither component.
 
 ## 17. Remaining Risks
 

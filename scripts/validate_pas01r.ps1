@@ -19,7 +19,7 @@ Assert-True (@($ebom|Where-Object {$_.'Selection Scope' -eq 'CSR-01A POWER' -and
 foreach($r in $reg){
  $e=$ebom|Where-Object {$_.Sheet -eq $r.Sheet -and $_.Reference -eq $r.Reference}|Select-Object -First 1
  $a=$avl|Where-Object {$_.Item -eq $e.Item}|Select-Object -First 1
- Assert-True ($null -ne $e -and ($e.Risk -match '^PAS-01R: BLOCKED' -or ($r.Reference -eq 'C305' -and $e.Risk -match '^ECO-009'))) "EBOM disposition absent for $($r.Reference)."
+ Assert-True ($null -ne $e -and ($e.Risk -match '^PAS-01R: BLOCKED' -or ($r.Reference -eq 'C305' -and $e.Risk -match '^ECO-009(?:R)?'))) "EBOM disposition absent for $($r.Reference)."
  Assert-True ($null -ne $a -and $a.Risk -eq $e.Risk -and $a.'Freeze Status' -eq $e.'Freeze Status') "AVL mismatch for $($r.Reference)."
 }
 $doc=Get-Content (Join-Path $RepositoryRoot 'docs/reviews/PAS-01R_Dependent_Passive_Curve_and_Tool_Closure.md') -Raw

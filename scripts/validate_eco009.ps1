@@ -15,7 +15,7 @@ Assert-True ([regex]::Matches($doc,'(?m)^# ECO-009 (?:COMPLETE — PACS-01 AUTHO
 Assert-True ($doc -match '(?m)^# ECO-009 INCOMPLETE$') 'ECO-009 decision mismatch.'
 $ebom=@(Import-Csv (Join-Path $RepositoryRoot 'docs/bom/IPC100_RevA_EBOM.csv') -Encoding UTF8);$avl=@(Import-Csv (Join-Path $RepositoryRoot 'docs/bom/Approved_Vendor_List.csv') -Encoding UTF8)
 $e=$ebom|Where-Object {$_.Sheet -eq '03_ESP32_Core' -and $_.Reference -eq 'C305'}|Select-Object -First 1;$a=$avl|Where-Object Item -eq $e.Item|Select-Object -First 1
-Assert-True ($e.Value -match '^93\.1 nF' -and $e.Risk -match '^ECO-009') 'C305 EBOM reconciliation failed.'
+Assert-True ($e.Value -match '^93\.1 nF' -and $e.Risk -match '^ECO-009(?:R)?') 'C305 EBOM reconciliation failed.'
 Assert-True ($a.Risk -eq $e.Risk -and $a.'Freeze Status' -eq $e.'Freeze Status') 'C305 AVL reconciliation failed.'
 $rdr=Get-Content (Join-Path $RepositoryRoot 'docs/reference/Reference_Designator_Register.md') -Raw;Assert-True ($rdr -match 'C305.*93\.1 nF') 'Reference register not synchronized.'
 $changed=git -C $RepositoryRoot diff --name-only b17222a

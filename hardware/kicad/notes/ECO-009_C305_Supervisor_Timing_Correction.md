@@ -1,6 +1,6 @@
 # ECO-009 — C305 Supervisor Timing Correction
 
-> **QER-03 disposition:** QER-03 releases a 75–150 ms design window and accepts the 79.1–136.6 ms analytical range. ECO-009 remains historically incomplete pending ECO-009R verification and decision update; ECO-009R is authorized.
+> **ECO-009R disposition:** QER-03 released the 75–150 ms design window and ECO-009R verified the existing 79.1–136.6 ms implementation against it. This document preserves ECO-009's historical incomplete decision; the corrective chain is closed by ECO-009R, which authorizes PACS-01.
 
 ## 1. Scope
 

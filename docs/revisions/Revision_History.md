@@ -1,5 +1,9 @@
 # IPC-100 Revision History
 
+## 2026-07-31 — ECO-009R
+
+Verified the existing C305 93.1 nF ±1% C0G/NP0 implementation against QER-03. Recalculation confirmed 99.642 ms nominal and 79.1–136.6 ms endpoints, with 4.1/13.4 ms design margins and 3.1/12.4 ms guarded margins. Synchronized generic EBOM/AVL requirements without changing the schematic or selecting parts. ECO-009R is complete and PACS-01 is authorized; CSR-01A-R5 remains unauthorized.
+
 ## 2026-07-31 — QER-03
 
 Released the U302/C305 reset-release timing contract: positive SENSE crossing is the reference event, 100 ms is the exact nominal target, 75–150 ms are design limits, and 76–149 ms is the guarded prototype window. Accepted ECO-009's 79.1–136.6 ms estimate and authorized ECO-009R without changing hardware or selecting parts.
