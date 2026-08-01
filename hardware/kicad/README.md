@@ -74,4 +74,6 @@ ECO-005 closed the reference-identity portion of CSR-01 by placing every non-con
 
 CSR-01A reviewed the power subsystem after ECO-005 and did not accept the power-component freeze. The 124 power-scope rows remain blocked pending quantitative transient, load, thermal, stability, timing, connector, exact-order-code, and sourcing evidence; all 177 unrelated rows are marked `NOT YET FROZEN`. CSR-01B, footprint assignment, and PCB work remain unauthorized.
 
+ECO-009 corrects Sheet 03 C305 to a generic 93.1 nF ±1% C0G/NP0 timing class, producing 99.642 ms nominal with TPS3890-Q1. The calculated endpoint range is approximately 79.1–136.6 ms. ECO-009 remains incomplete because no accepted minimum/maximum reset-release window exists; no topology or footprint changed.
+
 QER-01 subsequently released the quantitative envelope, and CSR-01A-R reattempted the freeze. Nine independent 100 kΩ Sheet 02/08 bias/enable resistors are frozen. ECO-006 removed the capacitor/MOSFET rating conflicts and MIR-01 released J1/H01 mechanics. CSR-01A-R2 then found exact-device conflicts in U201/R201 frequency programming, three TPS2553 branch-limit networks, and U801 threshold/hysteresis implementation. The final power freeze was not accepted; CSR-01B, footprints, and PCB work remain unauthorized pending corrective ECO and re-review.

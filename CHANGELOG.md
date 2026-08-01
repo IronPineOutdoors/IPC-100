@@ -2,6 +2,12 @@
 
 Initial project creation.
 
+## 2026-07-31 — ECO-009 C305 timing correction
+
+- Corrected C305 from 10 nF to a 93.1 nF ±1% C0G/NP0 generic class.
+- Corrected nominal TPS3890-Q1 reset release from about 10.725 ms to 99.642 ms.
+- Documented the 79.1–136.6 ms worst-case envelope and missing accepted timing window.
+
 ## 2026-07-31 — PAS-01R dependent passive closure
 
 - Dispositioned all 18 PAS-01 residual passive references exactly once.

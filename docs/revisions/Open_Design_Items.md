@@ -1,5 +1,9 @@
 # IPC-100 Open Design Items
 
+## ECO-009 disposition
+
+ECO-009 is **INCOMPLETE**. C305 is corrected from 10 nF to a generic 93.1 nF ±1% C0G/NP0 class, producing 99.642 ms nominal. The TI endpoint stack is approximately 79.1–136.6 ms, but no accepted minimum/maximum reset-release window exists, so compliance and PACS-01 authorization cannot be issued. Exact U302 selection also remains pending.
+
 ## PAS-01R disposition
 
 PAS-01R is **INCOMPLETE**. All 18 residual passives now have specific dispositions: 17 are blocked solely by named PACS-01 active selections; C305 requires a schematic ECO because 10 nF produces about 10.7 ms nominal with TPS3890-Q1, not the stated 100 ms target. No passive remains behind a generic curve/tool request. CSR-01A-R5 remains unauthorized.

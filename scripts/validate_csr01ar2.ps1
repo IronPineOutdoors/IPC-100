@@ -22,7 +22,7 @@ foreach ($row in $frozen) {
         Assert-True (-not [string]::IsNullOrWhiteSpace($row.$field)) "Frozen $($row.Item) lacks $field."
     }
 }
-foreach ($row in $blocked) { Assert-True ($row.Risk -match 'INCOMPLETE|INCONSISTENT|UNRESOLVED|MISSING|UNAVAILABLE|PAS-01R: BLOCKED') "Blocked $($row.Item) lacks a specific blocker." }
+foreach ($row in $blocked) { Assert-True ($row.Risk -match 'INCOMPLETE|INCONSISTENT|UNRESOLVED|MISSING|UNAVAILABLE|PAS-01R: BLOCKED|ECO-009') "Blocked $($row.Item) lacks a specific blocker." }
 
 $byItem = @{}; foreach ($row in $avl) { $byItem[$row.Item] = $row }
 foreach ($row in $power) { Assert-True ($byItem.ContainsKey($row.Item)) "AVL lacks $($row.Item)." }

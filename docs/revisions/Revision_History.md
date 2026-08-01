@@ -1,5 +1,9 @@
 # IPC-100 Revision History
 
+## 2026-07-31 — ECO-009
+
+Corrected Sheet 03 C305 from 10 nF to a package-independent 93.1 nF ±1% C0G/NP0 timing class for 99.642 ms nominal TPS3890-Q1 reset release. Calculated a 79.1–136.6 ms device/capacitor envelope and retained an incomplete decision because no accepted timing window exists. No topology, footprint or PCB change was made.
+
 ## 2026-07-31 — PAS-01R / Package 11A-P-R
 
 Dispositioned all 18 residual passives: 17 require named PACS-01 active selections and C305 requires a timing ECO because TI's TPS3890-Q1 equation yields approximately 10.7 ms from the captured 10 nF rather than the released 100 ms target. Synchronized EBOM/AVL blockers without changing schematics or footprints. PAS-01R remains incomplete.

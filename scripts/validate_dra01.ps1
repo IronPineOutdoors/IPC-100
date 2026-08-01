@@ -10,9 +10,10 @@ foreach ($row in $rows) {
   $causes = [System.Collections.Generic.List[string]]::new()
   if ($row.Risk -match '^PAS-01R: BLOCKED' -and $row.Reference -in @('C102','C103','C104','C109','L101','C202','C205','C210','L201','L202','R808')) { $causes.Add('RC-B') }
   if ($row.Risk -match '^PAS-01R: BLOCKED' -and $row.Reference -in @('C201','C203','C204','C206','C208','C209','C305')) { $causes.Add('RC-C') }
-  if ($row.Risk -notmatch '^PAS-01R: BLOCKED' -and $row.Risk -match '^TRANSIENT COORDINATION') { $causes.Add('RC-A') }
-  if ($row.Risk -notmatch '^PAS-01R: BLOCKED' -and $row.Risk -match 'THERMAL/STABILITY|ECO-006|exact suffix|ECO-007|ECO-008R|saturation|TCA9517A') { $causes.Add('RC-B') }
-  if ($row.Risk -notmatch '^PAS-01R: BLOCKED' -and $row.Risk -match 'exact dielectric|device equation') { $causes.Add('RC-C') }
+  if ($row.Risk -match '^ECO-009' -and $row.Reference -eq 'C305') { $causes.Add('RC-C') }
+  if ($row.Risk -notmatch '^PAS-01R: BLOCKED|^ECO-009' -and $row.Risk -match '^TRANSIENT COORDINATION') { $causes.Add('RC-A') }
+  if ($row.Risk -notmatch '^PAS-01R: BLOCKED|^ECO-009' -and $row.Risk -match 'THERMAL/STABILITY|ECO-006|exact suffix|ECO-007|ECO-008R|saturation|TCA9517A') { $causes.Add('RC-B') }
+  if ($row.Risk -notmatch '^PAS-01R: BLOCKED|^ECO-009' -and $row.Risk -match 'exact dielectric|device equation') { $causes.Add('RC-C') }
   if ($row.Reference -eq 'J1') { $causes.Add('RC-D') }
   Assert-True ($causes.Count -eq 1) "$($row.Item) maps to $($causes.Count) root causes."
   $assignments.Add([pscustomobject]@{ Item=$row.Item; Reference=$row.Reference; Cause=$causes[0] })

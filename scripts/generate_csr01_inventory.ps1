@@ -64,7 +64,7 @@ function Test-Csr01ArFrozen100kResistor {
 
 function Get-Csr01ArBlocker {
     param([string]$Sheet, [string]$Reference, [string]$Category, [string]$Value)
-    if ($Reference -eq 'C305') { return 'PAS-01R: BLOCKED - SCHEMATIC ECO REQUIRED. TPS3890-Q1 specifies tPD(r) = CCT(uF) x 1.07 + 25 us nominal; captured 10 nF yields approximately 10.725 ms, not the released 100 ms target.' }
+    if ($Reference -eq 'C305') { return 'ECO-009: nominal corrected to 93.1 nF / 99.642 ms. BLOCKED - exact U302 suffix and accepted minimum/maximum reset-release window are required before worst-case freeze; calculated component/device envelope is approximately 79.1..136.6 ms.' }
     if ($Reference -in @('C102','C103','C104','C109','L101')) { return 'PAS-01R: BLOCKED - ACTIVE DEVICE SELECTION REQUIRED. Exact U101/PPC input-protection operating waveform and active order code must precede capacitor or input-filter magnetic curve qualification.' }
     if ($Reference -in @('C201','C202','C203','C204','C205','L201')) { return 'PAS-01R: BLOCKED - ACTIVE DEVICE SELECTION REQUIRED. Exact U201 LMR38020-Q1 suffix and WEBENCH/stability solution must precede output, bootstrap, timing, and magnetic selection.' }
     if ($Reference -in @('C206')) { return 'PAS-01R: BLOCKED - ACTIVE DEVICE SELECTION REQUIRED. Exact U202 power-mux and U203 core-regulator selections must precede transition-capacitance and source-change qualification.' }

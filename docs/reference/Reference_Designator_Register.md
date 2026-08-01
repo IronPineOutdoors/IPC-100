@@ -135,7 +135,7 @@ Connector functional designations J1â€“J10 and J13, plus factory boundary D
 | `C2` | `C302` | 03 | `IPC100:C` | 1 µF X7R |
 | `C3` | `C303` | 03 | `IPC100:C` | 100 nF X7R |
 | `C4` | `C304` | 03 | `IPC100:C` | 1 µF EN RC starting value |
-| `C5` | `C305` | 03 | `IPC100:C` | 10 nF CT — 100 ms target, verify suffix/equation |
+| `C5` | `C305` | 03 | `IPC100:C` | 93.1 nF ±1% C0G/NP0 ≥10 V; CT; 99.642 ms nominal; leakage ≤10 nA; -40..125 C |
 | `C6` | `C306` | 03 | `IPC100:C` | 100 nF supervisor bypass |
 | `U1` | `U301` | 03 | `IPC100:ESP32S3WROOM1` | ESP32-S3-WROOM-1-N8 |
 | `R1` | `R301` | 03 | `IPC100:R` | 10 kΩ EN/reset pull-up |

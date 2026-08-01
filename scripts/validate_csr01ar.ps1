@@ -52,7 +52,7 @@ foreach ($row in $frozen) {
 }
 
 foreach ($row in $blocked) {
-    Assert-True ($row.Risk -match 'INCOMPLETE|INCONSISTENT|UNRESOLVED|MISSING|UNAVAILABLE|PAS-01R: BLOCKED') "Blocked row $($row.Item) lacks a specific blocker category."
+    Assert-True ($row.Risk -match 'INCOMPLETE|INCONSISTENT|UNRESOLVED|MISSING|UNAVAILABLE|PAS-01R: BLOCKED|ECO-009') "Blocked row $($row.Item) lacks a specific blocker category."
 }
 
 $avlByItem = @{}

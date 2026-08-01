@@ -17,7 +17,7 @@ foreach ($row in $frozen) {
     Assert-True (-not [string]::IsNullOrWhiteSpace($row.$field)) "Frozen $($row.Item) lacks $field."
   }
 }
-foreach ($row in $blocked) { Assert-True ($row.Risk -match 'INCOMPLETE|UNRESOLVED|MISSING|UNAVAILABLE|PAS-01R: BLOCKED') "Blocked $($row.Item) lacks a specific blocker." }
+foreach ($row in $blocked) { Assert-True ($row.Risk -match 'INCOMPLETE|UNRESOLVED|MISSING|UNAVAILABLE|PAS-01R: BLOCKED|ECO-009') "Blocked $($row.Item) lacks a specific blocker." }
 $avlByItem = @{}; foreach ($row in $avl) { $avlByItem[$row.Item] = $row }
 foreach ($row in $ebom) {
   Assert-True ($avlByItem.ContainsKey($row.Item)) "AVL lacks $($row.Item)."

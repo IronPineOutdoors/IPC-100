@@ -1,5 +1,7 @@
 # PAS-01R — Dependent Passive Curve and Tool Closure
 
+> **ECO-009 disposition:** C305 was corrected to 93.1 nF / 99.642 ms nominal. ECO-009 remains incomplete because the repository has no accepted minimum/maximum reset-release window; C305 remains blocked pending that requirement and exact U302 selection.
+
 Date: 2026-07-31  
 Platform: IPC-100 Rev A  
 Package: 11A-P-R

@@ -44,7 +44,7 @@ U2 is represented as TPS389030-Q1:
 - VDD and SENSE monitor `+3V3_CORE`.
 - MR is held inactive high.
 - The fixed threshold is approximately 2.89 V falling for the 3.0 V family suffix.
-- C5 starts at 10 nF for the approximately 100 ms target release delay; the exact suffix equation and tolerance require verification.
+- C305 is corrected by ECO-009 to 93.1 nF ±1% C0G/NP0 for 99.642 ms nominal by the TPS3890-Q1 equation. The exact U302 suffix and an accepted minimum/maximum release window remain open.
 - Open-drain reset is pulled up by R1, 10 kΩ.
 - C4, 1 µF, is the Espressif EN RC starting value.
 - SW1 is a normally-open RESET pushbutton to ground.
