@@ -356,7 +356,7 @@ foreach ($sheetBlock in $sheetBlocks) {
             }
         }
         foreach ($requiredValue in @(
-            'TLV841S fixed 2.7 V; 10 ms delay; push-pull valid-high; external 2.930/2.680 V thresholds',
+            'TPS3899DL01DSER; adjustable; OD active-low; 6.2 ms release; external 2.9/2.7 V window',
             '100 kΩ ±1% segment-enable fail-low bias',
             'Dual-supply I2C hot-swap buffer; 100 kHz; fail-disabled; no clock stretching',
             '4.70 kΩ ±1% J10 SDA pull-up; Sheet 08 external-segment owner',

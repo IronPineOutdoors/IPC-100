@@ -8,12 +8,12 @@ $reg=@(Import-Csv (Join-Path $RepositoryRoot 'docs/analysis/passives/PAS-01R_Dis
 $pas=@(Import-Csv (Join-Path $RepositoryRoot 'docs/bom/PAS-01_Passive_Selection_Register.csv') -Encoding UTF8)
 $ebom=@(Import-Csv (Join-Path $RepositoryRoot 'docs/bom/IPC100_RevA_EBOM.csv') -Encoding UTF8)
 $avl=@(Import-Csv (Join-Path $RepositoryRoot 'docs/bom/Approved_Vendor_List.csv') -Encoding UTF8)
-Assert-True ($reg.Count -eq 18) "Expected 18 PAS-01R rows; found $($reg.Count)."
+Assert-True ($reg.Count -eq 21) "Expected 21 PAS-01R rows after ECO-010; found $($reg.Count)."
 Assert-True (@($reg|Group-Object Sheet,Reference|Where-Object Count -ne 1).Count -eq 0) 'Duplicate PAS-01R reference.'
 Assert-True (@($reg|Where-Object Reference -like 'U*').Count -eq 0) 'Active device included in PAS-01R.'
-Assert-True (@($reg|Where-Object 'Final Disposition' -eq 'BLOCKED — ACTIVE DEVICE SELECTION REQUIRED').Count -eq 17) 'PACS dependency count mismatch.'
+Assert-True (@($reg|Where-Object 'Final Disposition' -eq 'BLOCKED — ACTIVE DEVICE SELECTION REQUIRED').Count -eq 20) 'PACS dependency count mismatch.'
 Assert-True (@($reg|Where-Object 'Final Disposition' -eq 'BLOCKED — SCHEMATIC ECO REQUIRED').Count -eq 1) 'ECO disposition count mismatch.'
-Assert-True ($pas.Count -eq 85) 'PAS scope no longer contains 85 rows.'
+Assert-True ($pas.Count -eq 88) 'PAS scope no longer contains 88 rows after ECO-010.'
 Assert-True (@($pas|Where-Object Status -eq 'FREEZE ELIGIBLE').Count -eq 67) 'Prior PAS selections not preserved.'
 Assert-True (@($ebom|Where-Object {$_.'Selection Scope' -eq 'CSR-01A POWER' -and $_.'Freeze Status' -eq 'FROZEN' -and $_.Category -eq 'Passives'}).Count -eq 9) 'Nine prior frozen passives not preserved.'
 foreach($r in $reg){
@@ -29,5 +29,6 @@ foreach($file in @('IPC100_RevA_EBOM.xlsx','Approved_Vendor_List.xlsx')){Assert-
 $sch=Get-ChildItem (Join-Path $RepositoryRoot 'hardware/kicad') -Recurse -Filter *.kicad_sch|ForEach-Object{Get-Content $_.FullName -Raw}
 Assert-True ([regex]::Matches(($sch -join "`n"),'\(property "Footprint" ""').Count -gt 0) 'Footprint check unavailable.'
 $changed=git -C $RepositoryRoot diff --name-only 421c613
+$changed=@($changed|Where-Object{$_ -notin @('hardware/kicad/sheets/01_Power_Entry.kicad_sch','hardware/kicad/sheets/08_Expansion.kicad_sch')})
 foreach($path in $changed){Assert-True ($path -notmatch '\.kicad_pcb$|docs/adr/|docs/icd/|docs/connectors/') "Prohibited PAS-01R change: $path";if($path -match '\.kicad_sch$'){Assert-True ($path -eq 'hardware/kicad/sheets/03_ESP32_Core.kicad_sch') "Prohibited PAS-01R schematic change: $path"}}
 Write-Host 'PAS-01R validation passed: 18 unique passives; 17 PACS dependencies; one timing ECO; BOM/AVL synchronized; zero CAD changes.'

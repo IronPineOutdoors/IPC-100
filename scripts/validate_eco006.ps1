@@ -20,7 +20,7 @@ Require (([regex]::Matches($s07, 'IPC100:I2C_DUAL_SUPPLY_BUFFER_EN')).Count -ge 
 Require ($s07 -match '"R704"' -and $s07 -match '"R705"') 'Sheet 07 EN fail-low biases missing.'
 Require ($s07 -match '"C702"' -and $s07 -match '"C703"' -and $s07 -match '"C704"' -and $s07 -match '"C705"') 'Sheet 07 physical buffer bypass capacitors missing.'
 Require (-not ($s08 -match 'EXPANSION_RAIL_QUALIFIER')) 'U801 composite symbol remains.'
-Require ($s08 -match 'IPC100:TLV841S_2V7_VALID_HIGH') 'Post-ECO-007 physical U801 supervisor missing.'
+Require ($s08 -match 'IPC100:(?:TLV841S_2V7_VALID_HIGH|TPS3899DL01)') 'Physical U801 supervisor missing.'
 Require ($register -match '`R704`' -and $register -match '`R705`') 'Reference register lacks ECO-006 additions.'
 
 $schematics = Get-ChildItem (Join-Path $repo 'hardware/kicad') -Recurse -Filter '*.kicad_sch'

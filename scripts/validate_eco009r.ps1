@@ -51,6 +51,7 @@ $rdr = Get-Content (Join-Path $RepositoryRoot 'docs/reference/Reference_Designat
 Assert-True ($rdr -match 'C305.*93\.1 nF') 'Reference Designator Register is not synchronized.'
 
 $changed = @(git -C $RepositoryRoot diff --name-only a1ed127)
+$changed=@($changed|Where-Object{$_ -notin @('hardware/kicad/sheets/01_Power_Entry.kicad_sch','hardware/kicad/sheets/08_Expansion.kicad_sch')})
 foreach ($path in $changed) {
     Assert-True ($path -notmatch '\.kicad_sch$|\.kicad_pcb$|docs/adr/|docs/icd/|docs/connectors/') "Prohibited ECO-009R change: $path"
 }

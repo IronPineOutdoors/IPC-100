@@ -49,7 +49,7 @@ Connector functional designations J1â€“J10 and J13, plus factory boundary D
 | `R8` | `R108` | 01 | `IPC100:R` | 49.9 kΩ 0.1% 25 ppm |
 | `R9` | `R109` | 01 | `IPC100:R` | 10.0 kΩ 0.1% 25 ppm |
 | `U2` | `U102` | 01 | `IPC100:TPS259470L` | TPS259470LRPW (provisional) |
-| `U1` | `U101` | 01 | `IPC100:TPS26630` | TPS26630PWPR (provisional) |
+| `U1` | `U101` | 01 | `IPC100:TPS26631_PWP` | TPS26631PWPR; verified 20-pin PWP map; PACS-01R pending |
 | `C1` | `C201` | 02 | `IPC100:C` | 2.2 µF 100 V |
 | `C10` | `C210` | 02 | `IPC100:C` | 10 nF soft start |
 | `C11` | `C211` | 02 | `IPC100:C` | 1 nF slew control |
@@ -292,11 +292,14 @@ Connector functional designations J1â€“J10 and J13, plus factory boundary D
 | `C3` | `C803` | 08 | `IPC100:C` | 100 nF X7R ±10% core-side buffer decoupling |
 | `ECO-007 added` | `C804` | 08 | `IPC100:C` | 100 nF X7R ±10% U801 VDD bypass |
 | `ECO-007 added` | `R806` | 08 | `IPC100:R` | 150 kΩ ±0.1% expansion-to-SENSE series resistor |
-| `ECO-007 added` | `R808` | 08 | `IPC100:R` | 4.47 MΩ ±0.1% supervisor valid-output hysteresis feedback |
+| `ECO-007 added; ECO-010 revised` | `R808` | 08 | `IPC100:R` | 1.30 MΩ ±0.1% TPS3899 valid-output hysteresis feedback |
+| `ECO-010 added` | `R807` | 08 | `IPC100:R` | 31.6 kΩ ±0.1% TPS3899 SENSE lower divider |
+| `ECO-010 added` | `R809` | 08 | `IPC100:R` | 4.70 kΩ open-drain valid-output pull-up |
+| `ECO-010 added` | `C805` | 08 | `IPC100:C` | 10 nF TPS3899 CTR; 6.2 ms nominal release delay |
 | `D1` | `D801` | 08 | `IPC100:ESD_PROVISION` | J10 SDA low-capacitance TVS provision; IEC 61000-4-2 target |
 | `D2` | `D802` | 08 | `IPC100:ESD_PROVISION` | J10 SCL low-capacitance TVS provision; IEC 61000-4-2 target |
 | `D3` | `D803` | 08 | `IPC100:ESD_PROVISION` | EXPANSION_VCC local ESD/reverse-injection provision; final part coordinated with Sheet 09 |
-| `U1` | `U801` | 08 | `IPC100:RAIL_VALID_SUPERVISOR_PP` | One physical push-pull rail supervisor; fixed threshold/delay; fail-low output |
+| `U1` | `U801` | 08 | `IPC100:TPS3899DL01` | TPS3899DL01 adjustable supervisor; open-drain active-low reset used as valid-high enable |
 | `FB1` | `FB801` | 08 | `IPC100:FERRITE` | Accessory-bias filter bead — impedance/current rating pending protection part selection |
 | `U2` | `U802` | 08 | `IPC100:I2C_SEGMENT_BUFFER` | Dual-supply I2C hot-swap buffer; 100 kHz; fail-disabled; no clock stretching |
 | `R1` | `R801` | 08 | `IPC100:R` | 100 kΩ ±1% segment-enable fail-low bias |

@@ -2,6 +2,13 @@
 
 Initial project creation.
 
+## 2026-07-31 — ECO-010 active-device compatibility remediation
+
+- Corrected U101 to the active TPS26631PWPR 20-pin PWP implementation and verified every physical pin function.
+- Replaced the unavailable U801 TLV841 configuration with an active TPS3899DL01 adjustable supervisor and complete threshold, hysteresis, pull-up and delay network.
+- Added Sheet 08 references C805, R807 and R809 without footprints or interface changes.
+- Synchronized EBOM/AVL and authorized PACS-01R only; PPC-01 and CSR-01A-R5 remain unauthorized.
+
 ## 2026-07-31 — PACS-01 active-device audit
 
 - Audited the definitive 20-reference power-active scope using current manufacturer evidence.

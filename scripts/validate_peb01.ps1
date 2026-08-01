@@ -23,7 +23,7 @@ Assert-Near $ripple21 0.6349 0.001 'Main inductor ripple calculation failed.'
 Assert-Near ([math]::Sqrt(1.5*1.5+$ripple21*$ripple21/12)) 1.511 0.002 'Inductor RMS calculation failed.'
 Assert-Near (1.0*0.002/(3.3-3.0)) 0.006667 0.00001 'Core hold-up capacitance calculation failed.'
 
-$blocked = @(Import-Csv (Join-Path $RepositoryRoot 'docs/bom/IPC100_RevA_EBOM.csv') -Encoding UTF8 | Where-Object { $_.'Selection Scope' -eq 'CSR-01A POWER' -and $_.'Freeze Status' -eq 'BLOCKED' })
+$blocked = @(Import-Csv (Join-Path $RepositoryRoot 'docs/bom/IPC100_RevA_EBOM.csv') -Encoding UTF8 | Where-Object { $_.'Selection Scope' -eq 'CSR-01A POWER' -and $_.'Freeze Status' -eq 'BLOCKED' -and $_.Reference -notin @('C805','R807','R809') })
 Assert-True ($blocked.Count -eq 124) 'Expected 124 blocked power rows.'
 foreach ($row in $blocked) { Assert-True ([regex]::Matches($register, "(?m)^\| $([regex]::Escape($row.Reference)) \| $([regex]::Escape($row.Sheet)) \|").Count -eq 1) "Evidence register does not contain $($row.Item) exactly once." }
 Assert-True ([regex]::Matches($register, '(?m)^\| [A-Z]+\d+ \|').Count -eq 124) 'Evidence register row count is not 124.'

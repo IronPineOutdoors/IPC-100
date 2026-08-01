@@ -1,5 +1,9 @@
 # IPC-100 Revision History
 
+## 2026-07-31 — ECO-010
+
+Remediated the two PACS-01 schematic-to-market incompatibilities. U101 now uses the orderable TPS26631PWPR with its verified 20-pin PWP map; U801 now uses TPS3899DL01DSER with explicit threshold, feedback, pull-up and delay support. No architecture, interface, footprint or PCB change. PACS-01R authorized.
+
 ## 2026-07-31 — PACS-01
 
 Audited 20 power-active references against current manufacturer and distributor evidence. Recorded 18 exact production candidates but froze none: U101 has a non-orderable captured TPS26630/PWP combination and U801's required TLV841S 2.7 V/10 ms/push-pull-high combination is not listed as a production OPN. Synchronized blocked candidate traceability in EBOM/AVL without CAD or footprint changes. PACS-01 is not accepted; PPC-01 and CSR-01A-R5 remain unauthorized.

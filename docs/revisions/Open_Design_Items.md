@@ -1,8 +1,12 @@
 # IPC-100 Open Design Items
 
+## ECO-010 disposition
+
+ECO-010 is **COMPLETE**. U101 is corrected to the active 20-pin `TPS26631PWPR` architecture with verified PWP pin mapping. U801 is corrected to the active `TPS3899DL01DSER` adjustable supervisor with a complete divider, hysteresis, pull-up and 6.2 ms release-delay network. All active candidates remain blocked for PACS-01R system revalidation; PACS-01R alone is authorized. PPC-01, CSR-01A-R5, footprints and PCB work remain unauthorized.
+
 ## PACS-01 disposition
 
-PACS-01 is **NOT ACCEPTED**. All 20 power-active references were audited and 18 exact production candidates were recorded without freeze. U101 is blocked because captured `TPS26630PWPR` is not an orderable package/suffix combination; U801 is blocked because the required `TLV841SCPH27YBHR` combination is not listed as an active production OPN. PPC-01 and CSR-01A-R5 remain unauthorized.
+PACS-01 remains historically **NOT ACCEPTED**. Its two implementation incompatibilities are corrected by ECO-010, but the complete active set remains blocked until PACS-01R system revalidation. PPC-01 and CSR-01A-R5 remain unauthorized.
 
 ## ECO-009R disposition
 

@@ -134,4 +134,6 @@ Primary evidence reviewed:
 
 # PACS-01 NOT ACCEPTED
 
+> **ECO-010 disposition:** ECO-010 replaces the two incompatible implementations with TPS26631PWPR and TPS3899DL01DSER physical architectures. PACS-01 remains the historical decision; PACS-01R is authorized to revalidate all 20 active functions. PPC-01 and CSR-01A-R5 remain unauthorized.
+
 PPC-01, CSR-01A-R5, JCS-01, footprint assignment and PCB work remain unauthorized.

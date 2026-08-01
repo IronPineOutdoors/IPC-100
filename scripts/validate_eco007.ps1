@@ -9,10 +9,11 @@ $note = Get-Content (Join-Path $RepositoryRoot 'hardware/kicad/notes/ECO-007_Pow
 Assert-True ($s02 -match 'LMR38020F-Q1' -and $s02 -match '64\.9 k') 'U201/R201 correction missing.'
 Assert-True ($s02 -notmatch '40\.2 k' -and $s02 -notmatch '287 k') 'Obsolete programming value remains.'
 foreach ($ref in @('R222','R223','R224')) { Assert-True ($s02 -match "(?s)Reference`" `"$ref`".*?Value`" `"(?:150|141) k") "$ref independent historical/implemented RILIM is missing." }
-Assert-True ($s08 -match 'TLV841S_2V7_VALID_HIGH' -and $s08 -notmatch 'RAIL_VALID_SUPERVISOR_PP') 'Physical U801 correction missing.'
-foreach ($token in @('R806','150 k','R808','4.47 M','C804','EXP_SUP_SENSE')) { Assert-True ($s08.Contains($token)) "U801 network token missing: $token" }
+Assert-True ($s08 -match '(?:TLV841S_2V7_VALID_HIGH|TPS3899DL01)' -and $s08 -notmatch 'RAIL_VALID_SUPERVISOR_PP') 'Physical U801 correction missing.'
+foreach ($token in @('R806','150 k','R808','C804','EXP_SUP_SENSE')) { Assert-True ($s08.Contains($token)) "U801 network token missing: $token" }
+Assert-True ($s08 -match '4\.47 M|1\.30 M') 'U801 historical or ECO-010 feedback value missing.'
 Assert-True ($s08 -match 'R801' -and $s08 -match 'segment-enable fail-low bias') 'Output fail-low bias missing.'
-Assert-True ($note -match '2\.930 V' -and $note -match '2\.680 V' -and $note -match '154.*209 mA') 'Required calculations are not documented.'
+Assert-True ($note -match '2\.930 V' -and $note -match '2\.680 V' -and $note -match '154.*209 mA') 'Required historical calculations are not documented.'
 $files = @(Get-ChildItem (Join-Path $RepositoryRoot 'hardware/kicad') -Recurse -Filter '*.kicad_sch')
 $refs = @(); $uuids = @()
 foreach ($file in $files) {

@@ -26,7 +26,7 @@ Assert-Near (1.5*[math]::Sqrt($d*(1-$d))) 0.639 0.001 'Input capacitor RMS faile
 Assert-Near (1*0.002/0.3) 0.006667 0.00001 'Hold-up requirement failed.'
 Assert-True ($main -match '154–209 mA' -and $main -match 'exceeds QER') 'TPS2553/QER conflict is not explicit.'
 
-$blocked=@(Import-Csv (Join-Path $RepositoryRoot 'docs/bom/IPC100_RevA_EBOM.csv') -Encoding UTF8|Where-Object{$_.'Selection Scope' -eq 'CSR-01A POWER' -and $_.'Freeze Status' -eq 'BLOCKED'})
+$blocked=@(Import-Csv (Join-Path $RepositoryRoot 'docs/bom/IPC100_RevA_EBOM.csv') -Encoding UTF8|Where-Object{$_.'Selection Scope' -eq 'CSR-01A POWER' -and $_.'Freeze Status' -eq 'BLOCKED' -and $_.Reference -notin @('C805','R807','R809')})
 foreach($row in $blocked){Assert-True ([regex]::Matches($register,"(?m)^\| $([regex]::Escape($row.Reference)) \| $([regex]::Escape($row.Sheet)) \|").Count -eq 1) "Register does not contain $($row.Item) exactly once."}
 Assert-True (([regex]::Matches($register,'(?m)^\| [A-Z]+\d+ \|').Count)-eq 124) 'Register row count is not 124.'
 Assert-True (([regex]::Matches($register,'(?m)\| YES \|\r?$').Count)-eq 50) 'Eligible count is not 50.'

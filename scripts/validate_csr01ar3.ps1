@@ -9,8 +9,8 @@ $avl = @(Import-Csv (Join-Path $RepositoryRoot 'docs/bom/Approved_Vendor_List.cs
 $power = @($ebom | Where-Object { $_.'Selection Scope' -eq 'CSR-01A POWER' })
 $frozen = @($power | Where-Object { $_.'Freeze Status' -eq 'FROZEN' })
 $blocked = @($power | Where-Object { $_.'Freeze Status' -eq 'BLOCKED' })
-Assert-True ($ebom.Count -eq 310 -and $avl.Count -eq 310) 'Expected 310 synchronized EBOM/AVL rows.'
-Assert-True ($power.Count -eq 133 -and $frozen.Count -eq 9 -and $blocked.Count -eq 124) 'CSR-01A-R3 disposition counts are incorrect.'
+Assert-True ($ebom.Count -eq 313 -and $avl.Count -eq 313) 'Expected 313 synchronized EBOM/AVL rows after ECO-010.'
+Assert-True ($power.Count -eq 136 -and $frozen.Count -eq 9 -and $blocked.Count -eq 127) 'Post-ECO-010 disposition counts are incorrect.'
 Assert-True (@($power | Where-Object { $_.'Freeze Status' -notin @('FROZEN','CONDITIONAL','BLOCKED','NOT APPLICABLE') }).Count -eq 0) 'Power row lacks final disposition.'
 foreach ($row in $frozen) {
   foreach ($field in @('Manufacturer','Manufacturer Part Number','Package','Lifecycle Status','Preferred Vendor','Alternate Vendor','Approved Alternate','Unit Cost 1','Unit Cost 10','Unit Cost 100','Unit Cost 1000','Requirement Trace Reference','Risk')) {

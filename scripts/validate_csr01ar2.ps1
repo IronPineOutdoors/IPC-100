@@ -11,9 +11,9 @@ $power = @($ebom | Where-Object { $_.'Selection Scope' -eq 'CSR-01A POWER' })
 $frozen = @($power | Where-Object { $_.'Freeze Status' -eq 'FROZEN' })
 $blocked = @($power | Where-Object { $_.'Freeze Status' -eq 'BLOCKED' })
 
-Assert-True ($power.Count -eq 133) "Expected 133 post-ECO-007 power rows; found $($power.Count)."
+Assert-True ($power.Count -eq 136) "Expected 136 post-ECO-010 power rows; found $($power.Count)."
 Assert-True ($frozen.Count -eq 9) "Expected nine frozen rows; found $($frozen.Count)."
-Assert-True ($blocked.Count -eq 124) "Expected 124 blocked rows; found $($blocked.Count)."
+Assert-True ($blocked.Count -eq 127) "Expected 127 blocked rows; found $($blocked.Count)."
 Assert-True (@($power | Where-Object { $_.'Freeze Status' -notin @('FROZEN','BLOCKED','NOT APPLICABLE') }).Count -eq 0) 'A power row lacks an allowed final disposition.'
 Assert-True (@($power | Where-Object { $_.'Freeze Status' -eq 'NOT YET FROZEN' }).Count -eq 0) 'A power row remains NOT YET FROZEN.'
 
@@ -33,7 +33,7 @@ $ilim = @($power | Where-Object Reference -in @('U209','U212','U213','R222','R22
 $u801 = $power | Where-Object Reference -eq 'U801'
 Assert-True ($u201.Risk -match 'ECO-007' -and $r201.Risk -match '64\.9') 'Post-ECO U201/R201 disposition is not captured.'
 Assert-True (@($ilim | Where-Object { $_.Risk -match '(150|141) kOhm' }).Count -eq 6) 'TPS2553 RILIM disposition is not captured on all six rows.'
-Assert-True ($u801.Risk -match '2\.930/2\.680 V') 'Post-ECO U801 threshold disposition is not captured.'
+Assert-True ($u801.Risk -match 'TPS3899DL01DSER.*PACS-01R SYSTEM REVALIDATION') 'Post-ECO-010 U801 threshold disposition is not captured.'
 
 $review = Get-Content (Join-Path $RepositoryRoot 'docs/reviews/CSR-01A-R2_Final_Power_Component_Freeze.md') -Raw
 Assert-True ([regex]::Matches($review, '(?m)^# CSR-01A-R2 (?:ACCEPTED|NOT ACCEPTED)$').Count -eq 1) 'Review must contain exactly one final decision.'

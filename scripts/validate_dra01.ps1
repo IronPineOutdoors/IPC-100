@@ -4,7 +4,7 @@ $ErrorActionPreference = 'Stop'
 if ([string]::IsNullOrWhiteSpace($RepositoryRoot)) { $RepositoryRoot = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path }
 function Assert-True([bool]$Condition, [string]$Message) { if (-not $Condition) { throw $Message } }
 
-$rows = @(Import-Csv (Join-Path $RepositoryRoot 'docs/bom/IPC100_RevA_EBOM.csv') | Where-Object { $_.'Selection Scope' -eq 'CSR-01A POWER' -and $_.'Freeze Status' -eq 'BLOCKED' })
+$rows = @(Import-Csv (Join-Path $RepositoryRoot 'docs/bom/IPC100_RevA_EBOM.csv') | Where-Object { $_.'Selection Scope' -eq 'CSR-01A POWER' -and $_.'Freeze Status' -eq 'BLOCKED' -and $_.Reference -notin @('C805','R807','R809') })
 $assignments = [System.Collections.Generic.List[object]]::new()
 foreach ($row in $rows) {
   $causes = [System.Collections.Generic.List[string]]::new()
@@ -12,7 +12,7 @@ foreach ($row in $rows) {
   if ($row.Risk -match '^PAS-01R: BLOCKED' -and $row.Reference -in @('C201','C203','C204','C206','C208','C209','C305')) { $causes.Add('RC-C') }
   if ($row.Risk -match '^ECO-009' -and $row.Reference -eq 'C305') { $causes.Add('RC-C') }
   if ($row.Risk -notmatch '^PAS-01R: BLOCKED|^ECO-009' -and $row.Risk -match '^TRANSIENT COORDINATION') { $causes.Add('RC-A') }
-  if ($row.Risk -notmatch '^PAS-01R: BLOCKED|^ECO-009' -and $row.Risk -match 'THERMAL/STABILITY|ECO-006|exact suffix|ECO-007|ECO-008R|saturation|TCA9517A') { $causes.Add('RC-B') }
+  if ($row.Risk -notmatch '^PAS-01R: BLOCKED|^ECO-009' -and $row.Risk -match 'THERMAL/STABILITY|ECO-006|ECO-010|exact suffix|ECO-007|ECO-008R|saturation|TCA9517A') { $causes.Add('RC-B') }
   if ($row.Risk -notmatch '^PAS-01R: BLOCKED|^ECO-009' -and $row.Risk -match 'exact dielectric|device equation') { $causes.Add('RC-C') }
   if ($row.Reference -eq 'J1') { $causes.Add('RC-D') }
   Assert-True ($causes.Count -eq 1) "$($row.Item) maps to $($causes.Count) root causes."
