@@ -1,5 +1,9 @@
 # IPC-100 Revision History
 
+## 2026-07-31 — PACS-01
+
+Audited 20 power-active references against current manufacturer and distributor evidence. Recorded 18 exact production candidates but froze none: U101 has a non-orderable captured TPS26630/PWP combination and U801's required TLV841S 2.7 V/10 ms/push-pull-high combination is not listed as a production OPN. Synchronized blocked candidate traceability in EBOM/AVL without CAD or footprint changes. PACS-01 is not accepted; PPC-01 and CSR-01A-R5 remain unauthorized.
+
 ## 2026-07-31 — ECO-009R
 
 Verified the existing C305 93.1 nF ±1% C0G/NP0 implementation against QER-03. Recalculation confirmed 99.642 ms nominal and 79.1–136.6 ms endpoints, with 4.1/13.4 ms design margins and 3.1/12.4 ms guarded margins. Synchronized generic EBOM/AVL requirements without changing the schematic or selecting parts. ECO-009R is complete and PACS-01 is authorized; CSR-01A-R5 remains unauthorized.

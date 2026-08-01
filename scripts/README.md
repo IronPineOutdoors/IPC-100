@@ -28,6 +28,8 @@ Post-ECO-007 inventory contains 310 rows: 133 power-scope rows (9 frozen and 124
 
 `apply_eco009r_bom_overlay.ps1` synchronizes only the C305 generic electrical requirement across EBOM/AVL CSV and XLSX artifacts. `validate_eco009r.ps1` verifies QER-03 margins, unchanged CT/reset topology, failure-safe startup ordering, synchronized records, zero footprints and the narrow ECO-009R scope.
 
+`apply_pacs01_bom_overlay.ps1` records the 20-reference active-device audit while keeping every row blocked and regenerates the EBOM/AVL workbooks from canonical CSV. `validate_pacs01.ps1` enforces the 18-candidate/two-blocker disposition, TPS2553 and TPS389030 compatibility, BOM/AVL agreement, a single non-accepted decision and zero-CAD scope.
+
 Future repeatable utilities for documentation checks, BOM validation, manufacturing packages, test automation, and release generation belong here. Scripts should be documented and safe by default.
 
 - `validate_kicad_hierarchy.ps1` validates project JSON, schematic S-expression balance, child references, root/child port parity, unique sheet/label/reference/UUID identities, frozen safety and GPIO interfaces, implemented package contracts, and zero footprint assignments. Its ECO-004 checks require exactly two independently rail-qualified fail-isolated J6/J7 branches, the sole Sheet 07 base-bus pull-up pair, the complete J13 USB-C UFP contact boundary, ten explicit unused-contact markers, independent CC Rd, connector-entry data/VBUS ESD, and the DNP shield network.

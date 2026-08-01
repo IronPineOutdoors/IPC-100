@@ -2,6 +2,14 @@
 
 Initial project creation.
 
+## 2026-07-31 — PACS-01 active-device audit
+
+- Audited the definitive 20-reference power-active scope using current manufacturer evidence.
+- Recorded 18 exact production candidates with lifecycle, package, alternate and budgetary commercial data.
+- Identified non-orderable U101 TPS26630/PWP capture and unavailable U801 TLV841S suffix combination as hard blockers.
+- Kept every PACS-01 EBOM/AVL row blocked; assigned no footprint and changed no schematic.
+- Did not authorize PPC-01 or CSR-01A-R5.
+
 ## 2026-07-31 — ECO-009R C305 timing closure
 
 - Verified the captured 93.1 nF C305 implementation at 99.642 ms nominal and 79.1–136.6 ms endpoints.

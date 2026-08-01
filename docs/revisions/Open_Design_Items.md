@@ -1,5 +1,9 @@
 # IPC-100 Open Design Items
 
+## PACS-01 disposition
+
+PACS-01 is **NOT ACCEPTED**. All 20 power-active references were audited and 18 exact production candidates were recorded without freeze. U101 is blocked because captured `TPS26630PWPR` is not an orderable package/suffix combination; U801 is blocked because the required `TLV841SCPH27YBHR` combination is not listed as an active production OPN. PPC-01 and CSR-01A-R5 remain unauthorized.
+
 ## ECO-009R disposition
 
 ECO-009R is **COMPLETE**. The captured C305 = 93.1 nF ±1% C0G/NP0 implementation recalculates to 99.642 ms nominal and 79.1–136.6 ms endpoints, passing both QER-03's 75–150 ms design window and 76–149 ms guarded analytical envelope. No topology correction is required. PACS-01 is authorized for exact U302/C305 selection and prototype confirmation; CSR-01A-R5 remains unauthorized.
