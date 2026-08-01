@@ -7,6 +7,7 @@ $review=Get-Content (Join-Path $RepositoryRoot 'docs/reviews/PACS-01R_Power_Acti
 $register=@(Import-Csv (Join-Path $RepositoryRoot 'docs/reviews/PACS-01R_Active_Device_Register.csv'))
 $ebom=@(Import-Csv (Join-Path $RepositoryRoot 'docs/bom/IPC100_RevA_EBOM.csv'))
 $avl=@(Import-Csv (Join-Path $RepositoryRoot 'docs/bom/Approved_Vendor_List.csv'))
+$pas=@(Import-Csv (Join-Path $RepositoryRoot 'docs/analysis/passives/PAS-01R_Disposition_Register.csv'))
 $refs=@('Q101','U101','U102','U201','U202','U203','U204','U205','U206','U207','U208','U209','U210','U211','U212','U213','U302','U706','U707','U801')
 Assert-True ($register.Count -eq 20 -and @($register.Reference|Sort-Object -Unique).Count -eq 20) 'PACS-01R register must contain 20 unique active references.'
 Assert-True (@($refs|Where-Object{$_ -notin $register.Reference}).Count -eq 0) 'PACS-01R inventory reference missing.'
@@ -18,6 +19,8 @@ $s08=Get-Content (Join-Path $RepositoryRoot 'hardware/kicad/sheets/08_Expansion.
 Assert-True ($s01 -match 'TPS26631PWPR' -and $s01 -notmatch 'TPS26630PWPR') 'U101 corrected implementation mismatch.'
 Assert-True ($s08 -match 'TPS3899DL01DSER' -and $s08 -notmatch 'TLV841') 'U801 corrected implementation mismatch.'
 Assert-True (@($ebom|Where-Object{$_.'Manufacturer Part Number' -match 'TPS26630PWPR|TLV841'}).Count -eq 0) 'Obsolete active implementation remains in EBOM.'
+Assert-True (@($pas|Where-Object{$_.'Final Disposition' -match 'ACTIVE DEVICE SELECTION REQUIRED|active selection pending'}).Count -eq 0) 'A dependent passive remains generically blocked by active selection.'
+foreach($ref in @('C805','R807','R808','R809')){$p=$pas|Where-Object Reference -eq $ref|Select-Object -First 1;Assert-True ($p.'Dependent Active Device' -eq 'U801 TPS3899DL01DSER') "$ref retains a stale supervisor dependency"}
 Assert-True ($review -match '17 original PACS dependencies' -and $review -match 'C102/C103/C104/C109/L101' -and $review -match 'C201–C205/L201') 'Dependent-passive disposition is incomplete.'
 foreach($token in @('93.1 nF','99.642 ms','79.1–136.6 ms','75–150 ms','76–149 ms','## 21. Retired Components')){Assert-True ($review.Contains($token)) "PACS-01R evidence token missing: $token"}
 Assert-True ([regex]::Matches($review,'(?m)^## (?:[1-9]|1[0-9]|2[0-7])\. ').Count -eq 27) 'PACS-01R must contain 27 numbered sections.'
