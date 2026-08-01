@@ -153,4 +153,6 @@ PACS-01 must select the exact U302 order code and exact C305 MPN, verify suffix-
 
 # ECO-009R COMPLETE — PACS-01 AUTHORIZED
 
+> **PACS-01R status (2026-08-01):** U302/C305 revalidation preserves the 93.1 nF ±1% C0G/NP0 class, 99.642 ms nominal delay and 79.1–136.6 ms bounded result. QER-03 compliance is unchanged. Exact passive MPN, prototype timing and alternate evidence remain blocked under PACS-01R-A; ECO-009R itself remains complete.
+
 The existing 93.1 nF implementation satisfies both released analytical windows, retains deterministic startup/brownout behavior, and requires no topology correction. PACS-01 alone is authorized next. CSR-01A-R5, PPC-01, JCS-01, footprints and PCB work remain unauthorized.
