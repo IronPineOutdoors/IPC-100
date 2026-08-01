@@ -1,5 +1,9 @@
 # IPC-100 Open Design Items
 
+## QER-03 disposition
+
+QER-03 is **ACCEPTED**. Core reset release now has a single quantitative contract: 100 ms exact nominal, 75–150 ms design limits, and 76–149 ms guarded prototype acceptance measured from U302's positive SENSE crossing. ECO-009's 79.1–136.6 ms analysis is compliant. ECO-009R is authorized; PACS-01 and CSR-01A-R5 remain unauthorized.
+
 ## ECO-009 disposition
 
 ECO-009 is **INCOMPLETE**. C305 is corrected from 10 nF to a generic 93.1 nF ±1% C0G/NP0 class, producing 99.642 ms nominal. The TI endpoint stack is approximately 79.1–136.6 ms, but no accepted minimum/maximum reset-release window exists, so compliance and PACS-01 authorization cannot be issued. Exact U302 selection also remains pending.

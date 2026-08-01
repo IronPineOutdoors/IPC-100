@@ -2,6 +2,13 @@
 
 Initial project creation.
 
+## 2026-07-31 — QER-03 reset-release timing contract
+
+- Defined U302 positive SENSE crossing as the reset-release timing reference.
+- Released a 100 ms exact nominal target and 75–150 ms design window.
+- Added a 76–149 ms guarded prototype acceptance window and brownout restart requirements.
+- Authorized ECO-009R without authorizing PACS-01.
+
 ## 2026-07-31 — ECO-009 C305 timing correction
 
 - Corrected C305 from 10 nF to a 93.1 nF ±1% C0G/NP0 generic class.

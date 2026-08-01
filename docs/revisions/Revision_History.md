@@ -1,5 +1,9 @@
 # IPC-100 Revision History
 
+## 2026-07-31 — QER-03
+
+Released the U302/C305 reset-release timing contract: positive SENSE crossing is the reference event, 100 ms is the exact nominal target, 75–150 ms are design limits, and 76–149 ms is the guarded prototype window. Accepted ECO-009's 79.1–136.6 ms estimate and authorized ECO-009R without changing hardware or selecting parts.
+
 ## 2026-07-31 — ECO-009
 
 Corrected Sheet 03 C305 from 10 nF to a package-independent 93.1 nF ±1% C0G/NP0 timing class for 99.642 ms nominal TPS3890-Q1 reset release. Calculated a 79.1–136.6 ms device/capacitor envelope and retained an incomplete decision because no accepted timing window exists. No topology, footprint or PCB change was made.

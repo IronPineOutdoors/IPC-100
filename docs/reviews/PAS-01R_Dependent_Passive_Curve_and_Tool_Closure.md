@@ -2,6 +2,8 @@
 
 > **ECO-009 disposition:** C305 was corrected to 93.1 nF / 99.642 ms nominal. ECO-009 remains incomplete because the repository has no accepted minimum/maximum reset-release window; C305 remains blocked pending that requirement and exact U302 selection.
 
+> **QER-03 disposition:** The missing requirement is now released as 75–150 ms from U302 positive SENSE crossing. ECO-009R is authorized to close C305; exact U302/C305 selection remains downstream work.
+
 Date: 2026-07-31  
 Platform: IPC-100 Rev A  
 Package: 11A-P-R

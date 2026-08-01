@@ -1,5 +1,7 @@
 # ECO-009 — C305 Supervisor Timing Correction
 
+> **QER-03 disposition:** QER-03 releases a 75–150 ms design window and accepts the 79.1–136.6 ms analytical range. ECO-009 remains historically incomplete pending ECO-009R verification and decision update; ECO-009R is authorized.
+
 ## 1. Scope
 
 ECO-009 changes only C305 and its controlled records. It preserves U302, the TPS3890-Q1 topology, `+3V3_CORE`, `CORE_POWER_GOOD`, `RESET_VALID`, GPIO, hierarchy, connectors, ownership, architecture and all footprints.

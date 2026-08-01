@@ -24,6 +24,8 @@ Post-ECO-007 inventory contains 310 rows: 133 power-scope rows (9 frozen and 124
 
 `apply_eco009_bom_overlay.ps1` synchronizes the corrected generic C305 timing class into the EBOM/AVL. `validate_eco009.ps1` checks the 93.1 nF value, 99.642 ms nominal result, 79.1–136.6 ms endpoint stack, unchanged C305 reference/UUID/connection, reference-register and BOM/AVL synchronization, and narrow schematic scope.
 
+`validate_qer03.ps1` verifies the released U302/C305 timing start event, 100 ms nominal interpretation, 75–150 ms design limits, 76–149 ms guarded prototype limits, brownout restart, startup/authorization semantics, ECO-009R authorization, and requirements-only scope.
+
 Future repeatable utilities for documentation checks, BOM validation, manufacturing packages, test automation, and release generation belong here. Scripts should be documented and safe by default.
 
 - `validate_kicad_hierarchy.ps1` validates project JSON, schematic S-expression balance, child references, root/child port parity, unique sheet/label/reference/UUID identities, frozen safety and GPIO interfaces, implemented package contracts, and zero footprint assignments. Its ECO-004 checks require exactly two independently rail-qualified fail-isolated J6/J7 branches, the sole Sheet 07 base-bus pull-up pair, the complete J13 USB-C UFP contact boundary, ten explicit unused-contact markers, independent CC Rd, connector-entry data/VBUS ESD, and the DNP shield network.

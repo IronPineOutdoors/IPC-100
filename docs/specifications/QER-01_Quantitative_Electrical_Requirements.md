@@ -1,5 +1,7 @@
 # QER-01 — Quantitative Electrical Requirements
 
+> **QER-03 amendment:** Core reset release is controlled by QER-RST-01 through QER-RST-08 in `QER-03_Core_Reset_Release_Timing_Window.md`: 100 ms exact nominal target, 75–150 ms design window, and 76–149 ms guarded prototype acceptance window measured from U302 positive SENSE crossing.
+
 | Field | Value |
 |---|---|
 | Platform | IPC-100 |
