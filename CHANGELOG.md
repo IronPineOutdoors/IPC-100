@@ -2,6 +2,12 @@
 
 Initial project creation.
 
+## 2026-08-01 — PACS-01R-B active evidence review
+
+- Reviewed manufacturer, thermal, derating, lifecycle, sourcing and prototype evidence for all 20 power-active references.
+- Preserved every selected MPN but withheld freeze because exact package-board thermal, regulator-tool, transient-SOA and complete commercial evidence remain missing.
+- Defined PACS-01R-B1 as the smallest evidence-completion package; PACS-01R-C and PPC-01 remain unauthorized.
+
 ## 2026-08-01 — PACS-01R-A evidence closure definition
 
 - Classified every remaining blocker for the 20-reference power-active set.

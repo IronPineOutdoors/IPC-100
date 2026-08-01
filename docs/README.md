@@ -16,3 +16,5 @@ Keep all documents synchronized with the active hardware revision and stable sig
 Current power-component review: [PACS-01R Power Active Component Selection Revalidation](reviews/PACS-01R_Power_Active_Component_Selection_Revalidation.md).
 
 Current active evidence route: [PACS-01R-A Power Active Evidence Closure](reviews/PACS-01R-A_Power_Active_Evidence_Closure.md).
+
+Latest active evidence review: [PACS-01R-B Active Evidence Closure](reviews/PACS-01R-B_Active_Evidence_Closure.md).

@@ -1,5 +1,9 @@
 # IPC-100 Revision History
 
+## 2026-08-01 — PACS-01R-B
+
+Completed the active-device manufacturer, thermal, derating, lifecycle, sourcing and prototype-evidence review. No selected MPN is disproven, but exact package-board thermal records, regulator design-tool archives, transient SOA and complete current distributor evidence are absent. PACS-01R-B is not accepted; PACS-01R-B1 is the smallest corrective package. No CAD or footprint change.
+
 ## 2026-08-01 — PACS-01R-A
 
 Mapped the remaining evidence for all 20 selected power-active references without reopening ECO-010 or changing hardware. PACS-01R-A is accepted as an evidence-definition package and authorizes PACS-01R-B for analytical, manufacturer and thermal closure. No active device is frozen; PPC-01 and CSR-01A-R5 remain unauthorized.

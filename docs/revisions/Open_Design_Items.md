@@ -1,5 +1,9 @@
 # IPC-100 Open Design Items
 
+## PACS-01R-B disposition
+
+PACS-01R-B is **NOT ACCEPTED**. All 20 selected MPNs remain viable, active candidates, but freeze evidence is incomplete: exact package/copper thermal correlation, U201/U203 manufacturer-tool outputs, Q101/U101/TPS2553 transient SOA, controlled datasheet revisions and the full current distributor matrix remain open. PACS-01R-B1 is required. PACS-01R-C, PPC-01 and CSR-01A-R5 remain unauthorized.
+
 ## PACS-01R-A disposition
 
 PACS-01R-A is **ACCEPTED**. Every remaining blocker in the 20-reference active set is now assigned to documentation, analytical, thermal, prototype, sourcing, lifecycle or qualification evidence. PACS-01R-B Power Active Analytical, Manufacturer and Thermal Evidence Closure is authorized. No device is freeze eligible from this package alone; PPC-01, PACS-01R-C and CSR-01A-R5 remain unauthorized.
