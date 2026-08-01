@@ -4,6 +4,8 @@
 
 `apply_pacs01r_bom_overlay.ps1` records the 20-reference PACS-01R blocked disposition and regenerates BOM/AVL workbooks. `validate_pacs01r.ps1` verifies the reconciled inventory, corrected U101/U801 implementations, passive-dependency evidence, BOM/AVL agreement, single NOT ACCEPTED decision and zero-CAD scope.
 
+`validate_pacs01ra.ps1` verifies the complete PACS-01R-A evidence matrix, blocker classifications, no-change closure assessment, PACS-01R-B authorization, downstream prohibitions and zero-CAD review scope.
+
 Post-ECO-007 inventory contains 310 rows: 133 power-scope rows (9 frozen and 124 blocked for CSR-01A-R3) plus 177 out-of-scope rows. `validate_eco007.ps1` verifies the three corrected programming/supervisor networks, calculation evidence, fail-low behavior, reference/UUID uniqueness, balanced schematics, and zero footprints.
 
 `validate_csr01ar3.ps1` verifies the CSR-01A-R3 final decision, complete power-row disposition, frozen-row evidence, blocker specificity, EBOM/AVL identity, ECO-007 regression, zero footprints, and unchanged schematic/PCB scope.

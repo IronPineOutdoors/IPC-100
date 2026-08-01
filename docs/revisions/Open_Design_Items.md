@@ -1,5 +1,9 @@
 # IPC-100 Open Design Items
 
+## PACS-01R-A disposition
+
+PACS-01R-A is **ACCEPTED**. Every remaining blocker in the 20-reference active set is now assigned to documentation, analytical, thermal, prototype, sourcing, lifecycle or qualification evidence. PACS-01R-B Power Active Analytical, Manufacturer and Thermal Evidence Closure is authorized. No device is freeze eligible from this package alone; PPC-01, PACS-01R-C and CSR-01A-R5 remain unauthorized.
+
 ## PACS-01R disposition
 
 PACS-01R is **NOT ACCEPTED**. ECO-010's U101 and U801 active-device incompatibilities are corrected, and all 20 current active references reconcile without stale or duplicate rows. Freeze remains blocked by active thermal/SOA and manufacturer-tool evidence, 17 original PACS-dependent passive closures, the narrow U801 assertion-corner margin, I²C fault/temperature validation, approved-alternate evidence, and current complete distributor pricing/lead times. The smallest next package is PACS-01R-A Active Thermal, Tool, Passive-Dependency and Commercial Evidence Closure. PPC-01 and CSR-01A-R5 remain unauthorized.

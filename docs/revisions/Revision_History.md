@@ -1,5 +1,9 @@
 # IPC-100 Revision History
 
+## 2026-08-01 — PACS-01R-A
+
+Mapped the remaining evidence for all 20 selected power-active references without reopening ECO-010 or changing hardware. PACS-01R-A is accepted as an evidence-definition package and authorizes PACS-01R-B for analytical, manufacturer and thermal closure. No active device is frozen; PPC-01 and CSR-01A-R5 remain unauthorized.
+
 ## 2026-08-01 — PACS-01R
 
 Revalidated the complete 20-reference power-active inventory following ECO-010. The U101 TPS26631PWPR and U801 TPS3899DL01DSER implementation incompatibilities are closed, but no active device is frozen because package-specific thermal/tool evidence, 17 dependent passive closures, U801 corner testing, complete alternate strategy, and current commercial evidence remain incomplete. PACS-01R is not accepted; PACS-01R-A is the smallest corrective evidence package. PPC-01 and CSR-01A-R5 remain unauthorized.

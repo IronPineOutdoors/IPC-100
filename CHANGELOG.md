@@ -2,6 +2,13 @@
 
 Initial project creation.
 
+## 2026-08-01 — PACS-01R-A evidence closure definition
+
+- Classified every remaining blocker for the 20-reference power-active set.
+- Defined per-device manufacturer, analytical, thermal, prototype, sourcing, lifecycle and qualification evidence.
+- Accepted PACS-01R-A and authorized PACS-01R-B analytical/manufacturer/thermal evidence closure only.
+- Did not authorize PPC-01, freeze devices, assign footprints or change CAD.
+
 ## 2026-08-01 — PACS-01R active-device revalidation
 
 - Reconciled all 20 power-active references after ECO-010 and verified the corrected U101/U801 physical identities.
