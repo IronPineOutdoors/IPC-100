@@ -1,5 +1,9 @@
 # IPC-100 Open Design Items
 
+## PACS-01R-B1R disposition
+
+PACS-01R-B1R is **NOT ACCEPTED**. The controlled dossier now defines thermal cases, package constraints, hot SOA dispositions, tool reproduction inputs and a refreshable commercial register. Acceptance remains blocked by unavailable U201/U203 interactive exports, manufacturer-to-board thermal correlation, hot Q101/U101 evidence and twelve incomplete authenticated two-distributor records. PACS-01R-B1R-X is the smallest external-input package. PACS-01R-C and PPC-01 remain unauthorized.
+
 ## PACS-01R-B1 disposition
 
 PACS-01R-B1 is **NOT ACCEPTED**. Manufacturer evidence confirms the selected device classes remain plausible, but exact IPC-board thermal correlation, archived U201/U203 design-tool results, hot Q101/U101/TPS2553 transient proof and the complete two-distributor commercial matrix remain open. PACS-01R-B1R is the smallest corrective package. PACS-01R-C, PPC-01 and CSR-01A-R5 remain unauthorized.

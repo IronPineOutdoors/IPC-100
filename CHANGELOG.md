@@ -2,6 +2,13 @@
 
 Initial project creation.
 
+## 2026-08-01 — PACS-01R-B1R controlled evidence dossier
+
+- Defined three provisional thermal-board cases without creating PCB or footprint artifacts.
+- Added controlled U201/U203 tool manifests, hot SOA dispositions and a 13-MPN commercial register.
+- Recorded unavailable interactive tool exports and incomplete authenticated distributor evidence without fabricating closure.
+- Kept PACS-01R-C and PPC-01 unauthorized.
+
 ## 2026-08-01 — PACS-01R-B1 manufacturer evidence review
 
 - Correlated available manufacturer thermal, regulator, transient-SOA and commercial records against the released active-device envelope.
