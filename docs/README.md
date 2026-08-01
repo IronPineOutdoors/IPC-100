@@ -22,3 +22,5 @@ Latest active evidence review: [PACS-01R-B Active Evidence Closure](reviews/PACS
 Manufacturer evidence follow-up: [PACS-01R-B1 Manufacturer, Thermal and Commercial Evidence](reviews/PACS-01R-B1_Manufacturer_Thermal_Commercial_Evidence.md).
 
 Controlled evidence dossier: [PACS-01R-B1R Controlled Evidence Completion](reviews/PACS-01R-B1R_Controlled_Evidence_Completion.md).
+
+External acquisition status: [PACS-01R-B1R-X External Evidence Acquisition](reviews/PACS-01R-B1R-X_External_Evidence_Acquisition.md).

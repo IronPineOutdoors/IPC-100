@@ -1,5 +1,9 @@
 # IPC-100 Revision History
 
+## 2026-08-01 — PACS-01R-B1R-X
+
+Created the definitive external acquisition inventory and exact manual queue, controlled quote directory, and active-row evidence routing. No selected MPN failed. PACS-01R-B1R-X remains not accepted because interactive manufacturer exports, attributable hot thermal evidence and authenticated two-distributor commercial artifacts were not actually acquired. No CAD change.
+
 ## 2026-08-01 — PACS-01R-B1R
 
 Created a provisional three-case thermal-board baseline, thermal constraint register, U201/U203 controlled tool manifests, five-row hot SOA register and thirteen-MPN commercial register. PACS-01R-B1R is not accepted because external manufacturer-tool exports, exact board correlation, hot Q101/U101 proof and authenticated two-distributor data remain unavailable. No selected MPN failed and no CAD changed.

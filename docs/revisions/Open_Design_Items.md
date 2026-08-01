@@ -1,5 +1,9 @@
 # IPC-100 Open Design Items
 
+## PACS-01R-B1R-X disposition
+
+PACS-01R-B1R-X is **NOT ACCEPTED**. Eleven external artifact groups are inventoried and an executable human queue now controls U201/U203 exports, manufacturer hot-SOA requests, distributor capture, formal RFQs and alternate evidence. The artifacts remain unavailable through this environment; this is an access limitation, not a selected-device failure. PACS-01R-C and PPC-01 remain unauthorized.
+
 ## PACS-01R-B1R disposition
 
 PACS-01R-B1R is **NOT ACCEPTED**. The controlled dossier now defines thermal cases, package constraints, hot SOA dispositions, tool reproduction inputs and a refreshable commercial register. Acceptance remains blocked by unavailable U201/U203 interactive exports, manufacturer-to-board thermal correlation, hot Q101/U101 evidence and twelve incomplete authenticated two-distributor records. PACS-01R-B1R-X is the smallest external-input package. PACS-01R-C and PPC-01 remain unauthorized.

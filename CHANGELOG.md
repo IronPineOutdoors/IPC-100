@@ -2,6 +2,13 @@
 
 Initial project creation.
 
+## 2026-08-01 — PACS-01R-B1R-X external evidence acquisition
+
+- Inventoried all remaining external tool, thermal, quote and alternate artifacts.
+- Added exact human acquisition steps and safe quote-storage controls without retaining credentials.
+- Routed all 20 active EBOM/AVL rows to the external evidence inventory.
+- Withheld acceptance because actual tool exports and authenticated two-source records remain unavailable.
+
 ## 2026-08-01 — PACS-01R-B1R controlled evidence dossier
 
 - Defined three provisional thermal-board cases without creating PCB or footprint artifacts.

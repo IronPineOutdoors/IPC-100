@@ -12,6 +12,8 @@
 
 `validate_pacs01rb1r.ps1` verifies the three-case thermal baseline, controlled U201/U203 manifests, hot SOA register, complete unique-MPN commercial routing, external-input blocker and zero-CAD scope.
 
+`apply_pacs01rb1rx_bom_overlay.ps1` routes all 20 selected active rows to the external acquisition inventory and regenerates BOM/AVL workbooks. `validate_pacs01rb1rx.ps1` verifies the artifact inventory, executable manual queue, commercial/thermal/tool limitations, BOM/AVL synchronization, secret-pattern absence and zero-CAD scope.
+
 Post-ECO-007 inventory contains 310 rows: 133 power-scope rows (9 frozen and 124 blocked for CSR-01A-R3) plus 177 out-of-scope rows. `validate_eco007.ps1` verifies the three corrected programming/supervisor networks, calculation evidence, fail-low behavior, reference/UUID uniqueness, balanced schematics, and zero footprints.
 
 `validate_csr01ar3.ps1` verifies the CSR-01A-R3 final decision, complete power-row disposition, frozen-row evidence, blocker specificity, EBOM/AVL identity, ECO-007 regression, zero footprints, and unchanged schematic/PCB scope.
