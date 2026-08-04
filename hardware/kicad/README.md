@@ -86,4 +86,6 @@ ECO-011A1R implements that architecture on Sheet 04 using exact TLV7044QPWRQ1 co
 
 ECO-011A2 physically implements Sheet 05 opposing-PWM suppression and dual authorization with U506 `SN74LVC14AQPWRQ1` and U507/U508 `SN74LVC08AQPWRQ1`. U501–U503 are retired; U504/U505 translators and all ADR-043 interfaces remain unchanged. ECO-011A3 alone is authorized; footprints and PCB work remain prohibited.
 
+ECO-011A3 is incomplete at its exact-watchdog entry gate. ADR-044 simultaneously requires sub-40 ms rejection and 40 ms acceptance with no tolerance guard band; no nonzero-tolerance physical timer can guarantee both. Sheet 06 remains unchanged pending a narrow timing-resolution package. ECO-011A4 and footprint work are not authorized.
+
 QER-01 subsequently released the quantitative envelope, and CSR-01A-R reattempted the freeze. Nine independent 100 kΩ Sheet 02/08 bias/enable resistors are frozen. ECO-006 removed the capacitor/MOSFET rating conflicts and MIR-01 released J1/H01 mechanics. CSR-01A-R2 then found exact-device conflicts in U201/R201 frequency programming, three TPS2553 branch-limit networks, and U801 threshold/hysteresis implementation. The final power freeze was not accepted; CSR-01B, footprints, and PCB work remain unauthorized pending corrective ECO and re-review.

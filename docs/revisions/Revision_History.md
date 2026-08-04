@@ -1,5 +1,7 @@
 # IPC-100 Revision History
 
+| 2026-08-04 | ECO-011A3 Watchdog Physical Entry Gate | Demonstrated the frozen watchdog interval has an impossible zero-tolerance 40 ms boundary; rejected TPS3850-Q1 ratios for complete 40–100 ms coverage; made no schematic/BOM/interface change | Iron Pine Outdoors Engineering | Incomplete; timing guard-band resolution required, ECO-011A4 not authorized |
+
 | 2026-08-04 | ECO-011A2 Motion Control Physical Decomposition | Replaced Sheet 05 U501–U503 composites with exact U506–U508 Q1 logic, bypasses, unused-unit handling and DFT; preserved ADR-043 and translators; synchronized 435-row BOM/AVL/population | Iron Pine Outdoors Engineering | Complete; ECO-011A3 authorized, footprints blocked |
 
 ## 2026-08-03 — EPP-01A

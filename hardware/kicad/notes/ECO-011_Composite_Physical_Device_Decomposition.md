@@ -138,3 +138,5 @@ ECO-011A — Composite Device Selection, Truth-Table, and Pin-Mapping Release is
 > **ECO-011A1R disposition (2026-08-04):** Sheet 04 physical decomposition is complete. All seven safety composites are retired, the physical implementation is validated, and ECO-011A2 motion-control decomposition is authorized. EPP-01A-R and footprints remain blocked.
 
 > **ECO-011A2 disposition (2026-08-04):** Sheet 05 U501/U502/U503 are retired and replaced by exact pin-level U506–U508 logic, local decoupling, explicit spares and DFT. ADR-043, ECO-001 authorization connectivity and U504/U505 translator boundaries are preserved. ECO-011A3 alone is authorized; EPP-01A-R and footprints remain blocked.
+
+> **ECO-011A3 disposition (2026-08-04):** Sheet 06 decomposition is incomplete. The frozen 40 ms boundary has no physical tolerance guard band, and the reviewed automotive window-watchdog ratios cannot guarantee the entire 40–100 ms interval. U601/U602/U603 and the 435-row inventory remain unchanged pending a narrow ADR-044/QER timing resolution. ECO-011A4 is not authorized.

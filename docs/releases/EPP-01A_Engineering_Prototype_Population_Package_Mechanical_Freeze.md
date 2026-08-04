@@ -200,3 +200,5 @@ EPP-02 Engineering Prototype Footprint Assignment is not authorized. PCB placeme
 > **ECO-011A1R Category A update:** Sheet 04 now contains physical devices and support passives; its seven composite rows are retired. The population register has 408 physical/logical rows. Sheet 04 footprint/passive/protection evidence remains blocked, and EPP-01A-R is still unauthorized while other composite categories remain.
 
 > **ECO-011A2 Category A update:** Sheet 05 U501–U503 composites are retired and exact U506–U508 logic plus C507–C509 and TP501–TP524 are represented. The population register now has 435 rows. EPP-01A-R and footprint assignment remain unauthorized pending later ECO-011 categories and mechanical evidence.
+
+> **ECO-011A3 Category B update:** Sheet 06 physical decomposition stopped at the exact-watchdog timing entry gate. U601/U602/U603 remain blocked and the 435-row population is unchanged. A narrow ADR-044/QER guard-band resolution is required before decomposition; EPP-01A-R remains unauthorized.

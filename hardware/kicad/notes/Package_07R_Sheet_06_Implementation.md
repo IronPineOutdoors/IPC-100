@@ -10,6 +10,8 @@
 | Status | Preliminary capture complete; component release and native ERC pending |
 | Authority | ADR-039 through ADR-044; AR-06 |
 
+> **ECO-011A3 implementation status (2026-08-04):** physical decomposition is blocked before capture. The accepted 40 ms boundary simultaneously requires rejection below 40 ms and acceptance at 40 ms, leaving no realizable tolerance band. Exact watchdog, startup qualifier, latch, authorization, and relay-gate selection remain unreleased; Sheet 06 is unchanged.
+
 ## Scope
 
 Package 07R implements the low-energy safety/output-control core on Sheet 06. The already accepted GPIO42 `WATCHDOG_SERVICE_MCU` route on Sheets 03 and 00 is retained. Sheet 06 now contains the independent watchdog/qualifier, authorization logic, relay request gate, low-side MOSFET driver, flyback clamp, relay, and deterministic local biases.

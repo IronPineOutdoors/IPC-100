@@ -16,6 +16,8 @@
 
 `apply_eco011a2_bom_overlay.ps1` replaces only the 47 baseline Sheet 05 rows with 74 physical ECO-011A2 rows against pinned commit `3590bec`, preserving all non-Sheet-05 evidence.
 
+`validate_eco011a3.ps1` enforces the incomplete Sheet 06 timing entry-gate disposition: one decision, documented zero-tolerance blocker, and zero schematic/BOM/interface/footprint/PCB changes from `e382ff0`.
+
 `apply_eco010_bom_overlay.ps1` synchronizes the ECO-010 U101/U801 implementation and new support references into EBOM/AVL CSV/XLSX artifacts while retaining PACS-01R blockers. `validate_eco010.ps1` checks the corrected physical architectures, threshold network, change-control scope, reference integrity and BOM/AVL reconciliation.
 
 `apply_pacs01r_bom_overlay.ps1` records the 20-reference PACS-01R blocked disposition and regenerates BOM/AVL workbooks. `validate_pacs01r.ps1` verifies the reconciled inventory, corrected U101/U801 implementations, passive-dependency evidence, BOM/AVL agreement, single NOT ACCEPTED decision and zero-CAD scope.

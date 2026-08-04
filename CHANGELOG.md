@@ -2,6 +2,12 @@
 
 Initial project creation.
 
+## 2026-08-04 — ECO-011A3 Watchdog Physical Entry Gate
+
+- Proved the frozen 40 ms reject/accept boundary requires impossible zero timing tolerance and found no TPS3850-Q1 ratio that guarantees the complete 40–100 ms window.
+- Recorded that TPS3850-Q1 observes falling edges rather than every ADR-044 alternating transition and still requires explicit startup counting and fault latching.
+- Left Sheet 06 and all 435-row BOM/AVL/population artifacts unchanged; ECO-011A3 remains incomplete pending a narrow timing guard-band resolution.
+
 ## 2026-08-04 — ECO-011A2 Motion Control Physical Decomposition
 
 - Retired Sheet 05 composites U501–U503 and implemented ADR-043 with exact U506–U508 Q1 gate packages, visible power units, bypasses, unused-unit handling and DFT.
