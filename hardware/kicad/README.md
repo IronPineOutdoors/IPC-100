@@ -1,5 +1,9 @@
 # IPC-100 KiCad CAD Source
 
+> **ECO-011 status (2026-08-03):** Composite physical decomposition is incomplete. ECO-011A must release exact devices, Boolean/state tables, package-unit allocation and pin mappings before Sheets 04–07 can be converted to one physical reference per component. No schematic or footprint changed.
+
+> **ECO-011A1 status:** Sheet 04 remains unchanged. LM339B-Q1 common-mode limits conflict with the captured 3.3 V supply and released 2.5 V/4.0 V levels; QER-04 must resolve the electrical implementation before physical symbols can replace the composites.
+
 This directory contains the controlled KiCad source for IPC-100 Rev A.
 
 ## Project structure

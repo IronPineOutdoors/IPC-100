@@ -1,5 +1,11 @@
 # Engineering Scripts
 
+`generate_epp01a_population.ps1` generates the controlled 313-row Engineering Prototype population disposition from the canonical EBOM. `validate_epp01a.ps1` verifies complete status/test-stage coverage, retains composite logical references as physically blocked, enforces the single incomplete decision, and confirms zero footprints and PCB files.
+
+`validate_eco011.ps1` verifies the controlled composite inventory, the single incomplete decision and ECO-011A handoff while preserving the 313-row/286-blocked population and zero-footprint/no-PCB state.
+
+`validate_eco011a1.ps1` verifies the controlled LM339B common-mode incompatibility, retention of all seven Sheet 04 composites, QER-04 handoff and the zero-footprint/no-PCB state.
+
 `apply_eco010_bom_overlay.ps1` synchronizes the ECO-010 U101/U801 implementation and new support references into EBOM/AVL CSV/XLSX artifacts while retaining PACS-01R blockers. `validate_eco010.ps1` checks the corrected physical architectures, threshold network, change-control scope, reference integrity and BOM/AVL reconciliation.
 
 `apply_pacs01r_bom_overlay.ps1` records the 20-reference PACS-01R blocked disposition and regenerates BOM/AVL workbooks. `validate_pacs01r.ps1` verifies the reconciled inventory, corrected U101/U801 implementations, passive-dependency evidence, BOM/AVL agreement, single NOT ACCEPTED decision and zero-CAD scope.

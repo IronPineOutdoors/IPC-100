@@ -1,5 +1,9 @@
 # IPC-100 Reference Designator Register
 
+> **ECO-011 status (2026-08-03):** No references were allocated or retired. Composite rows remain unchanged pending ECO-011A exact device/unit/pin decisions. Existing reference numbers shall not be reused when the eventual decomposition retires a composite row.
+
+> **ECO-011A1 status:** No Sheet 04 reference was allocated or retired because QER-04 comparator input-range resolution is required before the physical package count can be determined.
+
 | Field | Value |
 | --- | --- |
 | Platform | IPC-100 |

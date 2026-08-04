@@ -2,6 +2,27 @@
 
 Initial project creation.
 
+## 2026-08-03 — EPP-01A Engineering Prototype Physical-Freeze Attempt
+
+- Dispositioned all 313 EBOM rows for the first engineering prototype: 9 required, 4 default DNP, 11 debug DNP, 3 documentation-only, and 286 blocked on physical definition.
+- Identified composite logical references on Sheets 04–07 that cannot receive truthful one-to-one footprints without new physical references and pin-level connectivity.
+- Marked EPP-01A incomplete and required narrow ECO-011 Composite Physical Device Decomposition and Annotation before physical freeze resumes.
+- Added deterministic EPP-01A population generation and validation with no schematic, footprint, PCB, GPIO, hierarchy, architecture, ADR or ICD changes.
+
+## 2026-08-03 — ECO-011 Composite Decomposition Attempt
+
+- Created the definitive composite inventory for safety windows, motion interlocks, watchdog/authorization, encoder conditioning and local status drivers.
+- Stopped before schematic modification because exact devices, Boolean/state tables, package-unit allocation and pin mappings are not released.
+- Required narrow ECO-011A Composite Device Selection, Truth-Table, and Pin-Mapping Release before decomposition resumes.
+- Preserved 313 population rows, 286 physical-definition blockers, all interfaces and the zero-footprint/no-PCB state.
+
+## 2026-08-03 — ECO-011A1 Safety Input Decomposition Attempt
+
+- Audited the exact LM339B-Q1 input common-mode range against Sheet 04’s captured 3.3 V supply and released 2.5 V healthy/4.0 V upper-threshold inputs.
+- Stopped before schematic modification because the guaranteed full-temperature common-mode ceiling is 1.3 V at 3.3 V supply and 3.0 V even at 5 V supply.
+- Required QER-04 Safety Comparator Input-Range and Threshold Implementation Resolution before Sheet 04 physical decomposition.
+- Preserved all seven composite references, EBOM/population records, interfaces and the zero-footprint/no-PCB state.
+
 ## 2026-08-01 — PACS-01R-B1R-X external evidence acquisition
 
 - Inventoried all remaining external tool, thermal, quote and alternate artifacts.

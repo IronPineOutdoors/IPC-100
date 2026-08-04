@@ -1,5 +1,9 @@
 # Documentation
 
+Engineering Prototype release records are maintained in [`releases/`](releases/), including EPR-01, EPP-01, and the EPP-01A physical-freeze attempt.
+
+The current composite physical-device audit is [ECO-011](../hardware/kicad/notes/ECO-011_Composite_Physical_Device_Decomposition.md); it is incomplete pending the narrow ECO-011A design-input package.
+
 The IPC-100 Rev A Engineering Blueprint is organized into:
 
 - [Architecture](architecture/README.md)

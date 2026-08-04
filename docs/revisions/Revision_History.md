@@ -1,5 +1,17 @@
 # IPC-100 Revision History
 
+## 2026-08-03 — EPP-01A
+
+Physical freeze not accepted. All 313 EBOM rows received prototype population dispositions, but composite logical references require narrow ECO-011 physical decomposition before EPP-01A can resume. No CAD or interface artifact changed.
+
+## 2026-08-03 — ECO-011
+
+Inventoried every composite physical block and stopped before schematic modification. Exact device, truth/state-table, package-unit and pin-mapping decisions are absent for safety windows, motion interlocks, watchdog/authorization, encoder conditioning and status drivers. ECO-011 remains incomplete; ECO-011A is required. No CAD change.
+
+## 2026-08-03 — ECO-011A1
+
+Sheet 04 safety-input decomposition stopped before CAD modification after manufacturer-limit review proved LM339B-Q1 common-mode incompatible with the captured 3.3 V supply and released 2.5 V/4.0 V sensing levels. QER-04 is required. Seven composites, all interfaces and all CAD remain unchanged.
+
 ## 2026-08-01 — PACS-01R-B1R-X
 
 Created the definitive external acquisition inventory and exact manual queue, controlled quote directory, and active-row evidence routing. No selected MPN failed. PACS-01R-B1R-X remains not accepted because interactive manufacturer exports, attributable hot thermal evidence and authenticated two-distributor commercial artifacts were not actually acquired. No CAD change.
