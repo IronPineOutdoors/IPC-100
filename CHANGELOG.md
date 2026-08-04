@@ -2,6 +2,13 @@
 
 Initial project creation.
 
+## 2026-08-03 — QER-04 Safety Comparator Resolution
+
+- Reconstructed supervised-loop and ARM/FIRE voltage envelopes and released bounded threshold/hysteresis bands.
+- Rejected direct LM339B-Q1 use and selected a guaranteed rail-to-rail, open-drain, field-powered comparator architecture.
+- Defined explicit window/command truth tables, fail-safe power behavior, preliminary package allocation and prototype limits.
+- Authorized ECO-011A1R only; changed no schematic, reference, EBOM/AVL physical row, footprint, PCB, GPIO, hierarchy, ADR or ICD.
+
 ## 2026-08-03 — EPP-01A Engineering Prototype Physical-Freeze Attempt
 
 - Dispositioned all 313 EBOM rows for the first engineering prototype: 9 required, 4 default DNP, 11 debug DNP, 3 documentation-only, and 286 blocked on physical definition.

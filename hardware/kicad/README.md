@@ -80,4 +80,6 @@ CSR-01A reviewed the power subsystem after ECO-005 and did not accept the power-
 
 ECO-009 corrected Sheet 03 C305 to a generic 93.1 nF ±1% C0G/NP0 timing class. QER-03 subsequently released a 75–150 ms design window, and ECO-009R verified the unchanged implementation at 99.642 ms nominal and 79.1–136.6 ms endpoints. No topology or footprint changed. PACS-01 is authorized for exact U302/C305 selection and prototype confirmation.
 
+QER-04 resolves ECO-011A1's Sheet 04 comparator input-range blocker with a direct-input, field-powered TLV7044-Q1-class architecture, field-tracking threshold ratios, explicit fail-safe logic and a preliminary package allocation. Sheet 04 remains unchanged; ECO-011A1R alone is authorized to implement the decomposition.
+
 QER-01 subsequently released the quantitative envelope, and CSR-01A-R reattempted the freeze. Nine independent 100 kΩ Sheet 02/08 bias/enable resistors are frozen. ECO-006 removed the capacitor/MOSFET rating conflicts and MIR-01 released J1/H01 mechanics. CSR-01A-R2 then found exact-device conflicts in U201/R201 frequency programming, three TPS2553 branch-limit networks, and U801 threshold/hysteresis implementation. The final power freeze was not accepted; CSR-01B, footprints, and PCB work remain unauthorized pending corrective ECO and re-review.

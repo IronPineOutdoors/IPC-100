@@ -132,3 +132,5 @@ All composite references in Section 3 remain. The smallest follow-up is **ECO-01
 ECO-011A — Composite Device Selection, Truth-Table, and Pin-Mapping Release is required before schematic decomposition can proceed. EPP-01A-R and EPP-02 are not authorized. Placement, routing and fabrication remain unauthorized.
 
 > **ECO-011A1 disposition (2026-08-03):** Sheet 04 decomposition stopped before CAD modification. LM339B-Q1 on the captured 3.3 V supply guarantees common-mode only through 1.3 V over temperature, which cannot cover the nominal 2.5 V healthy state or 4.0 V upper threshold. QER-04 is required before decomposition resumes.
+
+> **QER-04 disposition (2026-08-03):** QER-04 resolved the Sheet 04 input-range blocker with a direct-input TLV7044-Q1-class architecture on the existing field rail and authorizes ECO-011A1R only. Other composite categories and ECO-011A2 remain blocked.

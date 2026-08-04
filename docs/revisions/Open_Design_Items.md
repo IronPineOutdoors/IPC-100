@@ -6,7 +6,7 @@ ECO-011 must decompose composite logical references U401AB/U401CD/U402AB/U402CD/
 
 ECO-011 stopped before CAD modification because exact physical devices, safety/motion Boolean tables, watchdog qualifier state behavior, package-unit allocation and pin-numbered connections are not released. ECO-011A is the controlling narrow design-input package.
 
-ECO-011A1 found a concrete Sheet 04 incompatibility: LM339B-Q1 powered from the captured `+3V3_CORE` rail guarantees input common-mode only to 1.3 V over temperature, below both the nominal 2.5 V healthy state and 4.0 V upper threshold. Even a 5 V supply guarantees only 3.0 V. QER-04 must resolve comparator input range and threshold implementation before physical decomposition.
+ECO-011A1 found a concrete Sheet 04 incompatibility: LM339B-Q1 powered from the captured `+3V3_CORE` rail guarantees input common-mode only to 1.3 V over temperature, below both the nominal 2.5 V healthy state and 4.0 V upper threshold. Even a 5 V supply guarantees only 3.0 V. QER-04 has resolved the architecture using a direct-input, field-powered TLV7044-Q1-class comparator; ECO-011A1R must now perform exact suffix, pin, passive, clamp, SPICE/ERC and physical-reference implementation before the blocker is closed.
 
 ## PACS-01R-B1R-X disposition
 
