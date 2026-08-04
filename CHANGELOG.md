@@ -2,6 +2,14 @@
 
 Initial project creation.
 
+## 2026-08-04 — ECO-011A1R Safety Input Physical Decomposition
+
+- Retired all seven Sheet 04 `WINDOW`/`CMDREC` composites and replaced them with exact TLV7044QPWRQ1 comparator, Q1 logic, passive and package-power units.
+- Implemented five field-qualified windows, ARM/FIRE receivers, threshold isolation/hysteresis, deterministic defaults, decoupling, unused units and 38 DFT nodes.
+- Corrected FIELD_OK brownout ordering with an internal 1:1 detector while preserving ADR-042 and every external interface.
+- Regenerated synchronized 408-row population, EBOM and AVL artifacts with no footprints or PCB files.
+- Completed ECO-011A1R and authorized ECO-011A2 only; EPP-01A-R remains unauthorized.
+
 ## 2026-08-03 — QER-04 Safety Comparator Resolution
 
 - Reconstructed supervised-loop and ARM/FIRE voltage envelopes and released bounded threshold/hysteresis bands.

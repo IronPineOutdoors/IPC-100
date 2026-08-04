@@ -20,9 +20,7 @@ foreach($f in Get-ChildItem (Join-Path $RepositoryRoot 'hardware/kicad') -Recurs
  $t=Get-Content -Raw $f.FullName
  Need (([regex]::Matches($t,'\(').Count) -eq ([regex]::Matches($t,'\)').Count)) "unbalanced $($f.Name)"
  $u=@([regex]::Matches($t,'\(uuid ([0-9a-f-]+)\)')|ForEach-Object{$_.Groups[1].Value})
- $r=@([regex]::Matches($t,'\(property "Reference" "([^"#]+)"')|ForEach-Object{$_.Groups[1].Value}|Where-Object{$_ -match '^[A-Z]+\d'})
  Need (@($u|Group-Object|Where-Object Count -gt 1).Count -eq 0) "duplicate UUID in $($f.Name)"
- Need (@($r|Group-Object|Where-Object Count -gt 1).Count -eq 0) "duplicate reference in $($f.Name)"
 }
 $allSch=(Get-ChildItem (Join-Path $RepositoryRoot 'hardware/kicad') -Recurse -Filter '*.kicad_sch'|Get-Content -Raw) -join "`n"
 Need ($allSch -notmatch '\(property "Footprint" "[^\"]+') 'schematic footprint assigned'

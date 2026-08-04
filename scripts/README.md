@@ -8,6 +8,10 @@
 
 `validate_qer04.ps1` verifies QER-04 coverage, voltage and threshold bounds, guaranteed comparator range, explicit window/command truth tables, fail-safe power behavior, physical-allocation handoff, unchanged Sheet 04/reference/interface scope, and the single accepted decision. It then runs all earlier repository validators.
 
+`apply_eco011a1r_sheet04.ps1` deterministically generates the QER-04 physical Sheet 04 implementation. `validate_eco011a1r.ps1` checks composite retirement, exact multi-unit pin/package allocation, thresholds/hysteresis, defaults, decoupling, DFT, unchanged hierarchy/GPIO/interface scope, synchronized 408-row EBOM/AVL/population records, and zero footprints/PCB files.
+
+`apply_eco011a1r_bom_overlay.ps1` replaces only the 53 baseline Sheet 04 BOM/AVL rows with the 148 physical ECO-011A1R rows against pinned commit `ba35b9e`, preserving every accumulated non-Sheet-04 selection and evidence overlay.
+
 `apply_eco010_bom_overlay.ps1` synchronizes the ECO-010 U101/U801 implementation and new support references into EBOM/AVL CSV/XLSX artifacts while retaining PACS-01R blockers. `validate_eco010.ps1` checks the corrected physical architectures, threshold network, change-control scope, reference integrity and BOM/AVL reconciliation.
 
 `apply_pacs01r_bom_overlay.ps1` records the 20-reference PACS-01R blocked disposition and regenerates BOM/AVL workbooks. `validate_pacs01r.ps1` verifies the reconciled inventory, corrected U101/U801 implementations, passive-dependency evidence, BOM/AVL agreement, single NOT ACCEPTED decision and zero-CAD scope.

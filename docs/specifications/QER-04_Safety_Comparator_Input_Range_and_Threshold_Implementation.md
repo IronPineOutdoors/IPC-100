@@ -8,6 +8,8 @@
 | CAD / footprint / PCB change | None |
 | Controlling interface | ADR-042 and External Safety Interface Control Document |
 
+> **Implementation status (2026-08-04):** ECO-011A1R implements this architecture with exact TLV7044QPWRQ1, SN74LVC08AQPWRQ1, SN74LVC14AQPWRQ1 and SN74LVC1G17QDBVRQ1 devices, explicit passives and package units. The accepted QER decision and external contract are unchanged.
+
 ## 1. Executive Summary
 
 QER-04 replaces the invalid LM339B-Q1 direct-input assumption with a guaranteed-range architecture. ECO-011A1R shall use three quad **TLV7044-Q1-class** automotive, rail-to-rail-input, open-drain comparators powered by the existing main-only `FIELD_SENSE_VCC`; no input divider is used. The comparator's guaranteed common-mode range is ground through `VCC + 0.1 V`, so a sense input produced by the same field rail remains valid from short (ground) through open (field rail). Its 1.6–6.5 V supply range, –40 to +125 °C rating, power-on reset, internal hysteresis and open-drain outputs are compatible with the released environment and 3.3 V logic interface.

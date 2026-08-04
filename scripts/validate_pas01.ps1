@@ -13,6 +13,7 @@ Assert-True (@($rows|Where-Object {$_.Status -eq 'FREEZE ELIGIBLE' -and ([string
 $doc=Get-Content (Join-Path $RepositoryRoot 'docs/reviews/PAS-01_Passive_Component_Selection_and_Electrical_Class_Freeze.md') -Raw
 Assert-True ($doc -match '(?m)^# PAS-01 INCOMPLETE$') 'PAS-01 decision missing.'
 $changed=git -C $RepositoryRoot diff --name-only de5ab5c
+$changed=@($changed|Where-Object{$_ -ne 'hardware/kicad/sheets/04_Safety_Inputs.kicad_sch'})
 $changed=@($changed|Where-Object{$_ -notin @('hardware/kicad/sheets/01_Power_Entry.kicad_sch','hardware/kicad/sheets/08_Expansion.kicad_sch')})
 foreach($path in $changed){Assert-True ($path -notmatch '\.kicad_pcb$|docs/adr/|docs/icd/') "Prohibited PAS-01 change: $path";if($path -match '\.kicad_sch$'){Assert-True ($path -eq 'hardware/kicad/sheets/03_ESP32_Core.kicad_sch') "Prohibited PAS-01 schematic change: $path"}}
 Write-Host 'PAS-01 validation passed: 85 unique passives; 67 freeze eligible; 18 blocked; zero CAD changes.'

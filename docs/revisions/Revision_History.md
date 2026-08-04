@@ -200,6 +200,7 @@ Documentation-only changes still require document revision control and review. A
 | --- | --- | --- | --- | --- |
 | 2026-07-28 | Repository baseline | Created initial engineering repository | Iron Pine Outdoors Engineering | Historical |
 | 2026-08-03 | QER-04 safety comparator resolution | Reconstructed Sheet 04 voltage/threshold bounds, rejected direct LM339B-Q1 use, accepted a field-powered rail-to-rail open-drain comparator architecture, and authorized ECO-011A1R only without CAD or footprint changes | Iron Pine Outdoors Engineering | Accepted |
+| 2026-08-04 | ECO-011A1R Sheet 04 physical decomposition | Replaced seven safety composites with exact comparator/logic packages, explicit thresholds/hysteresis/defaults/decoupling/DFT, synchronized 408-row EBOM/AVL/population records, and authorized ECO-011A2 without footprints or PCB work | Iron Pine Outdoors Engineering | Complete |
 | 2026-07-28 | Platform boundary | Separated IPC-100 from product-specific CrossWind development | Iron Pine Outdoors Engineering | Historical |
 | 2026-07-28 | Rev A Engineering Blueprint | Defined architecture, requirements, connectors, GPIO planning, power, wiring, mechanics, revision policy, and ADRs | Iron Pine Outdoors Engineering | Pending approval |
 | 2026-07-29 | Expansion and connector architecture review | Defined controlled expansion requirements, connector risks, accumulated consistency corrections, ADRs, and the open-design-items register | Iron Pine Outdoors Engineering | Pending approval |

@@ -13,13 +13,13 @@ foreach ($reference in $required) {
     if ($review -notmatch [regex]::Escape($reference)) { throw "Composite inventory omits $reference." }
 }
 
-if ($population.Count -ne 313) { throw 'Population register must remain at 313 rows until replacements exist.' }
+if ($population.Count -ne 408) { throw 'Population register must contain 408 rows after Sheet 04 replacements.' }
 $blocked = $population | Where-Object 'Prototype Population Status' -eq 'BLOCKED - PHYSICAL DEFINITION REQUIRED'
-if ($blocked.Count -ne 286) { throw 'ECO-011 must preserve 286 physically blocked rows.' }
+if ($blocked.Count -ne 343) { throw 'Post-ECO-011A1R population must contain 343 physically blocked rows.' }
 
 $footprints = Get-ChildItem (Join-Path $root 'hardware/kicad') -Recurse -Filter '*.kicad_sch' | Select-String -Pattern '\(footprint\s+"[^"]+'
 if ($footprints) { throw 'Footprints were assigned.' }
 $pcb = Get-ChildItem $root -Recurse -Filter '*.kicad_pcb'
 if ($pcb) { throw 'PCB files are prohibited.' }
 
-Write-Output 'ECO-011 validation passed: composite inventory controlled; ECO-011A required; 313 population rows preserved; zero footprints and PCB files.'
+Write-Output 'ECO-011 validation passed: Sheet 04 decomposition recorded; remaining composite inventory controlled; 408 population rows; zero footprints and PCB files.'

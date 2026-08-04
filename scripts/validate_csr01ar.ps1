@@ -17,8 +17,8 @@ function Assert-True {
     if (-not $Condition) { throw $Message }
 }
 
-Assert-True ($ebom.Count -eq 313) "Expected 313 EBOM rows after ECO-010; found $($ebom.Count)."
-Assert-True ($avl.Count -eq 313) "Expected 313 AVL rows after ECO-010; found $($avl.Count)."
+Assert-True ($ebom.Count -eq 408) "Expected 408 current EBOM rows after ECO-011A1R; found $($ebom.Count)."
+Assert-True ($avl.Count -eq 408) "Expected 408 current AVL rows after ECO-011A1R; found $($avl.Count)."
 
 $power = @($ebom | Where-Object { $_.'Selection Scope' -eq 'CSR-01A POWER' })
 $outside = @($ebom | Where-Object { $_.'Selection Scope' -eq 'OUTSIDE CSR-01A' })
@@ -26,7 +26,7 @@ $frozen = @($power | Where-Object { $_.'Freeze Status' -eq 'FROZEN' })
 $blocked = @($power | Where-Object { $_.'Freeze Status' -eq 'BLOCKED' })
 
 Assert-True ($power.Count -eq 136) "Expected 136 power-scope rows after ECO-010; found $($power.Count)."
-Assert-True ($outside.Count -eq 177) "Expected 177 out-of-scope rows; found $($outside.Count)."
+Assert-True ($outside.Count -eq 272) "Expected 272 out-of-scope rows after Sheet 04 decomposition; found $($outside.Count)."
 Assert-True ($frozen.Count -eq 9) "Expected nine CSR-01A-R frozen rows; found $($frozen.Count)."
 Assert-True ($blocked.Count -eq 127) "Expected 127 blocked power rows after ECO-010; found $($blocked.Count)."
 Assert-True (@($outside | Where-Object { $_.'Freeze Status' -ne 'NOT YET FROZEN' }).Count -eq 0) 'Every out-of-scope row must be NOT YET FROZEN.'

@@ -10,6 +10,8 @@
 
 > **QER-04 disposition (2026-08-03):** QER-04 accepted a direct-input, `FIELD_SENSE_VCC`-powered TLV7044-Q1-class rail-to-rail/open-drain comparator architecture, field-tracking 0.20/0.50/0.80 threshold references, explicit `FIELD_OK` logic and a three-comparator/two-AND/one-inverter preliminary package allocation. The historical ECO-011A1 result below remains incomplete; **ECO-011A1R is now authorized** to perform the physical decomposition. ECO-011A2, EPP-01A-R, footprints and PCB work remain unauthorized.
 
+> **ECO-011A1R completion (2026-08-04):** The corrected package replaces all seven composites with TLV7044QPWRQ1 comparators, exact Q1 logic and explicit support circuitry. ECO-011A2 is authorized; EPP-01A-R and footprints remain unauthorized. The historical incomplete decision below is retained as the audit record of the superseded attempt.
+
 ## 1. Scope
 
 ECO-011A1 evaluated replacement of U401AB, U401CD, U402AB, U402CD and U403AB (`IPC100:WINDOW`) plus U403C/U403D (`IPC100:CMDREC`) with explicit comparator, logic, pull-up, bypass, power and unused-unit representations. Hierarchy, GPIO, external nets, thresholds, polarity, ADR-042 and the five-loop contract were treated as immutable.

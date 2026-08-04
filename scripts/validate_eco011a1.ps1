@@ -10,7 +10,7 @@ if ([regex]::IsMatch($review, '(?m)^# ECO-011A1 COMPLETE')) { throw 'Conflicting
 $references = @('U401AB','U401CD','U402AB','U402CD','U403AB','U403C','U403D')
 foreach ($reference in $references) {
     if ($review -notmatch [regex]::Escape($reference)) { throw "Review omits $reference." }
-    if ($sheet -notmatch ('property "Reference" "' + [regex]::Escape($reference) + '"')) { throw "Sheet 04 no longer contains retained $reference." }
+    if ($sheet -match ('property "Reference" "' + [regex]::Escape($reference) + '"')) { throw "ECO-011A1R failed to retire $reference." }
 }
 if ($review -notmatch '1\.3 V' -or $review -notmatch '3\.0 V' -or $review -notmatch 'QER-04') { throw 'Common-mode incompatibility or handoff is incomplete.' }
 
@@ -19,4 +19,4 @@ if ($footprints) { throw 'Footprints were assigned.' }
 $pcb = Get-ChildItem $root -Recurse -Filter '*.kicad_pcb'
 if ($pcb) { throw 'PCB files are prohibited.' }
 
-Write-Output 'ECO-011A1 validation passed: LM339B common-mode conflict controlled; seven composites retained; QER-04 required; zero footprints and PCB files.'
+Write-Output 'ECO-011A1 historical validation passed: LM339B conflict controlled; seven composites subsequently retired by ECO-011A1R; zero footprints and PCB files.'

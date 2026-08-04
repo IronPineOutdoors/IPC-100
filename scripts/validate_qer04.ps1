@@ -10,7 +10,7 @@ if ($qer -match '(?m)^# QER-04 NOT ACCEPTED') { throw 'Conflicting QER-04 decisi
 
 foreach ($reference in @('U401AB','U401CD','U402AB','U402CD','U403AB','U403C','U403D')) {
     if ($qer -notmatch [regex]::Escape($reference)) { throw "QER-04 omits $reference." }
-    if ($sheet -notmatch ('property "Reference" "' + [regex]::Escape($reference) + '"')) { throw "Sheet 04 lost $reference." }
+    if ($sheet -match ('property "Reference" "' + [regex]::Escape($reference) + '"')) { throw "ECO-011A1R failed to retire $reference." }
 }
 foreach ($token in @('STOP','Left','Right','Up','Down','ARM','FIRE','2.324','2.679','4.743','0.90–1.10','3.80–4.20','TLV7044-Q1','VCC + 0.1 V','typical-only','Safety-Window Truth Table','ARM/FIRE Receiver Truth Table','Fail-Safe Analysis','Package-Allocation Strategy','Prototype Validation Contract')) {
     if ($qer -notmatch [regex]::Escape($token)) { throw "QER-04 evidence missing: $token" }
@@ -24,4 +24,4 @@ if (Get-ChildItem $root -Recurse -Filter '*.kicad_pcb') { throw 'PCB files are p
 
 & (Join-Path $PSScriptRoot 'validate_qer02.ps1') -RepositoryRoot $root
 
-Write-Output 'QER-04 validation passed: seven composites, five windows, two commands, bounded direct-input architecture, fail-safe logic, no CAD/physical/interface changes.'
+Write-Output 'QER-04 validation passed: seven historical composites covered and now physicalized; five windows, two commands, bounded direct-input architecture and fail-safe logic preserved.'

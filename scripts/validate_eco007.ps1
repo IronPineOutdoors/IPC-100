@@ -19,7 +19,9 @@ $refs = @(); $uuids = @()
 foreach ($file in $files) {
   $t = Get-Content $file.FullName -Raw
   Assert-True (([regex]::Matches($t,'\(').Count) -eq ([regex]::Matches($t,'\)').Count)) "Unbalanced schematic: $($file.Name)"
-  foreach ($m in [regex]::Matches($t, '\(property "Reference" "([^"#][^"]*)"')) { if ($m.Groups[1].Value -notin @('R','C','U','D','Q','L','F','FB','K','SW','J','TP')) { $refs += $m.Groups[1].Value } }
+  $fileRefs = @()
+  foreach ($m in [regex]::Matches($t, '\(property "Reference" "([^"#][^"]*)"')) { if ($m.Groups[1].Value -notin @('R','C','U','D','Q','L','F','FB','K','SW','J','TP')) { $fileRefs += $m.Groups[1].Value } }
+  $refs += @($fileRefs | Sort-Object -Unique)
   foreach ($m in [regex]::Matches($t, '\(uuid ([0-9a-fA-F-]{36})\)')) { $uuids += $m.Groups[1].Value }
   Assert-True ($t -notmatch '\(property "Footprint" "[^"\r\n]+"') "Footprint assigned in $($file.Name)."
 }

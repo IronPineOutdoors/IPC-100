@@ -200,6 +200,40 @@ foreach ($file in $schematicFiles) {
     }
 }
 
+# KiCad multi-unit packages instantiate one schematic symbol per unit. EBOM/AVL
+# identity is physical-package identity, so retain one row per sheet/reference.
+$rows = @($rows | Group-Object Sheet, Reference | ForEach-Object { $_.Group[0] })
+
+$eco011a1rSelections = @{
+    U404 = @('Texas Instruments','SN74LVC1G17QDBVRQ1','SOT-23-5 (DBV)','FIELD_OK Schmitt buffer')
+    U405 = @('Texas Instruments','SN74LVC1G17QDBVRQ1','SOT-23-5 (DBV)','STOP hardware-export Schmitt buffer')
+    U406 = @('Texas Instruments','TLV7044QPWRQ1','TSSOP-14 (PW)','Quad rail-to-rail open-drain safety comparator')
+    U407 = @('Texas Instruments','TLV7044QPWRQ1','TSSOP-14 (PW)','Quad rail-to-rail open-drain safety comparator')
+    U408 = @('Texas Instruments','TLV7044QPWRQ1','TSSOP-14 (PW)','Quad rail-to-rail open-drain safety comparator')
+    U409 = @('Texas Instruments','SN74LVC08AQPWRQ1','TSSOP-14 (PW)','Quad two-input AND qualification logic')
+    U410 = @('Texas Instruments','SN74LVC08AQPWRQ1','TSSOP-14 (PW)','Quad two-input AND qualification logic')
+    U411 = @('Texas Instruments','SN74LVC14AQPWRQ1','TSSOP-14 (PW)','Hex Schmitt inverter safety-output logic')
+}
+foreach ($row in $rows | Where-Object { $_.Sheet -eq '04_Safety_Inputs' -and $eco011a1rSelections.ContainsKey($_.Reference) }) {
+    $selection = $eco011a1rSelections[$row.Reference]
+    $row.Manufacturer = $selection[0]
+    $row.'Manufacturer Part Number' = $selection[1]
+    $row.Package = $selection[2]
+    $row.Description = $selection[3]
+    $row.'Temperature Range' = '-40 °C to +125 °C'
+    $row.'Lifecycle Status' = 'ACTIVE — official TI evidence checked 2026-08-04'
+    $row.'RoHS Status' = 'Manufacturer production order code; compliance confirmation required at purchase'
+    $row.Availability = 'Exact active TI production order code; commercial stock snapshot deferred'
+    $row.'Preferred Vendor' = 'Texas Instruments / authorized distributor'
+    $row.'Selection Rationale' = 'QER-04 and ECO-011A1R exact electrical/pin selection; footprint assignment remains prohibited.'
+    $row.'Requirement Trace Reference' = 'QER-04; ECO-011A1R; ADR-042'
+    $row.'Sourcing Risk' = 'MEDIUM — second-source and current distributor evidence deferred'
+    $row.Risk = 'Exact device selected; footprint, commercial evidence and prototype qualification remain gated.'
+    $row.'Datasheet URL' = if ($row.Reference -in @('U406','U407','U408')) { 'https://www.ti.com/lit/ds/symlink/tlv7044-q1.pdf' } elseif ($row.Reference -in @('U409','U410')) { 'https://www.ti.com/lit/ds/symlink/sn74lvc08a-q1.pdf' } elseif ($row.Reference -eq 'U411') { 'https://www.ti.com/lit/ds/symlink/sn74lvc14a-q1.pdf' } else { 'https://www.ti.com/lit/ds/symlink/sn74lvc1g17-q1.pdf' }
+    $row.'Datasheet Revision or Date' = 'Official TI current documentation checked 2026-08-04'
+    $row.Notes = 'ECO-011A1R physical selection. NOT YET FROZEN means no footprint/physical release, not an unresolved electrical identity.'
+}
+
 $ebomPath = Join-Path $OutputDirectory 'IPC100_RevA_EBOM.csv'
 $rows |
     Sort-Object Sheet, Reference |

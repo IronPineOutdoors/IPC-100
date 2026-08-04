@@ -82,4 +82,6 @@ ECO-009 corrected Sheet 03 C305 to a generic 93.1 nF ±1% C0G/NP0 timing class. 
 
 QER-04 resolves ECO-011A1's Sheet 04 comparator input-range blocker with a direct-input, field-powered TLV7044-Q1-class architecture, field-tracking threshold ratios, explicit fail-safe logic and a preliminary package allocation. Sheet 04 remains unchanged; ECO-011A1R alone is authorized to implement the decomposition.
 
+ECO-011A1R implements that architecture on Sheet 04 using exact TLV7044QPWRQ1 comparators and Q1 logic, with all package units, references, passives, defaults, decoupling, unused units and DFT explicit. The seven former composites are retired. ECO-011A2 is authorized; footprint and PCB work remain prohibited.
+
 QER-01 subsequently released the quantitative envelope, and CSR-01A-R reattempted the freeze. Nine independent 100 kΩ Sheet 02/08 bias/enable resistors are frozen. ECO-006 removed the capacitor/MOSFET rating conflicts and MIR-01 released J1/H01 mechanics. CSR-01A-R2 then found exact-device conflicts in U201/R201 frequency programming, three TPS2553 branch-limit networks, and U801 threshold/hysteresis implementation. The final power freeze was not accepted; CSR-01B, footprints, and PCB work remain unauthorized pending corrective ECO and re-review.

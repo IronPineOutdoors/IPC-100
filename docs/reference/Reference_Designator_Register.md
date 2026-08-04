@@ -4,6 +4,19 @@
 
 > **ECO-011A1 status:** No Sheet 04 reference was allocated or retired because QER-04 comparator input-range resolution is required before the physical package count can be determined.
 
+> **ECO-011A1R supersession (2026-08-04):** QER-04 is accepted and the seven composite references listed below are retired. Active Sheet 04 physical allocation is U404–U411, R401–R464, C401–C431, D401–D407 and TP401–TP438. U401AB/U401CD/U402AB/U402CD/U403AB/U403C/U403D remain historical-only and shall never be reused.
+
+| ECO-011A1R allocation | References | Physical meaning |
+| --- | --- | --- |
+| Exact retained single gates | U404–U405 | SN74LVC1G17QDBVRQ1 FIELD_OK and STOP export |
+| Comparator packages | U406–U408 | TLV7044QPWRQ1; four channels plus explicit power unit per reference |
+| AND packages | U409–U410 | SN74LVC08AQPWRQ1; four gates plus power unit |
+| Inverter package | U411 | SN74LVC14AQPWRQ1; six gates plus power unit |
+| Existing / new resistors | R401–R424 / R425–R464 | Existing excitation/filter/default networks / midpoint, isolation, hysteresis, pull-up and qualifier defaults |
+| Existing / new capacitors | C401–C413 / C414–C431 | Existing reference/input/bulk networks / midpoint, local-reference and package bypass capacitors |
+| Protection | D401–D407 | Existing seven connector-entry ESD channels |
+| Schematic DFT | TP401–TP438 | Raw, sense, comparator, output, reference, FIELD_OK and STOP-inhibit nodes; no footprints |
+
 | Field | Value |
 | --- | --- |
 | Platform | IPC-100 |
@@ -164,8 +177,8 @@ Connector functional designations J1â€“J10 and J13, plus factory boundary D
 | `C7` | `C407` | 04 | `IPC100:C` | 100 nF X7R/C0G, τ=100 µs |
 | `C8` | `C408` | 04 | `IPC100:C` | 100 nF X7R, τ=100 µs |
 | `C9` | `C409` | 04 | `IPC100:C` | 100 nF X7R, τ=100 µs |
-| `U3C` | `U403C` | 04 | `IPC100:CMDREC` | LM339B-Q1 low-active receiver + FIELD_OK gate |
-| `U3D` | `U403D` | 04 | `IPC100:CMDREC` | LM339B-Q1 low-active receiver + FIELD_OK gate |
+| `U3C` | `U403C` | 04 | Retired by ECO-011A1R | ARM command composite; replaced by U407D, U410B and support passives |
+| `U3D` | `U403D` | 04 | Retired by ECO-011A1R | FIRE command composite; replaced by U408D, U410C and support passives |
 | `D1` | `D401` | 04 | `IPC100:D` | TPD4E05U06 channel / low-cap ESD clamp |
 | `D2` | `D402` | 04 | `IPC100:D` | TPD4E05U06 channel / low-cap ESD clamp |
 | `D3` | `D403` | 04 | `IPC100:D` | TPD4E05U06 channel / low-cap ESD clamp |
@@ -199,11 +212,11 @@ Connector functional designations J1â€“J10 and J13, plus factory boundary D
 | `R8` | `R408` | 04 | `IPC100:R` | 2.20 kΩ ±1% loop excitation |
 | `R9` | `R409` | 04 | `IPC100:R` | 1.00 kΩ ±1% protected series |
 | `U5` | `U405` | 04 | `IPC100:SAFEBUF` | SN74LVC1G17-Q1 STOP hardware export; passive fail-high bias |
-| `U1AB` | `U401AB` | 04 | `IPC100:WINDOW` | LM339B-Q1 dual threshold + SN74LVC14A-Q1 combine |
-| `U1CD` | `U401CD` | 04 | `IPC100:WINDOW` | LM339B-Q1 dual threshold + SN74LVC14A-Q1 combine |
-| `U2AB` | `U402AB` | 04 | `IPC100:WINDOW` | LM339B-Q1 dual threshold + SN74LVC14A-Q1 combine |
-| `U2CD` | `U402CD` | 04 | `IPC100:WINDOW` | LM339B-Q1 dual threshold + SN74LVC14A-Q1 combine |
-| `U3AB` | `U403AB` | 04 | `IPC100:WINDOW` | LM339B-Q1 dual threshold + SN74LVC14A-Q1 combine |
+| `U1AB` | `U401AB` | 04 | Retired by ECO-011A1R | STOP window composite; replaced by U406A, U407A, U409A, U411A and support passives |
+| `U1CD` | `U401CD` | 04 | Retired by ECO-011A1R | LEFT window composite; replaced by U406B, U408A, U409B, U411B and support passives |
+| `U2AB` | `U402AB` | 04 | Retired by ECO-011A1R | RIGHT window composite; replaced by U407B, U408B, U409C, U411C and support passives |
+| `U2CD` | `U402CD` | 04 | Retired by ECO-011A1R | UP window composite; replaced by U406C, U407C, U409D, U411D and support passives |
+| `U3AB` | `U403AB` | 04 | Retired by ECO-011A1R | DOWN window composite; replaced by U408C, U406D, U410A, U411E and support passives |
 | `U3` | `U503` | 05 | `IPC100:AUTH2` | SN74LVC-Q1: EN = PERMIT AND NOT INHIBIT; disagreement disables |
 | `C1` | `C501` | 05 | `IPC100:C` | 100 nF X7R VCCA bypass |
 | `C2` | `C502` | 05 | `IPC100:C` | 100 nF X7R VCCB bypass |

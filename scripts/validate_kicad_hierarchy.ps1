@@ -88,10 +88,14 @@ foreach ($schematicFile in $schematicFiles) {
         $errors.Add("ECO-005 could not pair every reference property and instance in $schematicFile.")
     }
     $duplicateReferences = @($instanceReferences | Group-Object | Where-Object Count -gt 1)
-    if ($duplicateReferences.Count -gt 0) {
-        $errors.Add("Duplicate instantiated references in $schematicFile`: $($duplicateReferences.Name -join ', ')")
+    foreach ($duplicate in $duplicateReferences) {
+        $unitMatches = [regex]::Matches($schematicContent, '\(reference "' + [regex]::Escape($duplicate.Name) + '"\) \(unit (\d+)\)')
+        $units = @($unitMatches | ForEach-Object { $_.Groups[1].Value })
+        if ($unitMatches.Count -ne $duplicate.Count -or ($units | Sort-Object -Unique).Count -ne $units.Count) {
+            $errors.Add("Duplicate instantiated reference without unique multi-unit allocation in $schematicFile`: $($duplicate.Name)")
+        }
     }
-    foreach ($reference in $instanceReferences | Where-Object { $_ -notlike '#PWR*' }) {
+    foreach ($reference in $instanceReferences | Where-Object { $_ -notlike '#PWR*' } | Sort-Object -Unique) {
         $globalReferences.Add($reference)
     }
 

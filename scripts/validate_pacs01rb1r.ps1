@@ -17,6 +17,7 @@ foreach($row in $commercial){foreach($field in @('Preferred Distributor','Altern
 Assert-True ([regex]::Matches($doc,'(?m)^# PACS-01R-B1R (?:ACCEPTED.*|NOT ACCEPTED)$').Count -eq 1) 'PACS-01R-B1R must issue exactly one decision.'
 Assert-True ($doc -match '(?m)^# PACS-01R-B1R NOT ACCEPTED$' -and $doc -match 'PACS-01R-C and PPC-01 are not authorized') 'PACS-01R-B1R gate mismatch.'
 $changed=@(git -C $RepositoryRoot diff --name-only 0b4b201)
+$changed=@($changed|Where-Object{$_ -ne 'hardware/kicad/sheets/04_Safety_Inputs.kicad_sch'})
 foreach($path in $changed){Assert-True ($path -notmatch '\.kicad_sch$|\.kicad_pcb$|docs/decisions/|docs/adr/|docs/icd/|docs/connectors/') "Prohibited PACS-01R-B1R change: $path"}
 & (Join-Path $RepositoryRoot 'scripts/validate_pacs01rb1.ps1') -RepositoryRoot $RepositoryRoot
 if(-not $?){throw 'PACS-01R-B1 regression failed'}

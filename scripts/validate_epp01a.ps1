@@ -5,8 +5,8 @@ $ebom = Import-Csv (Join-Path $root 'docs/bom/IPC100_RevA_EBOM.csv')
 $population = Import-Csv (Join-Path $root 'docs/bom/IPC100_RevA_Prototype_Population.csv')
 $review = Get-Content -Raw (Join-Path $root 'docs/releases/EPP-01A_Engineering_Prototype_Population_Package_Mechanical_Freeze.md')
 
-if ($ebom.Count -ne 313 -or $population.Count -ne 313) { throw 'EPP-01A must disposition exactly 313 EBOM rows.' }
-if (($population.Reference | Sort-Object -Unique).Count -ne 313) { throw 'Prototype population references are not unique.' }
+if ($ebom.Count -ne 408 -or $population.Count -ne 408) { throw 'Post-ECO-011A1R EPP-01A must disposition exactly 408 EBOM rows.' }
+if (($population.Reference | Sort-Object -Unique).Count -ne 408) { throw 'Prototype population references are not unique.' }
 $allowed = @(
     'POPULATE - REQUIRED','POPULATE - OPTIONAL','DNP - DEFAULT','DNP - DEBUG OPTION',
     'DOCUMENTATION ONLY','RETIRED','NOT APPLICABLE TO PROTOTYPE','BLOCKED - PHYSICAL DEFINITION REQUIRED'
@@ -17,7 +17,12 @@ foreach ($column in $requiredColumns) {
     if ($population[0].PSObject.Properties.Name -notcontains $column) { throw "Missing population column: $column" }
     if ($population.Where({ [string]::IsNullOrWhiteSpace($_.$column) }).Count) { throw "Blank population field: $column" }
 }
-$composites = @('U401AB','U401CD','U402AB','U402CD','U403AB','U403C','U403D','U501','U502','U503','U601','U602','U701','U703')
+$retiredSafety = @('U401AB','U401CD','U402AB','U402CD','U403AB','U403C','U403D')
+foreach ($reference in $retiredSafety) {
+    if ($population.Reference -contains $reference) { throw "$reference must be retired after ECO-011A1R." }
+    if ($review -notmatch [regex]::Escape($reference)) { throw "$reference historical trace is absent from EPP-01A." }
+}
+$composites = @('U501','U502','U503','U601','U602','U701','U703')
 foreach ($reference in $composites) {
     $row = $population | Where-Object Reference -eq $reference
     if ($row.'Prototype Population Status' -ne 'BLOCKED - PHYSICAL DEFINITION REQUIRED') { throw "$reference must remain blocked for ECO decomposition." }
@@ -31,4 +36,4 @@ if ($footprints) { throw 'Footprints were assigned.' }
 $pcb = Get-ChildItem $root -Recurse -Filter '*.kicad_pcb'
 if ($pcb) { throw 'PCB files are prohibited in EPP-01A.' }
 
-Write-Output 'EPP-01A validation passed: 313 dispositions; composite mapping ECO required; zero footprints and PCB files.'
+Write-Output 'EPP-01A validation passed: 408 dispositions; Sheet 04 physicalized; remaining composite mapping ECO required; zero footprints and PCB files.'

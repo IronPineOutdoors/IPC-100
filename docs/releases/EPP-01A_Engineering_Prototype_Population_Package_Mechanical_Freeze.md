@@ -196,3 +196,5 @@ EPP-02 Engineering Prototype Footprint Assignment is not authorized. PCB placeme
 > **ECO-011A1 Category A update:** The mandated LM339B-Q1/3.3 V safety-window combination cannot cover the released 2.5 V healthy and 4.0 V upper-threshold inputs within guaranteed common-mode range. QER-04 is the controlling Sheet 04 prerequisite.
 
 > **QER-04 Category A update:** QER-04 accepted a guaranteed-range direct-input comparator and logic architecture and authorizes ECO-011A1R. The composites remain physically blocked until that ECO creates pin-level devices; EPP-01A-R and footprint assignment remain unauthorized.
+
+> **ECO-011A1R Category A update:** Sheet 04 now contains physical devices and support passives; its seven composite rows are retired. The population register has 408 physical/logical rows. Sheet 04 footprint/passive/protection evidence remains blocked, and EPP-01A-R is still unauthorized while other composite categories remain.
