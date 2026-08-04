@@ -136,3 +136,5 @@ ECO-011A — Composite Device Selection, Truth-Table, and Pin-Mapping Release is
 > **QER-04 disposition (2026-08-03):** QER-04 resolved the Sheet 04 input-range blocker with a direct-input TLV7044-Q1-class architecture on the existing field rail and authorizes ECO-011A1R only. Other composite categories and ECO-011A2 remain blocked.
 
 > **ECO-011A1R disposition (2026-08-04):** Sheet 04 physical decomposition is complete. All seven safety composites are retired, the physical implementation is validated, and ECO-011A2 motion-control decomposition is authorized. EPP-01A-R and footprints remain blocked.
+
+> **ECO-011A2 disposition (2026-08-04):** Sheet 05 U501/U502/U503 are retired and replaced by exact pin-level U506–U508 logic, local decoupling, explicit spares and DFT. ADR-043, ECO-001 authorization connectivity and U504/U505 translator boundaries are preserved. ECO-011A3 alone is authorized; EPP-01A-R and footprints remain blocked.

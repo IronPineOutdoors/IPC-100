@@ -17,7 +17,7 @@ Assert-True ([regex]::Matches($doc,'(?m)^# PACS-01R-A (?:ACCEPTED|NOT ACCEPTED)$
 Assert-True ($doc -match '(?m)^# PACS-01R-A ACCEPTED$') 'PACS-01R-A decision mismatch.'
 Assert-True ($doc -match 'PACS-01R-B.*is authorized' -and $doc -match 'PPC-01.*remain unauthorized') 'Package authorization boundary mismatch.'
 $changed=@(git -C $RepositoryRoot diff --name-only 7a07596)
-$changed=@($changed|Where-Object{$_ -ne 'hardware/kicad/sheets/04_Safety_Inputs.kicad_sch'})
+$changed=@($changed|Where-Object{$_ -notin @('hardware/kicad/sheets/04_Safety_Inputs.kicad_sch','hardware/kicad/sheets/05_Motor_Interfaces.kicad_sch')})
 foreach($path in $changed){Assert-True ($path -notmatch '\.kicad_sch$|\.kicad_pcb$|docs/decisions/|docs/adr/|docs/icd/|docs/connectors/') "Prohibited PACS-01R-A change: $path"}
 & (Join-Path $RepositoryRoot 'scripts/validate_pacs01r.ps1') -RepositoryRoot $RepositoryRoot
 if(-not $?){throw 'PACS-01R regression failed'}

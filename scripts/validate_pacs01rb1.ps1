@@ -11,7 +11,7 @@ foreach($token in @('θJA','θJC','θJB','26.4 °C/W','60.1 °C/W','182.6','WEBE
 Assert-True ([regex]::Matches($doc,'(?m)^# PACS-01R-B1 (?:ACCEPTED|NOT ACCEPTED)$').Count -eq 1) 'PACS-01R-B1 must issue exactly one decision.'
 Assert-True ($doc -match '(?m)^# PACS-01R-B1 NOT ACCEPTED$') 'PACS-01R-B1 decision mismatch.'
 $changed=@(git -C $RepositoryRoot diff --name-only cd444be)
-$changed=@($changed|Where-Object{$_ -ne 'hardware/kicad/sheets/04_Safety_Inputs.kicad_sch'})
+$changed=@($changed|Where-Object{$_ -notin @('hardware/kicad/sheets/04_Safety_Inputs.kicad_sch','hardware/kicad/sheets/05_Motor_Interfaces.kicad_sch')})
 foreach($path in $changed){Assert-True ($path -notmatch '\.kicad_sch$|\.kicad_pcb$|docs/decisions/|docs/adr/|docs/icd/|docs/connectors/') "Prohibited PACS-01R-B1 change: $path"}
 & (Join-Path $RepositoryRoot 'scripts/validate_pacs01rb.ps1') -RepositoryRoot $RepositoryRoot
 if(-not $?){throw 'PACS-01R-B regression failed'}

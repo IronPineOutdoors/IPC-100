@@ -84,4 +84,6 @@ QER-04 resolves ECO-011A1's Sheet 04 comparator input-range blocker with a direc
 
 ECO-011A1R implements that architecture on Sheet 04 using exact TLV7044QPWRQ1 comparators and Q1 logic, with all package units, references, passives, defaults, decoupling, unused units and DFT explicit. The seven former composites are retired. ECO-011A2 is authorized; footprint and PCB work remain prohibited.
 
+ECO-011A2 physically implements Sheet 05 opposing-PWM suppression and dual authorization with U506 `SN74LVC14AQPWRQ1` and U507/U508 `SN74LVC08AQPWRQ1`. U501–U503 are retired; U504/U505 translators and all ADR-043 interfaces remain unchanged. ECO-011A3 alone is authorized; footprints and PCB work remain prohibited.
+
 QER-01 subsequently released the quantitative envelope, and CSR-01A-R reattempted the freeze. Nine independent 100 kΩ Sheet 02/08 bias/enable resistors are frozen. ECO-006 removed the capacitor/MOSFET rating conflicts and MIR-01 released J1/H01 mechanics. CSR-01A-R2 then found exact-device conflicts in U201/R201 frequency programming, three TPS2553 branch-limit networks, and U801 threshold/hysteresis implementation. The final power freeze was not accepted; CSR-01B, footprints, and PCB work remain unauthorized pending corrective ECO and re-review.

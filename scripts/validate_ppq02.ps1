@@ -21,7 +21,7 @@ Assert-True ($main -match '(?m)^# PPQ-02 COMPLETE$') 'PPQ-02 is not complete.'
 $s02=Get-Content (Join-Path $RepositoryRoot 'hardware/kicad/sheets/02_Power_Conversion.kicad_sch') -Raw
 foreach($ref in @('R222','R223','R224')){Assert-True ($s02 -match "(?s)Reference`" `"$ref`".*?Value`" `"141 k") "$ref regression."}
 $changed=git -C $RepositoryRoot diff --name-only 3e79495
-$changed=@($changed|Where-Object{$_ -ne 'hardware/kicad/sheets/04_Safety_Inputs.kicad_sch'})
+$changed=@($changed|Where-Object{$_ -notin @('hardware/kicad/sheets/04_Safety_Inputs.kicad_sch','hardware/kicad/sheets/05_Motor_Interfaces.kicad_sch')})
 $changed=@($changed|Where-Object{$_ -notin @('hardware/kicad/sheets/01_Power_Entry.kicad_sch','hardware/kicad/sheets/08_Expansion.kicad_sch')})
 foreach($path in $changed){Assert-True ($path -notmatch '\.kicad_pcb$|docs/adr/|docs/icd/') "Prohibited CAD/architecture change since PPQ-02: $path";if($path -match '\.kicad_sch$'){Assert-True ($path -eq 'hardware/kicad/sheets/03_ESP32_Core.kicad_sch') "Prohibited schematic change since PPQ-02: $path"}}
 & (Join-Path $RepositoryRoot 'scripts/validate_csr01ar4.ps1') -RepositoryRoot $RepositoryRoot;if(-not $?){throw 'CSR-01A-R4 regression failed.'}

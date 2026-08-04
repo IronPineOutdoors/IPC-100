@@ -6,6 +6,8 @@
 
 > **ECO-011A1R supersession (2026-08-04):** QER-04 is accepted and the seven composite references listed below are retired. Active Sheet 04 physical allocation is U404–U411, R401–R464, C401–C431, D401–D407 and TP401–TP438. U401AB/U401CD/U402AB/U402CD/U403AB/U403C/U403D remain historical-only and shall never be reused.
 
+> **ECO-011A2 supersession (2026-08-04):** Sheet 05 U501/U502/U503 are retired and shall not be reused. Their physical replacements are U506–U508, C507–C509 and TP501–TP524. U504/U505 and R501–R528/D501–D508/C501–C506 remain active and unchanged.
+
 | ECO-011A1R allocation | References | Physical meaning |
 | --- | --- | --- |
 | Exact retained single gates | U404–U405 | SN74LVC1G17QDBVRQ1 FIELD_OK and STOP export |
@@ -217,7 +219,7 @@ Connector functional designations J1â€“J10 and J13, plus factory boundary D
 | `U2AB` | `U402AB` | 04 | Retired by ECO-011A1R | RIGHT window composite; replaced by U407B, U408B, U409C, U411C and support passives |
 | `U2CD` | `U402CD` | 04 | Retired by ECO-011A1R | UP window composite; replaced by U406C, U407C, U409D, U411D and support passives |
 | `U3AB` | `U403AB` | 04 | Retired by ECO-011A1R | DOWN window composite; replaced by U408C, U406D, U410A, U411E and support passives |
-| `U3` | `U503` | 05 | `IPC100:AUTH2` | SN74LVC-Q1: EN = PERMIT AND NOT INHIBIT; disagreement disables |
+| `U3` | `U503` | 05 | Retired by ECO-011A2 | Authorization replaced by U506E and U508A/B |
 | `C1` | `C501` | 05 | `IPC100:C` | 100 nF X7R VCCA bypass |
 | `C2` | `C502` | 05 | `IPC100:C` | 100 nF X7R VCCB bypass |
 | `C3` | `C503` | 05 | `IPC100:C` | 1 µF X7R local interface bulk |
@@ -232,8 +234,8 @@ Connector functional designations J1â€“J10 and J13, plus factory boundary D
 | `D6` | `D506` | 05 | `IPC100:D` | TPD4E05U06 channel / connector-entry ESD provision |
 | `D7` | `D507` | 05 | `IPC100:D` | TPD4E05U06 channel / connector-entry ESD provision |
 | `D8` | `D508` | 05 | `IPC100:D` | TPD4E05U06 channel / connector-entry ESD provision |
-| `U1` | `U501` | 05 | `IPC100:INTERLOCK4` | SN74LVC-Q1: R_OK = RPWM AND NOT LPWM; L_OK = LPWM AND NOT RPWM; enables pass |
-| `U2` | `U502` | 05 | `IPC100:INTERLOCK4` | SN74LVC-Q1: R_OK = RPWM AND NOT LPWM; L_OK = LPWM AND NOT RPWM; enables pass |
+| `U1` | `U501` | 05 | Retired by ECO-011A2 | Axis 1 suppression replaced by U506A/B and U507A/B |
+| `U2` | `U502` | 05 | Retired by ECO-011A2 | Axis 2 suppression replaced by U506C/D and U507C/D |
 | `R1` | `R501` | 05 | `IPC100:R` | 100 kΩ authorization default off |
 | `R10` | `R510` | 05 | `IPC100:R` | 10 kΩ safe-side inactive default |
 | `R11` | `R511` | 05 | `IPC100:R` | 33 Ω series damping |

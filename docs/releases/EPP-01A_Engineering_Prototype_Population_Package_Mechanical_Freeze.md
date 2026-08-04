@@ -198,3 +198,5 @@ EPP-02 Engineering Prototype Footprint Assignment is not authorized. PCB placeme
 > **QER-04 Category A update:** QER-04 accepted a guaranteed-range direct-input comparator and logic architecture and authorizes ECO-011A1R. The composites remain physically blocked until that ECO creates pin-level devices; EPP-01A-R and footprint assignment remain unauthorized.
 
 > **ECO-011A1R Category A update:** Sheet 04 now contains physical devices and support passives; its seven composite rows are retired. The population register has 408 physical/logical rows. Sheet 04 footprint/passive/protection evidence remains blocked, and EPP-01A-R is still unauthorized while other composite categories remain.
+
+> **ECO-011A2 Category A update:** Sheet 05 U501–U503 composites are retired and exact U506–U508 logic plus C507–C509 and TP501–TP524 are represented. The population register now has 435 rows. EPP-01A-R and footprint assignment remain unauthorized pending later ECO-011 categories and mechanical evidence.

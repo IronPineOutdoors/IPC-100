@@ -19,7 +19,7 @@ Assert-True ($e.Value -match '^93\.1 nF' -and $e.Risk -match '^ECO-009(?:R)?') '
 Assert-True ($a.Risk -eq $e.Risk -and $a.'Freeze Status' -eq $e.'Freeze Status') 'C305 AVL reconciliation failed.'
 $rdr=Get-Content (Join-Path $RepositoryRoot 'docs/reference/Reference_Designator_Register.md') -Raw;Assert-True ($rdr -match 'C305.*93\.1 nF') 'Reference register not synchronized.'
 $changed=git -C $RepositoryRoot diff --name-only b17222a
-$changed=@($changed|Where-Object{$_ -ne 'hardware/kicad/sheets/04_Safety_Inputs.kicad_sch'})
+$changed=@($changed|Where-Object{$_ -notin @('hardware/kicad/sheets/04_Safety_Inputs.kicad_sch','hardware/kicad/sheets/05_Motor_Interfaces.kicad_sch')})
 $changed=@($changed|Where-Object{$_ -notin @('hardware/kicad/sheets/01_Power_Entry.kicad_sch','hardware/kicad/sheets/08_Expansion.kicad_sch')})
 foreach($path in $changed){Assert-True ($path -notmatch '\.kicad_pcb$|docs/adr/|docs/icd/|docs/connectors/') "Prohibited ECO-009 change: $path";if($path -match '\.kicad_sch$'){Assert-True ($path -eq 'hardware/kicad/sheets/03_ESP32_Core.kicad_sch') "Unrelated schematic changed: $path"}}
 & (Join-Path $RepositoryRoot 'scripts/validate_kicad_hierarchy.ps1') -ProjectDirectory (Join-Path $RepositoryRoot 'hardware/kicad')

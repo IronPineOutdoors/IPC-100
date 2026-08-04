@@ -9,7 +9,7 @@ $avl = @(Import-Csv (Join-Path $RepositoryRoot 'docs/bom/Approved_Vendor_List.cs
 $power = @($ebom | Where-Object { $_.'Selection Scope' -eq 'CSR-01A POWER' })
 $frozen = @($power | Where-Object { $_.'Freeze Status' -eq 'FROZEN' })
 $blocked = @($power | Where-Object { $_.'Freeze Status' -eq 'BLOCKED' })
-Assert-True ($ebom.Count -eq 408 -and $avl.Count -eq 408) 'Expected 408 synchronized current EBOM/AVL rows after ECO-011A1R.'
+Assert-True ($ebom.Count -eq 435 -and $avl.Count -eq 435) 'Expected 435 synchronized current EBOM/AVL rows after ECO-011A2.'
 Assert-True ($power.Count -eq 136 -and $frozen.Count -eq 9 -and $blocked.Count -eq 127) 'Post-ECO-010 disposition counts are incorrect.'
 Assert-True (@($power | Where-Object { $_.'Freeze Status' -notin @('FROZEN','CONDITIONAL','BLOCKED','NOT APPLICABLE') }).Count -eq 0) 'Power row lacks final disposition.'
 foreach ($row in $frozen) {

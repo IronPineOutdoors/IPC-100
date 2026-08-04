@@ -1,5 +1,7 @@
 # IPC-100 Revision History
 
+| 2026-08-04 | ECO-011A2 Motion Control Physical Decomposition | Replaced Sheet 05 U501–U503 composites with exact U506–U508 Q1 logic, bypasses, unused-unit handling and DFT; preserved ADR-043 and translators; synchronized 435-row BOM/AVL/population | Iron Pine Outdoors Engineering | Complete; ECO-011A3 authorized, footprints blocked |
+
 ## 2026-08-03 — EPP-01A
 
 Physical freeze not accepted. All 313 EBOM rows received prototype population dispositions, but composite logical references require narrow ECO-011 physical decomposition before EPP-01A can resume. No CAD or interface artifact changed.

@@ -28,7 +28,7 @@ Assert-True ([regex]::Matches($review,'(?m)^# PACS-01R (?:ACCEPTED|NOT ACCEPTED)
 Assert-True ($review -match '(?m)^# PACS-01R NOT ACCEPTED$') 'PACS-01R decision mismatch.'
 Assert-True ($review -match 'PPC-01 and CSR-01A-R5 are not authorized') 'Downstream gate missing.'
 $changed=@(git -C $RepositoryRoot diff --name-only 10d7e78)
-$changed=@($changed|Where-Object{$_ -ne 'hardware/kicad/sheets/04_Safety_Inputs.kicad_sch'})
+$changed=@($changed|Where-Object{$_ -notin @('hardware/kicad/sheets/04_Safety_Inputs.kicad_sch','hardware/kicad/sheets/05_Motor_Interfaces.kicad_sch')})
 foreach($path in $changed){Assert-True ($path -notmatch '\.kicad_sch$|\.kicad_pcb$|docs/decisions/|docs/adr/|docs/icd/|docs/connectors/') "Prohibited PACS-01R change: $path"}
 & (Join-Path $RepositoryRoot 'scripts/validate_eco010.ps1') -RepositoryRoot $RepositoryRoot
 if(-not $?){throw 'ECO-010 regression failed'}

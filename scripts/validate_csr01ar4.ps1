@@ -8,7 +8,7 @@ $ebom=@(Import-Csv (Join-Path $RepositoryRoot 'docs/bom/IPC100_RevA_EBOM.csv') -
 $avl=@(Import-Csv (Join-Path $RepositoryRoot 'docs/bom/Approved_Vendor_List.csv') -Encoding UTF8)
 $power=@($ebom|Where-Object {$_.'Selection Scope' -eq 'CSR-01A POWER'})
 $frozen=@($power|Where-Object {$_.'Freeze Status' -eq 'FROZEN'});$blocked=@($power|Where-Object {$_.'Freeze Status' -eq 'BLOCKED'})
-Assert-True ($ebom.Count -eq 408 -and $power.Count -eq 136) 'Inventory population mismatch.'
+Assert-True ($ebom.Count -eq 435 -and $power.Count -eq 136) 'Inventory population mismatch.'
 Assert-True ($frozen.Count -eq 9 -and $blocked.Count -eq 127) 'Post-ECO-010 disposition count mismatch.'
 Assert-True (@($power|Where-Object {$_.'Freeze Status' -notin @('FROZEN','CONDITIONAL','BLOCKED','NOT APPLICABLE')}).Count -eq 0) 'Unsupported power disposition.'
 $required=@('Manufacturer Part Number','Requirement Trace Reference','Selection Rationale','Lifecycle Status','Preferred Vendor','Second Source','Unit Cost 1','Unit Cost 10','Unit Cost 100','Unit Cost 1000')
@@ -23,7 +23,7 @@ Assert-True ([regex]::Matches($review,'(?m)^# CSR-01A-R4 (?:ACCEPTED|NOT ACCEPTE
 Assert-True ($review -match '(?m)^# CSR-01A-R4 NOT ACCEPTED$') 'R4 decision mismatch.'
 Assert-True ($review -match 'CSR-01B.*not authorized') 'CSR-01B gate missing.'
 $changed=git -C $RepositoryRoot diff --name-only f0d6c47
-$changed=@($changed|Where-Object{$_ -notin @('hardware/kicad/sheets/01_Power_Entry.kicad_sch','hardware/kicad/sheets/08_Expansion.kicad_sch')})
+$changed=@($changed|Where-Object{$_ -notin @('hardware/kicad/sheets/01_Power_Entry.kicad_sch','hardware/kicad/sheets/05_Motor_Interfaces.kicad_sch','hardware/kicad/sheets/08_Expansion.kicad_sch')})
 foreach($path in $changed){Assert-True ($path -notmatch '\.kicad_pcb$|docs/adr/|docs/icd/') "Prohibited R4 change: $path";if($path -match '\.kicad_sch$'){Assert-True ($path -in @('hardware/kicad/sheets/03_ESP32_Core.kicad_sch','hardware/kicad/sheets/04_Safety_Inputs.kicad_sch')) "Prohibited R4 schematic change: $path"}}
 & (Join-Path $RepositoryRoot 'scripts/validate_eco008r.ps1') -RepositoryRoot $RepositoryRoot;if(-not $?){throw 'ECO-008R regression failed.'}
 Write-Host 'CSR-01A-R4 validation passed: 133 power rows; 9 frozen; 124 blocked; decision NOT ACCEPTED.'

@@ -2,6 +2,13 @@
 
 Initial project creation.
 
+## 2026-08-04 — ECO-011A2 Motion Control Physical Decomposition
+
+- Retired Sheet 05 composites U501–U503 and implemented ADR-043 with exact U506–U508 Q1 gate packages, visible power units, bypasses, unused-unit handling and DFT.
+- Preserved both independent translators, authorization ownership, GPIO/hierarchy, output defaults and every external motion interface.
+- Regenerated synchronized 435-row population, EBOM and AVL artifacts with no footprints or PCB files.
+- Completed ECO-011A2 and authorized ECO-011A3 only; EPP-01A-R remains unauthorized.
+
 ## 2026-08-04 — ECO-011A1R Safety Input Physical Decomposition
 
 - Retired all seven Sheet 04 `WINDOW`/`CMDREC` composites and replaced them with exact TLV7044QPWRQ1 comparator, Q1 logic, passive and package-power units.

@@ -234,6 +234,22 @@ foreach ($row in $rows | Where-Object { $_.Sheet -eq '04_Safety_Inputs' -and $ec
     $row.Notes = 'ECO-011A1R physical selection. NOT YET FROZEN means no footprint/physical release, not an unresolved electrical identity.'
 }
 
+$eco011a2Selections = @{
+    U506 = @('Texas Instruments','SN74LVC14AQPWRQ1','TSSOP-14 (PW)','Hex Schmitt inverter for opposing-PWM and inhibit inversion','https://www.ti.com/lit/ds/symlink/sn74lvc14a-q1.pdf')
+    U507 = @('Texas Instruments','SN74LVC08AQPWRQ1','TSSOP-14 (PW)','Quad two-input AND for both-axis opposing-PWM suppression','https://www.ti.com/lit/ds/symlink/sn74lvc08a-q1.pdf')
+    U508 = @('Texas Instruments','SN74LVC08AQPWRQ1','TSSOP-14 (PW)','Quad two-input AND for independent translator authorization','https://www.ti.com/lit/ds/symlink/sn74lvc08a-q1.pdf')
+}
+foreach ($row in $rows | Where-Object { $_.Sheet -eq '05_Motor_Interfaces' -and $eco011a2Selections.ContainsKey($_.Reference) }) {
+    $selection=$eco011a2Selections[$row.Reference]
+    $row.Manufacturer=$selection[0]; $row.'Manufacturer Part Number'=$selection[1]; $row.Package=$selection[2]; $row.Description=$selection[3]
+    $row.'Temperature Range'='-40 °C to +125 °C'; $row.'Lifecycle Status'='ACTIVE — official TI evidence checked 2026-08-04'
+    $row.Availability='Exact active TI production order code; commercial stock snapshot deferred'; $row.'Preferred Vendor'='Texas Instruments / authorized distributor'
+    $row.'Selection Rationale'='ADR-043 exact physical truth-table implementation with Ioff; footprint assignment remains prohibited.'
+    $row.'Requirement Trace Reference'='ADR-043; ECO-011A2; ECO-001'; $row.'Sourcing Risk'='MEDIUM — second-source and distributor evidence deferred'
+    $row.Risk='Exact device selected; footprint, commercial evidence and prototype qualification remain gated.'; $row.'Datasheet URL'=$selection[4]
+    $row.'Datasheet Revision or Date'='Official TI current documentation checked 2026-08-04'; $row.Notes='ECO-011A2 physical selection; no footprint assigned.'
+}
+
 $ebomPath = Join-Path $OutputDirectory 'IPC100_RevA_EBOM.csv'
 $rows |
     Sort-Object Sheet, Reference |

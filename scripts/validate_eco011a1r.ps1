@@ -37,7 +37,7 @@ Assert (($currentPorts -join '|') -eq ($baselinePorts -join '|')) 'Sheet 04 hier
 $ebom=Import-Csv (Join-Path $RepositoryRoot 'docs/bom/IPC100_RevA_EBOM.csv')
 $population=Import-Csv (Join-Path $RepositoryRoot 'docs/bom/IPC100_RevA_Prototype_Population.csv')
 $avl=Import-Csv (Join-Path $RepositoryRoot 'docs/bom/Approved_Vendor_List.csv')
-Assert ($ebom.Count -eq 408 -and $population.Count -eq 408 -and $avl.Count -eq 408) 'EBOM/AVL/population row count must be 408.'
+Assert ($ebom.Count -eq 435 -and $population.Count -eq 435 -and $avl.Count -eq 435) 'EBOM/AVL/population row count must be 435 after authorized ECO-011A2.'
 foreach($ref in @('U406','U407','U408','U409','U410','U411')){Assert (@($ebom|Where-Object Reference -eq $ref).Count -eq 1) "EBOM physical identity error for $ref"}
 Assert (@($ebom|Where-Object {$_.Reference -match '^U40[1-3]' -or $_.Reference -in @('U401AB','U401CD','U402AB','U402CD','U403AB','U403C','U403D')}).Count -eq 0) 'Retired composite exists in EBOM.'
 Assert ((($population.Reference|Sort-Object) -join '|') -eq (($ebom.Reference|Sort-Object) -join '|')) 'Population references differ from EBOM.'
@@ -47,8 +47,8 @@ $pcb=Get-ChildItem $RepositoryRoot -Recurse -Filter '*.kicad_pcb'
 Assert ($pcb.Count -eq 0) 'PCB file created.'
 $changed=@(git -C $RepositoryRoot diff --name-only ba35b9e)
 foreach($path in $changed){
-    Assert ($path -notmatch '^hardware/kicad/sheets/(?!04_Safety_Inputs\.kicad_sch$).*\.kicad_sch$') "Unauthorized schematic changed: $path"
+    Assert ($path -notmatch '^hardware/kicad/sheets/(?!(04_Safety_Inputs|05_Motor_Interfaces)\.kicad_sch$).*\.kicad_sch$') "Unauthorized schematic changed: $path"
     Assert ($path -notmatch '^docs/(decisions|interfaces)/') "ADR/ICD changed: $path"
 }
 & (Join-Path $PSScriptRoot 'validate_kicad_hierarchy.ps1') -ProjectDirectory (Join-Path $RepositoryRoot 'hardware/kicad')
-Write-Output 'ECO-011A1R validation passed: seven composites retired; physical comparator/logic/passive implementation complete; 408 synchronized rows; zero footprints/PCB/interface changes.'
+Write-Output 'ECO-011A1R validation passed: seven composites retired; physical comparator/logic/passive implementation complete; later ECO-011A2 inventory accepted; zero footprints/PCB/interface changes.'

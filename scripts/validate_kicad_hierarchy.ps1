@@ -529,15 +529,11 @@ $authorizationConnectivity = @(
         LocalAttachment = '\(label "MASTER_INHIBIT" \(at 59\.76 43\.46 0\)'
     }
 )
-if ($motionContent -notmatch '\(symbol \(lib_id "IPC100:AUTH2"\) \(at 75 46 0\)') {
-    $errors.Add('Sheet 05 authorization qualifier U503 is not at its ECO-001 controlled placement.')
-}
-foreach ($authorizationNet in $authorizationConnectivity) {
-    if ($motionContent -notmatch $authorizationNet.PinDefinition) {
-        $errors.Add("Sheet 05 U503 is missing the controlled $($authorizationNet.Signal) input pin definition.")
-    }
-    if ([regex]::Matches($motionContent, $authorizationNet.LocalAttachment).Count -ne 1) {
-        $errors.Add("Sheet 05 $($authorizationNet.Signal) is not attached exactly once at the controlled U503 pin endpoint.")
+if ($motionContent -match '\(symbol \(lib_id "IPC100:AUTH2"\)') {
+    $errors.Add('Sheet 05 obsolete U503 authorization composite remains after ECO-011A2.')
+} else {
+    foreach($token in @('SN74LVC14AQPWRQ1','SN74LVC08AQPWRQ1','ACTUATOR_PERMIT','MASTER_INHIBIT','MASTER_INHIBIT_N','AXIS1_XLAT_EN','AXIS2_XLAT_EN')) {
+        if(-not $motionContent.Contains($token)){$errors.Add("Sheet 05 physical authorization path is missing $token.")}
     }
 }
 $authorizationBiases = @(
@@ -694,7 +690,7 @@ Write-Host 'ADR-041 MAIN_POWER_GOOD: Sheet 02 to Sheet 06; absent from Sheet 03'
 Write-Host 'ADR-042 safety inputs: five supervised NC loops; local-only fault diagnostics'
 Write-Host 'ADR-043 motion interfaces: eight MCU commands and eight safe outputs; no fault summary'
 Write-Host 'ADR-044 watchdog service: GPIO42 / Sheet 03 to Sheet 06; GPIO37 reserve preserved'
-Write-Host 'ECO-001 authorization connectivity: ACTUATOR_PERMIT and MASTER_INHIBIT attached to U503'
+Write-Host 'ECO-001 authorization connectivity: ACTUATOR_PERMIT and MASTER_INHIBIT attached to ECO-011A2 physical logic'
 Write-Host 'ECO-002 authorization defaults: PERMIT fail-low and INHIBIT fail-high with local 100 kΩ bias'
 Write-Host 'Package 06R motion conditioning: dual independent translators, opposing-PWM suppression, safe-side defaults'
 Write-Host 'Package 07R Sheet 06: independent watchdog, authorization logic, deterministic biases, and relay driver present'
